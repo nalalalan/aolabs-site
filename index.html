@@ -1,0 +1,210 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AO Labs</title>
+  <meta name="description" content="Small AI systems for conversations, handoffs, and human workflows." />
+  <style>
+    :root{
+      --bg:#f7f1eb;
+      --card:#fffaf5;
+      --ink:#241b17;
+      --muted:#6f625b;
+      --line:#e7d9cf;
+      --accent:#d98272;
+      --accent2:#b95f53;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 18% 8%, #ffe0d7 0, transparent 34%),
+        radial-gradient(circle at 92% 88%, #eaded2 0, transparent 34%),
+        var(--bg);
+      color:var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+    }
+
+    main{
+      width:min(980px,100%);
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .eyebrow{
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--accent2);
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    h1{
+      font-size:clamp(48px,8vw,88px);
+      line-height:.9;
+      margin:0;
+      letter-spacing:-.075em;
+    }
+
+    .tagline{
+      margin:20px auto 0;
+      max-width:680px;
+      color:var(--muted);
+      font-size:clamp(18px,2.2vw,23px);
+      line-height:1.35;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:34px;
+    }
+
+    a.card{
+      text-decoration:none;
+      color:inherit;
+      background:rgba(255,250,245,.82);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:24px;
+      min-height:220px;
+      box-shadow:0 18px 50px rgba(60,38,26,.08);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      backdrop-filter:blur(12px);
+    }
+
+    a.card:hover{
+      transform:translateY(-4px);
+      border-color:#dfb9ad;
+      box-shadow:0 24px 70px rgba(60,38,26,.13);
+    }
+
+    .product{
+      font-size:31px;
+      letter-spacing:-.045em;
+      font-weight:850;
+      margin-bottom:8px;
+    }
+
+    .byline{
+      color:var(--accent2);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      margin-bottom:20px;
+    }
+
+    .desc{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.45;
+    }
+
+    .go{
+      margin-top:26px;
+      color:var(--ink);
+      font-weight:850;
+      font-size:15px;
+    }
+
+    footer{
+      text-align:center;
+      color:#8b7a70;
+      font-size:13px;
+      margin-top:28px;
+    }
+
+    @media (max-width:760px){
+      body{
+        padding:18px;
+        align-items:flex-start;
+      }
+
+      main{
+        padding-top:42px;
+      }
+
+      .hero{
+        text-align:left;
+        margin-bottom:24px;
+      }
+
+      .tagline{
+        margin-left:0;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+        gap:13px;
+        margin-top:28px;
+      }
+
+      a.card{
+        min-height:170px;
+        border-radius:24px;
+      }
+
+      footer{
+        text-align:left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">AO Labs</div>
+      <h1>Small AI systems.</h1>
+      <p class="tagline">AI tools for conversations, handoffs, and human workflows.</p>
+    </section>
+
+    <section class="grid">
+      <a class="card" href="https://relay.aolabs.io">
+        <div>
+          <div class="product">Relay</div>
+          <div class="byline">by AO Labs</div>
+          <div class="desc">Turn messy conversations into clean handoff packets.</div>
+        </div>
+        <div class="go">Open Relay →</div>
+      </a>
+
+      <a class="card" href="https://duet.aolabs.io">
+        <div>
+          <div class="product">Duet</div>
+          <div class="byline">by AO Labs</div>
+          <div class="desc">A lightweight intake for potential dating matches.</div>
+        </div>
+        <div class="go">Open Duet →</div>
+      </a>
+
+      <a class="card" href="https://talk.aolabs.io">
+        <div>
+          <div class="product">Talk</div>
+          <div class="byline">by AO Labs</div>
+          <div class="desc">Talk to an AI simulation of Alan.</div>
+        </div>
+        <div class="go">Open Talk →</div>
+      </a>
+    </section>
+
+    <footer>AO Labs · aolabs.io</footer>
+  </main>
+</body>
+</html>
