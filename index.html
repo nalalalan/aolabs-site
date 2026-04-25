@@ -4,166 +4,123 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AO Labs</title>
-  <meta name="description" content="Small AI systems for conversations, handoffs, and human workflows." />
+  <meta name="description" content="AO Labs — small weird useful AI systems by Alan Pham." />
   <style>
     :root{
-      --bg:#f7f1eb;
-      --card:#fffaf5;
-      --ink:#241b17;
-      --muted:#6f625b;
-      --line:#e7d9cf;
-      --accent:#d98272;
-      --accent2:#b95f53;
+      --bg:#f7eee8;
+      --card:#fffaf6;
+      --ink:#241815;
+      --muted:#7f6860;
+      --line:#ead8cf;
+      --accent:#c88452;
+      --accent2:#d99b86;
+      --shadow:0 30px 80px rgba(90,45,30,.16);
     }
-
     *{box-sizing:border-box}
-
     body{
       margin:0;
-      min-height:100vh;
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at 18% 8%, #ffe0d7 0, transparent 34%),
-        radial-gradient(circle at 92% 88%, #eaded2 0, transparent 34%),
+        radial-gradient(circle at 20% 10%, #ffe0d7 0, transparent 30%),
+        radial-gradient(circle at 90% 20%, #f3c1af 0, transparent 28%),
         var(--bg);
       color:var(--ink);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
+      min-height:100vh;
     }
-
     main{
-      width:min(980px,100%);
+      width:min(1120px, calc(100% - 32px));
+      margin:0 auto;
+      padding:56px 0 48px;
     }
-
     .hero{
-      text-align:center;
-      margin-bottom:30px;
-    }
-
-    .eyebrow{
-      font-size:13px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent2);
-      font-weight:800;
-      margin-bottom:14px;
-    }
-
-    h1{
-      font-size:clamp(48px,8vw,88px);
-      line-height:.9;
-      margin:0;
-      letter-spacing:-.075em;
-    }
-
-    .tagline{
-      margin:20px auto 0;
-      max-width:680px;
-      color:var(--muted);
-      font-size:clamp(18px,2.2vw,23px);
-      line-height:1.35;
-    }
-
-    .grid{
+      background:rgba(255,250,246,.88);
+      border:1px solid var(--line);
+      border-radius:38px;
+      box-shadow:var(--shadow);
+      padding:42px;
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
-      margin-top:34px;
+      gap:24px;
     }
-
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#b27262;
+      font-weight:900;
+      font-size:13px;
+    }
+    h1{
+      font-size:clamp(56px, 10vw, 128px);
+      line-height:.82;
+      letter-spacing:-.08em;
+      margin:0;
+    }
+    .sub{
+      max-width:760px;
+      color:var(--muted);
+      font-size:clamp(19px, 2vw, 28px);
+      line-height:1.32;
+      margin:0;
+    }
+    .grid{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:16px;
+    }
     a.card{
       text-decoration:none;
       color:inherit;
-      background:rgba(255,250,245,.82);
+      background:var(--card);
       border:1px solid var(--line);
-      border-radius:28px;
+      border-radius:30px;
       padding:24px;
       min-height:220px;
-      box-shadow:0 18px 50px rgba(60,38,26,.08);
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      backdrop-filter:blur(12px);
+      box-shadow:0 18px 50px rgba(70,40,25,.08);
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
     }
-
     a.card:hover{
       transform:translateY(-4px);
-      border-color:#dfb9ad;
-      box-shadow:0 24px 70px rgba(60,38,26,.13);
+      box-shadow:0 26px 70px rgba(70,40,25,.15);
+      border-color:#dfb8a6;
     }
-
-    .product{
-      font-size:31px;
-      letter-spacing:-.045em;
-      font-weight:850;
-      margin-bottom:8px;
-    }
-
-    .byline{
-      color:var(--accent2);
+    .tag{
+      color:#b17454;
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      letter-spacing:.13em;
-      margin-bottom:20px;
     }
-
+    h2{
+      font-size:34px;
+      letter-spacing:-.05em;
+      margin:10px 0 8px;
+      line-height:.95;
+    }
     .desc{
       color:var(--muted);
       font-size:16px;
-      line-height:1.45;
+      line-height:1.35;
     }
-
     .go{
-      margin-top:26px;
-      color:var(--ink);
-      font-weight:850;
-      font-size:15px;
+      margin-top:20px;
+      font-weight:900;
+      color:var(--accent);
     }
-
     footer{
-      text-align:center;
-      color:#8b7a70;
-      font-size:13px;
-      margin-top:28px;
+      color:#9a8278;
+      font-size:14px;
+      margin-top:24px;
+      padding-left:8px;
     }
-
-    @media (max-width:760px){
-      body{
-        padding:18px;
-        align-items:flex-start;
-      }
-
-      main{
-        padding-top:42px;
-      }
-
-      .hero{
-        text-align:left;
-        margin-bottom:24px;
-      }
-
-      .tagline{
-        margin-left:0;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-        gap:13px;
-        margin-top:28px;
-      }
-
-      a.card{
-        min-height:170px;
-        border-radius:24px;
-      }
-
-      footer{
-        text-align:left;
-      }
+    @media (max-width:900px){
+      main{padding:26px 0}
+      .hero{padding:28px;border-radius:30px}
+      .grid{grid-template-columns:1fr}
+      a.card{min-height:170px}
+      h2{font-size:36px}
     }
   </style>
 </head>
@@ -171,40 +128,51 @@
   <main>
     <section class="hero">
       <div class="eyebrow">AO Labs</div>
-      <h1>Small AI systems.</h1>
-      <p class="tagline">AI tools for conversations, handoffs, and human workflows.</p>
+      <h1>small weird useful ai systems.</h1>
+      <p class="sub">
+        Built by Alan Pham. Some are for money, some are for dating, some are for getting used to uncomfortable feelings. All of them are live experiments.
+      </p>
     </section>
 
     <section class="grid">
       <a class="card" href="https://relay.aolabs.io">
         <div>
-          <div class="product">Relay</div>
-          <div class="byline">by AO Labs</div>
-          <div class="desc">Turn messy conversations into clean handoff packets.</div>
+          <div class="tag">money machine</div>
+          <h2>Relay</h2>
+          <div class="desc">Turns messy call notes into client-ready follow-through. The revenue system.</div>
         </div>
-        <div class="go">Open Relay →</div>
-      </a>
-
-      <a class="card" href="https://duet.aolabs.io">
-        <div>
-          <div class="product">Duet</div>
-          <div class="byline">by AO Labs</div>
-          <div class="desc">A lightweight intake for potential dating matches.</div>
-        </div>
-        <div class="go">Open Duet →</div>
+        <div class="go">open Relay →</div>
       </a>
 
       <a class="card" href="https://talk.aolabs.io">
         <div>
-          <div class="product">Talk</div>
-          <div class="byline">by AO Labs</div>
-          <div class="desc">Talk to an AI simulation of Alan.</div>
+          <div class="tag">personality mirror</div>
+          <h2>Talk</h2>
+          <div class="desc">A public AI mirror that replies kind of like Alan. Short, weird, direct.</div>
         </div>
-        <div class="go">Open Talk →</div>
+        <div class="go">open Talk →</div>
+      </a>
+
+      <a class="card" href="https://duet.aolabs.io/hello">
+        <div>
+          <div class="tag">dating funnel</div>
+          <h2>Duet</h2>
+          <div class="desc">A tiny compatibility intake for musician-ish, playful, real people.</div>
+        </div>
+        <div class="go">open Duet →</div>
+      </a>
+
+      <a class="card" href="https://nerve.aolabs.io">
+        <div>
+          <div class="tag">stress trainer</div>
+          <h2>Nerve</h2>
+          <div class="desc">Practice realistic social stress and rate what actually hits.</div>
+        </div>
+        <div class="go">open Nerve →</div>
       </a>
     </section>
 
-    <footer>AO Labs · aolabs.io</footer>
+    <footer>AO Labs · relay / talk / duet / nerve</footer>
   </main>
 </body>
 </html>
