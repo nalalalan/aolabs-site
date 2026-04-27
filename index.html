@@ -1,132 +1,506 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AO Labs</title>
-  <meta name="description" content="AO Labs — Relay, Talk, Duet, and Nerve." />
+  <meta name="description" content="AO Labs: small AI systems for money, conversation, dating, and stress practice." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     :root{
-      --bg:#f8efe9; --card:#fffaf6; --ink:#241815; --muted:#75645e;
-      --line:#ead8cf; --accent:#c88452; --salmon:#d99b86;
-      --shadow:0 28px 90px rgba(70,38,24,.14);
+      color-scheme:dark;
+      --bg:#0c0d0a;
+      --ink:#f5f0e6;
+      --muted:#a9a092;
+      --soft:#d8d0c3;
+      --line:#2d3028;
+      --panel:#141610;
+      --panel2:#191c14;
+      --relay:#8ed081;
+      --talk:#8eb7ff;
+      --duet:#e89aa4;
+      --nerve:#e6bd63;
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
-      margin:0; color:var(--ink);
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, #ffe1d8 0, transparent 28%),
-        radial-gradient(circle at 90% 14%, #f1bdab 0, transparent 26%),
-        linear-gradient(180deg,#fff7f2 0%,var(--bg) 100%);
+      margin:0;
       min-height:100vh;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    main{width:min(1180px,calc(100% - 36px)); margin:0 auto; padding:42px 0 54px}
-    .top{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:950; letter-spacing:-.04em}
-    .ao{
-      width:44px;height:44px;border-radius:14px;background:#241815;color:#fffaf6;
-      display:grid;place-items:center;font-weight:950;box-shadow:0 14px 36px rgba(40,20,10,.18)
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(245,240,230,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,240,230,.08) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom, #000 0%, transparent 74%);
     }
-    .nav{display:flex;gap:10px;flex-wrap:wrap}
-    .nav a{color:var(--muted);text-decoration:none;font-weight:800;font-size:14px}
+    a{color:inherit}
+    .shell{
+      width:min(1180px, calc(100% - 40px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:22px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:850;
+    }
+    .mark{
+      width:38px;
+      height:38px;
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      background:#f5f0e6;
+      color:#0c0d0a;
+      font-weight:900;
+    }
+    nav{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      font-weight:750;
+      border:1px solid transparent;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+    nav a:hover{
+      color:var(--ink);
+      border-color:var(--line);
+      background:#15170f;
+    }
     .hero{
-      background:rgba(255,250,246,.92); border:1px solid var(--line); border-radius:34px;
-      box-shadow:var(--shadow); padding:48px; overflow:hidden; position:relative;
+      min-height:430px;
+      position:relative;
+      overflow:hidden;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:58px 0 42px;
     }
-    .eyebrow{font-size:13px;font-weight:950;text-transform:uppercase;letter-spacing:.18em;color:#aa6d5f;margin-bottom:18px}
-    h1{font-size:clamp(54px,9vw,116px);line-height:.86;letter-spacing:-.08em;margin:0;max-width:970px}
-    .sub{font-size:clamp(19px,2vw,25px);line-height:1.35;color:var(--muted);max-width:820px;margin:24px 0 0}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
+    .hero-copy{
+      width:min(720px, 100%);
+      position:relative;
+      z-index:2;
+    }
+    .eyebrow{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+      text-transform:uppercase;
+      letter-spacing:0;
+    }
+    h1{
+      margin:0;
+      font-size:96px;
+      line-height:.88;
+      letter-spacing:0;
+    }
+    .sub{
+      max-width:620px;
+      margin:24px 0 0;
+      color:var(--soft);
+      font-size:22px;
+      line-height:1.38;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:28px;
+    }
+    .button{
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      text-decoration:none;
+      font-weight:850;
+      background:#f5f0e6;
+      color:#0c0d0a;
+    }
+    .button.secondary{
+      background:#11130d;
+      color:var(--ink);
+    }
+    .scene{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+    }
+    .scene-panel{
+      position:absolute;
+      width:310px;
+      border:1px solid var(--line);
+      background:rgba(19,22,16,.9);
+      box-shadow:0 24px 80px rgba(0,0,0,.24);
+      padding:14px;
+    }
+    .scene-panel.one{right:36px;top:46px}
+    .scene-panel.two{right:260px;bottom:28px}
+    .scene-panel.three{right:-28px;bottom:64px}
+    .panel-top{
+      display:flex;
+      justify-content:space-between;
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:16px;
+    }
+    .metric{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:10px 0;
+      border-top:1px solid var(--line);
+      color:var(--soft);
+      font-size:14px;
+    }
+    .metric b{color:var(--ink)}
+    .signal{
+      height:8px;
+      background:#2b3027;
+      margin-top:12px;
+      overflow:hidden;
+    }
+    .signal span{
+      display:block;
+      height:100%;
+      background:var(--relay);
+    }
+    .products{
+      padding:30px 0 0;
+    }
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:end;
+      margin-bottom:14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:28px;
+      line-height:1;
+      letter-spacing:0;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      max-width:520px;
+      line-height:1.45;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
     .card{
-      background:rgba(255,250,246,.9);border:1px solid var(--line);border-radius:28px;
-      padding:22px;text-decoration:none;color:inherit;min-height:250px;display:flex;flex-direction:column;
-      justify-content:space-between;box-shadow:0 18px 55px rgba(70,38,24,.08);
-      transition:.16s ease;
+      min-height:300px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:var(--panel);
+      text-decoration:none;
+      transition:transform .16s ease, border-color .16s ease, background .16s ease;
     }
-    .card:hover{transform:translateY(-4px);border-color:#dfb8a6;box-shadow:0 28px 80px rgba(70,38,24,.15)}
-    .icon{
-      width:54px;height:54px;border-radius:18px;background:var(--accent);display:grid;place-items:center;
-      margin-bottom:18px;box-shadow:0 14px 36px rgba(190,115,70,.22)
+    .card:hover{
+      transform:translateY(-3px);
+      background:var(--panel2);
+      border-color:#555a4b;
     }
-    .icon svg{width:34px;height:34px}
-    .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ac7055;font-weight:950}
-    h2{font-size:38px;letter-spacing:-.06em;line-height:.9;margin:8px 0 10px}
-    .desc{font-size:16px;line-height:1.35;color:var(--muted)}
-    .go{font-weight:950;color:var(--accent);margin-top:22px}
-    footer{margin-top:24px;color:#9a8278;font-size:14px}
-    @media(max-width:900px){
-      main{padding:24px 0 36px}.hero{padding:30px;border-radius:28px}.grid{grid-template-columns:1fr}
-      .top{align-items:flex-start}.nav{justify-content:flex-end}.card{min-height:190px}
+    .product-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .num{
+      width:34px;
+      height:34px;
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+    .status{
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0;
+      font-weight:800;
+    }
+    .relay{--accent:var(--relay)}
+    .talk{--accent:var(--talk)}
+    .duet{--accent:var(--duet)}
+    .nerve{--accent:var(--nerve)}
+    .card h3{
+      margin:0;
+      font-size:38px;
+      line-height:.95;
+      letter-spacing:0;
+      color:var(--ink);
+    }
+    .tag{
+      margin:10px 0 14px;
+      color:var(--accent);
+      font-size:13px;
+      font-weight:850;
+      text-transform:uppercase;
+      letter-spacing:0;
+    }
+    .desc{
+      color:var(--soft);
+      font-size:16px;
+      line-height:1.42;
+      margin:0;
+    }
+    .mini-ui{
+      margin-top:22px;
+    }
+    .mini-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:8px 0;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .mini-row b{color:var(--ink);font-weight:850}
+    .accent-line{
+      height:3px;
+      width:100%;
+      background:var(--accent);
+      margin-top:14px;
+    }
+    .go{
+      margin-top:22px;
+      color:var(--ink);
+      font-weight:900;
+    }
+    .notes{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:12px;
+      padding:12px 0 0;
+    }
+    .note{
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:18px;
+      background:#10120d;
+    }
+    .note h2{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1;
+      letter-spacing:0;
+    }
+    .note p{
+      margin:0;
+      color:var(--soft);
+      line-height:1.5;
+    }
+    footer{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      padding:26px 0 36px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    @media(max-width:1000px){
+      h1{font-size:76px}
+      .scene{opacity:.45}
+      .scene-panel.one{right:-80px}
+      .scene-panel.two{right:120px}
+      .grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+      .notes{grid-template-columns:1fr}
+    }
+    @media(max-width:700px){
+      .shell{width:min(100% - 28px, 1180px)}
+      header{align-items:flex-start;flex-direction:column}
+      nav{justify-content:flex-start}
+      .hero{min-height:0;padding:42px 0 34px}
+      .scene{display:none}
+      h1{font-size:54px;line-height:.94}
+      .sub{font-size:18px}
+      .section-head{display:block}
+      .section-head p{margin-top:10px}
+      .grid{grid-template-columns:1fr}
+      .card{min-height:260px}
     }
   </style>
 </head>
 <body>
-  <main>
-    <div class="top">
-      <div class="brand"><div class="ao">AO</div><div>AO Labs</div></div>
-      <div class="nav">
+  <div class="shell">
+    <header>
+      <a class="brand" href="/" aria-label="AO Labs home">
+        <span class="mark">AO</span>
+        <span>AO Labs</span>
+      </a>
+      <nav aria-label="Products">
         <a href="https://relay.aolabs.io">Relay</a>
         <a href="https://talk.aolabs.io">Talk</a>
         <a href="https://duet.aolabs.io/hello">Duet</a>
         <a href="https://nerve.aolabs.io">Nerve</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Live systems by Alan Pham</p>
+        <h1 id="hero-title">AO Labs</h1>
+        <p class="sub">Small AI products for the loops that actually change behavior: making money, saying the thing, finding fit, and practicing pressure.</p>
+        <div class="hero-actions">
+          <a class="button" href="https://relay.aolabs.io">Open Relay</a>
+          <a class="button secondary" href="#systems">View systems</a>
+        </div>
       </div>
-    </div>
 
-    <section class="hero">
-      <div class="eyebrow">live experiments by Alan Pham</div>
-      <h1>useful little systems for real behavior.</h1>
-      <p class="sub">AO Labs is a small collection of AI tools: one for money, one for talking, one for dating, and one for getting used to pressure.</p>
+      <div class="scene" aria-hidden="true">
+        <div class="scene-panel one">
+          <div class="panel-top"><span>Relay</span><span>money loop</span></div>
+          <div class="metric"><span>direct leads due</span><b>83</b></div>
+          <div class="metric"><span>generic paused</span><b>107</b></div>
+          <div class="signal"><span style="width:72%"></span></div>
+        </div>
+        <div class="scene-panel two">
+          <div class="panel-top"><span>Talk</span><span>mirror</span></div>
+          <div class="metric"><span>tone</span><b>short</b></div>
+          <div class="metric"><span>signal</span><b>direct</b></div>
+          <div class="signal"><span style="width:54%;background:var(--talk)"></span></div>
+        </div>
+        <div class="scene-panel three">
+          <div class="panel-top"><span>Nerve</span><span>reps</span></div>
+          <div class="metric"><span>pressure</span><b>social</b></div>
+          <div class="metric"><span>rating</span><b>honest</b></div>
+          <div class="signal"><span style="width:62%;background:var(--nerve)"></span></div>
+        </div>
+      </div>
     </section>
 
-    <section class="grid">
-      <a class="card" href="https://relay.aolabs.io">
-        <div>
-          <div class="icon">
-            <svg viewBox="0 0 64 64" fill="none"><rect x="13" y="14" width="36" height="36" rx="10" fill="#fff8f2"/><path d="M23 39C29 30 34 35 42 25" stroke="#c88452" stroke-width="5" stroke-linecap="round"/><path d="M36 24h7v7" stroke="#c88452" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="39" r="4" fill="#c88452"/></svg>
-          </div>
-          <div class="tag">money machine</div><h2>Relay</h2>
-          <div class="desc">Turns messy call notes into client-ready follow-through. Recap, next steps, follow-up, CRM update.</div>
-        </div>
-        <div class="go">open Relay →</div>
-      </a>
+    <section class="products" id="systems" aria-labelledby="systems-title">
+      <div class="section-head">
+        <h2 id="systems-title">Systems</h2>
+        <p>Each one has a job. No fake platform energy, no giant promise wall. Just small tools with a clear behavior loop.</p>
+      </div>
 
-      <a class="card" href="https://talk.aolabs.io">
-        <div>
-          <div class="icon">
-            <svg viewBox="0 0 64 64" fill="none"><path d="M15 18h34a6 6 0 0 1 6 6v15a6 6 0 0 1-6 6H30l-11 8v-8h-4a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6Z" fill="#fff8f2"/><circle cx="25" cy="32" r="3" fill="#c88452"/><circle cx="34" cy="32" r="3" fill="#c88452"/><circle cx="43" cy="32" r="3" fill="#c88452"/></svg>
+      <div class="grid">
+        <a class="card relay" href="https://relay.aolabs.io">
+          <div>
+            <div class="product-top"><span class="num">01</span><span class="status">live</span></div>
+            <h3>Relay</h3>
+            <div class="tag">money machine</div>
+            <p class="desc">Turns rough call notes into client-ready follow-through: recap, next steps, follow-up, CRM update.</p>
+            <div class="mini-ui">
+              <div class="mini-row"><span>Input</span><b>messy notes</b></div>
+              <div class="mini-row"><span>Output</span><b>finished packet</b></div>
+              <div class="accent-line"></div>
+            </div>
           </div>
-          <div class="tag">personality mirror</div><h2>Talk</h2>
-          <div class="desc">A public AI mirror that replies kind of like Alan. Short, weird, direct.</div>
-        </div>
-        <div class="go">open Talk →</div>
-      </a>
+          <div class="go">Open Relay</div>
+        </a>
 
-      <a class="card" href="https://duet.aolabs.io/hello">
-        <div>
-          <div class="icon">
-            <svg viewBox="0 0 64 64" fill="none"><path d="M21 17c8 0 11 9 11 9s3-9 11-9c7 0 12 5 12 12 0 13-23 25-23 25S9 42 9 29c0-7 5-12 12-12Z" fill="#fff8f2"/><path d="M22 34h20" stroke="#c88452" stroke-width="5" stroke-linecap="round"/></svg>
+        <a class="card talk" href="https://talk.aolabs.io">
+          <div>
+            <div class="product-top"><span class="num">02</span><span class="status">public</span></div>
+            <h3>Talk</h3>
+            <div class="tag">personality mirror</div>
+            <p class="desc">A public AI mirror with a short, strange, direct voice. Less assistant, more actual response.</p>
+            <div class="mini-ui">
+              <div class="mini-row"><span>Mode</span><b>conversation</b></div>
+              <div class="mini-row"><span>Voice</span><b>blunt-kind</b></div>
+              <div class="accent-line"></div>
+            </div>
           </div>
-          <div class="tag">dating intake</div><h2>Duet</h2>
-          <div class="desc">A tiny compatibility check for musician-ish, playful, real people.</div>
-        </div>
-        <div class="go">open Duet →</div>
-      </a>
+          <div class="go">Open Talk</div>
+        </a>
 
-      <a class="card" href="https://nerve.aolabs.io">
-        <div>
-          <div class="icon">
-            <svg viewBox="0 0 64 64" fill="none"><path d="M15 37c5-18 12-18 17 0s12 18 17 0" stroke="#fff8f2" stroke-width="7" stroke-linecap="round"/><path d="M15 25c5 18 12 18 17 0s12-18 17 0" stroke="#fff8f2" stroke-width="7" stroke-linecap="round" opacity=".65"/></svg>
+        <a class="card duet" href="https://duet.aolabs.io/hello">
+          <div>
+            <div class="product-top"><span class="num">03</span><span class="status">screening</span></div>
+            <h3>Duet</h3>
+            <div class="tag">dating intake</div>
+            <p class="desc">A tiny compatibility check for musician-ish, playful, real people. Fit before performance.</p>
+            <div class="mini-ui">
+              <div class="mini-row"><span>Looks for</span><b>fit</b></div>
+              <div class="mini-row"><span>Vibe</span><b>playful</b></div>
+              <div class="accent-line"></div>
+            </div>
           </div>
-          <div class="tag">stress trainer</div><h2>Nerve</h2>
-          <div class="desc">Practice realistic social stress and rate what actually hits.</div>
-        </div>
-        <div class="go">open Nerve →</div>
-      </a>
+          <div class="go">Open Duet</div>
+        </a>
+
+        <a class="card nerve" href="https://nerve.aolabs.io">
+          <div>
+            <div class="product-top"><span class="num">04</span><span class="status">trainer</span></div>
+            <h3>Nerve</h3>
+            <div class="tag">stress reps</div>
+            <p class="desc">Practice realistic social pressure, track what hits, and get used to the feeling without fleeing it.</p>
+            <div class="mini-ui">
+              <div class="mini-row"><span>Loop</span><b>prompt, rate</b></div>
+              <div class="mini-row"><span>Goal</span><b>tolerance</b></div>
+              <div class="accent-line"></div>
+            </div>
+          </div>
+          <div class="go">Open Nerve</div>
+        </a>
+      </div>
     </section>
 
-    <footer>AO Labs · Relay / Talk / Duet / Nerve</footer>
-  </main>
+    <section class="notes" aria-label="Notes">
+      <div class="note">
+        <h2>Built for behavior, not applause.</h2>
+        <p>AO Labs is a place for tools that earn their keep by changing the next action. If a system does not move money, honesty, fit, or pressure tolerance, it does not belong here.</p>
+      </div>
+      <div class="note">
+        <h2>Small on purpose.</h2>
+        <p>The products stay narrow so the feedback loop stays visible. Use the one that matches the problem in front of you.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>AO Labs</span>
+      <span>Relay / Talk / Duet / Nerve</span>
+    </footer>
+  </div>
 </body>
 </html>
