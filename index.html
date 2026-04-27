@@ -4,503 +4,383 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AO Labs</title>
-  <meta name="description" content="AO Labs: small AI systems for money, conversation, dating, and stress practice." />
+  <meta name="description" content="AO Labs app hub." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
-    :root{
-      color-scheme:dark;
-      --bg:#0c0d0a;
-      --ink:#f5f0e6;
-      --muted:#a9a092;
-      --soft:#d8d0c3;
-      --line:#2d3028;
-      --panel:#141610;
-      --panel2:#191c14;
-      --relay:#8ed081;
-      --talk:#8eb7ff;
-      --duet:#e89aa4;
-      --nerve:#e6bd63;
+    :root {
+      color-scheme: light;
+      --bg: #f7f4ef;
+      --panel: #fffdf9;
+      --ink: #181512;
+      --muted: #756e66;
+      --line: #ded7cc;
+      --relay: #6f9f76;
+      --live: #64a8a0;
+      --talk: #6d8fc9;
+      --duet: #c77f91;
+      --nerve: #bd8f45;
+      --ocean: #3d91b8;
+      --shadow: 0 18px 42px rgba(40, 32, 22, .08);
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:var(--bg);
-      color:var(--ink);
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    * {
+      box-sizing: border-box;
     }
-    body:before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.18;
-      background-image:
-        linear-gradient(rgba(245,240,230,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245,240,230,.08) 1px, transparent 1px);
-      background-size:48px 48px;
-      mask-image:linear-gradient(to bottom, #000 0%, transparent 74%);
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    a{color:inherit}
-    .shell{
-      width:min(1180px, calc(100% - 40px));
-      margin:0 auto;
-      position:relative;
-      z-index:1;
+
+    a {
+      color: inherit;
     }
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      padding:22px 0;
+
+    .shell {
+      width: calc(100% - 32px);
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 28px 0 40px;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:850;
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
     }
-    .mark{
-      width:38px;
-      height:38px;
-      border:1px solid var(--line);
-      display:grid;
-      place-items:center;
-      background:#f5f0e6;
-      color:#0c0d0a;
-      font-weight:900;
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 850;
+      letter-spacing: 0;
     }
-    nav{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--panel);
+      font-weight: 950;
+      border-radius: 8px;
     }
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:14px;
-      font-weight:750;
-      border:1px solid transparent;
-      padding:8px 10px;
-      border-radius:8px;
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
     }
-    nav a:hover{
-      color:var(--ink);
-      border-color:var(--line);
-      background:#15170f;
+
+    .pill {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 750;
+      background: rgba(255, 253, 249, .62);
     }
-    .hero{
-      min-height:430px;
-      position:relative;
-      overflow:hidden;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      padding:58px 0 42px;
+
+    .pill:hover {
+      color: var(--ink);
+      border-color: #b8aea0;
+      background: var(--panel);
     }
-    .hero-copy{
-      width:min(720px, 100%);
-      position:relative;
-      z-index:2;
+
+    .intro {
+      padding: 34px 0 22px;
     }
-    .eyebrow{
-      margin:0 0 20px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:850;
-      text-transform:uppercase;
-      letter-spacing:0;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 8vw, 78px);
+      line-height: .95;
+      letter-spacing: 0;
     }
-    h1{
-      margin:0;
-      font-size:96px;
-      line-height:.88;
-      letter-spacing:0;
+
+    .subtitle {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2.2vw, 21px);
+      line-height: 1.35;
+      max-width: 640px;
+      overflow-wrap: break-word;
     }
-    .sub{
-      max-width:620px;
-      margin:24px 0 0;
-      color:var(--soft);
-      font-size:22px;
-      line-height:1.38;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
     }
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:28px;
+
+    .app {
+      --accent: var(--relay);
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: transform .14s ease, border-color .14s ease;
     }
-    .button{
-      min-height:44px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:8px;
-      border:1px solid var(--line);
-      text-decoration:none;
-      font-weight:850;
-      background:#f5f0e6;
-      color:#0c0d0a;
+
+    .app:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
     }
-    .button.secondary{
-      background:#11130d;
-      color:var(--ink);
+
+    .app-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
     }
-    .scene{
-      position:absolute;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      margin-top: 5px;
+      border-radius: 999px;
+      background: var(--accent);
     }
-    .scene-panel{
-      position:absolute;
-      width:310px;
-      border:1px solid var(--line);
-      background:rgba(19,22,16,.9);
-      box-shadow:0 24px 80px rgba(0,0,0,.24);
-      padding:14px;
+
+    h2 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: 0;
     }
-    .scene-panel.one{right:36px;top:46px}
-    .scene-panel.two{right:260px;bottom:28px}
-    .scene-panel.three{right:-28px;bottom:64px}
-    .panel-top{
-      display:flex;
-      justify-content:space-between;
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:16px;
+
+    .role {
+      margin-top: 8px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
     }
-    .metric{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:10px 0;
-      border-top:1px solid var(--line);
-      color:var(--soft);
-      font-size:14px;
+
+    .desc {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.42;
     }
-    .metric b{color:var(--ink)}
-    .signal{
-      height:8px;
-      background:#2b3027;
-      margin-top:12px;
-      overflow:hidden;
+
+    .open {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-top: 18px;
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+      font-weight: 850;
     }
-    .signal span{
-      display:block;
-      height:100%;
-      background:var(--relay);
+
+    .url {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+      overflow-wrap: anywhere;
     }
-    .products{
-      padding:30px 0 0;
+
+    .relay { --accent: var(--relay); }
+    .live { --accent: var(--live); }
+    .talk { --accent: var(--talk); }
+    .duet { --accent: var(--duet); }
+    .nerve { --accent: var(--nerve); }
+    .ocean { --accent: var(--ocean); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-top: 26px;
+      color: var(--muted);
+      font-size: 14px;
     }
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
-      align-items:end;
-      margin-bottom:14px;
+
+    @supports not (color: color-mix(in srgb, red, blue)) {
+      .app:hover {
+        border-color: var(--accent);
+      }
     }
-    .section-head h2{
-      margin:0;
-      font-size:28px;
-      line-height:1;
-      letter-spacing:0;
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
-    .section-head p{
-      margin:0;
-      color:var(--muted);
-      max-width:520px;
-      line-height:1.45;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:12px;
-    }
-    .card{
-      min-height:300px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding:16px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      background:var(--panel);
-      text-decoration:none;
-      transition:transform .16s ease, border-color .16s ease, background .16s ease;
-    }
-    .card:hover{
-      transform:translateY(-3px);
-      background:var(--panel2);
-      border-color:#555a4b;
-    }
-    .product-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    .num{
-      width:34px;
-      height:34px;
-      border:1px solid var(--line);
-      display:grid;
-      place-items:center;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:850;
-    }
-    .status{
-      font-size:12px;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:0;
-      font-weight:800;
-    }
-    .relay{--accent:var(--relay)}
-    .talk{--accent:var(--talk)}
-    .duet{--accent:var(--duet)}
-    .nerve{--accent:var(--nerve)}
-    .card h3{
-      margin:0;
-      font-size:38px;
-      line-height:.95;
-      letter-spacing:0;
-      color:var(--ink);
-    }
-    .tag{
-      margin:10px 0 14px;
-      color:var(--accent);
-      font-size:13px;
-      font-weight:850;
-      text-transform:uppercase;
-      letter-spacing:0;
-    }
-    .desc{
-      color:var(--soft);
-      font-size:16px;
-      line-height:1.42;
-      margin:0;
-    }
-    .mini-ui{
-      margin-top:22px;
-    }
-    .mini-row{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 0;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:13px;
-    }
-    .mini-row b{color:var(--ink);font-weight:850}
-    .accent-line{
-      height:3px;
-      width:100%;
-      background:var(--accent);
-      margin-top:14px;
-    }
-    .go{
-      margin-top:22px;
-      color:var(--ink);
-      font-weight:900;
-    }
-    .notes{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:12px;
-      padding:12px 0 0;
-    }
-    .note{
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:18px;
-      background:#10120d;
-    }
-    .note h2{
-      margin:0 0 10px;
-      font-size:24px;
-      line-height:1;
-      letter-spacing:0;
-    }
-    .note p{
-      margin:0;
-      color:var(--soft);
-      line-height:1.5;
-    }
-    footer{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-      padding:26px 0 36px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    @media(max-width:1000px){
-      h1{font-size:76px}
-      .scene{opacity:.45}
-      .scene-panel.one{right:-80px}
-      .scene-panel.two{right:120px}
-      .grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
-      .notes{grid-template-columns:1fr}
-    }
-    @media(max-width:700px){
-      .shell{width:min(100% - 28px, 1180px)}
-      header{align-items:flex-start;flex-direction:column}
-      nav{justify-content:flex-start}
-      .hero{min-height:0;padding:42px 0 34px}
-      .scene{display:none}
-      h1{font-size:54px;line-height:.94}
-      .sub{font-size:18px}
-      .section-head{display:block}
-      .section-head p{margin-top:10px}
-      .grid{grid-template-columns:1fr}
-      .card{min-height:260px}
+
+    @media (max-width: 560px) {
+      .shell {
+        width: calc(100% - 24px);
+        padding-top: 18px;
+      }
+
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .open {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .url {
+        text-align: left;
+      }
+
+      .app {
+        min-height: 170px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
+  <main class="shell">
     <header>
       <a class="brand" href="/" aria-label="AO Labs home">
         <span class="mark">AO</span>
         <span>AO Labs</span>
       </a>
-      <nav aria-label="Products">
-        <a href="https://relay.aolabs.io">Relay</a>
-        <a href="https://talk.aolabs.io">Talk</a>
-        <a href="https://duet.aolabs.io/hello">Duet</a>
-        <a href="https://nerve.aolabs.io">Nerve</a>
+      <nav class="top-actions" aria-label="Quick app links">
+        <a class="pill" href="https://relay.aolabs.io">Relay</a>
+        <a class="pill" href="https://relaylive.aolabs.io">Relay Live</a>
+        <a class="pill" href="https://ocean.aolabs.io">Ocean</a>
       </nav>
     </header>
 
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Live systems by Alan Pham</p>
-        <h1 id="hero-title">AO Labs</h1>
-        <p class="sub">Small AI products for the loops that actually change behavior: making money, saying the thing, finding fit, and practicing pressure.</p>
-        <div class="hero-actions">
-          <a class="button" href="https://relay.aolabs.io">Open Relay</a>
-          <a class="button secondary" href="#systems">View systems</a>
-        </div>
-      </div>
-
-      <div class="scene" aria-hidden="true">
-        <div class="scene-panel one">
-          <div class="panel-top"><span>Relay</span><span>money loop</span></div>
-          <div class="metric"><span>direct leads due</span><b>83</b></div>
-          <div class="metric"><span>generic paused</span><b>107</b></div>
-          <div class="signal"><span style="width:72%"></span></div>
-        </div>
-        <div class="scene-panel two">
-          <div class="panel-top"><span>Talk</span><span>mirror</span></div>
-          <div class="metric"><span>tone</span><b>short</b></div>
-          <div class="metric"><span>signal</span><b>direct</b></div>
-          <div class="signal"><span style="width:54%;background:var(--talk)"></span></div>
-        </div>
-        <div class="scene-panel three">
-          <div class="panel-top"><span>Nerve</span><span>reps</span></div>
-          <div class="metric"><span>pressure</span><b>social</b></div>
-          <div class="metric"><span>rating</span><b>honest</b></div>
-          <div class="signal"><span style="width:62%;background:var(--nerve)"></span></div>
-        </div>
-      </div>
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">App hub.</h1>
+      <p class="subtitle">One place to open the AO Labs tools. No pitch page, no dashboard cosplay, just the links.</p>
     </section>
 
-    <section class="products" id="systems" aria-labelledby="systems-title">
-      <div class="section-head">
-        <h2 id="systems-title">Systems</h2>
-        <p>Each one has a job. No fake platform energy, no giant promise wall. Just small tools with a clear behavior loop.</p>
-      </div>
-
-      <div class="grid">
-        <a class="card relay" href="https://relay.aolabs.io">
-          <div>
-            <div class="product-top"><span class="num">01</span><span class="status">live</span></div>
-            <h3>Relay</h3>
-            <div class="tag">money machine</div>
-            <p class="desc">Turns rough call notes into client-ready follow-through: recap, next steps, follow-up, CRM update.</p>
-            <div class="mini-ui">
-              <div class="mini-row"><span>Input</span><b>messy notes</b></div>
-              <div class="mini-row"><span>Output</span><b>finished packet</b></div>
-              <div class="accent-line"></div>
+    <section class="grid" aria-label="AO Labs apps">
+      <a class="app relay" href="https://relay.aolabs.io">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Relay</h2>
+              <div class="role">money machine</div>
             </div>
+            <span class="dot" aria-hidden="true"></span>
           </div>
-          <div class="go">Open Relay</div>
-        </a>
+          <p class="desc">Turn call notes into client-ready follow-through.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">relay.aolabs.io</span></div>
+      </a>
 
-        <a class="card talk" href="https://talk.aolabs.io">
-          <div>
-            <div class="product-top"><span class="num">02</span><span class="status">public</span></div>
-            <h3>Talk</h3>
-            <div class="tag">personality mirror</div>
-            <p class="desc">A public AI mirror with a short, strange, direct voice. Less assistant, more actual response.</p>
-            <div class="mini-ui">
-              <div class="mini-row"><span>Mode</span><b>conversation</b></div>
-              <div class="mini-row"><span>Voice</span><b>blunt-kind</b></div>
-              <div class="accent-line"></div>
+      <a class="app live" href="https://relaylive.aolabs.io">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Relay Live</h2>
+              <div class="role">monitor</div>
             </div>
+            <span class="dot" aria-hidden="true"></span>
           </div>
-          <div class="go">Open Talk</div>
-        </a>
+          <p class="desc">Check sends, replies, money, and whether you need to step in.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">relaylive.aolabs.io</span></div>
+      </a>
 
-        <a class="card duet" href="https://duet.aolabs.io/hello">
-          <div>
-            <div class="product-top"><span class="num">03</span><span class="status">screening</span></div>
-            <h3>Duet</h3>
-            <div class="tag">dating intake</div>
-            <p class="desc">A tiny compatibility check for musician-ish, playful, real people. Fit before performance.</p>
-            <div class="mini-ui">
-              <div class="mini-row"><span>Looks for</span><b>fit</b></div>
-              <div class="mini-row"><span>Vibe</span><b>playful</b></div>
-              <div class="accent-line"></div>
+      <a class="app ocean" href="https://ocean.aolabs.io">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Ocean</h2>
+              <div class="role">new app</div>
             </div>
+            <span class="dot" aria-hidden="true"></span>
           </div>
-          <div class="go">Open Duet</div>
-        </a>
+          <p class="desc">Open the Ocean tool you just added.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">ocean.aolabs.io</span></div>
+      </a>
 
-        <a class="card nerve" href="https://nerve.aolabs.io">
-          <div>
-            <div class="product-top"><span class="num">04</span><span class="status">trainer</span></div>
-            <h3>Nerve</h3>
-            <div class="tag">stress reps</div>
-            <p class="desc">Practice realistic social pressure, track what hits, and get used to the feeling without fleeing it.</p>
-            <div class="mini-ui">
-              <div class="mini-row"><span>Loop</span><b>prompt, rate</b></div>
-              <div class="mini-row"><span>Goal</span><b>tolerance</b></div>
-              <div class="accent-line"></div>
+      <a class="app talk" href="https://talk.aolabs.io">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Talk</h2>
+              <div class="role">mirror</div>
             </div>
+            <span class="dot" aria-hidden="true"></span>
           </div>
-          <div class="go">Open Nerve</div>
-        </a>
-      </div>
-    </section>
+          <p class="desc">Public AI mirror for short, direct replies.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">talk.aolabs.io</span></div>
+      </a>
 
-    <section class="notes" aria-label="Notes">
-      <div class="note">
-        <h2>Built for behavior, not applause.</h2>
-        <p>AO Labs is a place for tools that earn their keep by changing the next action. If a system does not move money, honesty, fit, or pressure tolerance, it does not belong here.</p>
-      </div>
-      <div class="note">
-        <h2>Small on purpose.</h2>
-        <p>The products stay narrow so the feedback loop stays visible. Use the one that matches the problem in front of you.</p>
-      </div>
+      <a class="app duet" href="https://duet.aolabs.io/hello">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Duet</h2>
+              <div class="role">dating intake</div>
+            </div>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+          <p class="desc">Collect compatibility signals and contact details.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">duet.aolabs.io</span></div>
+      </a>
+
+      <a class="app nerve" href="https://nerve.aolabs.io">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Nerve</h2>
+              <div class="role">stress trainer</div>
+            </div>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+          <p class="desc">Practice pressure and rate what actually hits.</p>
+        </div>
+        <div class="open"><span>Open</span><span class="url">nerve.aolabs.io</span></div>
+      </a>
     </section>
 
     <footer>
       <span>AO Labs</span>
-      <span>Relay / Talk / Duet / Nerve</span>
+      <span>Relay / Relay Live / Ocean / Talk / Duet / Nerve</span>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
