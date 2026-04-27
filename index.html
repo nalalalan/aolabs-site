@@ -43,69 +43,11 @@
       width: calc(100% - 32px);
       max-width: 1040px;
       margin: 0 auto;
-      padding: 28px 0 40px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      font-weight: 850;
-      letter-spacing: 0;
-    }
-
-    .mark {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--panel);
-      font-weight: 950;
-      border-radius: 8px;
-    }
-
-    .top-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .pill {
-      min-height: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 750;
-      background: rgba(255, 253, 249, .62);
-    }
-
-    .pill:hover {
-      color: var(--ink);
-      border-color: #b8aea0;
-      background: var(--panel);
+      padding: 48px 0 40px;
     }
 
     .intro {
-      padding: 34px 0 22px;
+      padding: 0 0 22px;
     }
 
     h1 {
@@ -240,16 +182,7 @@
     @media (max-width: 560px) {
       .shell {
         width: calc(100% - 24px);
-        padding-top: 18px;
-      }
-
-      header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .top-actions {
-        justify-content: flex-start;
+        padding-top: 28px;
       }
 
       .grid {
@@ -274,18 +207,6 @@
 </head>
 <body>
   <main class="shell">
-    <header>
-      <a class="brand" href="/" aria-label="AO Labs home">
-        <span class="mark">AO</span>
-        <span>AO Labs</span>
-      </a>
-      <nav class="top-actions" aria-label="Quick app links">
-        <a class="pill" href="https://relay.aolabs.io">Relay</a>
-        <a class="pill" href="https://relaylive.aolabs.io">Relay Live</a>
-        <a class="pill" href="https://ocean.aolabs.io">Ocean</a>
-      </nav>
-    </header>
-
     <section class="intro" aria-labelledby="page-title">
       <h1 id="page-title">App hub.</h1>
       <p class="subtitle">One place to open the AO Labs tools. No pitch page, no dashboard cosplay, just the links.</p>
