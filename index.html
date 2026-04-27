@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AO Labs</title>
-  <meta name="description" content="Open Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
+  <meta name="description" content="AO Labs app hub for Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AO Labs" />
   <meta property="og:title" content="AO Labs" />
-  <meta property="og:description" content="Open Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
+  <meta property="og:description" content="AO Labs app hub for Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
   <meta property="og:url" content="https://aolabs.io/" />
   <meta property="og:image" content="https://aolabs.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AO Labs" />
-  <meta name="twitter:description" content="Open Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
+  <meta name="twitter:description" content="AO Labs app hub for Relay, Relay Live, Ocean, Talk, Duet, and Nerve." />
   <meta name="twitter:image" content="https://aolabs.io/og-image.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
@@ -70,27 +70,30 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
     }
 
     .app {
       --accent: var(--relay);
-      min-height: 190px;
+      min-height: 150px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 18px;
+      gap: 18px;
+      padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 8px;
       background: var(--panel);
       text-decoration: none;
       box-shadow: var(--shadow);
-      transition: transform .14s ease, border-color .14s ease;
+      cursor: pointer;
+      transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
     }
 
     .app:hover {
       transform: translateY(-2px);
       border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
+      box-shadow: 0 18px 38px rgba(40, 32, 22, .11);
     }
 
     .app-top {
@@ -110,7 +113,7 @@
 
     h2 {
       margin: 0;
-      font-size: 32px;
+      font-size: 28px;
       line-height: 1;
       letter-spacing: 0;
     }
@@ -118,26 +121,25 @@
     .role {
       margin-top: 8px;
       color: var(--accent);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 850;
       text-transform: uppercase;
       letter-spacing: 0;
     }
 
     .desc {
-      margin: 16px 0 0;
+      margin: 14px 0 0;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.42;
+      font-size: 14px;
+      line-height: 1.38;
     }
 
-    .open {
+    .card-foot {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      padding-top: 18px;
-      margin-top: 18px;
+      gap: 10px;
+      padding-top: 12px;
       border-top: 1px solid var(--line);
       font-weight: 850;
     }
@@ -147,8 +149,21 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 700;
-      text-align: right;
       overflow-wrap: anywhere;
+    }
+
+    .cue {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 16%, transparent);
+      color: var(--accent);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 900;
     }
 
     .relay { --accent: var(--relay); }
@@ -190,18 +205,8 @@
         grid-template-columns: 1fr;
       }
 
-      .open {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .url {
-        text-align: left;
-      }
-
       .app {
-        min-height: 170px;
+        min-height: 132px;
       }
     }
   </style>
@@ -210,7 +215,7 @@
   <main class="shell">
     <h1 class="site-label">aolabs.io</h1>
     <section class="grid" aria-label="AO Labs apps">
-      <a class="app relay" href="https://relay.aolabs.io">
+      <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
         <div>
           <div class="app-top">
             <div>
@@ -221,10 +226,10 @@
           </div>
           <p class="desc">Turn call notes into client-ready follow-through.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">relay.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">relay.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
 
-      <a class="app live" href="https://relaylive.aolabs.io">
+      <a class="app live" href="https://relaylive.aolabs.io" aria-label="Relay Live">
         <div>
           <div class="app-top">
             <div>
@@ -235,10 +240,10 @@
           </div>
           <p class="desc">Check sends, replies, money, and whether you need to step in.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">relaylive.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">relaylive.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
 
-      <a class="app ocean" href="https://ocean.aolabs.io">
+      <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
         <div>
           <div class="app-top">
             <div>
@@ -249,10 +254,10 @@
           </div>
           <p class="desc">Track the path toward ocean-inspired morphing structures, creative technology, and R&amp;D roles.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">ocean.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">ocean.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
 
-      <a class="app talk" href="https://talk.aolabs.io">
+      <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
         <div>
           <div class="app-top">
             <div>
@@ -263,10 +268,10 @@
           </div>
           <p class="desc">Public AI mirror for short, direct replies.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">talk.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">talk.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
 
-      <a class="app duet" href="https://duet.aolabs.io/hello">
+      <a class="app duet" href="https://duet.aolabs.io/hello" aria-label="Duet">
         <div>
           <div class="app-top">
             <div>
@@ -277,10 +282,10 @@
           </div>
           <p class="desc">Collect compatibility signals and contact details.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">duet.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">duet.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
 
-      <a class="app nerve" href="https://nerve.aolabs.io">
+      <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
         <div>
           <div class="app-top">
             <div>
@@ -291,7 +296,7 @@
           </div>
           <p class="desc">Practice pressure and rate what actually hits.</p>
         </div>
-        <div class="open"><span>Open</span><span class="url">nerve.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">nerve.aolabs.io</span><span class="cue" aria-hidden="true">&rsaquo;</span></div>
       </a>
     </section>
 
