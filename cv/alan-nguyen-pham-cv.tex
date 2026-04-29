@@ -1,12 +1,15 @@
 \documentclass[10pt,letterpaper]{article}
 
 \usepackage{cmap}
-\usepackage[margin=0.62in]{geometry}
+\usepackage[margin=0.72in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
 \usepackage{enumitem}
+\usepackage[scaled=0.96]{helvet}
 \usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{ragged2e}
 \usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{titlesec}
@@ -21,12 +24,15 @@
   linkcolor=accent
 }
 
+\renewcommand{\familydefault}{\sfdefault}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.15em,itemsep=1.8pt,topsep=2pt,parsep=0pt}
-\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-3pt}\titlerule]
-\titlespacing{\section}{0pt}{9pt}{5pt}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\setlist[itemize]{label=\textcolor{accent}{\small\textbullet},leftmargin=1.25em,itemsep=3pt,topsep=3pt,parsep=0pt}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-2pt}\titlerule]
+\titlespacing{\section}{0pt}{11pt}{6pt}
 
 \newcommand{\contactsep}{\quad\textcolor{muted}{\textbullet}\quad}
 \newcommand{\roleentry}[4]{%
@@ -34,7 +40,7 @@
     \textbf{#1} & \textbf{#2}\\
     \textit{#3} & \textit{#4}
   \end{tabularx}
-  \vspace{-4pt}
+  \vspace{-2pt}
 }
 \newcommand{\degreeentry}[4]{%
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}
@@ -50,16 +56,17 @@
 }
 
 \begin{document}
+\RaggedRight
 
 {\LARGE \textbf{Alan Nguyen Pham}}\\[-1pt]
 \href{tel:7142274396}{(714) 227-4396}
 \contactsep \href{mailto:anpham@wpi.edu}{anpham@wpi.edu}
 \contactsep Worcester, MA
 \contactsep \href{https://aolabs.io}{aolabs.io}\\[4pt]
-\textcolor{muted}{Ph.D. candidate building soft robotic materials, morphing surfaces, and physically expressive machines for creative R\&D, theme-park and entertainment robotics, immersive interaction, and postdoctoral research.}
+\textcolor{muted}{Mechanical engineering Ph.D. candidate developing soft robotic materials, reconfigurable mechanisms, and morphing interfaces. Seeking research, postdoctoral, and advanced prototyping roles that push physical systems beyond familiar form factors: machines that change shape, move through contact, interact with people, and translate complex mechanics into tangible behavior.}
 
-\section*{Research Direction}
-Soft robotics; morphing materials and surfaces; architected metamaterials; pneumatic actuation; haptics and human-robot interaction; nonlinear mechanics; tactile shape displays; physically surprising robotic systems for immersive technology, fabrication, entertainment, and creative engineering.
+\section*{Research Focus}
+Soft robotics; reconfigurable robotic materials; morphing surfaces; architected metamaterials; compliant mechanisms; pneumatic actuation; haptics; human-robot interaction; experimental mechanics; nonlinear dynamics; tactile shape displays; rapid prototyping; adaptive physical interfaces.
 
 \section*{Education}
 \degreeentry{Doctor of Philosophy, Mechanical Engineering}{Expected 2027}{Worcester Polytechnic Institute, Worcester, MA}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}
@@ -73,10 +80,10 @@ Soft robotics; morphing materials and surfaces; architected metamaterials; pneum
 \section*{Research Experience}
 \roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Present}{Graduate Researcher -- NanoEnergy Lab and Soft Robotics Lab}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}
 \begin{itemize}
-  \item Lead a first-author soft robotics manuscript on a reconfigurable cellular architecture that turns one monolithically 3D printed, pneumatically actuated Sarrus/PneuNet unit into multiple robotic topologies.
-  \item Designed, fabricated, and characterized modular 2 x 2 pneumatic cells with integrated cross-cell channels, snap-fit connectivity, and built-in directional bending bias for repeatable out-of-plane morphing.
-  \item Built planar arrays that function as programmable morphing surfaces, demonstrating single- and double-dome shape display, bilayer overhang generation, tennis-ball transport/capture, and horizontal, diagonal, and circular traveling-wave deformation.
-  \item Reconfigured the same modules into cylindrical soft robots, demonstrating C-curve and S-curve continuum bending, object grasping and placement, peristaltic crawling of approximately 200 mm, and self-rolling locomotion.
+  \item Lead a first-author manuscript on a reconfigurable cellular soft-robotics architecture that uses one monolithically printed pneumatic Sarrus/PneuNet unit to create multiple robotic topologies.
+  \item Designed, fabricated, and characterized 2-by-2 pneumatic modules with integrated cross-cell channels, snap-fit connectivity, and a built-in bending bias for repeatable out-of-plane morphing.
+  \item Built planar arrays for programmable morphing surfaces, demonstrating single- and double-dome shape display, bilayer overhangs, tennis-ball transport/capture, and horizontal, diagonal, and circular traveling-wave deformation.
+  \item Reconfigured the same modules into cylindrical soft robots for C-curve and S-curve continuum bending, object grasping and placement, peristaltic crawling of approximately 200 mm, and self-rolling locomotion.
   \item Measured pressure-dependent expansion, bending angle, force-displacement response, hysteresis, and variable stiffness across cell, module, and array scales to connect geometry, actuation pattern, and task-level behavior.
 \end{itemize}
 
