@@ -1,0 +1,195 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{cmap}
+\usepackage[margin=0.62in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\definecolor{accent}{HTML}{B8545D}
+\definecolor{text}{HTML}{1F1A17}
+\definecolor{muted}{HTML}{6F6660}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.15em,itemsep=1.8pt,topsep=2pt,parsep=0pt}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-3pt}\titlerule]
+\titlespacing{\section}{0pt}{9pt}{5pt}
+
+\newcommand{\contactsep}{\quad\textcolor{muted}{\textbullet}\quad}
+\newcommand{\roleentry}[4]{%
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    \textbf{#1} & \textbf{#2}\\
+    \textit{#3} & \textit{#4}
+  \end{tabularx}
+  \vspace{-4pt}
+}
+\newcommand{\degreeentry}[4]{%
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    \textbf{#1} & \textbf{#2}\\
+    #3 & #4
+  \end{tabularx}
+  \vspace{2pt}
+}
+\newcommand{\datedline}[2]{%
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    #1 & #2
+  \end{tabularx}
+}
+
+\begin{document}
+
+{\LARGE \textbf{Alan Nguyen Pham}}\\[-1pt]
+\href{tel:7142274396}{(714) 227-4396}
+\contactsep \href{mailto:anpham@wpi.edu}{anpham@wpi.edu}
+\contactsep Worcester, MA
+\contactsep \href{https://aolabs.io}{aolabs.io}\\[4pt]
+\textcolor{muted}{Ph.D. candidate building soft robotic materials, morphing surfaces, and physically expressive machines for creative R\&D, theme-park and entertainment robotics, immersive interaction, and postdoctoral research.}
+
+\section*{Research Direction}
+Soft robotics; morphing materials and surfaces; architected metamaterials; pneumatic actuation; haptics and human-robot interaction; nonlinear mechanics; tactile shape displays; physically surprising robotic systems for immersive technology, fabrication, entertainment, and creative engineering.
+
+\section*{Education}
+\degreeentry{Doctor of Philosophy, Mechanical Engineering}{Expected 2027}{Worcester Polytechnic Institute, Worcester, MA}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}
+\degreeentry{Master of Science, Mechanical Engineering}{2022}{California State University, Long Beach, Long Beach, CA}{Advisor: Dr. Allen Teagle-Hernandez}
+\degreeentry{Bachelor of Science, Mechanical Engineering}{2019}{California State University, Maritime Academy, Vallejo, CA}{Advisor: Dr. Tomas Oppenheim}
+
+\section*{Awards}
+\datedline{NSF NRT Future of Robots in the Workplace -- Research and Development (FORW-RD) Fellowship}{2024}
+\datedline{WPI Intercollegiate Soft Robotics Competition -- 1st Place}{2024}
+
+\section*{Research Experience}
+\roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Present}{Graduate Researcher -- NanoEnergy Lab and Soft Robotics Lab}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}
+\begin{itemize}
+  \item Lead a first-author soft robotics manuscript on a reconfigurable cellular architecture that turns one monolithically 3D printed, pneumatically actuated Sarrus/PneuNet unit into multiple robotic topologies.
+  \item Designed, fabricated, and characterized modular 2 x 2 pneumatic cells with integrated cross-cell channels, snap-fit connectivity, and built-in directional bending bias for repeatable out-of-plane morphing.
+  \item Built planar arrays that function as programmable morphing surfaces, demonstrating single- and double-dome shape display, bilayer overhang generation, tennis-ball transport/capture, and horizontal, diagonal, and circular traveling-wave deformation.
+  \item Reconfigured the same modules into cylindrical soft robots, demonstrating C-curve and S-curve continuum bending, object grasping and placement, peristaltic crawling of approximately 200 mm, and self-rolling locomotion.
+  \item Measured pressure-dependent expansion, bending angle, force-displacement response, hysteresis, and variable stiffness across cell, module, and array scales to connect geometry, actuation pattern, and task-level behavior.
+\end{itemize}
+
+\roleentry{NASA L' SPACE (NPWEE), Tempe, AZ}{Aug 2025 -- Present}{Soft Robotics Graduate Researcher}{}
+\begin{itemize}
+  \item Developed a modular cable-driven soft robotic arm for a Mars surface exploration robot intended for terrain navigation and regolith sample collection.
+  \item Refined the ``Spirobs'' arm design by integrating triple-cable actuation with an elastic braided-steel backbone for multidirectional bending and dust-resistant operation.
+  \item Led CAD changes, fabrication planning, 3D printing decisions, assembly strategy, and design/material guidance for undergraduate teammates while collaborating with NASA subject matter experts in soft robotics and heat transfer.
+\end{itemize}
+
+\roleentry{Sandia National Laboratories, Albuquerque, NM}{June 2025 -- Aug 2025}{Graduate Research Intern -- Nonlinear Mechanics and Dynamics (NOMAD) Research Institute}{}
+\begin{itemize}
+  \item Quantified how nonphysical modeling parameters, including mesh density, momentum-balance iterations, and processor count, affect nonlinear dynamics predictions for an electromechanical ratcheting mechanism.
+  \item Analyzed pin-spring-pawl, pin-paw, and pawl-gear submodels under haversine shock and sinusoidal vibration using idealized analytical, rigid multibody, and finite-element model families.
+  \item Identified model, interaction, loading, and solver-parameter combinations that most strongly drive solution sensitivity, supporting more defensible simulation workflows for shock and vibration environments.
+\end{itemize}
+
+\roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Present}{NSF NRT FORW-RD Fellow and Trainee}{}
+\begin{itemize}
+  \item Participate in an NSF Research Traineeship focused on robots in the workplace, human-robot interfacing, ethics, and convergent robotics research across engineering, humanities, and social sciences.
+  \item Developed broader-impact framing for robotics and AI systems that operate near people, including workplace adoption, trust, physical interaction, and responsible deployment.
+  \item Secured a \$1,000 grant supporting equipment, travel, and professional-development costs.
+\end{itemize}
+
+\roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Dec 2023}{Research Assistant -- Cognitive Medical Technology Laboratory}{}
+\begin{itemize}
+  \item Fabricated, assembled, and programmed an open-source actuation platform for concentric tube continuum robots suitable for kinematic experiments and course projects.
+  \item Designed experimental setups to validate end-effector displacement using MATLAB forward kinematics and optical tracking.
+  \item Collaborated with WPI's Cognitive Medical Technology Lab, PracticePoint, and Innovation Studio to source and fabricate parts for two complete concentric tube robotic systems.
+\end{itemize}
+
+\roleentry{California State University, Long Beach, Long Beach, CA}{Sept 2022 -- Aug 2023}{Research Assistant -- Multiscale Mechanics of Materials Group}{Advisor: Dr. Mortaza Saeidi-Javash}
+\begin{itemize}
+  \item Evaluated sensitivity, selectivity, and response of flexible physical, chemical, and biosensors for soft robotics, human-robot interfaces, and structural health monitoring.
+  \item Reviewed flexible electronics fabricated by inkjet, screen, aerosol, and extrusion printing using graphene, MXene, and MoS2 nanomaterials on conformal 3D substrates.
+  \item Collaborated with graduate researchers on a direct-ink-write temperature sensor printed on a flexible PET substrate.
+\end{itemize}
+
+\roleentry{California State University, Long Beach, Long Beach, CA}{April 2021 -- July 2022}{Graduate Researcher -- Violin Acoustics and Structural Dynamics}{Advisor: Dr. Allen Teagle-Hernandez}
+\begin{itemize}
+  \item Identified acoustic traits that correlate with perceived sound quality using psychoacoustics, vibroacoustic testing, and structural analysis of fine violins.
+  \item Designed and ran a 65-point modal mapping workflow with full-field microphones and accelerometers during hammer modal testing in an anechoic chamber.
+  \item Quantified regional effects of statically loading the bass bar, sound post, strings, and tailpiece across violin price tiers; presented weekly reviews and collaborated with acoustic experts.
+\end{itemize}
+
+\roleentry{California State University, Maritime Academy, Vallejo, CA}{Sept 2018 -- May 2019}{Undergraduate Researcher -- Cross-Flow Tidal Turbine}{Advisor: Dr. Tomas Oppenheim}
+\begin{itemize}
+  \item Conceptualized a Darrieus cross-flow tidal turbine, defined rotor geometry and build constraints, and selected 3D printed blades with fiberglass coating as the manufacturing approach.
+  \item Verified performance through water-tunnel power assessment and ANSYS structural analysis, evaluating blade and hub stresses under hydrodynamic loading and documenting operation around 25 rpm.
+  \item Fabricated a full-scale prototype using additive manufacturing and sheet-metal forming informed by scaled water-tunnel experiments.
+\end{itemize}
+
+\section*{Publications and Manuscripts}
+\begin{itemize}
+  \item Pham, A. N., Rao, P., \& Onal, C. D. (2026). \textit{A reconfigurable cellular architecture for multifunctional soft robots}. Manuscript in preparation.
+  \item Bonofiglio, K., Pham, A., et al. (2023). \textit{Making Concentric Tube Robots More Accessible: An Open-Source Platform with Easy-to-Source Components and Guided Learning Materials}. Manuscript in preparation.
+  \item Pham, A., \& Teagle Hernandez, A. (2022). \textit{Structural Properties and Perceived Acoustic Quality of Modern Violins} (Publication No. 29065875) [Master's thesis, California State University, Long Beach]. ProQuest Dissertations and Theses Global.
+\end{itemize}
+
+\section*{Professional Experience}
+\roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Present}{Teaching Assistant}{}
+\begin{itemize}
+  \item Collaborate with professors and teaching assistants to develop learning opportunities for Stress Analysis, Statics, and Computer Aided Design.
+  \item Host weekly conference sessions for 90+ student groups and office hours, translating difficult engineering material into interactive problem-solving sessions.
+  \item Design and facilitate hands-on learning sessions, conduct inventory checks, and guide students in connecting classroom concepts to physical models.
+\end{itemize}
+
+\roleentry{NLS Lighting, Carson, CA}{April 2022 -- July 2023}{Mechanical Engineer}{}
+\begin{itemize}
+  \item Led design, analysis, and implementation of large-scale luminaire product improvements, including thermal testing, IP testing, FEA static simulation, fabrication, assembly, and installation support.
+  \item Developed 2D drawings, bills of materials, engineering change orders, installation instructions, and supporting documentation for complete product design and application.
+  \item Collaborated with Washington, DC stakeholders to develop a retrofit kit for upgrading more than 75,000 street and alley lights to energy-efficient LEDs as part of a multi-million-dollar Smart Street Lighting project.
+\end{itemize}
+
+\roleentry{Hubbell, City of Industry, CA}{May 2021 -- Aug 2021}{Mechanical Engineer Intern}{}
+\begin{itemize}
+  \item Managed assembly and DLC V5.1 certification of light fixtures, reducing test cost and labor while accounting for SKU quantities and sales volume.
+  \item Performed impact testing and FEA validation on luminaire assemblies, checking bracket, lens, and LED-PCB designs in Solid Edge.
+  \item Supported launch of the Prevent vandal-resistant luminaire series through baseline testing, part sourcing, and assembly coordination with new product design teams.
+\end{itemize}
+
+\roleentry{Academy Inc., Montebello, CA}{July 2019 -- Aug 2020}{Mechanical Design Engineer}{}
+\begin{itemize}
+  \item Implemented and documented equation-driven parametric configurations for standard products and pricing systems, reducing design and quoting time.
+  \item Developed engineered designs for shade sails, retractable awnings, and tensioned fabric structures with attention to manufacturability and installation.
+  \item Managed project stages from field measurements and material specifications to coordination with multidisciplinary teams and scope-of-work execution.
+\end{itemize}
+
+\roleentry{American Metal Bearing Company, Garden Grove, CA}{May 2019 -- June 2019}{Mechanical Engineer Intern}{}
+\begin{itemize}
+  \item Optimized components for thrust, line-shaft, stern-tube, and strut bearing assemblies using SolidWorks and Abaqus FEA, and proposed material and labor cost-reduction strategies.
+  \item Coordinated with manufacturing departments to assemble and ship line-shaft spherical bearings, from rough casting through inspection, finishing, and packaging.
+  \item Revised bearing-component drawings under Engineering Change Requests while maintaining GD\&T standards.
+\end{itemize}
+
+\section*{Technical Skills}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}p{0.18\textwidth} X@{}}
+Soft robotics & Pneumatic actuation, compliant mechanisms, continuum robots, modular soft robots, morphing surfaces, shape displays, haptics, human-robot interaction, robotic prototyping.\\
+Software & SolidWorks, Onshape, PTC Creo, CUBIT, Sierra/SolidMechanics, ParaView, MATLAB, Simulink Simscape Multibody, Abaqus, Ansys FEA, Python, C/C++, ROS2, LabVIEW, Minitab, MS Office.\\
+Hardware & 3D printing, laser cutting, soldering, Arduino, Raspberry Pi, National Instruments DAQ, strain gages, thermocouples, pressure sensors, force testing (Mecmesin), hand tools.\\
+\end{tabularx}
+
+\section*{Relevant Coursework}
+Soft Robotics; Advanced Dynamics; Ethics and Communication in Robotics and AI Research; Foundations in Robotics; Advanced Mechanics of Deformable Bodies; Mechatronic System Design; Design of Experiments; Haptic Systems for Virtual Reality and Teleoperation; Engineering Vibrations; Automatic Feedback Control; Instrumentation and Measurement Systems.
+
+\section*{Campus and Community Involvement}
+\datedline{Member, American Society of Mechanical Engineers}{March 2015 -- Present}
+\datedline{WPI Video Game Orchestra}{Nov 2024 -- Present}
+\datedline{WPI Tennis Club}{Aug 2024 -- Present}
+\datedline{WPI Philharmonic Orchestra, 1st Violinist}{Nov 2023 -- Present}
+\datedline{CSULB Long Beach Lunabotics, Mechanical Engineer}{Sept 2020 -- May 2022}
+\datedline{CSULB Beach Launch Team, Avionics Engineer}{Sept 2020 -- May 2022}
+\datedline{CSULB Bob Cole Symphony Orchestra, 2nd Violinist}{Sept 2019 -- March 2020}
+\datedline{Rebuilding Together Solano County, Volunteer}{Aug 2015 -- Aug 2016}
+
+\end{document}

@@ -77,6 +77,15 @@
       font-weight: 650;
     }
 
+    .intro a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .intro a:hover {
+      text-decoration: underline;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -218,7 +227,7 @@
 <body>
   <main class="shell">
     <h1 class="site-label">aolabs.io</h1>
-    <p class="intro">ai generated stuff by alan pham</p>
+    <p class="intro">ai generated stuff by alan pham &middot; <a href="/cv/alan-nguyen-pham-cv.tex">latex cv</a> / <a href="/cv/alan-nguyen-pham-cv.pdf">pdf</a></p>
     <section class="grid" aria-label="AO Labs apps">
       <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
         <div>
