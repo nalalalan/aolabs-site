@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AO Labs">
-  <rect width="64" height="64" rx="14" fill="#111512"/>
+  <rect width="64" height="64" rx="14" fill="#351923"/>
   <path d="M10.5 46 24.2 17.5h7.1L45 46h-7.3l-2.4-5.5H20.2L17.8 46h-7.3Z" fill="#fffaf0"/>
-  <path d="M23.1 33.8h9.3l-4.65-10.5-4.65 10.5Z" fill="#111512"/>
-  <circle cx="44" cy="30.5" r="12.2" fill="#111512" stroke="#fffaf0" stroke-width="2"/>
-  <path d="M34.9 22.4a12.2 12.2 0 0 1 19.3 2.1" fill="none" stroke="#66b7d2" stroke-width="5.2" stroke-linecap="round"/>
-  <path d="M55.8 31.4a12.2 12.2 0 0 1-21.1 8.2" fill="none" stroke="#8fd18f" stroke-width="5.2" stroke-linecap="round"/>
+  <path d="M23.1 33.8h9.3l-4.65-10.5-4.65 10.5Z" fill="#351923"/>
+  <circle cx="44" cy="30.5" r="12.2" fill="#351923" stroke="#fffaf0" stroke-width="2"/>
+  <path d="M34.9 22.4a12.2 12.2 0 0 1 19.3 2.1" fill="none" stroke="#ffb09c" stroke-width="5.2" stroke-linecap="round"/>
+  <path d="M55.8 31.4a12.2 12.2 0 0 1-21.1 8.2" fill="none" stroke="#ff6f91" stroke-width="5.2" stroke-linecap="round"/>
 </svg>
