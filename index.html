@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AO Labs</title>
-  <meta name="description" content="Alan Pham's CV and AO Labs projects across research, creative technology, AI tools, and experiments." />
+  <title>Alan Pham / AO Labs</title>
+  <meta name="description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AO Labs" />
-  <meta property="og:title" content="AO Labs" />
-  <meta property="og:description" content="Alan Pham's CV and AO Labs projects across research, creative technology, AI tools, and experiments." />
+  <meta property="og:title" content="Alan Pham / AO Labs" />
+  <meta property="og:description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
   <meta property="og:url" content="https://aolabs.io/" />
   <meta property="og:image" content="https://aolabs.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AO Labs" />
-  <meta name="twitter:description" content="Alan Pham's CV and AO Labs projects across research, creative technology, AI tools, and experiments." />
+  <meta name="twitter:title" content="Alan Pham / AO Labs" />
+  <meta name="twitter:description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
   <meta name="twitter:image" content="https://aolabs.io/og-image.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -24,18 +24,18 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f7f4ef;
-      --panel: #fffdf9;
-      --ink: #181512;
-      --muted: #756e66;
-      --line: #ded7cc;
-      --relay: #c88452;
-      --talk: #c8796d;
-      --duet: #c1515b;
-      --nerve: #d96a59;
-      --ocean: #ff6f91;
-      --cv: #4f7f8c;
-      --shadow: 0 18px 42px rgba(40, 32, 22, .08);
+      --bg: #f3f7f4;
+      --panel: #fffdfa;
+      --ink: #14201c;
+      --muted: #60706b;
+      --line: #cfdbd5;
+      --relay: #a66a40;
+      --talk: #b66f60;
+      --duet: #a84e65;
+      --nerve: #c95d4e;
+      --ocean: #2f8c87;
+      --cv: #416f7b;
+      --shadow: 0 18px 42px rgba(20, 32, 28, .08);
     }
 
     * {
@@ -45,7 +45,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
+      background: linear-gradient(180deg, #f3f7f4 0%, #eef5f1 52%, #f8f6ef 100%);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -56,24 +56,44 @@
 
     .shell {
       width: calc(100% - 32px);
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 36px 0 40px;
+      padding: 34px 0 42px;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .site-kicker {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
     }
 
     .site-label {
-      margin: 0 0 5px;
-      font-size: 20px;
-      line-height: 1;
-      font-weight: 850;
+      max-width: 760px;
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.03;
+      font-weight: 900;
       letter-spacing: 0;
     }
 
     .intro {
-      margin: 0 0 16px;
+      max-width: 690px;
+      margin: 12px 0 0;
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.2;
+      font-size: 16px;
+      line-height: 1.42;
       font-weight: 650;
     }
 
@@ -86,22 +106,52 @@
       text-decoration: underline;
     }
 
+    .focus-panel {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .focus-title {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .focus-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .focus-list li {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 750;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
 
     .app {
       --accent: var(--relay);
-      min-height: 150px;
+      min-height: 168px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 18px;
       padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 7px;
       background: var(--panel);
       text-decoration: none;
       box-shadow: var(--shadow);
@@ -112,7 +162,7 @@
     .app:hover {
       transform: translateY(-2px);
       border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
-      box-shadow: 0 18px 38px rgba(40, 32, 22, .11);
+      box-shadow: 0 20px 40px rgba(20, 32, 28, .12);
     }
 
     .app-top {
@@ -140,7 +190,7 @@
 
     h2 {
       margin: 0;
-      font-size: 28px;
+      font-size: 29px;
       line-height: 1;
       letter-spacing: 0;
     }
@@ -158,7 +208,7 @@
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.38;
+      line-height: 1.42;
     }
 
     .card-foot {
@@ -213,6 +263,11 @@
     }
 
     @media (max-width: 860px) {
+      .masthead {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -222,6 +277,18 @@
       .shell {
         width: calc(100% - 24px);
         padding-top: 28px;
+      }
+
+      .site-label {
+        font-size: 34px;
+      }
+
+      .intro {
+        font-size: 15px;
+      }
+
+      .focus-list {
+        grid-template-columns: 1fr;
       }
 
       .grid {
@@ -236,19 +303,36 @@
 </head>
 <body>
   <main class="shell">
-    <h1 class="site-label">aolabs.io</h1>
-    <p class="intro">ai generated stuff by alan pham</p>
+    <header class="masthead">
+      <div>
+        <p class="site-kicker">aolabs.io / alan pham</p>
+        <h1 class="site-label">Soft robotics, morphing systems, and creative R&amp;D prototypes.</h1>
+        <p class="intro">Mechanical engineering PhD work, physical prototyping, and AI-built tools for designing, testing, and explaining ambitious systems.</p>
+      </div>
+      <div class="focus-panel" aria-label="Career focus">
+        <p class="focus-title">career focus</p>
+        <ul class="focus-list">
+          <li>soft robotic materials</li>
+          <li>morphing structures</li>
+          <li>ocean-inspired systems</li>
+          <li>creative technology</li>
+          <li>physical prototypes</li>
+          <li>AI-assisted workflows</li>
+        </ul>
+      </div>
+    </header>
+
     <section class="grid" aria-label="AO Labs apps">
       <a class="app cv" href="/cv/alan-nguyen-pham-cv.pdf" aria-label="Alan Nguyen Pham CV PDF">
         <div>
           <div class="app-top">
             <div>
               <h2>CV</h2>
-              <div class="role">alan nguyen pham</div>
+              <div class="role">research profile</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg" alt=""></span>
           </div>
-          <p class="desc">Research, engineering, creative technology, and materials work.</p>
+          <p class="desc">Research, soft robotics, materials, engineering, creative technology, and selected work.</p>
         </div>
         <div class="card-foot"><span class="url">alan-nguyen-pham-cv.pdf</span></div>
       </a>
@@ -258,11 +342,11 @@
           <div class="app-top">
             <div>
               <h2>Ocean</h2>
-              <div class="role">career compass</div>
+              <div class="role">morphing systems</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg" alt=""></span>
           </div>
-          <p class="desc">Track the path toward ocean-inspired morphing structures, creative technology, and R&amp;D roles.</p>
+          <p class="desc">Roadmap for ocean-inspired morphing structures, soft robotic materials, and R&amp;D roles.</p>
         </div>
         <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
       </a>
@@ -272,11 +356,11 @@
           <div class="app-top">
             <div>
               <h2>Talk</h2>
-              <div class="role">alan pham voice</div>
+              <div class="role">personal AI interface</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg" alt=""></span>
           </div>
-          <p class="desc">An AI programmed to answer in Alan Pham's direct style.</p>
+          <p class="desc">A trained conversational interface that answers in Alan Pham's direct style.</p>
         </div>
         <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
       </a>
@@ -286,11 +370,11 @@
           <div class="app-top">
             <div>
               <h2>Relay</h2>
-              <div class="role">client follow-up</div>
+              <div class="role">workflow automation</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg" alt=""></span>
           </div>
-          <p class="desc">Turn call notes into client-ready follow-through.</p>
+          <p class="desc">Turn messy call notes into structured, client-ready follow-through.</p>
         </div>
         <div class="card-foot"><span class="url">relay.aolabs.io</span></div>
       </a>
@@ -300,11 +384,11 @@
           <div class="app-top">
             <div>
               <h2>Nerve</h2>
-              <div class="role">stress trainer</div>
+              <div class="role">pressure loop</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg" alt=""></span>
           </div>
-          <p class="desc">Practice pressure and rate what actually hits.</p>
+          <p class="desc">A practice loop for pressure, critique, iteration, and communication.</p>
         </div>
         <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
       </a>
@@ -314,11 +398,11 @@
           <div class="app-top">
             <div>
               <h2>Duet</h2>
-              <div class="role">type quiz</div>
+              <div class="role">interaction study</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg" alt=""></span>
           </div>
-          <p class="desc">Answer playful prompts and get a light MBTI-style read.</p>
+          <p class="desc">A playful MBTI-style quiz and small interaction-design experiment.</p>
         </div>
         <div class="card-foot"><span class="url">duet.aolabs.io</span></div>
       </a>
@@ -326,7 +410,7 @@
 
     <footer>
       <span>AO Labs</span>
-      <span>CV / Ocean / Talk / Relay / Nerve / Duet</span>
+      <span>soft robotics / morphing systems / creative R&amp;D / AI tools</span>
     </footer>
   </main>
 </body>
