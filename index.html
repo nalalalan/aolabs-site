@@ -181,10 +181,6 @@
       text-decoration: underline;
     }
 
-    .cv-card {
-      cursor: default;
-    }
-
     .url {
       min-width: 0;
       color: var(--muted);
@@ -241,24 +237,21 @@
 <body>
   <main class="shell">
     <h1 class="site-label">aolabs.io</h1>
-    <p class="intro">ai generated stuff by alan pham &middot; <a href="/cv/alan-nguyen-pham-cv.tex">latex cv</a> / <a href="/cv/alan-nguyen-pham-cv.pdf">pdf</a></p>
+    <p class="intro">ai generated stuff by alan pham</p>
     <section class="grid" aria-label="AO Labs apps">
-      <article class="app cv cv-card" aria-label="Alan Nguyen Pham CV">
+      <a class="app cv" href="/cv/alan-nguyen-pham-cv.pdf" aria-label="Alan Nguyen Pham CV PDF">
         <div>
           <div class="app-top">
             <div>
               <h2>CV</h2>
               <div class="role">alan nguyen pham</div>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/logo.svg" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg" alt=""></span>
           </div>
           <p class="desc">Research, engineering, creative technology, and materials work.</p>
         </div>
-        <div class="card-foot">
-          <a href="/cv/alan-nguyen-pham-cv.pdf">PDF</a>
-          <a href="/cv/alan-nguyen-pham-cv.tex">LaTeX</a>
-        </div>
-      </article>
+        <div class="card-foot"><span class="url">alan-nguyen-pham-cv.pdf</span></div>
+      </a>
 
       <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
         <div>
