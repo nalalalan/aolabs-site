@@ -1,7 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 
 \usepackage{cmap}
-\usepackage[margin=0.72in]{geometry}
+\usepackage[margin=0.68in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
@@ -14,9 +14,12 @@
 \usepackage{xcolor}
 \usepackage{titlesec}
 
-\definecolor{accent}{HTML}{B8545D}
-\definecolor{text}{HTML}{1F1A17}
-\definecolor{muted}{HTML}{6F6660}
+\definecolor{accent}{HTML}{2F8C87}
+\definecolor{accenttwo}{HTML}{B95C76}
+\definecolor{text}{HTML}{261712}
+\definecolor{muted}{HTML}{715D56}
+\definecolor{peach}{HTML}{FFF2EA}
+\definecolor{rule}{HTML}{D8C5BA}
 
 \hypersetup{
   colorlinks=true,
@@ -30,15 +33,21 @@
 \setlength{\parskip}{0pt}
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
-\setlist[itemize]{label=\textcolor{accent}{\small\textbullet},leftmargin=1.25em,itemsep=3pt,topsep=3pt,parsep=0pt}
-\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-2pt}\titlerule]
-\titlespacing{\section}{0pt}{11pt}{6pt}
+\setlist[itemize]{label=\textcolor{accent}{\small\textbullet},leftmargin=1.25em,itemsep=2.6pt,topsep=3pt,parsep=0pt}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-2pt}{\color{rule}\titlerule}]
+\titlespacing{\section}{0pt}{10pt}{6pt}
 
 \newcommand{\contactsep}{\quad\textcolor{muted}{\textbullet}\quad}
+\newcommand{\cvtag}[1]{\begingroup\setlength{\fboxsep}{3.2pt}\colorbox{peach}{\textcolor{accent}{\footnotesize\bfseries #1}}\endgroup\hspace{3pt}}
+\newcommand{\profilebox}[1]{%
+  \vspace{5pt}
+  {\setlength{\fboxsep}{8pt}\colorbox{peach}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{#1}}}
+  \vspace{1pt}
+}
 \newcommand{\roleentry}[4]{%
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X r@{}}
     \textbf{#1} & \textbf{#2}\\
-    \textit{#3} & \textit{#4}
+    \textit{\textcolor{muted}{#3}} & \textit{\textcolor{muted}{#4}}
   \end{tabularx}
   \vspace{-2pt}
 }
@@ -58,16 +67,29 @@
 \begin{document}
 \RaggedRight
 
-{\LARGE \textbf{Alan Nguyen Pham}}\\[-1pt]
+{\fontsize{22}{25}\selectfont\textbf{Alan Nguyen Pham}}\hfill{\large\textbf{\textcolor{accent}{Soft Robotics \textbar{} Morphing Systems}}}\\[-1pt]
 \href{tel:7142274396}{(714) 227-4396}
 \contactsep \href{mailto:anpham@wpi.edu}{anpham@wpi.edu}
 \contactsep Worcester, MA
 \contactsep \href{https://aolabs.io}{aolabs.io}
 \contactsep \href{https://www.linkedin.com/in/alanpham97/}{linkedin.com/in/alanpham97}\\[4pt]
-\textcolor{muted}{Mechanical engineering Ph.D. candidate developing soft robotic materials, reconfigurable mechanisms, and morphing interfaces. Seeking research, postdoctoral, and advanced prototyping roles in soft robotics, morphing matter, haptics, and creative R\&D, with emphasis on systems that change shape, move through contact, interact safely with people, and make complex mechanics tangible.}
+\profilebox{\textcolor{text}{Mechanical engineering Ph.D. candidate developing soft robotic materials, reconfigurable mechanisms, and morphing interfaces. Seeking research, postdoctoral, and advanced prototyping roles in soft robotics, morphing matter, haptics, and creative R\&D, with emphasis on systems that change shape, move through contact, interact safely with people, and make complex mechanics tangible.}}
 
 \section*{Research Focus}
-Soft robotics; reconfigurable robotic materials; morphing surfaces; architected metamaterials; compliant mechanisms; pneumatic actuation; haptics; human-robot interaction; physical human-computer interaction; experimental mechanics; nonlinear dynamics; vibroacoustics; tactile shape displays; rapid prototyping; adaptive physical interfaces.
+\cvtag{soft robotics}
+\cvtag{morphing surfaces}
+\cvtag{robotic materials}
+\cvtag{compliant mechanisms}
+\cvtag{pneumatic actuation}
+\cvtag{haptics}
+\cvtag{human-robot interaction}
+\cvtag{physical HCI}
+\cvtag{experimental mechanics}
+\cvtag{nonlinear dynamics}
+\cvtag{vibroacoustics}
+\cvtag{shape displays}
+\cvtag{rapid prototyping}
+\cvtag{adaptive interfaces}
 
 \section*{Education}
 \degreeentry{Doctor of Philosophy, Mechanical Engineering}{Expected 2027}{Worcester Polytechnic Institute, Worcester, MA}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}

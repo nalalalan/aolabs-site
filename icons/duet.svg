@@ -1,42 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#fff1ec"/>
-  <circle cx="256" cy="256" r="214" fill="#fff8f5"/>
-
-  <g transform="translate(0,4)">
-    <!-- left violin -->
-    <g transform="translate(136,74) rotate(-10 88 190)">
-      <path d="M94 34c-24 2-37 21-34 39 2 13 10 22 19 29-11 13-15 32-10 49 3 11 10 22 20 30-30 15-53 47-53 86 0 44 30 76 67 80 15 2 30-1 43-8 12 9 29 14 45 11 37-6 59-39 55-78-3-31-23-57-49-72 12-17 16-39 8-59-7-17-22-30-39-35 10-10 17-23 15-38-4-22-29-37-55-34z" fill="#ec7f78"/>
-      <path d="M104 42c-14 5-23 17-20 29 2 9 10 16 20 19-7 12-9 25-3 37 7 15 24 24 42 21-8 17-6 34 6 48 11 12 28 17 45 12" fill="none" stroke="#c1515b" stroke-width="11" stroke-linecap="round"/>
-      <rect x="121" y="74" width="34" height="212" rx="14" fill="#b84b55"/>
-      <path d="M137 56c22-16 32-38 18-53-9-9-26-5-31 8-5 12 5 22 16 18" fill="none" stroke="#c1515b" stroke-width="15" stroke-linecap="round"/>
-      <path d="M98 288h83" stroke="#ffe4db" stroke-width="12" stroke-linecap="round"/>
-      <path d="M110 330h60l-14 57h-32z" fill="#b84b55"/>
-      <path d="M118 82l-25 285M134 78l-11 292M150 78l7 292M166 84l22 280" stroke="#ffe8e1" stroke-width="7" stroke-linecap="round"/>
-      <path d="M78 230c-19 10-21 40-2 47 15 5 26-10 19-23" fill="none" stroke="#b84b55" stroke-width="12" stroke-linecap="round"/>
-      <path d="M198 228c19 10 21 40 2 47-15 5-26-10-19-23" fill="none" stroke="#b84b55" stroke-width="12" stroke-linecap="round"/>
-      <circle cx="91" cy="79" r="15" fill="#b84b55"/>
-      <circle cx="187" cy="82" r="15" fill="#b84b55"/>
-      <circle cx="88" cy="124" r="15" fill="#b84b55"/>
-      <circle cx="190" cy="126" r="15" fill="#b84b55"/>
-    </g>
-
-    <!-- right violin -->
-    <g transform="translate(376,74) scale(-1,1) rotate(-10 88 190)">
-      <path d="M94 34c-24 2-37 21-34 39 2 13 10 22 19 29-11 13-15 32-10 49 3 11 10 22 20 30-30 15-53 47-53 86 0 44 30 76 67 80 15 2 30-1 43-8 12 9 29 14 45 11 37-6 59-39 55-78-3-31-23-57-49-72 12-17 16-39 8-59-7-17-22-30-39-35 10-10 17-23 15-38-4-22-29-37-55-34z" fill="#ec7f78"/>
-      <path d="M104 42c-14 5-23 17-20 29 2 9 10 16 20 19-7 12-9 25-3 37 7 15 24 24 42 21-8 17-6 34 6 48 11 12 28 17 45 12" fill="none" stroke="#c1515b" stroke-width="11" stroke-linecap="round"/>
-      <rect x="121" y="74" width="34" height="212" rx="14" fill="#b84b55"/>
-      <path d="M137 56c22-16 32-38 18-53-9-9-26-5-31 8-5 12 5 22 16 18" fill="none" stroke="#c1515b" stroke-width="15" stroke-linecap="round"/>
-      <path d="M98 288h83" stroke="#ffe4db" stroke-width="12" stroke-linecap="round"/>
-      <path d="M110 330h60l-14 57h-32z" fill="#b84b55"/>
-      <path d="M118 82l-25 285M134 78l-11 292M150 78l7 292M166 84l22 280" stroke="#ffe8e1" stroke-width="7" stroke-linecap="round"/>
-      <path d="M78 230c-19 10-21 40-2 47 15 5 26-10 19-23" fill="none" stroke="#b84b55" stroke-width="12" stroke-linecap="round"/>
-      <path d="M198 228c19 10 21 40 2 47-15 5-26-10-19-23" fill="none" stroke="#b84b55" stroke-width="12" stroke-linecap="round"/>
-      <circle cx="91" cy="79" r="15" fill="#b84b55"/>
-      <circle cx="187" cy="82" r="15" fill="#b84b55"/>
-      <circle cx="88" cy="124" r="15" fill="#b84b55"/>
-      <circle cx="190" cy="126" r="15" fill="#b84b55"/>
-    </g>
-
-    <path d="M256 238c-26-31-72-3-42 32l42 42 42-42c30-35-16-63-42-32z" fill="#ef7b73"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Duet">
+  <rect width="128" height="128" rx="30" fill="#ffd8c8"/>
+  <path d="M64 24c12 0 21 8 21 19 0 8-5 14-11 18 11 7 18 18 18 32 0 18-12 31-28 31S36 111 36 93c0-14 7-25 18-32-7-4-11-10-11-18 0-11 9-19 21-19Z" fill="#fffaf6" stroke="#b95c76" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M64 36v65M50 78h28M52 101h24" stroke="#251713" stroke-width="7" stroke-linecap="round"/>
+  <path d="M51 33c-12-6-23 6-14 18M77 33c12-6 23 6 14 18" fill="none" stroke="#b95c76" stroke-width="7" stroke-linecap="round"/>
+  <path d="M49 57c10 8 20 8 30 0" fill="none" stroke="#c98a53" stroke-width="6" stroke-linecap="round"/>
 </svg>

@@ -1,8 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AO Labs">
-  <rect width="64" height="64" rx="14" fill="#351923"/>
-  <path d="M10.5 46 24.2 17.5h7.1L45 46h-7.3l-2.4-5.5H20.2L17.8 46h-7.3Z" fill="#fffaf0"/>
-  <path d="M23.1 33.8h9.3l-4.65-10.5-4.65 10.5Z" fill="#351923"/>
-  <circle cx="44" cy="30.5" r="12.2" fill="#351923" stroke="#fffaf0" stroke-width="2"/>
-  <path d="M34.9 22.4a12.2 12.2 0 0 1 19.3 2.1" fill="none" stroke="#ffb09c" stroke-width="5.2" stroke-linecap="round"/>
-  <path d="M55.8 31.4a12.2 12.2 0 0 1-21.1 8.2" fill="none" stroke="#ff6f91" stroke-width="5.2" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="AO Labs">
+  <defs>
+    <linearGradient id="peach" x1="10" y1="8" x2="118" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd8c8"/>
+      <stop offset=".58" stop-color="#ffc3b0"/>
+      <stop offset="1" stop-color="#fff2e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#peach)"/>
+  <path d="M23 92 44 34h11l21 58H64.5l-4.2-12H38.7l-4.2 12H23Z" fill="#251713"/>
+  <path d="M42.2 69.5h14.6L49.5 48l-7.3 21.5Z" fill="#ffd6c5"/>
+  <circle cx="86" cy="66" r="23" fill="none" stroke="#251713" stroke-width="9"/>
+  <path d="M69 52c13-16 35-10 40 7" fill="none" stroke="#2f9d98" stroke-width="8" stroke-linecap="round"/>
+  <path d="M105 77c-11 18-36 15-42-5" fill="none" stroke="#b95c76" stroke-width="8" stroke-linecap="round"/>
+  <path d="M20 106h88" stroke="#c98a53" stroke-width="7" stroke-linecap="round"/>
 </svg>
