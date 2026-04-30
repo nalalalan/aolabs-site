@@ -97,9 +97,11 @@ Soft robotics; reconfigurable robotic materials; morphing surfaces; architected 
 
 \roleentry{Sandia National Laboratories, Albuquerque, NM}{June 2025 -- Aug 2025}{Graduate Research Intern -- Nonlinear Mechanics and Dynamics (NOMAD) Research Institute}{}
 \begin{itemize}
-  \item Quantified how nonphysical modeling parameters, including mesh density, momentum-balance iterations, and processor count, affect nonlinear dynamics predictions for an electromechanical ratcheting mechanism.
-  \item Analyzed pin-spring-pawl, pin-paw, and pawl-gear submodels under haversine shock and sinusoidal vibration using idealized analytical, rigid multibody, and finite-element model families.
-  \item Identified model, interaction, loading, and solver-parameter combinations that most strongly drive solution sensitivity, supporting more defensible simulation workflows for shock and vibration environments.
+  \item Co-developed a NOMAD parameter study quantifying how nonphysical finite-element settings affect nonlinear dynamics predictions for an electromechanical ratcheting mechanism with intermittent contact, friction, springs, and pawl-gear interactions.
+  \item Built and compared idealized analytical, MATLAB multibody, and finite-element submodels for pin-spring-pawl, pin-pawl, and pawl-gear interactions under haversine shock and sinusoidal vibration.
+  \item Ran structured sweeps across momentum-balance iterations (1--100), mesh density (fine to very coarse), and processor count (50--250\%) to separate physical response from solver and modeling sensitivity.
+  \item Identified distinct sensitivity regimes: pin-spring-pawl converged across tested parameters, while pin-pawl and pawl-gear cases showed contact/friction-driven divergence, mesh-related lock-up, and environment-dependent sensitivity.
+  \item Presented final results showing that simulation sensitivity appears at submodel scale, informing more defensible setup choices before extending studies to full assembly-level ratcheting mechanisms.
 \end{itemize}
 
 \roleentry{Worcester Polytechnic Institute, Worcester, MA}{Aug 2023 -- Present}{NSF NRT FORW-RD Fellow and Trainee}{}
