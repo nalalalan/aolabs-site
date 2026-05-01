@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alan Pham / AO Labs</title>
-  <meta name="description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
+  <meta name="description" content="Alan Pham's CV and AO Labs projects: soft robotics, morphing systems, AI tools, weird prototypes, and taste-driven experiments." />
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AO Labs" />
   <meta property="og:title" content="Alan Pham / AO Labs" />
-  <meta property="og:description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
+  <meta property="og:description" content="Alan Pham's CV and AO Labs projects: soft robotics, morphing systems, AI tools, weird prototypes, and taste-driven experiments." />
   <meta property="og:url" content="https://aolabs.io/" />
   <meta property="og:image" content="https://aolabs.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Alan Pham / AO Labs" />
-  <meta name="twitter:description" content="Alan Pham's CV and AO Labs projects across soft robotics, morphing systems, creative R&D, physical prototypes, and AI tools." />
+  <meta name="twitter:description" content="Alan Pham's CV and AO Labs projects: soft robotics, morphing systems, AI tools, weird prototypes, and taste-driven experiments." />
   <meta name="twitter:image" content="https://aolabs.io/og-image.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -30,6 +30,7 @@
       --muted: #715d56;
       --line: #ead3c8;
       --relay: #c98a53;
+      --relay-live: #c48c42;
       --talk: #c9796e;
       --duet: #b95c76;
       --nerve: #df6a59;
@@ -140,7 +141,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.1fr 1.1fr .9fr .8fr .8fr .8fr .8fr .8fr;
+      grid-template-columns: 1.1fr 1.1fr .95fr .85fr .8fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -152,10 +153,11 @@
     .palette-strip span:nth-child(2) { background: var(--ocean); }
     .palette-strip span:nth-child(3) { background: var(--talk); }
     .palette-strip span:nth-child(4) { background: var(--relay); }
-    .palette-strip span:nth-child(5) { background: var(--nerve); }
-    .palette-strip span:nth-child(6) { background: var(--duet); }
-    .palette-strip span:nth-child(7) { background: var(--violin); }
-    .palette-strip span:nth-child(8) { background: var(--yum); }
+    .palette-strip span:nth-child(5) { background: var(--relay-live); }
+    .palette-strip span:nth-child(6) { background: var(--nerve); }
+    .palette-strip span:nth-child(7) { background: var(--duet); }
+    .palette-strip span:nth-child(8) { background: var(--violin); }
+    .palette-strip span:nth-child(9) { background: var(--yum); }
 
     .grid {
       display: grid;
@@ -261,6 +263,7 @@
     }
 
     .relay { --accent: var(--relay); }
+    .relay-live { --accent: var(--relay-live); }
     .talk { --accent: var(--talk); }
     .duet { --accent: var(--duet); }
     .nerve { --accent: var(--nerve); }
@@ -329,52 +332,106 @@
     <header class="masthead">
       <div>
         <p class="site-kicker">aolabs.io / alan pham</p>
-        <h1 class="site-label">Soft robotics, morphing systems, and creative R&amp;D prototypes.</h1>
-        <p class="intro">Mechanical engineering PhD work, physical prototyping, and AI-built tools for designing, testing, and explaining ambitious systems.</p>
+        <h1 class="site-label">I build strange, useful things across robotics, AI, and taste.</h1>
+        <p class="intro">Mechanical engineering PhD brain, fast prototype hands, and a visual system that keeps turning ideas into working little worlds.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
-      <div class="focus-panel" aria-label="Career focus">
-        <p class="focus-title">career focus</p>
+      <div class="focus-panel" aria-label="Creative signals">
+        <p class="focus-title">what this shows</p>
         <ul class="focus-list">
-          <li>soft robotic materials</li>
-          <li>morphing structures</li>
-          <li>ocean-inspired systems</li>
-          <li>creative technology</li>
-          <li>physical prototypes</li>
-          <li>AI-assisted workflows</li>
+          <li>PhD-level engineering</li>
+          <li>fast weird prototypes</li>
+          <li>AI tools that work</li>
+          <li>taste plus systems thinking</li>
         </ul>
       </div>
     </header>
 
     <section class="grid" aria-label="AO Labs apps">
-      <a class="app cv" href="/cv/alan-nguyen-pham-cv.pdf" aria-label="Alan Nguyen Pham CV PDF">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>CV</h2>
-              <div class="role">research profile</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg" alt=""></span>
-          </div>
-          <p class="desc">Research, soft robotics, materials, engineering, creative technology, and selected work.</p>
-        </div>
-        <div class="card-foot"><span class="url">alan-nguyen-pham-cv.pdf</span></div>
-      </a>
-
       <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
         <div>
           <div class="app-top">
             <div>
               <h2>Ocean</h2>
-              <div class="role">morphing systems</div>
+              <div class="role">research compass</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg" alt=""></span>
           </div>
-          <p class="desc">Roadmap for ocean-inspired morphing structures, soft robotic materials, and R&amp;D roles.</p>
+          <p class="desc">The serious thread: ocean-inspired morphing systems, soft materials, and the R&amp;D lane I keep circling back to.</p>
         </div>
         <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
+      </a>
+
+      <a class="app cv" href="/cv/alan-nguyen-pham-cv.pdf" aria-label="Alan Nguyen Pham CV PDF">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>CV</h2>
+              <div class="role">formal receipt</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg" alt=""></span>
+          </div>
+          <p class="desc">The paper version: PhD work, soft robotics, materials, prototypes, awards, and selected projects.</p>
+        </div>
+        <div class="card-foot"><span class="url">alan-nguyen-pham-cv.pdf</span></div>
+      </a>
+
+      <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Talk</h2>
+              <div class="role">personal AI interface</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg" alt=""></span>
+          </div>
+          <p class="desc">A small AI interface tuned around my voice: direct, curious, a little intense, and useful on purpose.</p>
+        </div>
+        <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
+      </a>
+
+      <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Relay</h2>
+              <div class="role">workflow tool</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg" alt=""></span>
+          </div>
+          <p class="desc">A practical thing: turn messy conversations into clean follow-up, decisions, and next moves.</p>
+        </div>
+        <div class="card-foot"><span class="url">relay.aolabs.io</span></div>
+      </a>
+
+      <a class="app relay-live" href="https://relaylive.aolabs.io" aria-label="Relay Live">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Relay Live</h2>
+              <div class="role">live workspace</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/relay-live.svg" alt=""></span>
+          </div>
+          <p class="desc">The more immediate version of Relay: a live surface for capturing, shaping, and moving work forward.</p>
+        </div>
+        <div class="card-foot"><span class="url">relaylive.aolabs.io</span></div>
+      </a>
+
+      <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Nerve</h2>
+              <div class="role">pressure loop</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg" alt=""></span>
+          </div>
+          <p class="desc">A practice loop for critique, iteration, and getting sharper under pressure without getting vague.</p>
+        </div>
+        <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
       </a>
 
       <a class="app violin" href="https://violin.aolabs.io" aria-label="Violin">
@@ -382,7 +439,7 @@
           <div class="app-top">
             <div>
               <h2>Violin</h2>
-              <div class="role">image wall</div>
+              <div class="role">taste wall</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg" alt=""></span>
           </div>
@@ -396,55 +453,13 @@
           <div class="app-top">
             <div>
               <h2>Yum</h2>
-              <div class="role">image wall</div>
+              <div class="role">taste wall</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg" alt=""></span>
           </div>
-          <p class="desc">A source-linked food wall for Korean BBQ, sushi, ramen, pasta, steak, burgers, tacos, pho, and gumbo.</p>
+          <p class="desc">A dopamine food wall for galbi, sushi, ramen, pasta, steak, burgers, pho, gumbo, and late-night cravings.</p>
         </div>
         <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
-      </a>
-
-      <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Talk</h2>
-              <div class="role">personal AI interface</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg" alt=""></span>
-          </div>
-          <p class="desc">A trained conversational interface that answers in Alan Pham's direct style.</p>
-        </div>
-        <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
-      </a>
-
-      <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Relay</h2>
-              <div class="role">workflow automation</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg" alt=""></span>
-          </div>
-          <p class="desc">Turn messy call notes into structured, client-ready follow-through.</p>
-        </div>
-        <div class="card-foot"><span class="url">relay.aolabs.io</span></div>
-      </a>
-
-      <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Nerve</h2>
-              <div class="role">pressure loop</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg" alt=""></span>
-          </div>
-          <p class="desc">A practice loop for pressure, critique, iteration, and communication.</p>
-        </div>
-        <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
       </a>
 
       <a class="app duet" href="https://duet.aolabs.io/hello" aria-label="Duet">
@@ -452,11 +467,11 @@
           <div class="app-top">
             <div>
               <h2>Duet</h2>
-              <div class="role">interaction study</div>
+              <div class="role">playful experiment</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg" alt=""></span>
           </div>
-          <p class="desc">A playful MBTI-style quiz and small interaction-design experiment.</p>
+          <p class="desc">A small interaction-design experiment: personality quiz energy, lightweight product thinking.</p>
         </div>
         <div class="card-foot"><span class="url">duet.aolabs.io</span></div>
       </a>
@@ -464,7 +479,7 @@
 
     <footer>
       <span>AO Labs</span>
-      <span>soft robotics / morphing systems / creative R&amp;D / AI tools</span>
+      <span>soft robotics / AI tools / prototypes / visual systems</span>
     </footer>
   </main>
 </body>

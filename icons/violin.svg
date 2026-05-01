@@ -1,5 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#16100d"/>
-  <path d="M34 9c5 0 8 4 6 9-1 3-3 5-6 7l7 7c7-1 13 4 13 11 0 8-7 13-15 10l-7-3-7 3c-8 3-15-2-15-10 0-7 6-12 13-11l7-7c-3-2-5-4-6-7-2-5 1-9 6-9h4Z" fill="#d6a15d"/>
-  <path d="M32 18v38" stroke="#fff8ee" stroke-width="3" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2a1510"/>
+      <stop offset=".5" stop-color="#140d0a"/>
+      <stop offset="1" stop-color="#3a2314"/>
+    </linearGradient>
+    <linearGradient id="varnish" x1="18" y1="8" x2="45" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0bd73"/>
+      <stop offset=".38" stop-color="#bd6e2f"/>
+      <stop offset=".72" stop-color="#7d3c1d"/>
+      <stop offset="1" stop-color="#d3924a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+  <path d="M34 8c7 0 11 5 8 11-1 3-4 5-7 7l6 6c8-2 14 4 14 12 0 9-8 14-17 10l-6-3-6 3c-9 4-17-1-17-10 0-8 6-14 14-12l6-6c-3-2-6-4-7-7-3-6 1-11 8-11h4Z" fill="url(#varnish)"/>
+  <path d="M32 14v42M27 18v36M37 18v36" stroke="#fff1d8" stroke-width="1.7" stroke-linecap="round" opacity=".9"/>
+  <path d="M25 34c-5 2-6 9-1 12M39 34c5 2 6 9 1 12" fill="none" stroke="#2b120b" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M21 23c5 2 10 2 16-1M19 42c7-4 15-4 26 1M25 14c4 3 9 3 14 0" fill="none" stroke="#ffd189" stroke-width="1.4" stroke-linecap="round" opacity=".48"/>
+  <path d="M25 34h14" stroke="#f6d9aa" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="32" cy="30" r="2.4" fill="#2a130d"/>
 </svg>
