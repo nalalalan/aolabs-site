@@ -30,7 +30,6 @@
       --muted: #715d56;
       --line: #ead3c8;
       --relay: #c98a53;
-      --relay-live: #c48c42;
       --talk: #c9796e;
       --duet: #b95c76;
       --nerve: #df6a59;
@@ -141,7 +140,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.1fr 1.1fr .95fr .85fr .8fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.1fr 1.1fr .95fr .85fr .8fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -153,11 +152,10 @@
     .palette-strip span:nth-child(2) { background: var(--ocean); }
     .palette-strip span:nth-child(3) { background: var(--talk); }
     .palette-strip span:nth-child(4) { background: var(--relay); }
-    .palette-strip span:nth-child(5) { background: var(--relay-live); }
-    .palette-strip span:nth-child(6) { background: var(--nerve); }
-    .palette-strip span:nth-child(7) { background: var(--duet); }
-    .palette-strip span:nth-child(8) { background: var(--violin); }
-    .palette-strip span:nth-child(9) { background: var(--yum); }
+    .palette-strip span:nth-child(5) { background: var(--nerve); }
+    .palette-strip span:nth-child(6) { background: var(--duet); }
+    .palette-strip span:nth-child(7) { background: var(--violin); }
+    .palette-strip span:nth-child(8) { background: var(--yum); }
 
     .grid {
       display: grid;
@@ -263,7 +261,6 @@
     }
 
     .relay { --accent: var(--relay); }
-    .relay-live { --accent: var(--relay-live); }
     .talk { --accent: var(--talk); }
     .duet { --accent: var(--duet); }
     .nerve { --accent: var(--nerve); }
@@ -335,7 +332,7 @@
         <h1 class="site-label">I build strange, useful things across robotics, AI, and taste.</h1>
         <p class="intro">Mechanical engineering PhD brain, fast prototype hands, and a visual system that keeps turning ideas into working little worlds.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
       <div class="focus-panel" aria-label="Creative signals">
@@ -404,20 +401,6 @@
           <p class="desc">A practical thing: turn messy conversations into clean follow-up, decisions, and next moves.</p>
         </div>
         <div class="card-foot"><span class="url">relay.aolabs.io</span></div>
-      </a>
-
-      <a class="app relay-live" href="https://relaylive.aolabs.io" aria-label="Relay Live">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Relay Live</h2>
-              <div class="role">live workspace</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/relay-live.svg" alt=""></span>
-          </div>
-          <p class="desc">The more immediate version of Relay: a live surface for capturing, shaping, and moving work forward.</p>
-        </div>
-        <div class="card-foot"><span class="url">relaylive.aolabs.io</span></div>
       </a>
 
       <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
