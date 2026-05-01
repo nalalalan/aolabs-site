@@ -34,6 +34,8 @@
       --duet: #b95c76;
       --nerve: #df6a59;
       --ocean: #2f9d98;
+      --violin: #8e5a2d;
+      --yum: #a77b18;
       --cv: #4f8290;
       --shadow: 0 18px 42px rgba(72, 44, 34, .08);
     }
@@ -138,7 +140,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.1fr 1.1fr .9fr .8fr .8fr .8fr;
+      grid-template-columns: 1.1fr 1.1fr .9fr .8fr .8fr .8fr .8fr .8fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -152,6 +154,8 @@
     .palette-strip span:nth-child(4) { background: var(--relay); }
     .palette-strip span:nth-child(5) { background: var(--nerve); }
     .palette-strip span:nth-child(6) { background: var(--duet); }
+    .palette-strip span:nth-child(7) { background: var(--violin); }
+    .palette-strip span:nth-child(8) { background: var(--yum); }
 
     .grid {
       display: grid;
@@ -261,6 +265,8 @@
     .duet { --accent: var(--duet); }
     .nerve { --accent: var(--nerve); }
     .ocean { --accent: var(--ocean); }
+    .violin { --accent: var(--violin); }
+    .yum { --accent: var(--yum); }
     .cv { --accent: var(--cv); }
 
     footer {
@@ -326,7 +332,7 @@
         <h1 class="site-label">Soft robotics, morphing systems, and creative R&amp;D prototypes.</h1>
         <p class="intro">Mechanical engineering PhD work, physical prototyping, and AI-built tools for designing, testing, and explaining ambitious systems.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
       <div class="focus-panel" aria-label="Career focus">
@@ -369,6 +375,34 @@
           <p class="desc">Roadmap for ocean-inspired morphing structures, soft robotic materials, and R&amp;D roles.</p>
         </div>
         <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
+      </a>
+
+      <a class="app violin" href="https://violin.aolabs.io" aria-label="Violin">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Violin</h2>
+              <div class="role">image wall</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg" alt=""></span>
+          </div>
+          <p class="desc">A source-linked wall of Stradivari, Amati, Guarneri, antique varnish, and maple flame.</p>
+        </div>
+        <div class="card-foot"><span class="url">violin.aolabs.io</span></div>
+      </a>
+
+      <a class="app yum" href="https://yum.aolabs.io" aria-label="Yum">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Yum</h2>
+              <div class="role">image wall</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg" alt=""></span>
+          </div>
+          <p class="desc">A source-linked food wall for Korean BBQ, sushi, ramen, pasta, steak, burgers, tacos, pho, and gumbo.</p>
+        </div>
+        <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
       </a>
 
       <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
