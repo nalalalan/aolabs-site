@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FluxCell">
+  <rect width="128" height="128" rx="22" fill="#090b0d"/>
+  <path d="M21 64c15-32 71-32 86 0M21 64c15 32 71 32 86 0" fill="none" stroke="#3ee7d6" stroke-width="7" stroke-linecap="round"/>
+  <path d="M32 46h26v36H32z" fill="#fffaf0"/>
+  <path d="M70 46h26v36H70z" fill="#ff5f52"/>
+  <path d="M58 40h12v48H58z" fill="#111820"/>
+  <circle cx="64" cy="64" r="12" fill="#f5ba45"/>
+</svg>

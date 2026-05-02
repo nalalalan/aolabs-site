@@ -34,7 +34,7 @@
       --muted: #715d56;
       --line: #ead3c8;
       --relay: #c98a53;
-      --forge: #4d8f7f;
+      --fluxcell: #2faaa0;
       --talk: #c9796e;
       --duet: #b95c76;
       --nerve: #df6a59;
@@ -42,7 +42,7 @@
       --violin: #8e5a2d;
       --yum: #a77b18;
       --cv: #4f8290;
-      --paper: #7d4f86;
+      --sarrus: #7d4f86;
       --shadow: 0 18px 42px rgba(72, 44, 34, .08);
     }
 
@@ -122,8 +122,8 @@
     }
 
     .palette-strip span:nth-child(1) { background: var(--cv); }
-    .palette-strip span:nth-child(2) { background: var(--paper); }
-    .palette-strip span:nth-child(3) { background: var(--forge); }
+    .palette-strip span:nth-child(2) { background: var(--sarrus); }
+    .palette-strip span:nth-child(3) { background: var(--fluxcell); }
     .palette-strip span:nth-child(4) { background: var(--ocean); }
     .palette-strip span:nth-child(5) { background: var(--talk); }
     .palette-strip span:nth-child(6) { background: var(--relay); }
@@ -236,7 +236,7 @@
     }
 
     .relay { --accent: var(--relay); }
-    .forge { --accent: var(--forge); }
+    .fluxcell { --accent: var(--fluxcell); }
     .talk { --accent: var(--talk); }
     .duet { --accent: var(--duet); }
     .nerve { --accent: var(--nerve); }
@@ -244,7 +244,7 @@
     .violin { --accent: var(--violin); }
     .yum { --accent: var(--yum); }
     .cv { --accent: var(--cv); }
-    .paper { --accent: var(--paper); }
+    .sarrus { --accent: var(--sarrus); }
 
     footer {
       display: flex;
@@ -270,7 +270,9 @@
 
     @media (max-width: 560px) {
       .shell {
-        width: calc(100% - 24px);
+        width: min(calc(100% - 24px), 366px);
+        margin-left: 12px;
+        margin-right: auto;
         padding-top: 28px;
       }
 
@@ -306,18 +308,18 @@
     </header>
 
     <section class="grid" aria-label="AO Labs links">
-      <a class="app forge" href="http://forge.aolabs.io" aria-label="Forge">
+      <a class="app fluxcell" href="https://fluxcell.aolabs.io" aria-label="FluxCell">
         <div>
           <div class="app-top">
             <div>
-              <h2>Forge</h2>
-              <div class="role">prototype memory</div>
+              <h2>FluxCell</h2>
+              <div class="role">EPM actuation</div>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/forge.svg" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/fluxcell.svg" alt=""></span>
           </div>
-          <p class="desc">A minimal board for research ideas, sketches, tests, decisions, and next steps.</p>
+          <p class="desc">A focused lab wall for 3D printed electropermanent magnet actuation of Sarrus cells.</p>
         </div>
-        <div class="card-foot"><span class="url">forge.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">fluxcell.aolabs.io</span></div>
       </a>
 
       <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
@@ -348,18 +350,18 @@
         <div class="card-foot"><span class="url">cv.aolabs.io</span></div>
       </a>
 
-      <a class="app paper" href="https://paper.aolabs.io" aria-label="Alan Pham papers">
+      <a class="app sarrus" href="https://sarrus.aolabs.io" aria-label="Sarrus Materials">
         <div>
           <div class="app-top">
             <div>
-              <h2>Paper</h2>
-              <div class="role">papers</div>
+              <h2>Sarrus Materials</h2>
+              <div class="role">robotic materials</div>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/paper.svg" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg" alt=""></span>
           </div>
-          <p class="desc">Long and short versions of the current cell paper.</p>
+          <p class="desc">Programmable shape, stiffness, and motion from Sarrus-linkage-based cells.</p>
         </div>
-        <div class="card-foot"><span class="url">paper.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">sarrus.aolabs.io</span></div>
       </a>
 
       <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
