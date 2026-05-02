@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alan Pham / AO Labs</title>
-  <meta name="description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
+  <meta name="description" content="Alan Pham's CV, research, tools, and prototypes." />
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AO Labs" />
   <meta property="og:title" content="Alan Pham / AO Labs" />
-  <meta property="og:description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
+  <meta property="og:description" content="Alan Pham's CV, research, tools, and prototypes." />
   <meta property="og:url" content="https://aolabs.io/" />
   <meta property="og:image" content="https://aolabs.io/og-image.png" />
   <meta property="og:image:secure_url" content="https://aolabs.io/og-image.png" />
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Alan Pham / AO Labs preview image." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Alan Pham / AO Labs" />
-  <meta name="twitter:description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
+  <meta name="twitter:description" content="Alan Pham's CV, research, tools, and prototypes." />
   <meta name="twitter:image" content="https://aolabs.io/og-image.png" />
   <meta name="twitter:image:alt" content="Alan Pham / AO Labs preview image." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -70,10 +70,7 @@
     }
 
     .masthead {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
-      gap: 28px;
-      align-items: end;
+      max-width: 860px;
       margin-bottom: 22px;
     }
 
@@ -90,7 +87,7 @@
     .site-label {
       max-width: 760px;
       margin: 0;
-      font-size: 42px;
+      font-size: clamp(46px, 6vw, 78px);
       line-height: 1.03;
       font-weight: 900;
       letter-spacing: 0;
@@ -112,36 +109,6 @@
 
     .intro a:hover {
       text-decoration: underline;
-    }
-
-    .focus-panel {
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-    }
-
-    .focus-title {
-      margin: 0 0 10px;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .focus-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px 14px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .focus-list li {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.25;
-      font-weight: 750;
     }
 
     .palette-strip {
@@ -323,11 +290,6 @@
     }
 
     @media (max-width: 860px) {
-      .masthead {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -340,15 +302,11 @@
       }
 
       .site-label {
-        font-size: 34px;
+        font-size: 44px;
       }
 
       .intro {
         font-size: 15px;
-      }
-
-      .focus-list {
-        grid-template-columns: 1fr;
       }
 
       .grid {
@@ -365,21 +323,12 @@
   <main class="shell">
     <header class="masthead">
       <div>
-        <p class="site-kicker">aolabs.io / alan pham</p>
-        <h1 class="site-label">Soft robotics, AI tools, and selected projects.</h1>
-        <p class="intro">Research and prototypes by Alan Pham.</p>
+        <p class="site-kicker">aolabs.io</p>
+        <h1 class="site-label">Alan Pham</h1>
+        <p class="intro">Research, tools, and prototypes.</p>
         <div class="palette-strip" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-      </div>
-      <div class="focus-panel" aria-label="Creative signals">
-        <p class="focus-title">focus</p>
-        <ul class="focus-list">
-          <li>soft robotics</li>
-          <li>morphing systems</li>
-          <li>AI tools</li>
-          <li>selected projects</li>
-        </ul>
       </div>
     </header>
 
@@ -530,7 +479,7 @@
 
     <footer>
       <span>AO Labs</span>
-      <span>soft robotics / AI tools / selected projects</span>
+      <span>research / tools / prototypes</span>
     </footer>
   </main>
 </body>
