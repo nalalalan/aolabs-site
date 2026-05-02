@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alan Pham / AO Labs</title>
-  <meta name="description" content="Alan Pham's CV, soft robotics paper, and selected AO Labs projects." />
+  <meta name="description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AO Labs" />
   <meta property="og:title" content="Alan Pham / AO Labs" />
-  <meta property="og:description" content="Alan Pham's CV, soft robotics paper, and selected AO Labs projects." />
+  <meta property="og:description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
   <meta property="og:url" content="https://aolabs.io/" />
   <meta property="og:image" content="https://aolabs.io/og-image.png" />
   <meta property="og:image:secure_url" content="https://aolabs.io/og-image.png" />
@@ -19,7 +19,7 @@
   <meta property="og:image:alt" content="Alan Pham / AO Labs preview image." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Alan Pham / AO Labs" />
-  <meta name="twitter:description" content="Alan Pham's CV, soft robotics paper, and selected AO Labs projects." />
+  <meta name="twitter:description" content="Alan Pham's CV, soft robotics paper drafts, and selected AO Labs projects." />
   <meta name="twitter:image" content="https://aolabs.io/og-image.png" />
   <meta name="twitter:image:alt" content="Alan Pham / AO Labs preview image." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -260,6 +260,33 @@
       text-decoration: underline;
     }
 
+    .paper-card {
+      cursor: default;
+    }
+
+    .paper-links {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .paper-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 8%, white);
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .paper-links a:hover {
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
     .url {
       min-width: 0;
       color: var(--muted);
@@ -399,7 +426,7 @@
         <div class="card-foot"><span class="url">alan-nguyen-pham-cv.pdf</span></div>
       </a>
 
-      <a class="app paper" href="/paper/topology-programmable-soft-robotic-surfaces-and-bodies.pdf" aria-label="Topology-programmable soft robotic surfaces and bodies paper PDF">
+      <article class="app paper paper-card" aria-label="Topology-programmable soft robotic surfaces and bodies paper PDFs">
         <div>
           <div class="app-top">
             <div>
@@ -408,10 +435,13 @@
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/paper.svg" alt=""></span>
           </div>
-          <p class="desc">A cellular unit assembled into programmable surfaces and robotic bodies.</p>
+          <p class="desc">Topology-programmable soft robotic surfaces and bodies.</p>
         </div>
-        <div class="card-foot"><span class="url">paper PDF</span></div>
-      </a>
+        <div class="card-foot paper-links">
+          <a href="/paper/topology-programmable-soft-robotic-surfaces-and-bodies-full.pdf" aria-label="Full manuscript PDF">Full version</a>
+          <a href="/paper/topology-programmable-soft-robotic-surfaces-and-bodies-science.pdf" aria-label="Science version PDF">Science version</a>
+        </div>
+      </article>
 
       <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
         <div>
