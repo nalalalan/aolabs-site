@@ -34,6 +34,7 @@
       --muted: #715d56;
       --line: #ead3c8;
       --relay: #c98a53;
+      --forge: #4d8f7f;
       --talk: #c9796e;
       --duet: #b95c76;
       --nerve: #df6a59;
@@ -145,7 +146,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -155,13 +156,14 @@
 
     .palette-strip span:nth-child(1) { background: var(--cv); }
     .palette-strip span:nth-child(2) { background: var(--paper); }
-    .palette-strip span:nth-child(3) { background: var(--ocean); }
-    .palette-strip span:nth-child(4) { background: var(--talk); }
-    .palette-strip span:nth-child(5) { background: var(--relay); }
-    .palette-strip span:nth-child(6) { background: var(--nerve); }
-    .palette-strip span:nth-child(7) { background: var(--duet); }
-    .palette-strip span:nth-child(8) { background: var(--violin); }
-    .palette-strip span:nth-child(9) { background: var(--yum); }
+    .palette-strip span:nth-child(3) { background: var(--forge); }
+    .palette-strip span:nth-child(4) { background: var(--ocean); }
+    .palette-strip span:nth-child(5) { background: var(--talk); }
+    .palette-strip span:nth-child(6) { background: var(--relay); }
+    .palette-strip span:nth-child(7) { background: var(--nerve); }
+    .palette-strip span:nth-child(8) { background: var(--duet); }
+    .palette-strip span:nth-child(9) { background: var(--violin); }
+    .palette-strip span:nth-child(10) { background: var(--yum); }
 
     .grid {
       display: grid;
@@ -267,6 +269,7 @@
     }
 
     .relay { --accent: var(--relay); }
+    .forge { --accent: var(--forge); }
     .talk { --accent: var(--talk); }
     .duet { --accent: var(--duet); }
     .nerve { --accent: var(--nerve); }
@@ -339,7 +342,7 @@
         <h1 class="site-label">Soft robotics, AI tools, and selected projects.</h1>
         <p class="intro">Research and prototypes by Alan Pham.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
       <div class="focus-panel" aria-label="Creative signals">
@@ -354,6 +357,20 @@
     </header>
 
     <section class="grid" aria-label="AO Labs links">
+      <a class="app forge" href="https://forge.aolabs.io" aria-label="Forge">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Forge</h2>
+              <div class="role">prototype memory</div>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/forge.svg" alt=""></span>
+          </div>
+          <p class="desc">A minimal board for research ideas, sketches, tests, decisions, and next steps.</p>
+        </div>
+        <div class="card-foot"><span class="url">forge.aolabs.io</span></div>
+      </a>
+
       <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
         <div>
           <div class="app-top">
