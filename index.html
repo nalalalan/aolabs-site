@@ -34,7 +34,6 @@
       --muted: #715d56;
       --line: #ead3c8;
       --relay: #c98a53;
-      --paper: #7d4f86;
       --fluxcell: #2faaa0;
       --talk: #c9796e;
       --duet: #b95c76;
@@ -114,7 +113,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -124,15 +123,14 @@
 
     .palette-strip span:nth-child(1) { background: var(--cv); }
     .palette-strip span:nth-child(2) { background: var(--sarrus); }
-    .palette-strip span:nth-child(3) { background: var(--paper); }
-    .palette-strip span:nth-child(4) { background: var(--fluxcell); }
-    .palette-strip span:nth-child(5) { background: var(--ocean); }
-    .palette-strip span:nth-child(6) { background: var(--talk); }
-    .palette-strip span:nth-child(7) { background: var(--relay); }
-    .palette-strip span:nth-child(8) { background: var(--nerve); }
-    .palette-strip span:nth-child(9) { background: var(--duet); }
-    .palette-strip span:nth-child(10) { background: var(--violin); }
-    .palette-strip span:nth-child(11) { background: var(--yum); }
+    .palette-strip span:nth-child(3) { background: var(--fluxcell); }
+    .palette-strip span:nth-child(4) { background: var(--ocean); }
+    .palette-strip span:nth-child(5) { background: var(--talk); }
+    .palette-strip span:nth-child(6) { background: var(--relay); }
+    .palette-strip span:nth-child(7) { background: var(--nerve); }
+    .palette-strip span:nth-child(8) { background: var(--duet); }
+    .palette-strip span:nth-child(9) { background: var(--violin); }
+    .palette-strip span:nth-child(10) { background: var(--yum); }
 
     .grid {
       display: grid;
@@ -238,7 +236,6 @@
     }
 
     .relay { --accent: var(--relay); }
-    .paper { --accent: var(--paper); }
     .fluxcell { --accent: var(--fluxcell); }
     .talk { --accent: var(--talk); }
     .duet { --accent: var(--duet); }
@@ -305,7 +302,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research, tools, and prototypes.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -330,27 +327,13 @@
           <div class="app-top">
             <div>
               <h2>Sarrus Materials</h2>
-              <div class="role">robotic materials</div>
+              <div class="role">project + papers</div>
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg" alt=""></span>
           </div>
-          <p class="desc">Programmable shape, stiffness, and motion from Sarrus-linkage-based cells.</p>
+          <p class="desc">Sarrus-linkage cells, visual evidence, manuscripts, and supplementary notes.</p>
         </div>
         <div class="card-foot"><span class="url">sarrus.aolabs.io</span></div>
-      </a>
-
-      <a class="app paper" href="https://sarrus.aolabs.io/#papers" aria-label="Sarrus paper on the Sarrus Materials page">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Paper</h2>
-              <div class="role">manuscript</div>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/paper.svg" alt=""></span>
-          </div>
-          <p class="desc">The Sarrus manuscript, drafts, and supplementary notes inside the project page.</p>
-        </div>
-        <div class="card-foot"><span class="url">sarrus.aolabs.io/#papers</span></div>
       </a>
 
       <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
