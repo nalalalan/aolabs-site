@@ -134,12 +134,13 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
     }
 
     .app {
       --accent: var(--relay);
+      grid-column: span 2;
       min-height: 168px;
       display: flex;
       flex-direction: column;
@@ -153,6 +154,13 @@
       box-shadow: var(--shadow);
       cursor: pointer;
       transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+    }
+
+    .app.featured {
+      grid-column: span 3;
+      min-height: clamp(390px, 52vh, 560px);
+      padding: 24px;
+      gap: 24px;
     }
 
     .app:hover {
@@ -184,11 +192,22 @@
       object-fit: cover;
     }
 
+    .app.featured .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      box-shadow: 0 18px 34px color-mix(in srgb, var(--accent) 24%, transparent);
+    }
+
     h2 {
       margin: 0;
       font-size: 29px;
       line-height: 1;
       letter-spacing: 0;
+    }
+
+    .app.featured h2 {
+      font-size: clamp(42px, 4.3vw, 64px);
     }
 
     .role {
@@ -200,11 +219,22 @@
       letter-spacing: 0;
     }
 
+    .app.featured .role {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
     .desc {
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.42;
+    }
+
+    .app.featured .desc {
+      max-width: 500px;
+      margin-top: 24px;
+      font-size: 19px;
     }
 
     .card-foot {
@@ -233,6 +263,10 @@
       font-size: 13px;
       font-weight: 700;
       overflow-wrap: anywhere;
+    }
+
+    .app.featured .url {
+      font-size: 16px;
     }
 
     .relay { --accent: var(--relay); }
@@ -266,6 +300,28 @@
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .app {
+        grid-column: span 1;
+      }
+
+      .app.featured {
+        min-height: 340px;
+      }
+
+      .app.featured .app-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 20px;
+      }
+
+      .app.featured h2 {
+        font-size: 40px;
+      }
+
+      .app.featured .desc {
+        font-size: 16px;
+      }
     }
 
     @media (max-width: 560px) {
@@ -289,7 +345,31 @@
       }
 
       .app {
+        grid-column: 1 / -1;
         min-height: 132px;
+      }
+
+      .app.featured {
+        min-height: min(430px, 72vh);
+        padding: 20px;
+      }
+
+      .app.featured .app-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+      }
+
+      .app.featured h2 {
+        font-size: 42px;
+      }
+
+      .app.featured .role {
+        font-size: 13px;
+      }
+
+      .app.featured .desc {
+        font-size: 16px;
       }
     }
   </style>
@@ -308,7 +388,7 @@
     </header>
 
     <section class="grid" aria-label="AO Labs links">
-      <a class="app fluxcell" href="https://fluxcell.aolabs.io" aria-label="FluxCell">
+      <a class="app fluxcell featured" href="https://fluxcell.aolabs.io" aria-label="FluxCell">
         <div>
           <div class="app-top">
             <div>
@@ -322,7 +402,7 @@
         <div class="card-foot"><span class="url">fluxcell.aolabs.io</span></div>
       </a>
 
-      <a class="app sarrus" href="https://sarrus.aolabs.io" aria-label="Sarrus">
+      <a class="app sarrus featured" href="https://sarrus.aolabs.io" aria-label="Sarrus">
         <div>
           <div class="app-top">
             <div>
