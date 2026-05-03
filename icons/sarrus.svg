@@ -1,7 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sarrus Materials">
-  <rect width="128" height="128" rx="28" fill="#fff0e8"/>
-  <path d="M23 83h82" stroke="#7d4f86" stroke-width="8" stroke-linecap="round"/>
-  <path d="M32 38h64v48H32z" fill="#fffaf6" stroke="#7d4f86" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M38 43l20 38M58 43L38 81M70 43l20 38M90 43L70 81" fill="none" stroke="#261712" stroke-width="5" stroke-linecap="round"/>
-  <path d="M28 88c12 15 60 15 72 0" fill="none" stroke="#2f9d98" stroke-width="7" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
+  <rect x="27" y="27" width="74" height="18" rx="7" fill="#fffaf6" stroke="#7d4f86" stroke-width="7"/>
+  <rect x="27" y="83" width="74" height="18" rx="7" fill="#fffaf6" stroke="#7d4f86" stroke-width="7"/>
+  <path d="M38 45 61 83M61 45 38 83M67 45l23 38M90 45 67 83" fill="none" stroke="#261712" stroke-width="8" stroke-linecap="round"/>
+  <path d="M36 36h56M36 92h56" stroke="#2f9d98" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="38" cy="45" r="6" fill="#f4bd52"/>
+  <circle cx="61" cy="83" r="6" fill="#f4bd52"/>
+  <circle cx="67" cy="45" r="6" fill="#f4bd52"/>
+  <circle cx="90" cy="83" r="6" fill="#f4bd52"/>
 </svg>

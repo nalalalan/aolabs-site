@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Relay">
-  <rect width="128" height="128" rx="30" fill="#ffd8c8"/>
-  <rect x="28" y="28" width="72" height="72" rx="18" fill="#fffaf6" stroke="#c98a53" stroke-width="7"/>
-  <path d="M45 78c13-18 24-7 39-31" fill="none" stroke="#c98a53" stroke-width="10" stroke-linecap="round"/>
-  <path d="M75 45h17v17" fill="none" stroke="#c98a53" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="45" cy="78" r="8" fill="#251713"/>
+  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
+  <path d="M23 32h50c7 0 12 5 12 12v16c0 7-5 12-12 12H51L34 84l4-12H23c-7 0-12-5-12-12V44c0-7 5-12 12-12Z" fill="#fffaf6" stroke="#c98a53" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="64" y="68" width="46" height="36" rx="10" fill="#fffaf6" stroke="#261712" stroke-width="7"/>
+  <path d="m77 86 9 8 15-18" fill="none" stroke="#2f9d98" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M39 52h30M48 73c8 0 14 2 20 7" stroke="#c98a53" stroke-width="7" stroke-linecap="round"/>
+  <path d="M78 58c13 0 19 5 19 14" fill="none" stroke="#c98a53" stroke-width="7" stroke-linecap="round"/>
 </svg>

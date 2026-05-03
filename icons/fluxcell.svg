@@ -1,8 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FluxCell">
-  <rect width="128" height="128" rx="22" fill="#090b0d"/>
-  <path d="M21 64c15-32 71-32 86 0M21 64c15 32 71 32 86 0" fill="none" stroke="#3ee7d6" stroke-width="7" stroke-linecap="round"/>
-  <path d="M32 46h26v36H32z" fill="#fffaf0"/>
-  <path d="M70 46h26v36H70z" fill="#ff5f52"/>
-  <path d="M58 40h12v48H58z" fill="#111820"/>
-  <circle cx="64" cy="64" r="12" fill="#f5ba45"/>
+  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
+  <path d="M22 66c13-26 71-26 84 0M22 66c13 26 71 26 84 0" fill="none" stroke="#2faaa0" stroke-width="8" stroke-linecap="round"/>
+  <path d="M33 34h25v37c0 8 6 14 14 14s14-6 14-14V34h25v39c0 22-16 38-39 38S33 95 33 73V34Z" fill="#261712"/>
+  <path d="M39 40h18v27H39z" fill="#2faaa0"/>
+  <path d="M87 40h18v27H87z" fill="#ef725f"/>
+  <circle cx="72" cy="75" r="16" fill="#f4bd52" stroke="#fffaf6" stroke-width="5"/>
+  <path d="m76 47-21 32h15l-17 28 34-39H70l6-21Z" fill="#fffaf6" stroke="#261712" stroke-width="4" stroke-linejoin="round"/>
 </svg>
