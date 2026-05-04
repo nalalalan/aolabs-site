@@ -41,6 +41,7 @@
       --ocean: #2f9d98;
       --violin: #8e5a2d;
       --yum: #a77b18;
+      --lily: #b95c76;
       --cv: #4f8290;
       --sarrus: #7d4f86;
       --shadow: 0 18px 42px rgba(72, 44, 34, .08);
@@ -113,7 +114,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -131,6 +132,7 @@
     .palette-strip span:nth-child(8) { background: var(--duet); }
     .palette-strip span:nth-child(9) { background: var(--violin); }
     .palette-strip span:nth-child(10) { background: var(--yum); }
+    .palette-strip span:nth-child(11) { background: var(--lily); }
 
     .grid {
       display: grid;
@@ -237,6 +239,7 @@
     .ocean { --accent: var(--ocean); }
     .violin { --accent: var(--violin); }
     .yum { --accent: var(--yum); }
+    .lily { --accent: var(--lily); }
     .cv { --accent: var(--cv); }
     .sarrus { --accent: var(--sarrus); }
 
@@ -303,7 +306,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research. Systems. Papers.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -437,6 +440,19 @@
           <p class="desc">Food media wall.</p>
         </div>
         <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
+      </a>
+
+      <a class="app lily" href="https://lily.aolabs.io" aria-label="Lily">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Lily</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg" alt=""></span>
+          </div>
+          <p class="desc">memory bank of Lily.</p>
+        </div>
+        <div class="card-foot"><span class="url">lily.aolabs.io</span></div>
       </a>
     </section>
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Lily">
+  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
+  <path d="M31 68c0-27 15-48 37-48s38 20 38 48c0 25-15 42-38 42S31 93 31 68Z" fill="#1d1013" stroke="#261712" stroke-width="7"/>
+  <path d="M42 66c0-17 10-30 26-30s26 13 26 30v16c0 15-10 26-26 26S42 97 42 82V66Z" fill="#f4ad8d" stroke="#261712" stroke-width="6"/>
+  <path d="M42 63c16-4 31-13 42-29 6 9 10 18 10 30-17-2-34-9-52-1Z" fill="#261712"/>
+  <circle cx="58" cy="76" r="5" fill="#261712"/>
+  <circle cx="79" cy="76" r="5" fill="#261712"/>
+  <path d="M60 93c6 4 13 4 19 0" fill="none" stroke="#b95c76" stroke-width="5" stroke-linecap="round"/>
+  <path d="M97 35c10 2 17 9 17 18-11 2-21-2-25-11 0 11-7 18-18 22-2-13 7-25 26-29Z" fill="#fffaf6" stroke="#7ea786" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M94 41c5 6 9 10 18 12M90 42c-2 8-7 15-16 20" stroke="#c9796e" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="101" r="12" fill="#f4bd52" stroke="#fffaf6" stroke-width="6"/>
+  <path d="M25 101h14M32 94v14" stroke="#fff8d8" stroke-width="3.6" stroke-linecap="round" opacity=".78"/>
+</svg>
