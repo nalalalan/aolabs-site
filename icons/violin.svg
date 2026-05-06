@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Violin">
-  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
-  <path d="M61 17h11v33H61z" fill="#8e5a2d" stroke="#261712" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M70 17c9-8 21 2 14 12-5 7-14 7-14 7" fill="none" stroke="#261712" stroke-width="7" stroke-linecap="round"/>
-  <path d="M66 44c14 0 21 11 14 23 15 1 27 13 24 30-3 20-25 25-38 8-13 17-35 12-38-8-3-17 9-29 24-30-7-12 0-23 14-23Z" fill="#c57935" stroke="#261712" stroke-width="7" stroke-linejoin="round"/>
-  <path d="M66 48v62M57 50v57M75 50v57" stroke="#fff1d8" stroke-width="4" stroke-linecap="round"/>
-  <path d="M50 80c-7 2-8 13-1 18M82 80c7 2 8 13 1 18" fill="none" stroke="#261712" stroke-width="5" stroke-linecap="round"/>
-  <path d="M50 73h32" stroke="#f4bd52" stroke-width="8" stroke-linecap="round"/>
-  <path d="M103 23 34 109" stroke="#fffaf6" stroke-width="6" stroke-linecap="round"/>
-  <path d="M108 18 39 104" stroke="#8e5a2d" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Violin icon">
+  <rect width="128" height="128" rx="18" fill="#141419"/>
+
+  <path d="M61 17h11v32" fill="none" stroke="#f7f8f5" stroke-width="8" stroke-linecap="round"/>
+  <path d="M71 18c9-8 21 2 14 12-5 7-14 7-14 7" fill="none" stroke="#f3c969" stroke-width="7" stroke-linecap="round"/>
+  <path d="M66 44c14 0 21 11 14 23 15 1 27 13 24 30-3 20-25 25-38 8-13 17-35 12-38-8-3-17 9-29 24-30-7-12 0-23 14-23Z" fill="#f3c969" stroke="#f7f8f5" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M66 50v58M57 53v52M75 53v52" stroke="#0f1016" stroke-width="4" stroke-linecap="round" opacity=".72"/>
+  <path d="M50 74h32" stroke="#ff907d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M103 22 35 108" stroke="#f7f8f5" stroke-width="6" stroke-linecap="round"/>
+  <path d="M109 18 41 104" stroke="#f3c969" stroke-width="4" stroke-linecap="round"/>
 </svg>

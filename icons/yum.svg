@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Yum">
-  <rect width="128" height="128" rx="28" fill="#ffd8c8"/>
-  <rect x="23" y="23" width="34" height="28" rx="7" fill="#fffaf6" stroke="#261712" stroke-width="6"/>
-  <rect x="71" y="23" width="34" height="28" rx="7" fill="#fffaf6" stroke="#261712" stroke-width="6"/>
-  <circle cx="40" cy="37" r="8" fill="#ef725f"/>
-  <path d="M80 39h16" stroke="#a77b18" stroke-width="6" stroke-linecap="round"/>
-  <ellipse cx="64" cy="82" rx="43" ry="25" fill="#fffaf6" stroke="#261712" stroke-width="7"/>
-  <ellipse cx="64" cy="77" rx="32" ry="14" fill="#f2d49d"/>
-  <path d="M41 75c12 8 30 10 48 2" fill="none" stroke="#ef725f" stroke-width="10" stroke-linecap="round"/>
-  <path d="M46 65c12 7 28 8 45 2" fill="none" stroke="#f4bd52" stroke-width="6" stroke-linecap="round"/>
-  <path d="M97 35 49 99M107 42 61 102" stroke="#fffaf6" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="99" cy="96" r="12" fill="#2caa73" stroke="#fffaf6" stroke-width="5"/>
-  <path d="M93 96h12M99 90v12" stroke="#d7ffe9" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Yum icon">
+  <rect width="128" height="128" rx="18" fill="#141419"/>
+
+  <rect x="25" y="24" width="32" height="27" rx="7" fill="none" stroke="#f7f8f5" stroke-width="7"/>
+  <rect x="72" y="24" width="32" height="27" rx="7" fill="none" stroke="#f7f8f5" stroke-width="7"/>
+  <circle cx="41" cy="38" r="8" fill="#ff907d"/>
+  <path d="M81 39h15" stroke="#f3c969" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="64" cy="83" rx="43" ry="24" fill="none" stroke="#f7f8f5" stroke-width="8"/>
+  <path d="M41 76c12 8 30 10 48 2" fill="none" stroke="#ff907d" stroke-width="9" stroke-linecap="round"/>
+  <path d="M46 66c12 7 28 8 45 2" fill="none" stroke="#f3c969" stroke-width="6" stroke-linecap="round"/>
+  <path d="M98 35 50 99M108 42 62 102" stroke="#f7f8f5" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="100" cy="96" r="12" fill="#59c5b8" stroke="#141419" stroke-width="4"/>
+  <path d="M94 96h12M100 90v12" stroke="#f7f8f5" stroke-width="4" stroke-linecap="round"/>
 </svg>
