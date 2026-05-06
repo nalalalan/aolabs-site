@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="AO Labs icon">
-  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <rect width="128" height="128" rx="26" fill="#0c0d12"/>
   <style>
-    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
-    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+    .w { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 950; fill: #f7f5ef; }
+    .r { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 950; fill: #d76d86; }
   </style>
-  <text x="48" y="88" text-anchor="middle" font-size="70" class="a" >A</text>
-  <circle cx="88" cy="64" r="24" fill="none" stroke="#f7f1ed" stroke-width="9"/>
-  <circle cx="99" cy="54" r="5" fill="#e4aeb9"/>
+  <text x="47" y="89" text-anchor="middle" font-size="72" class="r" >A</text>
+  <circle cx="89" cy="64" r="24" fill="none" stroke="#f7f5ef" stroke-width="9"/>
+  <circle cx="101" cy="54" r="5.5" fill="#d76d86"/>
+  <path d="M74 92h31" fill="none" stroke="#687080" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

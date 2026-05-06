@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Violin icon">
-  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <rect width="128" height="128" rx="26" fill="#0c0d12"/>
   <style>
-    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
-    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+    .w { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 950; fill: #f7f5ef; }
+    .r { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 950; fill: #d76d86; }
   </style>
-  <text x="54" y="88" text-anchor="middle" font-size="74" class="m" >V</text>
-  <path d="M78 26 78 96" stroke="#d6b45f" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="95" cy="38" r="6" fill="#f7f1ed"/>
-  <circle cx="95" cy="76" r="6" fill="#f7f1ed"/>
+  <text x="53" y="88" text-anchor="middle" font-size="76" class="w" >V</text>
+  <rect x="76" y="25" width="6" height="78" rx="3" fill="#e6b33a"/>
+  <circle cx="96" cy="38" r="5.5" fill="#f7f5ef"/>
+  <circle cx="96" cy="75" r="5.5" fill="#f7f5ef"/>
 </svg>
