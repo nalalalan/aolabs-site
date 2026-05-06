@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wallguard icon">
-  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
-  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
-  <g>
-    <path d="M64 20l36 13v27c0 24-15 42-36 49-21-7-36-25-36-49V33z" fill="#fffaf0" stroke="#5f3f4b" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M43 46h42c7 0 12 5 12 12v17c0 7-5 12-12 12H63l-16 12 4-12h-8c-7 0-12-5-12-12V58c0-7 5-12 12-12z" fill="#8d6773"/>
-    <circle cx="51" cy="66" r="5" fill="#fffaf0"/>
-    <circle cx="64" cy="66" r="5" fill="#fffaf0"/>
-    <circle cx="77" cy="66" r="5" fill="#fffaf0"/>
-    <path d="M45 35c8-8 30-8 38 0" fill="none" stroke="#6f8a72" stroke-width="7" stroke-linecap="round"/>
-    <path d="M47 99c11 8 23 8 34 0" fill="none" stroke="#27211d" stroke-width="7" stroke-linecap="round"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wallguard icon"><defs><filter id="depth" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="5" flood-color="#2b2118" flood-opacity=".22"/></filter><linearGradient id="soft" x1="18" x2="110" y1="18" y2="112" gradientUnits="userSpaceOnUse"><stop stop-color="#fffaf2"/><stop offset="1" stop-color="#e5d8ca"/></linearGradient><linearGradient id="warm" x1="20" x2="108" y1="20" y2="108" gradientUnits="userSpaceOnUse"><stop stop-color="#ddaaa2"/><stop offset="1" stop-color="#ad715e"/></linearGradient><linearGradient id="cool" x1="20" x2="108" y1="20" y2="108" gradientUnits="userSpaceOnUse"><stop stop-color="#7fa9a2"/><stop offset="1" stop-color="#456f77"/></linearGradient></defs><g filter="url(#depth)"><path d="M64 13 104 29v34c0 27-17 45-40 53-23-8-40-26-40-53V29z" fill="#80596a"/><path d="M64 22 94 34v29c0 20-11 34-30 42-19-8-30-22-30-42V34z" fill="#fff7ea" opacity=".95"/><path d="M40 46h48c8 0 14 6 14 14v14c0 8-6 14-14 14H59l-16 11 4-11h-7c-8 0-14-6-14-14V60c0-8 6-14 14-14z" fill="#80596a"/><path d="M43 34 64 25l21 9" fill="none" stroke="#68866a" stroke-width="7" stroke-linecap="round"/><circle cx="51" cy="68" r="5" fill="#fff7ea"/><circle cx="64" cy="68" r="5" fill="#fff7ea"/><circle cx="77" cy="68" r="5" fill="#fff7ea"/><path d="M45 93c12 10 27 11 39 0" stroke="#241f1b" stroke-width="6" stroke-linecap="round" fill="none"/></g></svg>
