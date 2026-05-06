@@ -1,35 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Forge icon">
-  <defs>
-    <radialGradient id="tile" cx="70%" cy="12%" r="94%">
-      <stop offset="0" stop-color="#222736"/>
-      <stop offset="0.42" stop-color="#10131b"/>
-      <stop offset="1" stop-color="#040509"/>
-    </radialGradient>
-    <linearGradient id="ivory" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff8ea"/>
-      <stop offset="0.6" stop-color="#e2dbcf"/>
-      <stop offset="1" stop-color="#949bad"/>
-    </linearGradient>
-    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#d84d6b"/>
-      <stop offset="0.5" stop-color="#ee8d64"/>
-      <stop offset="1" stop-color="#e9c268"/>
-    </linearGradient>
-    <linearGradient id="aqua" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#9cf5ec"/>
-      <stop offset="1" stop-color="#13b7af"/>
-    </linearGradient>
-    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#c4c7ff"/>
-      <stop offset="1" stop-color="#7187ff"/>
-    </linearGradient>
-    <filter id="shade" x="-25%" y="-25%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000" flood-opacity=".34"/>
-    </filter>
-  </defs>
-  <rect width="128" height="128" rx="18" fill="url(#tile)"/>
-  <path d="M16 18c22-6 72-7 96 3v89c-23 6-76 6-96-2Z" fill="#090b11" opacity=".18"/>
-    <path d="M30 33h70v11H72v46H56V44H30Z" fill="url(#ivory)" filter="url(#shade)"/>
-    <path d="M45 76h38v12H45Z" fill="url(#warm)" />
-    <path d="M86 79 108 101" fill="none" stroke="url(#aqua)" stroke-width="6" stroke-linecap="butt" stroke-linejoin="miter" />
+  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
+  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
+  <g><g transform="rotate(-3 64 64)"><path d="M40 75h50l13 18H26z" fill="#2b2520"/><rect x="44" y="58" width="41" height="19" rx="5" fill="#8a6847"/><path d="M64 23c18 19 8 30 19 43-18 0-39-8-19-43z" fill="#b87966"/><path d="M64 42c9 9 4 15 10 24-9-1-21-5-10-24z" fill="#b99a60"/></g></g>
 </svg>
