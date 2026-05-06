@@ -45,6 +45,7 @@
       --cv: #68758f;
       --sarrus: #8da18d;
       --imagineer: #68758f;
+      --wallguard: #8d6773;
       --shadow: 0 18px 40px rgba(56, 44, 34, .09);
     }
 
@@ -115,7 +116,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .75fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .78fr .75fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 18px;
       overflow: hidden;
@@ -135,6 +136,7 @@
     .palette-strip span:nth-child(10) { background: var(--yum); }
     .palette-strip span:nth-child(11) { background: var(--lily); }
     .palette-strip span:nth-child(12) { background: var(--imagineer); }
+    .palette-strip span:nth-child(13) { background: var(--wallguard); }
 
     .grid {
       display: grid;
@@ -248,6 +250,7 @@
     .cv { --accent: var(--cv); }
     .sarrus { --accent: var(--sarrus); }
     .imagineer { --accent: var(--imagineer); }
+    .wallguard { --accent: var(--wallguard); }
 
     footer {
       display: flex;
@@ -312,7 +315,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research. Systems. Papers.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -355,6 +358,19 @@
           <p class="desc">Call notes into clean follow-up, CRM summaries, and revenue signal.</p>
         </div>
         <div class="card-foot"><span class="url">relay.aolabs.io</span></div>
+      </a>
+
+      <a class="app wallguard" href="https://wallguard.aolabs.io" aria-label="Wallguard">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Wallguard</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260506-wallguard-tile" alt=""></span>
+          </div>
+          <p class="desc">Messenger group-state guard for wallpaper, name, and picture restore.</p>
+        </div>
+        <div class="card-foot"><span class="url">wallguard.aolabs.io</span></div>
       </a>
 
       <a class="app cv" href="https://cv.aolabs.io" aria-label="Alan Nguyen Pham CV">

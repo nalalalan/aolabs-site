@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wallguard icon">
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g>
+    <path d="M64 20l36 13v27c0 24-15 42-36 49-21-7-36-25-36-49V33z" fill="#fffaf0" stroke="#5f3f4b" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M43 46h42c7 0 12 5 12 12v17c0 7-5 12-12 12H63l-16 12 4-12h-8c-7 0-12-5-12-12V58c0-7 5-12 12-12z" fill="#8d6773"/>
+    <circle cx="51" cy="66" r="5" fill="#fffaf0"/>
+    <circle cx="64" cy="66" r="5" fill="#fffaf0"/>
+    <circle cx="77" cy="66" r="5" fill="#fffaf0"/>
+    <path d="M45 35c8-8 30-8 38 0" fill="none" stroke="#6f8a72" stroke-width="7" stroke-linecap="round"/>
+    <path d="M47 99c11 8 23 8 34 0" fill="none" stroke="#27211d" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>
