@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="CV icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <path d="M36 19h42l18 18v72H36V19Z" fill="none" stroke="#f7f8f5" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M78 20v18h18" fill="none" stroke="#5e6672" stroke-width="7" stroke-linejoin="round"/>
-  <circle cx="57" cy="55" r="10" fill="#59c5b8"/>
-  <path d="M43 78c8-13 21-13 29 0" fill="none" stroke="#59c5b8" stroke-width="7" stroke-linecap="round"/>
-  <path d="M79 57h9M79 72h9M48 93h34" stroke="#f7f8f5" stroke-width="7" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="50" y="87" text-anchor="middle" font-size="62" class="m" >C</text>
+  <text x="82" y="87" text-anchor="middle" font-size="62" class="m" fill="#91d0c7">V</text>
+  <path d="M34 96 93 96" stroke="#787f8e" stroke-width="5" stroke-linecap="round"/>
 </svg>

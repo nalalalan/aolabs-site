@@ -1,8 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Paper icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <path d="M28 27h56l18 18v56H28V27Z" fill="none" stroke="#f7f8f5" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M84 28v18h18" fill="none" stroke="#5e6672" stroke-width="7" stroke-linejoin="round"/>
-  <path d="M41 58h47M41 73h38M41 88h30" stroke="#f7f8f5" stroke-width="7" stroke-linecap="round"/>
-  <path d="M39 102c7-15 17-20 29-13 10 6 18 4 26-9" fill="none" stroke="#59c5b8" stroke-width="8" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="54" y="88" text-anchor="middle" font-size="72" class="m" >P</text>
+  <path d="M71 50 101 50" stroke="#787f8e" stroke-width="6" stroke-linecap="round"/>
+  <path d="M71 66 94 66" stroke="#787f8e" stroke-width="6" stroke-linecap="round"/>
+  <path d="M60 98c16-14 31-14 47 0" fill="none" stroke="#91d0c7" stroke-width="7" stroke-linecap="round"/>
 </svg>

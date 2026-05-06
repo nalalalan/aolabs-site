@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Nerve icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <path d="M23 30h72c10 0 18 8 18 18v32c0 10-8 18-18 18H69l-22 15 6-15H23c-10 0-18-8-18-18V48c0-10 8-18 18-18Z" fill="none" stroke="#f7f8f5" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M24 66h17l9-21 15 43 12-29h25" fill="none" stroke="#ff907d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="94" cy="45" r="7" fill="#f3c969"/>
-  <path d="M91 45h6" stroke="#0f1016" stroke-width="4" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="52" y="88" text-anchor="middle" font-size="70" class="m" >N</text>
+  <path d="M72 72h12l8-20 12 34 8-14h10" fill="none" stroke="#d98f86" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="105" cy="42" r="5" fill="#d6b45f"/>
 </svg>

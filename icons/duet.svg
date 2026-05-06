@@ -1,11 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Duet icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <path d="M23 32h36c8 0 14 6 14 14v22c0 8-6 14-14 14H43L25 95l5-13h-7c-8 0-14-6-14-14V46c0-8 6-14 14-14Z" fill="none" stroke="#d9789b" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M70 46h36c8 0 14 6 14 14v22c0 8-6 14-14 14h-8l5 13-18-13H70c-8 0-14-6-14-14V60c0-8 6-14 14-14Z" fill="#141419" stroke="#f7f8f5" stroke-width="8" stroke-linejoin="round"/>
-  <circle cx="41" cy="55" r="8" fill="#d9789b"/>
-  <path d="M29 72c8-12 17-12 25 0" fill="none" stroke="#d9789b" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="88" cy="69" r="8" fill="#f7f8f5"/>
-  <path d="M76 86c8-12 17-12 25 0" fill="none" stroke="#f7f8f5" stroke-width="6" stroke-linecap="round"/>
-  <path d="M64 51c6-10 22-10 28 0" fill="none" stroke="#f3c969" stroke-width="7" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="53" y="88" text-anchor="middle" font-size="68" class="m" >D</text>
+  <text x="78" y="88" text-anchor="middle" font-size="68" class="m" fill="none" stroke="#e4aeb9" stroke-width="3">D</text>
+  <circle cx="91" cy="45" r="5" fill="#d6b45f"/>
 </svg>

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="AO Labs icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <path d="M24 91 43 36h13l19 55" fill="none" stroke="#f7f8f5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M35 72h29" stroke="#f7f8f5" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="89" cy="65" r="23" fill="none" stroke="#f7f8f5" stroke-width="9"/>
-  <path d="M71 51c13-16 37-9 42 8" fill="none" stroke="#59c5b8" stroke-width="7" stroke-linecap="round"/>
-  <path d="M108 78c-12 17-36 14-42-5" fill="none" stroke="#d9789b" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="89" cy="65" r="4" fill="#f3c969"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="48" y="88" text-anchor="middle" font-size="70" class="a" >A</text>
+  <circle cx="88" cy="64" r="24" fill="none" stroke="#f7f1ed" stroke-width="9"/>
+  <circle cx="99" cy="54" r="5" fill="#e4aeb9"/>
 </svg>

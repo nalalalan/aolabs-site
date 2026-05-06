@@ -1,14 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Yum icon">
-  <rect width="128" height="128" rx="18" fill="#141419"/>
-
-  <rect x="25" y="24" width="32" height="27" rx="7" fill="none" stroke="#f7f8f5" stroke-width="7"/>
-  <rect x="72" y="24" width="32" height="27" rx="7" fill="none" stroke="#f7f8f5" stroke-width="7"/>
-  <circle cx="41" cy="38" r="8" fill="#ff907d"/>
-  <path d="M81 39h15" stroke="#f3c969" stroke-width="6" stroke-linecap="round"/>
-  <ellipse cx="64" cy="83" rx="43" ry="24" fill="none" stroke="#f7f8f5" stroke-width="8"/>
-  <path d="M41 76c12 8 30 10 48 2" fill="none" stroke="#ff907d" stroke-width="9" stroke-linecap="round"/>
-  <path d="M46 66c12 7 28 8 45 2" fill="none" stroke="#f3c969" stroke-width="6" stroke-linecap="round"/>
-  <path d="M98 35 50 99M108 42 62 102" stroke="#f7f8f5" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="100" cy="96" r="12" fill="#59c5b8" stroke="#141419" stroke-width="4"/>
-  <path d="M94 96h12M100 90v12" stroke="#f7f8f5" stroke-width="4" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="26" fill="#141419"/>
+  <style>
+    .m { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #f7f1ed; }
+    .a { font-family: Inter, Arial, Helvetica, sans-serif; font-weight: 900; fill: #e4aeb9; }
+  </style>
+  <text x="56" y="88" text-anchor="middle" font-size="74" class="m" >Y</text>
+  <path d="M78 80c13-4 25-12 35-24" fill="none" stroke="#d98f86" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="96" cy="91" r="7" fill="#91d0c7"/>
 </svg>
