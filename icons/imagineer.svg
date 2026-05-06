@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Imagineer icon">
+  <rect width="128" height="128" rx="24" fill="#fff5ec"/>
+  <path d="M20 82c12-26 30-39 53-39 14 0 26 5 35 14" fill="none" stroke="#bb5a3f" stroke-width="11" stroke-linecap="round"/>
+  <path d="M23 89h82" fill="none" stroke="#261712" stroke-width="9" stroke-linecap="round"/>
+  <path d="M37 72c8 0 8-12 16-12s8 12 16 12 8-12 16-12 8 12 16 12" fill="none" stroke="#2f8f82" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="39" cy="42" r="9" fill="#f0b84b"/>
+  <path d="M82 27l5 11 12 2-9 8 2 12-10-6-11 6 3-12-9-8 12-2z" fill="#7d4f86"/>
+</svg>
