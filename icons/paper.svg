@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Paper icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(2 64 64)"><path d="M34 22h45l18 18v66H34z" fill="#fffaf2"/><path d="M79 22v19h18z" fill="#d9cec0"/><rect x="44" y="52" width="43" height="8" rx="4" fill="#68758f"/><rect x="44" y="68" width="35" height="7" rx="3.5" fill="#8da18d"/><rect x="44" y="83" width="46" height="7" rx="3.5" fill="#b87966"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(2 64 64)"><path d="M34 20h45l19 19v68H34z" fill="#fffaf0" stroke="#cbbba8" stroke-width="3"/><path d="M79 20v20h19z" fill="#d9cec0"/><rect x="44" y="52" width="43" height="8" rx="4" fill="#556580"/><rect x="44" y="68" width="35" height="7" rx="3.5" fill="#6f8a72"/><rect x="44" y="83" width="46" height="7" rx="3.5" fill="#a96352"/></g>
 </svg>

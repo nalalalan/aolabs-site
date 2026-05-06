@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Talk icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="translate(0 1)"><path d="M30 36h45c8 0 13 5 13 12v23c0 7-5 12-13 12H50L31 99l5-16h-6c-8 0-13-5-13-12V48c0-7 5-12 13-12z" fill="#8a6847"/><path d="M65 55h32c7 0 12 5 12 11v18c0 7-5 11-12 11H82l-13 11 3-11h-7c-7 0-12-4-12-11V66c0-6 5-11 12-11z" fill="#fffaf2"/><circle cx="42" cy="61" r="6" fill="#f5efe6"/><circle cx="61" cy="61" r="6" fill="#f5efe6"/><rect x="75" y="70" width="22" height="7" rx="3.5" fill="#b87966"/><rect x="75" y="83" width="17" height="6" rx="3" fill="#8da18d"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="translate(0 1)"><path d="M27 34h49c9 0 14 6 14 13v24c0 8-5 13-14 13H51l-22 17 5-17h-7c-9 0-14-5-14-13V47c0-7 5-13 14-13z" fill="#755338"/><path d="M64 55h35c8 0 13 5 13 12v18c0 7-5 12-13 12H83l-15 12 4-12h-8c-8 0-13-5-13-12V67c0-7 5-12 13-12z" fill="#fffaf0" stroke="#cbbba8" stroke-width="3"/><circle cx="42" cy="60" r="6" fill="#fffaf0"/><circle cx="62" cy="60" r="6" fill="#fffaf0"/><rect x="75" y="70" width="24" height="7" rx="3.5" fill="#a96352"/><rect x="75" y="84" width="18" height="6" rx="3" fill="#6f8a72"/></g>
 </svg>

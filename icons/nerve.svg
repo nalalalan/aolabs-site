@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Nerve icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="translate(1 0)"><rect x="24" y="36" width="80" height="56" rx="13" fill="#fffaf2"/><path d="M34 68h18l10-19 14 35 10-22h17" fill="none" stroke="#b87966" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="98" cy="45" r="7" fill="#b99a60"/><path d="M29 96l-9 15 25-17" fill="#2b2520"/><rect x="24" y="36" width="80" height="56" rx="13" fill="none" stroke="#2b2520" stroke-width="6"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="translate(0 0)"><rect x="22" y="34" width="84" height="58" rx="13" fill="#fffaf0" stroke="#27211d" stroke-width="6"/><path d="M33 68h18l11-21 15 37 10-23h18" fill="none" stroke="#a96352" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="45" r="7" fill="#a88443"/><path d="M30 94l-10 16 27-18" fill="#27211d"/></g>
 </svg>

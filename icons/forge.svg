@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Forge icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(-3 64 64)"><path d="M40 75h50l13 18H26z" fill="#2b2520"/><rect x="44" y="58" width="41" height="19" rx="5" fill="#8a6847"/><path d="M64 23c18 19 8 30 19 43-18 0-39-8-19-43z" fill="#b87966"/><path d="M64 42c9 9 4 15 10 24-9-1-21-5-10-24z" fill="#b99a60"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(-3 64 64)"><path d="M40 75h50l13 18H26z" fill="#27211d"/><rect x="44" y="58" width="41" height="19" rx="5" fill="#755338"/><path d="M64 23c18 19 8 30 19 43-18 0-39-8-19-43z" fill="#a96352"/><path d="M64 42c9 9 4 15 10 24-9-1-21-5-10-24z" fill="#a88443"/></g>
 </svg>

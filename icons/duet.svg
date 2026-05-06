@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Duet icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(3 64 64)"><path d="M26 40h42c7 0 12 5 12 12v25c0 7-5 12-12 12H49L32 102l4-13H26c-7 0-12-5-12-12V52c0-7 5-12 12-12z" fill="#c99598"/><path d="M61 34h42c7 0 12 5 12 12v27c0 7-5 12-12 12H88l-18 15 4-15H61c-7 0-12-5-12-12V46c0-7 5-12 12-12z" fill="#fffaf2"/><circle cx="45" cy="64" r="8" fill="#f5efe6"/><circle cx="82" cy="61" r="8" fill="#b99a60"/><path d="M77 75c11-11 24-10 32 3" fill="none" stroke="#2b2520" stroke-width="7" stroke-linecap="round"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(3 64 64)"><path d="M25 39h43c8 0 13 5 13 13v25c0 8-5 13-13 13H49l-18 13 4-13H25c-8 0-13-5-13-13V52c0-8 5-13 13-13z" fill="#bf858a"/><path d="M61 32h43c8 0 13 6 13 13v28c0 8-5 13-13 13H89l-19 16 4-16H61c-8 0-13-5-13-13V45c0-7 5-13 13-13z" fill="#fffaf0" stroke="#cbbba8" stroke-width="3"/><circle cx="45" cy="64" r="8" fill="#fffaf0"/><circle cx="82" cy="61" r="8" fill="#a88443"/><path d="M76 76c11-12 25-10 34 3" fill="none" stroke="#27211d" stroke-width="7" stroke-linecap="round"/></g>
 </svg>

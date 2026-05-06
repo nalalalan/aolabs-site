@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Yum icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(-4 64 64)"><ellipse cx="62" cy="76" rx="42" ry="24" fill="#fffaf2"/><path d="M25 74c13 20 59 23 78 1-8 25-72 29-78-1z" fill="#b99a60"/><ellipse cx="62" cy="70" rx="31" ry="13" fill="#b87966"/><circle cx="44" cy="66" r="7" fill="#8da18d"/><circle cx="65" cy="68" r="6" fill="#f5efe6"/><rect x="80" y="25" width="8" height="73" rx="4" fill="#2b2520" transform="rotate(33 84 61)"/><rect x="95" y="30" width="7" height="70" rx="3.5" fill="#8a6847" transform="rotate(37 98 65)"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(-4 64 64)"><ellipse cx="62" cy="76" rx="43" ry="25" fill="#fffaf0" stroke="#cbbba8" stroke-width="3"/><path d="M25 74c13 21 60 24 78 1-8 26-73 30-78-1z" fill="#a88443"/><ellipse cx="62" cy="70" rx="31" ry="14" fill="#a96352"/><circle cx="44" cy="66" r="7" fill="#6f8a72"/><circle cx="65" cy="68" r="6" fill="#fffaf0"/><rect x="80" y="24" width="8" height="75" rx="4" fill="#27211d" transform="rotate(33 84 61)"/><rect x="96" y="28" width="7" height="72" rx="3.5" fill="#755338" transform="rotate(37 99 64)"/></g>
 </svg>

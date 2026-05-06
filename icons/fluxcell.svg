@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FluxCell icon">
-  <rect width="128" height="128" rx="20" fill="#f5efe6"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(-2 64 64)"><rect x="26" y="34" width="30" height="60" rx="5" fill="#6e9c98"/><rect x="72" y="31" width="30" height="64" rx="5" fill="#b87966"/><path d="M57 42l19 22-19 22-19-22z" fill="#2b2520"/><path d="M62 49l-7 13h13l-9 19 21-26H66l6-14z" fill="#b99a60"/><rect x="34" y="44" width="14" height="38" rx="3" fill="#f5efe6" opacity=".82"/><rect x="81" y="43" width="12" height="40" rx="3" fill="#f5efe6" opacity=".82"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#e6dacb"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(-2 64 64)"><rect x="22" y="31" width="32" height="66" rx="6" fill="#4f8582"/><rect x="77" y="29" width="32" height="68" rx="6" fill="#a96352"/><rect x="31" y="45" width="13" height="38" rx="3" fill="#fffaf0"/><rect x="86" y="43" width="13" height="42" rx="3" fill="#fffaf0"/><path d="M58 37l24 28-24 28-24-28z" fill="#27211d"/><path d="M62 48l-7 15h15L59 84l25-31H69l6-16z" fill="#a88443"/></g>
 </svg>

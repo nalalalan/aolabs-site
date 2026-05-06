@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Alan Pham / AO Labs icon">
-  <rect width="128" height="128" rx="20" fill="#f3ded8"/>
-  <rect x="7" y="7" width="114" height="114" rx="15" fill="none" stroke="#d8cab8" stroke-width="1.2" opacity=".88"/>
-  <g><g transform="rotate(-5 64 64)"><rect x="31" y="37" width="24" height="56" rx="5" fill="#b87966"/><path d="M39 37h25l18 56H60l-4-15H35l-5 15H17z" fill="#c99598"/><circle cx="79" cy="65" r="25" fill="#2b2520"/><circle cx="84" cy="61" r="17" fill="#f3ded8"/><circle cx="104" cy="42" r="8" fill="#b87966"/></g></g>
+  <rect width="128" height="128" rx="20" fill="#ead1cc"/>
+  <rect x="8" y="8" width="112" height="112" rx="15" fill="none" stroke="#cbbba8" stroke-width="2" opacity=".95"/>
+  <g transform="rotate(-4 64 64)"><path d="M39 36h24l20 58H63l-4-14H37l-5 14H13z" fill="#bf858a"/><rect x="33" y="39" width="18" height="45" rx="4" fill="#a96352"/><circle cx="80" cy="65" r="27" fill="#27211d"/><circle cx="86" cy="61" r="17" fill="#ead1cc"/><circle cx="103" cy="42" r="8" fill="#a96352"/></g>
 </svg>
