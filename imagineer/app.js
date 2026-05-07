@@ -229,8 +229,8 @@ function removeDanglingNextMove(value) {
 function clean(value) {
   let text = String(value || "--").replaceAll("_", " ");
   const replacements = [
-    ["Sarrus mechanism proof", "Sarrus mechanism"],
-    ["mechanism proof", "mechanism record"],
+    ["Sarrus mechanism proof", "Sarrus record"],
+    ["mechanism proof", "mechanical record"],
     ["proof packet", "profile"],
     ["Proof packet", "Profile"],
     ["evidence packet", "profile"],
