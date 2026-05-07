@@ -11,8 +11,8 @@
   <meta property="og:title" content="Alan Pham / AO Labs">
   <meta property="og:description" content="A compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <meta property="og:url" content="https://aolabs.io/">
-  <meta property="og:image" content="https://aolabs.io/og-image-20260506-meaning.png">
-  <meta property="og:image:secure_url" content="https://aolabs.io/og-image-20260506-meaning.png">
+  <meta property="og:image" content="https://aolabs.io/og-image-20260507-polish.png">
+  <meta property="og:image:secure_url" content="https://aolabs.io/og-image-20260507-polish.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,33 +20,34 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Alan Pham / AO Labs">
   <meta name="twitter:description" content="A compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
-  <meta name="twitter:image" content="https://aolabs.io/og-image-20260506-meaning.png">
+  <meta name="twitter:image" content="https://aolabs.io/og-image-20260507-polish.png">
   <meta name="twitter:image:alt" content="AO Labs preview card with the latest app logos.">
-  <link rel="icon" href="/favicon.svg?v=20260506-meaning" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260506-meaning">
-  <meta name="msapplication-TileColor" content="#d8ccc0">
+  <link rel="icon" href="/favicon.svg?v=20260507-polish" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260507-polish">
+  <meta name="msapplication-TileColor" content="#e7b7b1">
   <style>
     :root {
       color-scheme: light;
-      --bg: #ebe3d8;
-      --panel: #fbf8f2;
-      --ink: #2b2520;
+      --bg: #eee7dd;
+      --panel: #fffdf8;
+      --panel-2: #f8f3eb;
+      --ink: #29231f;
       --muted: #6d6258;
-      --line: #d9cbbb;
+      --line: rgba(104, 87, 68, .22);
       --relay: #b87966;
-      --fluxcell: #6e9c98;
-      --talk: #8a6847;
-      --duet: #c99598;
-      --nerve: #b99a60;
-      --ocean: #5f8389;
-      --violin: #8a6847;
-      --yum: #b99a60;
-      --lily: #c99598;
+      --fluxcell: #648f89;
+      --talk: #8c704d;
+      --duet: #c28b98;
+      --nerve: #b98259;
+      --ocean: #527d83;
+      --violin: #a8783c;
+      --yum: #bb8854;
+      --lily: #c28b98;
       --cv: #68758f;
-      --sarrus: #8da18d;
-      --imagineer: #68758f;
-      --wallguard: #8d6773;
-      --shadow: 0 18px 40px rgba(56, 44, 34, .09);
+      --sarrus: #81977f;
+      --imagineer: #66799f;
+      --wallguard: #5e79ad;
+      --shadow: 0 18px 34px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .72);
     }
 
     * {
@@ -56,7 +57,9 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(180deg, #e7ddd1 0%, #f2ece4 46%, #fbf8f2 100%);
+      background:
+        radial-gradient(circle at 50% -12%, rgba(231, 183, 177, .22), transparent 42%),
+        linear-gradient(180deg, #e8ded2 0%, #f3eee6 48%, #fbf8f2 100%);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -67,9 +70,9 @@
 
     .shell {
       width: calc(100% - 32px);
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 34px 0 42px;
+      padding: 36px 0 42px;
     }
 
     .masthead {
@@ -118,7 +121,7 @@
       display: grid;
       grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .78fr .75fr .75fr .75fr .75fr .75fr;
       height: 8px;
-      margin-top: 18px;
+      margin-top: 20px;
       overflow: hidden;
       border-radius: 999px;
       box-shadow: inset 0 0 0 1px rgba(43, 37, 32, .10);
@@ -141,48 +144,67 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 14px;
+      gap: 15px;
     }
 
     .app {
       --accent: var(--relay);
       grid-column: span 2;
-      min-height: 162px;
+      position: relative;
+      min-height: 156px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 11px;
-      padding: 14px;
+      gap: 10px;
+      padding: 17px 17px 14px;
       border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--panel);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 253, 248, .98), rgba(248, 243, 235, .94)),
+        var(--panel);
       text-decoration: none;
       box-shadow: var(--shadow);
       cursor: pointer;
       overflow: hidden;
-      transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
+        radial-gradient(circle at 86% 24%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 34%);
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .app > * {
+      position: relative;
+      z-index: 1;
     }
 
     .app:hover {
       transform: translateY(-2px);
       border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
-      box-shadow: 0 20px 40px rgba(72, 44, 34, .12);
+      box-shadow: 0 24px 46px rgba(72, 44, 34, .13), inset 0 1px 0 rgba(255, 255, 255, .84);
     }
 
     .app-top {
       display: flex;
       justify-content: space-between;
       align-items: start;
-      gap: 12px;
+      gap: 16px;
     }
 
     .app-icon {
-      width: 72px;
-      height: 72px;
+      width: 76px;
+      height: 76px;
       flex: 0 0 auto;
       display: grid;
       place-items: center;
       overflow: visible;
+      transform: translate(3px, -4px);
     }
 
     .app-icon img {
@@ -190,23 +212,25 @@
       height: 100%;
       display: block;
       object-fit: contain;
-      filter: drop-shadow(0 12px 18px rgba(56, 44, 34, .18));
+      filter: drop-shadow(0 14px 18px rgba(56, 44, 34, .16));
     }
 
     h2 {
       margin: 0;
-      font-size: 29px;
+      font-size: 30px;
       line-height: 1;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .desc {
-      max-width: 270px;
-      margin: 8px 0 0;
+      max-width: 310px;
+      margin: 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.35;
-      font-weight: 520;
+      line-height: 1.34;
+      font-weight: 620;
+      text-wrap: pretty;
     }
 
     .card-foot {
@@ -215,8 +239,8 @@
       align-items: center;
       gap: 10px;
       margin-top: auto;
-      padding-top: 9px;
-      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      border-top: 1px solid rgba(104, 87, 68, .24);
       font-weight: 850;
     }
 
@@ -232,10 +256,10 @@
 
     .url {
       min-width: 0;
-      color: var(--muted);
-      font-size: 13px;
+      color: color-mix(in srgb, var(--ink) 72%, var(--accent));
+      font-size: 12px;
       line-height: 1.15;
-      font-weight: 700;
+      font-weight: 820;
       overflow-wrap: anywhere;
     }
 
@@ -306,8 +330,8 @@
       }
 
       .app-icon {
-        width: 64px;
-        height: 64px;
+        width: 66px;
+        height: 66px;
       }
 
     }
@@ -333,7 +357,7 @@
             <div>
               <h2>Sarrus</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Programmable robotic structures, mechanisms, and research record.</p>
         </div>
@@ -346,7 +370,7 @@
             <div>
               <h2>FluxCell</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/fluxcell.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/fluxcell.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Electropermanent cells for modular motion and soft robotic systems.</p>
         </div>
@@ -359,7 +383,7 @@
             <div>
               <h2>Relay</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Call notes into clean follow-up, CRM summaries, and revenue signal.</p>
         </div>
@@ -372,7 +396,7 @@
             <div>
               <h2>Wallguard</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Messenger group-state guard for wallpaper, name, and picture restore.</p>
         </div>
@@ -385,7 +409,7 @@
             <div>
               <h2>CV</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Publications, projects, awards, and research record.</p>
         </div>
@@ -398,7 +422,7 @@
             <div>
               <h2>Imagineer</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/imagineer.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/imagineer.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Creative R&amp;D profile, live readout, and autonomous review system.</p>
         </div>
@@ -411,7 +435,7 @@
             <div>
               <h2>Ocean</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Visual research radar for soft robotics, labs, media, and sources.</p>
         </div>
@@ -424,7 +448,7 @@
             <div>
               <h2>Talk</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Direct AI mirror shaped by Alan's current context.</p>
         </div>
@@ -437,7 +461,7 @@
             <div>
               <h2>Nerve</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Pressure-practice for sharper, calmer answers.</p>
         </div>
@@ -450,7 +474,7 @@
             <div>
               <h2>Duet</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Small human compatibility interaction study.</p>
         </div>
@@ -463,7 +487,7 @@
             <div>
               <h2>Violin</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Fine violin visuals, makers, varnish, and source notes.</p>
         </div>
@@ -476,7 +500,7 @@
             <div>
               <h2>Yum</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Food memories, cravings, restaurants, and dishes.</p>
         </div>
@@ -489,7 +513,7 @@
             <div>
               <h2>Lily</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260506-meaning" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260507-polish" alt=""></span>
           </div>
           <p class="desc">Memory bank of Lily.</p>
         </div>
