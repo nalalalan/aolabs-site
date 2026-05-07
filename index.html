@@ -11,8 +11,8 @@
   <meta property="og:title" content="Alan Pham / AO Labs">
   <meta property="og:description" content="A compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <meta property="og:url" content="https://aolabs.io/">
-  <meta property="og:image" content="https://aolabs.io/og-image-20260507-polish.png">
-  <meta property="og:image:secure_url" content="https://aolabs.io/og-image-20260507-polish.png">
+  <meta property="og:image" content="https://aolabs.io/og-image-20260507-suite2.png">
+  <meta property="og:image:secure_url" content="https://aolabs.io/og-image-20260507-suite2.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,10 +20,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Alan Pham / AO Labs">
   <meta name="twitter:description" content="A compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
-  <meta name="twitter:image" content="https://aolabs.io/og-image-20260507-polish.png">
+  <meta name="twitter:image" content="https://aolabs.io/og-image-20260507-suite2.png">
   <meta name="twitter:image:alt" content="AO Labs preview card with the latest app logos.">
-  <link rel="icon" href="/favicon.svg?v=20260507-polish" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260507-polish">
+  <link rel="icon" href="/favicon.svg?v=20260507-suite2" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260507-suite2">
   <meta name="msapplication-TileColor" content="#e7b7b1">
   <style>
     :root {
@@ -49,7 +49,7 @@
       --wallguard: #6f837d;
       --curtis: #8f625d;
       --spec: #76678d;
-      --shadow: 0 18px 34px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .72);
+      --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
     * {
@@ -126,7 +126,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .78fr .75fr .75fr .75fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr;
       height: 8px;
       margin-top: 20px;
       overflow: hidden;
@@ -134,37 +134,37 @@
       box-shadow: inset 0 0 0 1px rgba(43, 37, 32, .10);
     }
 
-    .palette-strip span:nth-child(1) { background: var(--cv); }
+    .palette-strip span:nth-child(1) { background: var(--imagineer); }
     .palette-strip span:nth-child(2) { background: var(--sarrus); }
     .palette-strip span:nth-child(3) { background: var(--fluxcell); }
-    .palette-strip span:nth-child(4) { background: var(--ocean); }
-    .palette-strip span:nth-child(5) { background: var(--talk); }
-    .palette-strip span:nth-child(6) { background: var(--relay); }
-    .palette-strip span:nth-child(7) { background: var(--nerve); }
-    .palette-strip span:nth-child(8) { background: var(--duet); }
-    .palette-strip span:nth-child(9) { background: var(--violin); }
-    .palette-strip span:nth-child(10) { background: var(--yum); }
-    .palette-strip span:nth-child(11) { background: var(--lily); }
-    .palette-strip span:nth-child(12) { background: var(--imagineer); }
-    .palette-strip span:nth-child(13) { background: var(--wallguard); }
-    .palette-strip span:nth-child(14) { background: var(--curtis); }
-    .palette-strip span:nth-child(15) { background: var(--spec); }
+    .palette-strip span:nth-child(4) { background: var(--spec); }
+    .palette-strip span:nth-child(5) { background: var(--cv); }
+    .palette-strip span:nth-child(6) { background: var(--curtis); }
+    .palette-strip span:nth-child(7) { background: var(--relay); }
+    .palette-strip span:nth-child(8) { background: var(--wallguard); }
+    .palette-strip span:nth-child(9) { background: var(--talk); }
+    .palette-strip span:nth-child(10) { background: var(--ocean); }
+    .palette-strip span:nth-child(11) { background: var(--yum); }
+    .palette-strip span:nth-child(12) { background: var(--lily); }
+    .palette-strip span:nth-child(13) { background: var(--nerve); }
+    .palette-strip span:nth-child(14) { background: var(--duet); }
+    .palette-strip span:nth-child(15) { background: var(--violin); }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 15px;
+      gap: 14px;
     }
 
     .app {
       --accent: var(--relay);
       grid-column: span 2;
       position: relative;
-      min-height: 156px;
+      min-height: 148px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 17px 17px 14px;
+      padding: 16px 16px 13px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background:
@@ -203,12 +203,12 @@
       display: flex;
       justify-content: space-between;
       align-items: start;
-      gap: 16px;
+      gap: 14px;
     }
 
     .app-icon {
-      width: 76px;
-      height: 76px;
+      width: 74px;
+      height: 74px;
       flex: 0 0 auto;
       display: grid;
       place-items: center;
@@ -221,12 +221,12 @@
       height: 100%;
       display: block;
       object-fit: contain;
-      filter: drop-shadow(0 14px 18px rgba(56, 44, 34, .16));
+      filter: drop-shadow(0 12px 16px rgba(56, 44, 34, .17));
     }
 
     h2 {
       margin: 0;
-      font-size: 30px;
+      font-size: 29px;
       line-height: 1;
       letter-spacing: 0;
       text-wrap: balance;
@@ -236,7 +236,7 @@
       max-width: 310px;
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13.8px;
       line-height: 1.34;
       font-weight: 620;
       text-wrap: pretty;
@@ -362,15 +362,28 @@
     </header>
 
     <section class="grid" aria-label="AO Labs links">
+      <a class="app imagineer" href="https://imagineer.aolabs.io/" aria-label="Imagineer">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Imagineer</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/imagineer.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">WDI R&amp;D profile, current packet, and autonomous review system.</p>
+        </div>
+        <div class="card-foot"><span class="url">imagineer.aolabs.io</span></div>
+      </a>
+
       <a class="app sarrus" href="https://sarrus.aolabs.io" aria-label="Sarrus">
         <div>
           <div class="app-top">
             <div>
               <h2>Sarrus</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sarrus.svg?v=20260507-suite2" alt=""></span>
           </div>
-          <p class="desc">Programmable robotic structures, mechanisms, and research record.</p>
+          <p class="desc">Programmable soft robotic surfaces, paper, and build record.</p>
         </div>
         <div class="card-foot"><span class="url">sarrus.aolabs.io</span></div>
       </a>
@@ -381,11 +394,50 @@
             <div>
               <h2>FluxCell</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/fluxcell.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/fluxcell.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Electropermanent cells for modular motion and soft robotic systems.</p>
         </div>
         <div class="card-foot"><span class="url">fluxcell.aolabs.io</span></div>
+      </a>
+
+      <a class="app spec" href="https://spec-app-production.up.railway.app" aria-label="Spec">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Spec</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/spec.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Operating-instruction record, preference revisions, and analysis notes.</p>
+        </div>
+        <div class="card-foot"><span class="url">spec.aolabs.io pending</span></div>
+      </a>
+
+      <a class="app cv" href="https://cv.aolabs.io" aria-label="Alan Nguyen Pham CV">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>CV</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Publications, projects, awards, and research record.</p>
+        </div>
+        <div class="card-foot"><span class="url">cv.aolabs.io</span></div>
+      </a>
+
+      <a class="app curtis" href="https://curtis.aolabs.io" aria-label="Curtis">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Curtis</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/curtis.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Audition media review, repertoire, evidence, and paper record.</p>
+        </div>
+        <div class="card-foot"><span class="url">curtis.aolabs.io</span></div>
       </a>
 
       <a class="app relay" href="https://relay.aolabs.io" aria-label="Relay">
@@ -394,7 +446,7 @@
             <div>
               <h2>Relay</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/relay.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Call notes into clean follow-up, CRM summaries, and revenue signal.</p>
         </div>
@@ -407,76 +459,11 @@
             <div>
               <h2>Wallguard</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260507-ao-icon" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Messenger group-state guard for wallpaper, name, and picture restore.</p>
         </div>
         <div class="card-foot"><span class="url">wallguard.aolabs.io</span></div>
-      </a>
-
-      <a class="app cv" href="https://cv.aolabs.io" aria-label="Alan Nguyen Pham CV">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>CV</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/cv.svg?v=20260507-polish" alt=""></span>
-          </div>
-          <p class="desc">Publications, projects, awards, and research record.</p>
-        </div>
-        <div class="card-foot"><span class="url">cv.aolabs.io</span></div>
-      </a>
-
-      <a class="app spec" href="https://spec-app-production.up.railway.app" aria-label="Spec">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Spec</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/spec.svg?v=20260507-spec1" alt=""></span>
-          </div>
-          <p class="desc">Personality-instruction revisions, preference traces, and operator record.</p>
-        </div>
-        <div class="card-foot"><span class="url">spec.aolabs.io pending</span></div>
-      </a>
-
-      <a class="app curtis" href="https://curtis.aolabs.io" aria-label="Curtis">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Curtis</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/curtis.svg?v=20260507-curtis6" alt=""></span>
-          </div>
-          <p class="desc">Admission record, repertoire stack, source requirements, and audition work.</p>
-        </div>
-        <div class="card-foot"><span class="url">curtis.aolabs.io</span></div>
-      </a>
-
-      <a class="app imagineer" href="https://imagineer.aolabs.io/" aria-label="Imagineer">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Imagineer</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/imagineer.svg?v=20260507-polish" alt=""></span>
-          </div>
-          <p class="desc">Creative R&amp;D profile, live readout, and autonomous review system.</p>
-        </div>
-        <div class="card-foot"><span class="url">imagineer.aolabs.io</span></div>
-      </a>
-
-      <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Ocean</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg?v=20260507-polish" alt=""></span>
-          </div>
-          <p class="desc">Visual research radar for soft robotics, labs, media, and sources.</p>
-        </div>
-        <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
       </a>
 
       <a class="app talk" href="https://talk.aolabs.io" aria-label="Talk">
@@ -485,50 +472,24 @@
             <div>
               <h2>Talk</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Direct AI mirror shaped by Alan's current context.</p>
         </div>
         <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
       </a>
 
-      <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
+      <a class="app ocean" href="https://ocean.aolabs.io" aria-label="Ocean">
         <div>
           <div class="app-top">
             <div>
-              <h2>Nerve</h2>
+              <h2>Ocean</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/ocean.svg?v=20260507-suite2" alt=""></span>
           </div>
-          <p class="desc">Pressure-practice for sharper, calmer answers.</p>
+          <p class="desc">Visual research radar for soft robotics, labs, media, and sources.</p>
         </div>
-        <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
-      </a>
-
-      <a class="app duet" href="https://duet.aolabs.io/hello" aria-label="Duet">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Duet</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg?v=20260507-polish" alt=""></span>
-          </div>
-          <p class="desc">Small human compatibility interaction study.</p>
-        </div>
-        <div class="card-foot"><span class="url">duet.aolabs.io</span></div>
-      </a>
-
-      <a class="app violin" href="https://violin.aolabs.io" aria-label="Violin">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>Violin</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg?v=20260507-polish" alt=""></span>
-          </div>
-          <p class="desc">Fine violin visuals, makers, varnish, and source notes.</p>
-        </div>
-        <div class="card-foot"><span class="url">violin.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
       </a>
 
       <a class="app yum" href="https://yum.aolabs.io" aria-label="Yum">
@@ -537,7 +498,7 @@
             <div>
               <h2>Yum</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Media wall for cars, food, alcohol, and K-pop girls.</p>
         </div>
@@ -550,11 +511,50 @@
             <div>
               <h2>Lily</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260507-polish" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260507-suite2" alt=""></span>
           </div>
           <p class="desc">Memory bank of Lily.</p>
         </div>
         <div class="card-foot"><span class="url">lily.aolabs.io</span></div>
+      </a>
+
+      <a class="app nerve" href="https://nerve.aolabs.io" aria-label="Nerve">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Nerve</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/nerve.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Pressure-practice for sharper, calmer answers.</p>
+        </div>
+        <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
+      </a>
+
+      <a class="app duet" href="https://duet.aolabs.io/hello" aria-label="Duet">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Duet</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/duet.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Small human compatibility interaction study.</p>
+        </div>
+        <div class="card-foot"><span class="url">duet.aolabs.io</span></div>
+      </a>
+
+      <a class="app violin" href="https://violin.aolabs.io" aria-label="Violin">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Violin</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/violin.svg?v=20260507-suite2" alt=""></span>
+          </div>
+          <p class="desc">Fine violin visuals, makers, varnish, and source notes.</p>
+        </div>
+        <div class="card-foot"><span class="url">violin.aolabs.io</span></div>
       </a>
     </section>
 

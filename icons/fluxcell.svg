@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FluxCell icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#83aaa0"/><stop offset=".56" stop-color="#4f8077"/><stop offset="1" stop-color="#274e51"/></linearGradient><linearGradient id="clay" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#e7a28d"/><stop offset=".55" stop-color="#bb6d58"/><stop offset="1" stop-color="#744338"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><rect x="24" y="34" width="30" height="60" rx="13" fill="url(#teal)"/><rect x="74" y="34" width="30" height="60" rx="13" fill="url(#clay)"/><rect x="36" y="46" width="8" height="36" rx="4" fill="url(#cream)" opacity=".9"/><rect x="84" y="46" width="8" height="36" rx="4" fill="url(#cream)" opacity=".9"/><path d="M52 49c8-10 16-14 24-10 8 4 11 14 9 25-2 11-8 20-21 25" fill="none" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/><path d="M76 39c-17 10-22 34-8 49" fill="none" stroke="url(#cream)" stroke-width="7" stroke-linecap="round" opacity=".9"/><circle cx="64" cy="64" r="6" fill="url(#gold)"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FluxCell icon">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="8" y="17" width="17" height="30" rx="6" fill="#6f9890"/>
+    <rect x="39" y="17" width="17" height="30" rx="6" fill="#bd775f"/>
+    <rect x="14" y="23" width="8" height="18" rx="2" fill="#fffaf2" opacity="0.9"/>
+    <rect x="42" y="23" width="8" height="18" rx="2" fill="#fffaf2" opacity="0.9"/>
+    <path d="M26 22c6 3 10 9 10 10s-4 7-10 10" fill="none" stroke="#181716" stroke-width="4.8" stroke-linecap="round"/>
+    <path d="M38 22c-6 3-10 9-10 10s4 7 10 10" fill="none" stroke="#c49a45" stroke-width="4.8" stroke-linecap="round"/>
+    <ellipse cx="32" cy="32" rx="6" ry="14" fill="#fffaf2" opacity="0.92"/>
+    <path d="M32 22c4 5 6 16 0 20" fill="none" stroke="#c49a45" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

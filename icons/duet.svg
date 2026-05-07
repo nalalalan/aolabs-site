@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Duet icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="rose" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#e4a8b2"/><stop offset=".55" stop-color="#be748a"/><stop offset="1" stop-color="#70465e"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><path d="M26 39h39c8 0 14 6 14 14v27c0 8-6 14-14 14H45l-15 11V94h-4c-8 0-14-6-14-14V53c0-8 6-14 14-14z" fill="url(#rose)"/><path d="M61 48h39c8 0 14 6 14 14v27c0 8-6 14-14 14H80l-15 10v-10h-4c-8 0-14-6-14-14V62c0-8 6-14 14-14z" fill="url(#cream)"/><circle cx="53" cy="68" r="8" fill="#fff8ef"/><circle cx="80" cy="68" r="8" fill="url(#gold)"/><path d="M65 90c7-10 22-10 30 0" fill="none" stroke="url(#ink)" stroke-width="7" stroke-linecap="round"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Duet icon">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M13 17h24c4 0 7 3 7 7v14c0 4-3 7-7 7H25l-9 7v-7h-3c-4 0-7-3-7-7V24c0-4 3-7 7-7z" fill="#c9858e"/>
+    <path d="M28 24h22c4 0 7 3 7 7v14c0 4-3 7-7 7h-8l-8 6v-6h-6c-4 0-7-3-7-7V31c0-4 3-7 7-7z" fill="#fffaf2"/>
+    <circle cx="41" cy="35" r="5" fill="#c49a45"/>
+    <path d="M29 47c4-7 18-7 22 0" fill="none" stroke="#181716" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="23" cy="30" r="4" fill="#fffaf2"/>
+  </g>
+</svg>

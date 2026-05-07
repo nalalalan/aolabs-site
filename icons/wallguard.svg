@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wallguard icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#83aaa0"/><stop offset=".56" stop-color="#4f8077"/><stop offset="1" stop-color="#274e51"/></linearGradient><linearGradient id="clay" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#e7a28d"/><stop offset=".55" stop-color="#bd7059"/><stop offset="1" stop-color="#76473a"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><rect x="24" y="28" width="65" height="54" rx="14" fill="url(#cream)"/><path d="M36 67 49 54 60 65 67 58 79 68" fill="none" stroke="url(#teal)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="68" cy="45" r="6" fill="url(#gold)"/><path d="M72 39 102 50v20c0 20-11 32-30 39-19-7-30-19-30-39V50z" fill="url(#ink)"/><path d="M72 39 102 50v20c0 20-11 32-30 39-19-7-30-19-30-39V50z" fill="none" stroke="#fff8ef" stroke-width="3" opacity=".72" stroke-linejoin="round"/><path d="M58 72 68 82 86 60" fill="none" stroke="url(#cream)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="98" cy="51" r="6" fill="url(#clay)"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wallguard icon">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="13" y="11" width="34" height="34" rx="8" fill="#6f86ae"/>
+    <path d="M32 17l18 6v10c0 10-7 17-18 21-11-4-18-11-18-21V23l18-6z" fill="#181716"/>
+    <path d="M32 22l12 4v7c0 7-4 12-12 16-8-4-12-9-12-16v-7l12-4z" fill="#fffaf2" opacity="0.92"/>
+    <path d="M23 35l7 7 13-16" fill="none" stroke="#6f86ae" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
