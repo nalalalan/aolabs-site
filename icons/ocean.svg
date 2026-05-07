@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ocean icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <ellipse cx="32" cy="35" rx="25" ry="16" fill="#181716"/>
-    <ellipse cx="31" cy="31" rx="25" ry="15" fill="#6f9890"/>
-    <path d="M15 34c9-12 25-15 36-8-9 11-25 15-36 8z" fill="#527d83"/>
-    <path d="M24 35c7-7 17-9 25-5-6 7-17 9-25 5z" fill="#fffaf2"/>
-    <circle cx="50" cy="22" r="4" fill="#c49a45"/>
-    <path d="M16 43c10 6 27 7 39-1" stroke="#181716" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Ocean icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#82a9a1"/><stop offset=".56" stop-color="#4d7f79"/><stop offset="1" stop-color="#244f54"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><g transform="rotate(-5 64 64)"><ellipse cx="64" cy="66" rx="47" ry="31" fill="url(#teal)"/><path d="M19 66c23-23 54-24 90-1-21 9-40 22-61 21-14 0-23-8-29-20z" fill="#2e6068" opacity=".92"/><path d="M43 57c16-14 36-12 57 2-19 2-31 12-46 13-9 0-14-5-11-15z" fill="url(#cream)"/><circle cx="96" cy="45" r="6" fill="url(#gold)"/><path d="M30 89c23 12 54 12 76-5" fill="none" stroke="url(#ink)" stroke-width="8" stroke-linecap="round"/></g></g></svg>

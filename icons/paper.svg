@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Paper icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <path d="M18 9h24l10 10v36H18z" fill="#fffaf2"/>
-    <path d="M42 9v12h10" fill="#e7dfd2"/>
-    <path d="M25 29h22M25 38h18M25 47h22" stroke="#181716" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="25" cy="21" r="4" fill="#6f9890"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Paper icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><path d="M39 20h42l18 18v70H39z" fill="url(#cream)"/><path d="M81 20v20h18" fill="#ded0bf"/><path d="M52 57h35M52 73h35M52 89h24" stroke="url(#ink)" stroke-width="6" stroke-linecap="round"/><circle cx="52" cy="40" r="7" fill="url(#gold)"/></g></svg>

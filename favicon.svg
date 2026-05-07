@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AO Labs icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <rect x="4" y="4" width="56" height="56" rx="16" fill="#e7b7b1"/>
-    <path d="M18 40c0-9 5-16 14-16s14 7 14 16" fill="none" stroke="#181716" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="32" cy="40" r="8" fill="#fffaf2"/>
-    <path d="M38 21h8c7 0 11 5 11 11s-4 11-11 11h-8" fill="none" stroke="#181716" stroke-width="6" stroke-linecap="round"/>
-    <path d="M16 48h34" stroke="#fffaf2" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="50" cy="48" r="3" fill="#6f9890"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="AO Labs icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".5"/></filter><linearGradient id="cream" x1="22" y1="16" x2="104" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e6d8c8"/></linearGradient><linearGradient id="pink" x1="22" y1="18" x2="106" y2="112"><stop stop-color="#e7b7b1"/><stop offset=".55" stop-color="#c9848c"/><stop offset="1" stop-color="#7e5264"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="106" y2="112"><stop stop-color="#7fa8a0"/><stop offset=".55" stop-color="#527f78"/><stop offset="1" stop-color="#274f53"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#edc766"/><stop offset=".58" stop-color="#b98238"/><stop offset="1" stop-color="#6f4724"/></linearGradient><linearGradient id="ink" x1="24" y1="18" x2="110" y2="112"><stop stop-color="#343139"/><stop offset="1" stop-color="#080a11"/></linearGradient></defs><g filter="url(#d)"><circle cx="64" cy="64" r="42" fill="url(#cream)"/><path d="M34 86 51 41c2-6 7-10 13-10s11 4 13 10l17 45" fill="none" stroke="url(#pink)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M49 65h30" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/><circle cx="85" cy="66" r="18" fill="none" stroke="url(#teal)" stroke-width="10"/><path d="M31 94c19 11 48 13 72 0" fill="none" stroke="url(#ink)" stroke-width="7" stroke-linecap="round" opacity=".8"/></g></svg>

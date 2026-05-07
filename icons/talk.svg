@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Talk icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <path d="M16 50c2-11 8-18 17-18s15 7 17 18z" fill="#181716"/>
-    <circle cx="33" cy="21" r="12" fill="#181716"/>
-    <path d="M23 21h20" stroke="#fffaf2" stroke-width="4" stroke-linecap="round"/>
-    <rect x="36" y="22" width="20" height="18" rx="6" fill="#fffaf2"/>
-    <path d="M43 29h7M43 35h9" stroke="#6f9890" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="51" cy="18" r="3.5" fill="#c49a45"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Talk icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#83aaa0"/><stop offset=".56" stop-color="#4f8077"/><stop offset="1" stop-color="#274e51"/></linearGradient></defs><g filter="url(#d)"><circle cx="45" cy="43" r="21" fill="url(#ink)"/><path d="M23 102c4-24 18-37 42-37 19 0 31 9 37 27l-18 10z" fill="url(#ink)"/><path d="M31 43h28M35 53c7 6 17 6 24 0" fill="none" stroke="#fff8ef" stroke-width="5" stroke-linecap="round" opacity=".86"/><rect x="63" y="45" width="47" height="42" rx="15" fill="url(#cream)"/><path d="M77 87 62 101V82" fill="url(#cream)"/><path d="M79 60h18M79 74h13" stroke="url(#teal)" stroke-width="5" stroke-linecap="round"/><circle cx="96" cy="48" r="6" fill="url(#gold)"/></g></svg>

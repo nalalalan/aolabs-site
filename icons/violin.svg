@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Violin icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <path d="M32 9c9 7 12 18 12 29s-5 18-12 18-12-7-12-18S23 16 32 9z" fill="#c49a45"/>
-    <path d="M32 13v41" stroke="#181716" stroke-width="4" stroke-linecap="round"/>
-    <path d="M23 31c-4 6-4 13 0 18M41 31c4 6 4 13 0 18" fill="none" stroke="#181716" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M24 16h16M23 54h18" stroke="#181716" stroke-width="4" stroke-linecap="round"/>
-    <path d="M28 17v33M36 17v33" stroke="#fffaf2" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Violin icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="wood" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#edc766"/><stop offset=".58" stop-color="#bd8237"/><stop offset="1" stop-color="#704621"/></linearGradient><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient></defs><g filter="url(#d)"><path d="M64 22c13 0 22 10 22 25 0 11-8 17-8 27 0 9 8 14 8 28H42c0-14 8-19 8-28 0-10-8-16-8-27 0-15 9-25 22-25z" fill="url(#wood)"/><path d="M57 30v72M64 27v78M71 30v72" stroke="url(#cream)" stroke-width="3" stroke-linecap="round" opacity=".86"/><path d="M49 55c-8 9-8 18 1 26M79 55c8 9 8 18-1 26" fill="none" stroke="url(#ink)" stroke-width="6" stroke-linecap="round"/><path d="M51 94h26" stroke="url(#ink)" stroke-width="7" stroke-linecap="round"/></g></svg>

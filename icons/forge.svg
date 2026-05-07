@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Forge icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <path d="M14 42h28c7 0 11 4 11 9H14z" fill="#181716"/>
-    <path d="M18 31h25c5 0 9 4 9 9v2H18z" fill="#6f9890"/>
-    <path d="M22 18h20v13H22z" fill="#fffaf2"/>
-    <path d="M28 18v-7h8v7" stroke="#181716" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="44" cy="26" r="4" fill="#c49a45"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Forge icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#83aaa0"/><stop offset=".56" stop-color="#4f8077"/><stop offset="1" stop-color="#274e51"/></linearGradient><linearGradient id="clay" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#e7a28d"/><stop offset=".55" stop-color="#bd7059"/><stop offset="1" stop-color="#76473a"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient></defs><g filter="url(#d)"><rect x="27" y="30" width="74" height="54" rx="13" fill="url(#ink)"/><path d="M40 70h48" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/><path d="M48 53h32" stroke="url(#teal)" stroke-width="8" stroke-linecap="round"/><path d="M47 96h34" stroke="url(#clay)" stroke-width="8" stroke-linecap="round"/></g></svg>

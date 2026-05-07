@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CV icon">
-  <defs>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2b241d" flood-opacity="0.20"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <path d="M21 10h19l10 10v34H21z" fill="#fffaf2"/>
-    <path d="M40 10v12h10" fill="#e7dfd2"/>
-    <circle cx="30" cy="28" r="5" fill="#6f86ae"/>
-    <path d="M39 27h8M39 35h8M26 43h20M26 50h16" stroke="#181716" stroke-width="3.2" stroke-linecap="round"/>
-    <path d="M27 36h8" stroke="#c49a45" stroke-width="3.2" stroke-linecap="round"/>
-    <path d="M27 50h16" stroke="#6f9890" stroke-width="3.2" stroke-linecap="round"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="CV icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="blue" x1="16" y1="18" x2="108" y2="112"><stop stop-color="#8299bf"/><stop offset=".55" stop-color="#526f9a"/><stop offset="1" stop-color="#24365b"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#83aaa0"/><stop offset=".56" stop-color="#4f8077"/><stop offset="1" stop-color="#274e51"/></linearGradient></defs><g filter="url(#d)"><path d="M41 20h40l18 18v70H41z" fill="url(#cream)"/><path d="M81 20v20h18" fill="#ded0bf"/><circle cx="59" cy="57" r="10" fill="url(#blue)"/><path d="M75 51h13M75 63h17M54 80h36" stroke="url(#gold)" stroke-width="6" stroke-linecap="round"/><path d="M54 94h30" stroke="url(#teal)" stroke-width="6" stroke-linecap="round"/></g></svg>
