@@ -47,6 +47,7 @@
       --sarrus: #81977f;
       --imagineer: #66799f;
       --wallguard: #5e79ad;
+      --curtis: #8f625d;
       --shadow: 0 18px 34px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .72);
     }
 
@@ -124,7 +125,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .78fr .75fr .75fr .75fr .75fr .75fr;
+      grid-template-columns: 1.05fr 1.05fr .95fr .9fr .9fr .85fr .8fr .78fr .75fr .75fr .75fr .75fr .75fr .75fr;
       height: 8px;
       margin-top: 20px;
       overflow: hidden;
@@ -145,6 +146,7 @@
     .palette-strip span:nth-child(11) { background: var(--lily); }
     .palette-strip span:nth-child(12) { background: var(--imagineer); }
     .palette-strip span:nth-child(13) { background: var(--wallguard); }
+    .palette-strip span:nth-child(14) { background: var(--curtis); }
 
     .grid {
       display: grid;
@@ -281,6 +283,7 @@
     .sarrus { --accent: var(--sarrus); }
     .imagineer { --accent: var(--imagineer); }
     .wallguard { --accent: var(--wallguard); }
+    .curtis { --accent: var(--curtis); }
 
     footer {
       display: flex;
@@ -350,7 +353,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research. Systems. Papers.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -419,6 +422,19 @@
           <p class="desc">Publications, projects, awards, and research record.</p>
         </div>
         <div class="card-foot"><span class="url">cv.aolabs.io</span></div>
+      </a>
+
+      <a class="app curtis" href="https://curtis.aolabs.io" aria-label="Curtis">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Curtis</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/curtis.svg?v=20260507-source" alt=""></span>
+          </div>
+          <p class="desc">Admission record, repertoire stack, source requirements, and audition work.</p>
+        </div>
+        <div class="card-foot"><span class="url">curtis.aolabs.io</span></div>
       </a>
 
       <a class="app imagineer" href="https://imagineer.aolabs.io/" aria-label="Imagineer">
