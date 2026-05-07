@@ -218,7 +218,7 @@ function reviewerSummary(latestReview, action) {
 
 function removeDanglingNextMove(value) {
   let text = clean(value);
-  text = text.replace(/\s+The best next move is to\s*$/i, "");
+  text = text.replace(/\s+The current move is to\s*$/i, "");
   text = text.replace(/\s+The selected next move is to\s*$/i, "");
   if (/[.!?]$/.test(text)) return text;
   const lastStop = Math.max(text.lastIndexOf("."), text.lastIndexOf("!"), text.lastIndexOf("?"));
@@ -241,16 +241,16 @@ function clean(value) {
     ["Reviewer-visible", "Public"],
     ["reviewer-proof", "source-backed"],
     ["Reviewer-proof", "Source-backed"],
-    ["best evidence", "strongest signals"],
-    ["Best evidence", "Strongest signals"],
-    ["evidence gaps", "unresolved signals"],
-    ["Evidence gaps", "Unresolved signals"],
+    ["best evidence", "current signals"],
+    ["Best evidence", "Current signals"],
+    ["evidence gaps", "open signals"],
+    ["Evidence gaps", "Open signals"],
     ["evidence to create", "unresolved"],
     ["Evidence to create", "Unresolved"],
     ["next evidence", "unresolved signal"],
     ["Next evidence", "Unresolved signal"],
-    ["best next move", "current constraint"],
-    ["Best next move", "Current constraint"],
+    ["best next move", "current move"],
+    ["Best next move", "Current move"],
     ["show-value", "motion"],
     ["Show-value", "Motion"],
     ["source coverage", "source depth"],
