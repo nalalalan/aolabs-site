@@ -1,29 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AO Labs icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="AO Labs icon">
   <defs>
-    <linearGradient id="field" x1="5" y1="4" x2="61" y2="62" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fff5ed"/>
-      <stop offset=".48" stop-color="#e6beb7"/>
-      <stop offset="1" stop-color="#c57d86"/>
+    <linearGradient id="field" x1="6" y1="4" x2="59" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff1ea"/>
+      <stop offset=".46" stop-color="#e2aea9"/>
+      <stop offset="1" stop-color="#b56f7b"/>
     </linearGradient>
-    <linearGradient id="teal" x1="38" y1="31" x2="56" y2="55" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8fb0a4"/>
-      <stop offset="1" stop-color="#34645f"/>
+    <linearGradient id="ink" x1="14" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34302d"/>
+      <stop offset="1" stop-color="#11100f"/>
     </linearGradient>
-    <linearGradient id="gold" x1="20" y1="35" x2="43" y2="43" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#efcc77"/>
-      <stop offset="1" stop-color="#b87d34"/>
+    <linearGradient id="gold" x1="20" y1="24" x2="51" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ebcb79"/>
+      <stop offset=".58" stop-color="#c18a43"/>
+      <stop offset="1" stop-color="#80522a"/>
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
-      <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#2b211d" flood-opacity=".2"/>
+    <filter id="lift" x="-18%" y="-16%" width="136%" height="140%">
+      <feDropShadow dx="0" dy="2.4" stdDeviation="1.6" flood-color="#2d211d" flood-opacity=".22"/>
+      <feDropShadow dx="0" dy=".35" stdDeviation=".35" flood-color="#fffaf3" flood-opacity=".48"/>
     </filter>
   </defs>
-  <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="url(#field)"/>
-  <g filter="url(#shadow)">
-    <path fill="#241f1c" d="M8.8 53.5 25.5 10h12.2l17.5 43.5H43.5l-3-8.7H23.8l-3 8.7H8.8Z"/>
-    <path fill="#fff6ef" d="m27.2 35.8 4.9-14.5 5 14.5H27.2Z"/>
-    <rect x="21.8" y="37.2" width="22.3" height="6.8" rx="3.4" fill="url(#gold)"/>
-    <circle cx="46" cy="43.5" r="12.5" fill="#fff6ef"/>
-    <circle cx="46" cy="43.5" r="9.5" fill="#241f1c"/>
-    <circle cx="46" cy="43.5" r="5.5" fill="url(#teal)"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#field)"/>
+  <path d="M8 9c11-5 31-5 48 2" fill="none" stroke="#fff7ef" stroke-width="3" stroke-linecap="round" opacity=".34"/>
+  <g filter="url(#lift)">
+    <path fill="url(#ink)" d="M8.7 54 25.7 9.8h11.9L55.4 54H43.7l-3.2-9.1H23.7L20.5 54H8.7Z"/>
+    <path fill="#fff4eb" d="m27.4 35.8 4.7-14.3 5 14.3h-9.7Z"/>
+    <rect x="22.5" y="38" width="19.6" height="6.2" rx="3.1" fill="url(#gold)"/>
+    <circle cx="45.5" cy="43.2" r="13.7" fill="url(#ink)"/>
+    <circle cx="45.5" cy="43.2" r="8.1" fill="#fff1e8"/>
+    <path d="M50.7 31.7c4 1.7 7.1 5.2 8 9.5" fill="none" stroke="url(#gold)" stroke-width="3.6" stroke-linecap="round"/>
   </g>
 </svg>
