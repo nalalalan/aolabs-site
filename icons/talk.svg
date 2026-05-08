@@ -5,8 +5,8 @@
       <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/>
     </filter>
     <linearGradient id="ink" x1="26" y1="24" x2="86" y2="108">
-      <stop stop-color="#34333b"/>
-      <stop offset="1" stop-color="#090b11"/>
+      <stop stop-color="#635a5d"/>
+      <stop offset="1" stop-color="#3b3535"/>
     </linearGradient>
     <linearGradient id="cream" x1="52" y1="42" x2="104" y2="92">
       <stop stop-color="#fff8ef"/>

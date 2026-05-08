@@ -1,1 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 116 116" role="img" aria-label="Yum icon"><defs><filter id="d" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".48"/></filter><linearGradient id="cream" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#fff8ef"/><stop offset="1" stop-color="#e4d7c6"/></linearGradient><linearGradient id="teal" x1="18" y1="20" x2="108" y2="112"><stop stop-color="#82a9a1"/><stop offset=".56" stop-color="#4d7f79"/><stop offset="1" stop-color="#244f54"/></linearGradient><linearGradient id="clay" x1="18" y1="18" x2="108" y2="114"><stop stop-color="#e7a28d"/><stop offset=".55" stop-color="#bd7059"/><stop offset="1" stop-color="#76473a"/></linearGradient><linearGradient id="gold" x1="20" y1="16" x2="108" y2="112"><stop stop-color="#efc868"/><stop offset=".58" stop-color="#bd8337"/><stop offset="1" stop-color="#6d4522"/></linearGradient><linearGradient id="ink" x1="18" y1="14" x2="108" y2="116"><stop stop-color="#34333b"/><stop offset="1" stop-color="#090b11"/></linearGradient></defs><g filter="url(#d)"><ellipse cx="64" cy="58" rx="42" ry="21" fill="url(#cream)"/><ellipse cx="64" cy="58" rx="33" ry="14" fill="url(#clay)"/><path d="M24 67h80c-3 24-19 38-40 38S27 91 24 67z" fill="url(#teal)"/><path d="M36 75c15 12 43 13 56-1" fill="none" stroke="#fff8ef" stroke-width="6" stroke-linecap="round" opacity=".7"/><ellipse cx="49" cy="52" rx="10" ry="7" fill="#fff8ef"/><circle cx="53" cy="52" r="4" fill="url(#gold)"/><path d="M65 50c9-6 17-6 25 1" fill="none" stroke="url(#cream)" stroke-width="6" stroke-linecap="round"/><circle cx="91" cy="62" r="5" fill="url(#gold)"/><path d="M43 91h42" stroke="url(#ink)" stroke-width="6" stroke-linecap="round" opacity=".56"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="6 6 116 116" role="img" aria-label="Yum icon">
+  <defs>
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".14"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".5"/>
+    </filter>
+    <linearGradient id="cream" x1="18" y1="18" x2="108" y2="114">
+      <stop stop-color="#fff8ef"/>
+      <stop offset="1" stop-color="#eadbc8"/>
+    </linearGradient>
+    <linearGradient id="strawberry" x1="18" y1="18" x2="108" y2="114">
+      <stop stop-color="#eda0a2"/>
+      <stop offset=".55" stop-color="#d2717b"/>
+      <stop offset="1" stop-color="#9c4e59"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="18" y1="20" x2="108" y2="112">
+      <stop stop-color="#8fb2a8"/>
+      <stop offset=".56" stop-color="#5f8b81"/>
+      <stop offset="1" stop-color="#416860"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="20" y1="16" x2="108" y2="112">
+      <stop stop-color="#f0c96f"/>
+      <stop offset=".58" stop-color="#c58e45"/>
+      <stop offset="1" stop-color="#8d6230"/>
+    </linearGradient>
+    <linearGradient id="line" x1="18" y1="14" x2="108" y2="116">
+      <stop stop-color="#766556"/>
+      <stop offset="1" stop-color="#4b4036"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#d)">
+    <path d="M34 51h60c-3 19-13 31-30 31S37 70 34 51z" fill="url(#cream)"/>
+    <path d="M42 56h44c-3 9-11 15-22 15S45 65 42 56z" fill="url(#strawberry)" opacity=".88"/>
+    <path d="M41 80h46l-8 25H49z" fill="url(#teal)"/>
+    <path d="M48 88c9 7 23 8 32 0" fill="none" stroke="#fff8ef" stroke-width="5" stroke-linecap="round" opacity=".72"/>
+    <circle cx="53" cy="47" r="8" fill="#fff8ef"/>
+    <circle cx="56" cy="47" r="3.8" fill="url(#gold)"/>
+    <path d="M69 44c8-6 16-6 25-1" fill="none" stroke="url(#cream)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M91 29 96 39 107 43 96 47 91 58 86 47 75 43 86 39z" fill="url(#gold)"/>
+    <path d="M27 93c24 17 52 17 75 0" fill="none" stroke="url(#line)" stroke-width="5" stroke-linecap="round" opacity=".52"/>
+  </g>
+</svg>
