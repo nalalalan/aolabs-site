@@ -22,8 +22,8 @@
   <meta name="twitter:description" content="A compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <meta name="twitter:image" content="https://aolabs.io/og-image-20260509-imagineer-castle.png">
   <meta name="twitter:image:alt" content="AO Labs preview card with the latest app logos.">
-  <link rel="icon" href="/favicon.svg?v=20260512-suite-mark" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260512-suite-mark">
+  <link rel="icon" href="/favicon.svg?v=20260513-ao-ring" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/marks/ao-ink.svg?v=20260513-ao-ring">
   <meta name="msapplication-TileColor" content="#dc9d91">
   <style>
     :root {
@@ -85,8 +85,27 @@
     }
 
     .masthead {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      gap: 18px;
       max-width: 860px;
       margin-bottom: 22px;
+    }
+
+    .ao-home-mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-top: 3px;
+      text-decoration: none;
+    }
+
+    .ao-home-mark img {
+      display: block;
+      width: 42px;
+      height: 42px;
     }
 
     .site-kicker {
@@ -329,6 +348,11 @@
         padding-top: 28px;
       }
 
+      .masthead {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
       .site-label {
         font-size: 44px;
       }
@@ -362,6 +386,9 @@
 <body>
   <main class="shell">
     <header class="masthead">
+      <a class="ao-home-mark" href="https://aolabs.io/" aria-label="AO Labs">
+        <img src="/marks/ao-ink.svg?v=20260513-ao-ring" alt="">
+      </a>
       <div>
         <p class="site-kicker">aolabs.io</p>
         <h1 class="site-label">Alan Pham</h1>

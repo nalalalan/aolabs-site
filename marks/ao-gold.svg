@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="AO Labs">
+  <circle cx="64" cy="64" r="53" fill="none" stroke="#bf8a3d" stroke-width="8"/>
+  <text x="64" y="76" text-anchor="middle" fill="#bf8a3d" font-family="Inter, Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-3">AO</text>
+</svg>
