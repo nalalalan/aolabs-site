@@ -51,6 +51,7 @@
       --spec: #76678d;
       --spotify: #1b7d43;
       --bus: #bf6e49;
+      --progress: #5d72ad;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -147,7 +148,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr;
+      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr;
       height: 8px;
       margin-top: 20px;
       overflow: hidden;
@@ -172,6 +173,7 @@
     .palette-strip span:nth-child(15) { background: var(--violin); }
     .palette-strip span:nth-child(16) { background: var(--spotify); }
     .palette-strip span:nth-child(17) { background: var(--bus); }
+    .palette-strip span:nth-child(18) { background: var(--progress); }
 
     .grid {
       display: grid;
@@ -312,6 +314,7 @@
     .spec { --accent: var(--spec); }
     .spotify { --accent: var(--spotify); }
     .bus { --accent: var(--bus); }
+    .progress { --accent: var(--progress); }
 
     footer {
       display: flex;
@@ -394,7 +397,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research. Systems. Papers.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -408,9 +411,22 @@
             </div>
             <span class="app-icon" aria-hidden="true"><img src="/icons/imagineer.svg?v=20260509-imagineer-castle" alt=""></span>
           </div>
-          <p class="desc">WDI R&amp;D profile, current packet, and autonomous review system.</p>
+          <p class="desc">WDI R&amp;D state, profile, and autonomous review system.</p>
         </div>
         <div class="card-foot"><span class="url">imagineer.aolabs.io</span></div>
+      </a>
+
+      <a class="app progress" href="https://progress.aolabs.io/" aria-label="Progress">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>Progress</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/progress.svg?v=20260515-progress" alt=""></span>
+          </div>
+          <p class="desc">AO Labs source ledger, PhD doc, YouTube, papers, and goal state.</p>
+        </div>
+        <div class="card-foot"><span class="url">progress.aolabs.io</span></div>
       </a>
 
       <a class="app cv" href="https://cv.aolabs.io" aria-label="Alan Nguyen Pham CV">

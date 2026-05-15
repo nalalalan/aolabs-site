@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Progress icon">
+  <defs>
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".18"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".5"/>
+    </filter>
+    <linearGradient id="cream" x1="22" y1="16" x2="104" y2="114">
+      <stop stop-color="#fff8ef"/>
+      <stop offset="1" stop-color="#e6d8c8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="20" y1="18" x2="108" y2="114">
+      <stop stop-color="#343139"/>
+      <stop offset="1" stop-color="#080a11"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="18" y1="20" x2="108" y2="112">
+      <stop stop-color="#8aa2df"/>
+      <stop offset=".55" stop-color="#4f6fb9"/>
+      <stop offset="1" stop-color="#263d73"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="18" y1="20" x2="108" y2="112">
+      <stop stop-color="#83aaa0"/>
+      <stop offset=".56" stop-color="#4f8077"/>
+      <stop offset="1" stop-color="#274e51"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="20" y1="16" x2="108" y2="112">
+      <stop stop-color="#efc868"/>
+      <stop offset=".58" stop-color="#bd8337"/>
+      <stop offset="1" stop-color="#6d4522"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#d)">
+    <rect x="20" y="24" width="88" height="80" rx="18" fill="url(#cream)"/>
+    <path d="M37 86V43M58 86V60M79 86V51M99 86V36" stroke="url(#ink)" stroke-width="7" stroke-linecap="round" opacity=".72"/>
+    <path d="M34 79 52 64l17 8 28-31" fill="none" stroke="url(#blue)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="34" cy="79" r="7" fill="url(#teal)"/>
+    <circle cx="52" cy="64" r="7" fill="url(#gold)"/>
+    <circle cx="69" cy="72" r="7" fill="url(#teal)"/>
+    <circle cx="97" cy="41" r="7" fill="url(#blue)"/>
+  </g>
+</svg>
