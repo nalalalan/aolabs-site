@@ -52,6 +52,7 @@
       --spotify: #1b7d43;
       --bus: #bf6e49;
       --progress: #5d72ad;
+      --a3: #68716b;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -148,7 +149,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr;
+      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr;
       height: 8px;
       margin-top: 20px;
       overflow: hidden;
@@ -174,6 +175,7 @@
     .palette-strip span:nth-child(16) { background: var(--spotify); }
     .palette-strip span:nth-child(17) { background: var(--bus); }
     .palette-strip span:nth-child(18) { background: var(--progress); }
+    .palette-strip span:nth-child(19) { background: var(--a3); }
 
     .grid {
       display: grid;
@@ -315,6 +317,7 @@
     .spotify { --accent: var(--spotify); }
     .bus { --accent: var(--bus); }
     .progress { --accent: var(--progress); }
+    .a3 { --accent: var(--a3); }
 
     footer {
       display: flex;
@@ -397,7 +400,7 @@
         <h1 class="site-label">Alan Pham</h1>
         <p class="intro">Research. Systems. Papers.</p>
         <div class="palette-strip" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
     </header>
@@ -427,6 +430,19 @@
           <p class="desc">AO Labs source ledger, PhD doc, YouTube, papers, and goal state.</p>
         </div>
         <div class="card-foot"><span class="url">progress.aolabs.io</span></div>
+      </a>
+
+      <a class="app a3" href="https://a3-aolabs-production.up.railway.app/" aria-label="A3">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>A3</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/a3.svg?v=20260515-a3" alt=""></span>
+          </div>
+          <p class="desc">Audi A3 readiness, spending memory, and advisor state.</p>
+        </div>
+        <div class="card-foot"><span class="url">a3.aolabs.io</span></div>
       </a>
 
       <a class="app cv" href="https://cv.aolabs.io" aria-label="Alan Nguyen Pham CV">
