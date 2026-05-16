@@ -12,9 +12,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 14px;
   min-height: 62px;
-  padding: 0 max(18px, calc((100vw - 1080px) / 2));
+  padding: 0 18px;
   border-bottom: 1px solid var(--suite-header-line);
   background: var(--suite-header-bg);
   backdrop-filter: blur(18px);
@@ -43,15 +43,15 @@
 .suite-ao-home {
   display: inline-grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  flex: 0 0 48px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
 }
 
 .suite-ao-home img {
   display: block;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
 }
 
 .suite-app-brand {
@@ -113,7 +113,7 @@
 @media (max-width: 640px) {
   .suite-topbar {
     min-height: 58px;
-    padding: 0 14px;
+    padding: 0 12px;
   }
 
   .suite-ao-home {
