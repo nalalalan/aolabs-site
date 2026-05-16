@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>alan pham / aolabs.io</title>
-  <meta name="description" content="a compact atlas of alan pham's research, tools, papers, robotics work, and live systems.">
+  <title>Alan Pham / aolabs.io</title>
+  <meta name="description" content="a compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <link rel="canonical" href="https://aolabs.io/" />
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
-  <meta property="og:title" content="alan pham / aolabs.io">
-  <meta property="og:description" content="a compact atlas of alan pham's research, tools, papers, robotics work, and live systems.">
+  <meta property="og:title" content="Alan Pham / aolabs.io">
+  <meta property="og:description" content="a compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <meta property="og:url" content="https://aolabs.io/">
   <meta property="og:image" content="https://aolabs.io/og-image-20260509-imagineer-castle.png">
   <meta property="og:image:secure_url" content="https://aolabs.io/og-image-20260509-imagineer-castle.png">
@@ -18,8 +18,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="AO Labs preview card with the latest app logos.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="alan pham / aolabs.io">
-  <meta name="twitter:description" content="a compact atlas of alan pham's research, tools, papers, robotics work, and live systems.">
+  <meta name="twitter:title" content="Alan Pham / aolabs.io">
+  <meta name="twitter:description" content="a compact atlas of Alan Pham's research, tools, papers, robotics work, and live systems.">
   <meta name="twitter:image" content="https://aolabs.io/og-image-20260509-imagineer-castle.png">
   <meta name="twitter:image:alt" content="AO Labs preview card with the latest app logos.">
   <link rel="icon" href="/favicon.svg?v=20260515-ao-disc-a" type="image/svg+xml">
@@ -189,7 +189,7 @@
       min-height: 148px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 0;
       padding: 16px 16px 13px;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -226,20 +226,20 @@
     }
 
     .app-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 14px;
+      display: block;
+      min-height: 0;
     }
 
     .app-icon {
       width: 82px;
       height: 82px;
-      flex: 0 0 auto;
+      position: absolute;
+      top: 16px;
+      right: 18px;
       display: grid;
       place-items: center;
       overflow: visible;
-      transform: translate(0, -2px);
+      transform: none;
     }
 
     .app-icon img {
@@ -252,6 +252,7 @@
 
     h2 {
       margin: 0;
+      max-width: calc(100% - 96px);
       font-size: 29px;
       line-height: 1;
       letter-spacing: 0;
@@ -259,8 +260,8 @@
     }
 
     .desc {
-      max-width: 310px;
-      margin: 0;
+      max-width: min(310px, calc(100% - 108px));
+      margin: 44px 0 0;
       color: var(--muted);
       font-size: 13.8px;
       line-height: 1.34;
@@ -398,8 +399,7 @@
       </a>
       <div>
         <p class="site-kicker">aolabs.io</p>
-        <h1 class="site-label">alan pham</h1>
-        <p class="intro">research. systems. papers.</p>
+        <h1 class="site-label">Alan Pham</h1>
         <div class="palette-strip" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
