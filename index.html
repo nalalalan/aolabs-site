@@ -53,6 +53,7 @@
       --bus: #bf6e49;
       --progress: #5d72ad;
       --a3: #7b8aa6;
+      --league: #8a738d;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -180,6 +181,7 @@
     .palette-strip span:nth-child(17) { background: var(--bus); }
     .palette-strip span:nth-child(18) { background: var(--progress); }
     .palette-strip span:nth-child(19) { background: var(--a3); }
+    .palette-strip span:nth-child(20) { background: var(--league); }
 
     .grid {
       display: grid;
@@ -324,6 +326,7 @@
     .bus { --accent: var(--bus); }
     .progress { --accent: var(--progress); }
     .a3 { --accent: var(--a3); }
+    .league { --accent: var(--league); }
 
     footer {
       display: flex;
@@ -433,7 +436,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -462,6 +465,19 @@
           <p class="desc">aolabs.io source ledger, phd doc, youtube, papers, and goal state.</p>
         </div>
         <div class="card-foot"><span class="url">progress.aolabs.io</span></div>
+      </a>
+
+      <a class="app league" href="https://league.aolabs.io/" aria-label="league">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>league</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/league.svg?v=20260517-league" alt=""></span>
+          </div>
+          <p class="desc">public review room for League rules, reps, and mindset.</p>
+        </div>
+        <div class="card-foot"><span class="url">league.aolabs.io</span></div>
       </a>
 
       <a class="app a3" href="https://a3.aolabs.io/" aria-label="a3">
