@@ -1,30 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Sandia National Labs mark in Japandi AO Labs colors">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Pink Sandia National Labs mark">
   <defs>
-    <linearGradient id="rose" x1="16" y1="11" x2="114" y2="119" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#E9B8B5"/>
-      <stop offset=".55" stop-color="#D99A98"/>
-      <stop offset="1" stop-color="#BF7F7F"/>
-    </linearGradient>
-    <linearGradient id="green" x1="29" y1="30" x2="99" y2="102" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8FAF9E"/>
-      <stop offset=".58" stop-color="#5F8977"/>
-      <stop offset="1" stop-color="#3F6658"/>
-    </linearGradient>
-    <linearGradient id="warmWhite" x1="26" y1="25" x2="104" y2="104" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFDF7"/>
-      <stop offset="1" stop-color="#EEE4D6"/>
-    </linearGradient>
-    <filter id="suiteShadow" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#2D2426" flood-opacity=".20"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity=".38"/>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#2D2426" flood-opacity=".18"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity=".32"/>
     </filter>
   </defs>
-  <g filter="url(#suiteShadow)">
-    <path fill="url(#rose)" d="M64 5C86 5 104 7 113 16c9 9 10 27 10 48s-1 39-10 48c-9 9-27 11-49 11s-40-2-49-11C6 103 5 85 5 64s1-39 10-48C24 7 42 5 64 5Z"/>
-    <path fill="url(#warmWhite)" d="M28 29c18-8 54-8 72 0 8 18 8 52 0 70-18 8-54 8-72 0-8-18-8-52 0-70Z"/>
-    <path fill="url(#green)" d="M46 38c12-1.4 24-1.4 36 0-.8 5.2-.9 10.6-.3 15.8h16.6c1.5 11.6 1.5 23.5 0 35.1l-13.1.7-1.3-15.2h-9.1l.8 31.2c-7.7.9-15.5.9-23.2 0l.8-31.2h-9.1l-1.3 15.2-13.1-.7c-1.5-11.6-1.5-23.5 0-35.1h16.6c.6-5.2.5-10.6-.3-15.8Z"/>
-    <path fill="url(#warmWhite)" d="M43.4 74.4h9.7L52.6 90l-10.2-.5 1-15.1Zm31.5 0h9.7l1 15.1-10.2.5-.5-15.6Z"/>
-    <path fill="#F4C8C3" opacity=".42" d="M18.7 101.6C29 112 45.9 114.3 64 114.3s35-2.3 45.3-12.7c-9 13-27.6 16.4-45.3 16.4s-36.3-3.4-45.3-16.4Z"/>
-    <path fill="#A9C6B8" opacity=".42" d="M28 29c18-8 54-8 72 0 2.2 5 3.8 11 4.7 17.3C91.5 37.8 36.5 37.8 23.3 46.3 24.2 40 25.8 34 28 29Z"/>
+  <g filter="url(#shadow)">
+    <path fill="#D99E9B" d="M64 5.1c22.8 0 41.1 2.1 49.7 10.8 8.7 8.6 9.8 26.1 9.8 48.1s-1.1 39.5-9.8 48.1c-8.6 8.7-26.9 10.8-49.7 10.8s-41.1-2.1-49.7-10.8C5.6 103.5 4.5 86 4.5 64s1.1-39.5 9.8-48.1C22.9 7.2 41.2 5.1 64 5.1Z"/>
+    <path fill="#FFF8EE" d="M28.2 28.7c18.6-8 53-8 71.6 0 8.1 17.7 8.1 52.9 0 70.6-18.6 8-53 8-71.6 0-8.1-17.7-8.1-52.9 0-70.6Z"/>
+    <path fill="#D99E9B" d="M45.8 24.1c12.1-1.4 24.3-1.4 36.4 0-.8 5.7-.9 11.3-.3 17H101c1.6 15.4 1.6 32.5 0 48L89.1 90l-1.4-15.4H76.9l1.6 30.1c-9.6.9-19.4.9-29 0l1.6-30.1H40.3L38.9 90 27 89.1c-1.6-15.5-1.6-32.6 0-48h19.1c.6-5.7.5-11.3-.3-17Z"/>
+    <path fill="#FFF8EE" d="M43.5 59.3h9.8l-1.7 30.4-13-.8 1.2-14.3h3.7V59.3Z"/>
+    <path fill="#FFF8EE" d="M74.7 59.3h9.8v15.3h3.7l1.2 14.3-13 .8-1.7-30.4Z"/>
   </g>
 </svg>
