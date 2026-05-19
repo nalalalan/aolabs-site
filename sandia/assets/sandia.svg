@@ -1,69 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Sandia ratcheting mechanism icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Sandia National Labs inspired ratcheting mechanism icon">
   <defs>
-    <filter id="d" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".14"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".5"/>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="7" flood-color="#12110f" flood-opacity=".24"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fff8eb" flood-opacity=".28"/>
     </filter>
-    <linearGradient id="teal" x1="18" y1="20" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#91c6c1"/>
-      <stop offset=".58" stop-color="#4f918e"/>
-      <stop offset="1" stop-color="#2d6665"/>
+    <linearGradient id="teal" x1="20" y1="18" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9fc9c5"/>
+      <stop offset=".56" stop-color="#4d8f8b"/>
+      <stop offset="1" stop-color="#285f5e"/>
     </linearGradient>
-    <linearGradient id="clay" x1="22" y1="18" x2="112" y2="112" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#e6a091"/>
-      <stop offset=".56" stop-color="#c77963"/>
-      <stop offset="1" stop-color="#855647"/>
+    <linearGradient id="mesa" x1="25" y1="73" x2="110" y2="98" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d88b5f"/>
+      <stop offset=".46" stop-color="#9f604c"/>
+      <stop offset="1" stop-color="#694235"/>
     </linearGradient>
-    <linearGradient id="gold" x1="20" y1="16" x2="108" y2="112" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#f1cf78"/>
-      <stop offset=".58" stop-color="#cf9645"/>
-      <stop offset="1" stop-color="#8d6330"/>
+    <linearGradient id="sun" x1="47" y1="40" x2="82" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#efd27a"/>
+      <stop offset="1" stop-color="#c98939"/>
     </linearGradient>
-    <linearGradient id="ink" x1="18" y1="18" x2="112" y2="114" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#665c54"/>
-      <stop offset="1" stop-color="#332c28"/>
+    <linearGradient id="cream" x1="24" y1="18" x2="112" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff6e6"/>
+      <stop offset="1" stop-color="#e5d3bc"/>
     </linearGradient>
-    <linearGradient id="cream" x1="18" y1="18" x2="108" y2="114" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fff8ef"/>
-      <stop offset="1" stop-color="#e6d7c5"/>
-    </linearGradient>
-    <rect id="tooth" x="61" y="13" width="6" height="12" rx="2.2"/>
+    <rect id="ray" x="61" y="12" width="6" height="14" rx="2"/>
   </defs>
-  <g filter="url(#d)">
-    <g fill="url(#teal)" transform="rotate(-9 64 64)">
-      <use href="#tooth"/>
-      <use href="#tooth" transform="rotate(15 64 64)"/>
-      <use href="#tooth" transform="rotate(30 64 64)"/>
-      <use href="#tooth" transform="rotate(45 64 64)"/>
-      <use href="#tooth" transform="rotate(60 64 64)"/>
-      <use href="#tooth" transform="rotate(75 64 64)"/>
-      <use href="#tooth" transform="rotate(90 64 64)"/>
-      <use href="#tooth" transform="rotate(105 64 64)"/>
-      <use href="#tooth" transform="rotate(120 64 64)"/>
-      <use href="#tooth" transform="rotate(135 64 64)"/>
-      <use href="#tooth" transform="rotate(150 64 64)"/>
-      <use href="#tooth" transform="rotate(165 64 64)"/>
-      <use href="#tooth" transform="rotate(180 64 64)"/>
-      <use href="#tooth" transform="rotate(195 64 64)"/>
-      <use href="#tooth" transform="rotate(210 64 64)"/>
-      <use href="#tooth" transform="rotate(225 64 64)"/>
-      <use href="#tooth" transform="rotate(240 64 64)"/>
-      <use href="#tooth" transform="rotate(255 64 64)"/>
-      <use href="#tooth" transform="rotate(270 64 64)"/>
-      <use href="#tooth" transform="rotate(285 64 64)"/>
-      <use href="#tooth" transform="rotate(300 64 64)"/>
-      <use href="#tooth" transform="rotate(315 64 64)"/>
-      <use href="#tooth" transform="rotate(330 64 64)"/>
-      <use href="#tooth" transform="rotate(345 64 64)"/>
-      <circle cx="64" cy="64" r="39"/>
+  <g filter="url(#shadow)">
+    <circle cx="64" cy="64" r="53" fill="url(#cream)"/>
+    <g fill="url(#teal)" transform="rotate(-8 64 64)">
+      <use href="#ray"/>
+      <use href="#ray" transform="rotate(15 64 64)"/>
+      <use href="#ray" transform="rotate(30 64 64)"/>
+      <use href="#ray" transform="rotate(45 64 64)"/>
+      <use href="#ray" transform="rotate(60 64 64)"/>
+      <use href="#ray" transform="rotate(75 64 64)"/>
+      <use href="#ray" transform="rotate(90 64 64)"/>
+      <use href="#ray" transform="rotate(105 64 64)"/>
+      <use href="#ray" transform="rotate(120 64 64)"/>
+      <use href="#ray" transform="rotate(135 64 64)"/>
+      <use href="#ray" transform="rotate(150 64 64)"/>
+      <use href="#ray" transform="rotate(165 64 64)"/>
+      <use href="#ray" transform="rotate(180 64 64)"/>
+      <use href="#ray" transform="rotate(195 64 64)"/>
+      <use href="#ray" transform="rotate(210 64 64)"/>
+      <use href="#ray" transform="rotate(225 64 64)"/>
+      <use href="#ray" transform="rotate(240 64 64)"/>
+      <use href="#ray" transform="rotate(255 64 64)"/>
+      <use href="#ray" transform="rotate(270 64 64)"/>
+      <use href="#ray" transform="rotate(285 64 64)"/>
+      <use href="#ray" transform="rotate(300 64 64)"/>
+      <use href="#ray" transform="rotate(315 64 64)"/>
+      <use href="#ray" transform="rotate(330 64 64)"/>
+      <use href="#ray" transform="rotate(345 64 64)"/>
+      <circle cx="64" cy="64" r="37"/>
     </g>
-    <circle cx="64" cy="64" r="20" fill="url(#cream)" opacity=".96"/>
-    <circle cx="64" cy="64" r="9" fill="url(#gold)"/>
-    <path d="M26 89c16-20 33-26 52-21l-14 14c-9-1-18 4-28 16Z" fill="url(#clay)"/>
-    <path d="M28 92c16-19 31-24 49-20" fill="none" stroke="url(#ink)" stroke-width="4.5" stroke-linecap="round" opacity=".36"/>
-    <circle cx="35" cy="92" r="8" fill="url(#gold)"/>
-    <path d="M79 82h25c6 0 10 4 10 9s-4 9-10 9H82c-8 0-14-5-15-12Z" fill="url(#clay)"/>
-    <circle cx="101" cy="91" r="5" fill="url(#cream)" opacity=".9"/>
-    <path d="M78 82c-6 4-10 6-13 6" fill="none" stroke="#fff8ef" stroke-width="5" stroke-linecap="round" opacity=".66"/>
+    <circle cx="64" cy="64" r="21" fill="#263937"/>
+    <circle cx="64" cy="64" r="12" fill="url(#sun)"/>
+    <path d="M24 87c18-20 38-29 62-21l-13 12c-15-2-27 3-39 17Z" fill="url(#mesa)"/>
+    <path d="M32 93c20-16 37-20 57-14" fill="none" stroke="#f3dac8" stroke-width="5" stroke-linecap="round" opacity=".72"/>
+    <path d="M63 84c11-11 23-14 38-9 8 3 14 9 18 17H91c-11 0-20-3-28-8Z" fill="url(#mesa)"/>
+    <circle cx="103" cy="91" r="5.5" fill="#f3dac8"/>
+    <circle cx="31" cy="89" r="8" fill="url(#sun)"/>
   </g>
 </svg>
