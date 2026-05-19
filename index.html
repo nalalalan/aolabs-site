@@ -44,6 +44,7 @@
       --yum: #bb8854;
       --lily: #c28b98;
       --cv: #68758f;
+      --sandia: #2f7f80;
       --sarrus: #81977f;
       --imagineer: #66799f;
       --wallguard: #6f837d;
@@ -154,7 +155,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr 1fr .92fr .9fr .9fr .88fr .86fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr;
+      grid-template-columns: 1.05fr 1fr .98fr .94fr .9fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr;
       height: 9px;
       margin: 24px 0 0 132px;
       overflow: hidden;
@@ -163,25 +164,26 @@
     }
 
     .palette-strip span:nth-child(1) { background: var(--imagineer); }
-    .palette-strip span:nth-child(2) { background: var(--sarrus); }
-    .palette-strip span:nth-child(3) { background: var(--fluxcell); }
-    .palette-strip span:nth-child(4) { background: var(--spec); }
-    .palette-strip span:nth-child(5) { background: var(--cv); }
-    .palette-strip span:nth-child(6) { background: var(--curtis); }
-    .palette-strip span:nth-child(7) { background: var(--relay); }
-    .palette-strip span:nth-child(8) { background: var(--wallguard); }
-    .palette-strip span:nth-child(9) { background: var(--talk); }
-    .palette-strip span:nth-child(10) { background: var(--ocean); }
-    .palette-strip span:nth-child(11) { background: var(--yum); }
-    .palette-strip span:nth-child(12) { background: var(--lily); }
-    .palette-strip span:nth-child(13) { background: var(--nerve); }
-    .palette-strip span:nth-child(14) { background: var(--duet); }
-    .palette-strip span:nth-child(15) { background: var(--violin); }
-    .palette-strip span:nth-child(16) { background: var(--spotify); }
-    .palette-strip span:nth-child(17) { background: var(--bus); }
-    .palette-strip span:nth-child(18) { background: var(--progress); }
-    .palette-strip span:nth-child(19) { background: var(--a3); }
-    .palette-strip span:nth-child(20) { background: var(--league); }
+    .palette-strip span:nth-child(2) { background: var(--sandia); }
+    .palette-strip span:nth-child(3) { background: var(--cv); }
+    .palette-strip span:nth-child(4) { background: var(--sarrus); }
+    .palette-strip span:nth-child(5) { background: var(--fluxcell); }
+    .palette-strip span:nth-child(6) { background: var(--ocean); }
+    .palette-strip span:nth-child(7) { background: var(--progress); }
+    .palette-strip span:nth-child(8) { background: var(--spec); }
+    .palette-strip span:nth-child(9) { background: var(--curtis); }
+    .palette-strip span:nth-child(10) { background: var(--relay); }
+    .palette-strip span:nth-child(11) { background: var(--wallguard); }
+    .palette-strip span:nth-child(12) { background: var(--talk); }
+    .palette-strip span:nth-child(13) { background: var(--yum); }
+    .palette-strip span:nth-child(14) { background: var(--lily); }
+    .palette-strip span:nth-child(15) { background: var(--nerve); }
+    .palette-strip span:nth-child(16) { background: var(--duet); }
+    .palette-strip span:nth-child(17) { background: var(--violin); }
+    .palette-strip span:nth-child(18) { background: var(--spotify); }
+    .palette-strip span:nth-child(19) { background: var(--bus); }
+    .palette-strip span:nth-child(20) { background: var(--a3); }
+    .palette-strip span:nth-child(21) { background: var(--league); }
 
     .grid {
       display: grid;
@@ -317,6 +319,7 @@
     .yum { --accent: var(--yum); }
     .lily { --accent: var(--lily); }
     .cv { --accent: var(--cv); }
+    .sandia { --accent: var(--sandia); }
     .sarrus { --accent: var(--sarrus); }
     .imagineer { --accent: var(--imagineer); }
     .wallguard { --accent: var(--wallguard); }
@@ -436,7 +439,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -454,17 +457,17 @@
         <div class="card-foot"><span class="url">imagineer.aolabs.io</span></div>
       </a>
 
-      <a class="app progress" href="https://progress.aolabs.io/" aria-label="progress">
+      <a class="app sandia" href="https://aolabs.io/sandia/" aria-label="sandia">
         <div>
           <div class="app-top">
             <div>
-              <h2>progress</h2>
+              <h2>sandia</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/progress.svg?v=20260517-progress-ledger" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sandia.svg?v=20260519-ratchet" alt=""></span>
           </div>
-          <p class="desc">aolabs.io source ledger, phd doc, youtube, papers, and goal state.</p>
+          <p class="desc">nomad internship research, ratcheting mechanism paper, and presentation record.</p>
         </div>
-        <div class="card-foot"><span class="url">progress.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">sandia.aolabs.io</span></div>
       </a>
 
       <a class="app cv" href="https://cv.aolabs.io" aria-label="cv">
@@ -517,6 +520,19 @@
           <p class="desc">outside media wall for WDI-style robotics, animatronics, haptics, and morphing matter.</p>
         </div>
         <div class="card-foot"><span class="url">ocean.aolabs.io</span></div>
+      </a>
+
+      <a class="app progress" href="https://progress.aolabs.io/" aria-label="progress">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>progress</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/progress.svg?v=20260517-progress-ledger" alt=""></span>
+          </div>
+          <p class="desc">aolabs.io source ledger, phd doc, youtube, papers, and goal state.</p>
+        </div>
+        <div class="card-foot"><span class="url">progress.aolabs.io</span></div>
       </a>
 
       <a class="app spec" href="https://spec.aolabs.io" aria-label="spec">

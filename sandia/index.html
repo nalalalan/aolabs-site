@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sandia.aolabs.io</title>
+  <meta name="description" content="Alan Pham's Sandia National Laboratories NOMAD internship research on nonlinear-dynamics model sensitivity in an electromechanical ratcheting mechanism.">
+  <link rel="canonical" href="https://sandia.aolabs.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AO Labs">
+  <meta property="og:title" content="sandia.aolabs.io">
+  <meta property="og:description" content="NOMAD internship research, coauthored paper, mechanism media, and downloadable presentations.">
+  <meta property="og:url" content="https://sandia.aolabs.io/">
+  <meta property="og:image" content="https://sandia.aolabs.io/assets/deck-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="sandia.aolabs.io">
+  <meta name="twitter:description" content="NOMAD internship research, coauthored paper, mechanism media, and downloadable presentations.">
+  <meta name="twitter:image" content="https://sandia.aolabs.io/assets/deck-cover.jpg">
+  <link rel="icon" href="assets/sandia.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
+  <link rel="stylesheet" href="styles.css?v=20260519-sandia-showcase">
+</head>
+<body>
+  <header class="suite-topbar" aria-label="sandia navigation">
+    <div class="suite-brand-cluster">
+      <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
+        <img src="https://aolabs.io/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
+      </a>
+      <a class="suite-app-brand" href="./" aria-label="sandia home">
+        <img class="suite-app-mark" src="assets/sandia.svg" alt="">
+        <span class="suite-app-name">sandia.aolabs.io</span>
+      </a>
+    </div>
+    <nav class="suite-topbar-actions" aria-label="sandia actions">
+      <a href="paper.html">paper</a>
+      <a href="#downloads">downloads</a>
+    </nav>
+  </header>
+
+  <section class="paper-strip" aria-label="Sandia paper">
+    <div class="paper-copy">
+      <span>Paper</span>
+      <strong>Quantifying the Effect of Non-Physical Parameters on the Nonlinear Dynamics of an Electromechanical Ratcheting Mechanism</strong>
+      <p>Coauthored Sandia/NOMAD research record for the ratcheting mechanism sensitivity study.</p>
+    </div>
+    <div class="paper-actions">
+      <a class="button-link primary" href="paper.pdf" download>Open PDF</a>
+    </div>
+  </section>
+
+  <main>
+    <section class="hero" aria-label="Sandia NOMAD research showcase">
+      <div class="hero-copy">
+        <p class="eyebrow">Sandia National Laboratories / NOMAD Research Institute</p>
+        <h1>Ratcheting mechanism sensitivity study at Sandia NOMAD.</h1>
+        <p class="lede">Summer 2025 internship work on finite-element setup choices, contact/friction behavior, and submodel-level verification for a watch-like ratcheting mechanism.</p>
+        <div class="fact-row" aria-label="Project facts">
+          <span>June 16-August 8, 2025</span>
+          <span>Sierra/SM + MATLAB</span>
+          <span>Paper coauthor</span>
+          <span>Presented August 5, 2025</span>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/mechanism-overview-poster.jpg">
+          <source src="assets/mechanism-overview.mp4" type="video/mp4">
+        </video>
+        <figcaption>Mechanism animation extracted from the NOMAD final presentation.</figcaption>
+      </figure>
+    </section>
+
+    <section class="overview-band" aria-label="Research overview">
+      <div class="overview-copy">
+        <h2>What the project isolated</h2>
+        <p>The study split the hold-pawl assembly into pin-spring-pawl, pin-pawl, and pawl-gear submodels, then varied non-physical model parameters to separate physical response from solver/setup sensitivity.</p>
+      </div>
+      <div class="method-grid" aria-label="Study parameters">
+        <div>
+          <strong>Submodels</strong>
+          <span>pin-spring-pawl, pin-pawl, pawl-gear</span>
+        </div>
+        <div>
+          <strong>Parameters</strong>
+          <span>momentum-balance iterations, mesh density, processor count</span>
+        </div>
+        <div>
+          <strong>Environments</strong>
+          <span>haversine shock and sinusoidal vibration</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-grid" aria-label="Mechanism media">
+      <figure class="media-tile wide">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/gear-contact-poster.jpg">
+          <source src="assets/gear-contact.mp4" type="video/mp4">
+        </video>
+        <figcaption>Pawl-gear contact region from the mechanism animation.</figcaption>
+      </figure>
+      <figure class="media-tile">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/pawl-contact-poster.jpg">
+          <source src="assets/pawl-contact.mp4" type="video/mp4">
+        </video>
+        <figcaption>Close-up ratcheting contact under finite-element motion.</figcaption>
+      </figure>
+      <figure class="media-tile">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/multibody-model-poster.jpg">
+          <source src="assets/multibody-model.mp4" type="video/mp4">
+        </video>
+        <figcaption>Reduced multibody model used alongside FE submodels.</figcaption>
+      </figure>
+    </section>
+
+    <section class="results-band" aria-label="Results">
+      <div>
+        <h2>Result boundary</h2>
+        <p>The pin-spring-pawl model converged across the parameter sweeps. Pin-pawl and pawl-gear cases showed stronger sensitivity where contact and friction dominated, especially under sinusoidal vibration.</p>
+      </div>
+      <img src="assets/results-summary.jpg" alt="Summary slide showing sensitivity of each submodel to momentum balance iteration, mesh density, and processor count under shock and vibration.">
+    </section>
+
+    <section class="record-grid" id="downloads" aria-label="Research record and downloads">
+      <article class="record paper-record">
+        <img src="assets/paper-cover.jpg" alt="First page of the ratcheting mechanism paper.">
+        <div>
+          <h2>Coauthored paper</h2>
+          <p>Five-page research paper with abstract, methods, submodel results, conclusions, acknowledgments, and references.</p>
+          <a class="button-link" href="paper.html">Open paper page</a>
+        </div>
+      </article>
+      <article class="record">
+        <img src="assets/deck-cover.jpg" alt="Cover slide of the NOMAD final presentation.">
+        <div>
+          <h2>Final NOMAD presentation</h2>
+          <p>Final internship presentation delivered August 5, 2025. The PDF is hosted here; the full PPTX is a release download because the source deck is 214 MB.</p>
+          <div class="button-row">
+            <a class="button-link" href="downloads/NOMAD-Final-Presentation.pdf" download>Download PDF</a>
+            <a class="button-link secondary" href="https://github.com/nalalalan/sandia-app/releases/download/2026-05-19-sandia-materials/NOMAD-Final-Presentation.pptx">Download PPTX</a>
+          </div>
+        </div>
+      </article>
+      <article class="record compact-record">
+        <div>
+          <h2>Soft Robotics Lab talk</h2>
+          <p>Alan's lab presentation summarizing the internship setting, application process, NOMAD structure, and research connection to soft robotics and compliant mechanisms.</p>
+          <a class="button-link" href="downloads/AP-SRL-Sandia-Presentation.pptx" download>Download PPTX</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Public portfolio page for Alan Pham's Sandia internship work. Not an official Sandia National Laboratories site.</p>
+    <p>Sandia National Laboratories is managed and operated by National Technology &amp; Engineering Solutions of Sandia, LLC for the U.S. Department of Energy's National Nuclear Security Administration under contract DE-NA0003525.</p>
+  </footer>
+</body>
+</html>
