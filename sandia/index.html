@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://sandia.aolabs.io/assets/paper-cover.jpg">
   <link rel="icon" href="assets/sandia.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="styles.css?v=20260519-sandia-research">
+  <link rel="stylesheet" href="styles.css?v=20260519-sandia-research2">
 </head>
 <body>
   <header class="suite-topbar" aria-label="sandia navigation">
@@ -50,151 +50,50 @@
       </div>
     </section>
 
-    <section class="summary-grid" aria-label="Project summary">
-      <article class="summary-text">
+    <section class="intro-panel" aria-label="Project summary">
+      <div class="intro-copy">
         <h2>Research record</h2>
         <p>Summer 2025 internship work on a watch-like ratcheting mechanism, focused on separating physical response from sensitivity introduced by finite-element setup choices.</p>
-        <p>The study evaluated submodel behavior under shock and vibration while varying mesh density, momentum-balance iteration, and processor count. The public record includes the coauthored paper, the final NOMAD presentation, Alan's Soft Robotics Lab presentation, the completed slide-81 result matrix, and extracted FEA media from the final deck.</p>
-      </article>
-      <dl class="facts-table">
-        <div>
-          <dt>Role</dt>
-          <dd>Summer intern; paper coauthor</dd>
-        </div>
-        <div>
-          <dt>Period</dt>
-          <dd>June 16-August 8, 2025</dd>
-        </div>
-        <div>
-          <dt>Tools</dt>
-          <dd>Sierra/SM and MATLAB</dd>
-        </div>
-        <div>
-          <dt>Presentation</dt>
-          <dd>Final NOMAD talk, August 5, 2025</dd>
-        </div>
-      </dl>
+        <p>NOMAD stands for Nonlinear Mechanics and Dynamics Research Institute. Alan's 2025 internship ran June 16-August 8 in Albuquerque through Sandia National Laboratories and the University of New Mexico, with the final NOMAD presentation delivered August 5, 2025.</p>
+        <p>The public record includes the coauthored paper, the final NOMAD presentation, Alan's Soft Robotics Lab presentation, the completed slide-81 result matrix, and mechanism/FEA media extracted from the final deck.</p>
+      </div>
+      <p class="fact-line">Summer intern; paper coauthor / Sierra/SM and MATLAB / Sandia National Laboratories and University of New Mexico / Albuquerque, New Mexico</p>
     </section>
 
-    <section class="section-block internship-context" aria-label="NOMAD internship context">
-      <div class="context-grid">
-        <div>
-          <h2>NOMAD internship context</h2>
-          <p>NOMAD stands for Nonlinear Mechanics and Dynamics Research Institute. Alan's 2025 internship ran June 16-August 8 in Albuquerque through Sandia National Laboratories and the University of New Mexico.</p>
-          <p>The institute placed interns in Sandia research groups for in-person finite-element and nonlinear dynamics work. Alan's Soft Robotics Lab talk documented the research setting, weekly mentor cadence, project-team structure, and the link between this work and soft robotics/compliant mechanism modeling.</p>
-        </div>
-        <dl class="context-list">
-          <div>
-            <dt>Setting</dt>
-            <dd>Sandia National Laboratories; University of New Mexico</dd>
-          </div>
-          <div>
-            <dt>Location</dt>
-            <dd>Albuquerque, New Mexico</dd>
-          </div>
-          <div>
-            <dt>Cadence</dt>
-            <dd>Orientation and training, six-week research block, final institute presentation</dd>
-          </div>
-          <div>
-            <dt>Lab link</dt>
-            <dd>Nonlinear modeling of compliant mechanisms and contact-rich motion</dd>
-          </div>
-        </dl>
-      </div>
-      <div class="life-grid" aria-label="Internship life images">
+    <section class="section-block" aria-label="Mechanism motion">
+      <h2>Mechanism motion</h2>
+      <p>Multibody animation loops show the ratcheting assembly and the contact-rich motion that motivated the submodel sensitivity study.</p>
+      <div class="animation-grid mechanism-grid">
         <figure>
-          <img src="assets/internship-life-1.jpg" alt="Photo sheet from Alan's Soft Robotics Lab talk showing internship and Albuquerque scenes.">
-          <figcaption>Internship-life photo sheet from the Soft Robotics Lab talk.</figcaption>
+          <img class="loop-gif" src="assets/mechanism-overview.gif" alt="Autoplaying multibody animation of the ratcheting gear mechanism.">
+          <figcaption><strong>Full assembly.</strong> Multibody ratcheting motion.</figcaption>
         </figure>
         <figure>
-          <img src="assets/internship-life-2.jpg" alt="Photo sheet from Alan's Soft Robotics Lab talk showing internship activities and local scenes.">
-          <figcaption>Internship-life photo sheet from the Soft Robotics Lab talk.</figcaption>
+          <img class="loop-gif" src="assets/gear-contact.gif" alt="Autoplaying close-up animation of pawl and gear contact.">
+          <figcaption><strong>Pawl-gear contact.</strong> Tooth engagement detail.</figcaption>
         </figure>
         <figure>
-          <img src="assets/internship-life-3.jpg" alt="Photo sheet from Alan's Soft Robotics Lab talk showing internship activities, food, and site visits.">
-          <figcaption>Internship-life photo sheet from the Soft Robotics Lab talk.</figcaption>
+          <img class="loop-gif" src="assets/pawl-contact.gif" alt="Autoplaying close-up animation of the stop pawl contact interface.">
+          <figcaption><strong>Stop-pawl interface.</strong> Contact surface detail.</figcaption>
+        </figure>
+        <figure>
+          <img class="loop-gif" src="assets/multibody-model.gif" alt="Autoplaying animation of the pin-spring-pawl submodel.">
+          <figcaption><strong>Pin-spring-pawl.</strong> Isolated submodel motion.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="section-block" aria-label="Study structure">
-      <h2>Study structure</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Component</th>
-            <th scope="col">Scope</th>
-            <th scope="col">Reason for isolation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pin-spring-pawl</td>
-            <td>Contact-free spring/pin interaction</td>
-            <td>Baseline convergence behavior without the dominant contact/friction interfaces.</td>
-          </tr>
-          <tr>
-            <td>Pin-pawl</td>
-            <td>Pin interface with pawl body</td>
-            <td>Tests sensitivity where local contact response begins to dominate the model.</td>
-          </tr>
-          <tr>
-            <td>Pawl-gear</td>
-            <td>Ratcheting gear contact</td>
-            <td>Separates gear-to-pawl contact behavior under shock and sinusoidal vibration.</td>
-          </tr>
-        </tbody>
-      </table>
+    <section class="section-block photo-section" aria-label="Internship photos">
+      <h2>Internship photos</h2>
+      <figure class="photo-collage">
+        <img src="assets/internship-collage.jpg" alt="Collage of photos from Alan's NOMAD internship, including group photos, Sandia campus moments, lab spaces, Albuquerque scenes, and food.">
+        <figcaption>Photos from Alan's 2025 NOMAD internship and Albuquerque.</figcaption>
+      </figure>
     </section>
 
     <section class="section-block" aria-label="FEA study results">
-      <div class="two-column">
-        <div>
-          <h2>FEA study results</h2>
-          <p>The completed summary matrix on slide 81 classifies each submodel by whether the response converged as non-physical parameters were varied.</p>
-          <p>Pin-spring-pawl converged across momentum-balance iteration, mesh density, and processor-count sweeps. Pin-pawl did not converge across the same sweeps. Pawl-gear converged for processor count, but remained sensitive for momentum-balance iteration and mesh density.</p>
-        </div>
-        <figure class="figure-card">
-          <img src="assets/results-matrix-complete.png" alt="Complete summary matrix from slide 81 showing green convergence for all pin-spring-pawl parameters, red non-convergence for all pin-pawl parameters, red non-convergence for pawl-gear momentum-balance iteration and mesh density, and green convergence for pawl-gear processor count.">
-          <figcaption>Complete result matrix from slide 81 of the NOMAD final presentation.</figcaption>
-        </figure>
-      </div>
-
-      <table class="results-table">
-        <thead>
-          <tr>
-            <th scope="col">Parameter varied</th>
-            <th scope="col">Pin-spring-pawl</th>
-            <th scope="col">Pin-pawl</th>
-            <th scope="col">Pawl-gear</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Momentum-balance iteration</td>
-            <td><span class="status good">Converged</span></td>
-            <td><span class="status bad">Non-convergent / chaotic</span></td>
-            <td><span class="status bad">Non-convergent / chaotic</span></td>
-          </tr>
-          <tr>
-            <td>Mesh density</td>
-            <td><span class="status good">Converged</span></td>
-            <td><span class="status bad">Non-convergent / chaotic</span></td>
-            <td><span class="status bad">Non-convergent / chaotic</span></td>
-          </tr>
-          <tr>
-            <td>Processor count</td>
-            <td><span class="status good">Converged</span></td>
-            <td><span class="status bad">Non-convergent / chaotic</span></td>
-            <td><span class="status good">Converged</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="section-block" aria-label="Result notes by submodel">
-      <h2>Result notes by submodel</h2>
+      <h2>FEA study results</h2>
+      <p>The stop-pawl assembly was divided into pin-spring-pawl, pin-pawl, and pawl-gear submodels. Each was tested under Haversine shock and sinusoidal vibration while varying momentum-balance iteration, mesh density, and processor count.</p>
       <div class="result-notes">
         <article>
           <h3>Pin-spring-pawl</h3>
@@ -213,75 +112,42 @@
 
     <section class="section-block" aria-label="FEA excitation animations">
       <h2>FEA excitation animations</h2>
-      <p>Autoplaying loops extracted from the final PowerPoint show the excitation methods used for the submodels.</p>
+      <p>GIF loops extracted from the final PowerPoint show the excitation methods used for the three submodels.</p>
       <div class="animation-grid">
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/psp-haversine-shock-poster.jpg">
-            <source src="assets/psp-haversine-shock.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/psp-haversine-shock.gif" alt="GIF animation of the pin-spring-pawl submodel under Haversine shock.">
           <figcaption><strong>Pin-spring-pawl.</strong> Haversine shock.</figcaption>
         </figure>
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/psp-sinusoidal-vibration-poster.jpg">
-            <source src="assets/psp-sinusoidal-vibration.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/psp-sinusoidal-vibration.gif" alt="GIF animation of the pin-spring-pawl submodel under sinusoidal vibration.">
           <figcaption><strong>Pin-spring-pawl.</strong> Sinusoidal vibration.</figcaption>
         </figure>
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/pin-pawl-haversine-shock-poster.jpg">
-            <source src="assets/pin-pawl-haversine-shock.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/pin-pawl-haversine-shock.gif" alt="GIF animation of the pin-pawl submodel under Haversine shock.">
           <figcaption><strong>Pin-pawl.</strong> Haversine shock.</figcaption>
         </figure>
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/pin-pawl-sinusoidal-vibration-poster.jpg">
-            <source src="assets/pin-pawl-sinusoidal-vibration.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/pin-pawl-sinusoidal-vibration.gif" alt="GIF animation of the pin-pawl submodel under sinusoidal vibration.">
           <figcaption><strong>Pin-pawl.</strong> Sinusoidal vibration.</figcaption>
         </figure>
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/pawl-gear-haversine-shock-poster.jpg">
-            <source src="assets/pawl-gear-haversine-shock.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/pawl-gear-haversine-shock.gif" alt="GIF animation of the pawl-gear submodel under Haversine shock.">
           <figcaption><strong>Pawl-gear.</strong> Haversine shock.</figcaption>
         </figure>
         <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/pawl-gear-sinusoidal-vibration-poster.jpg">
-            <source src="assets/pawl-gear-sinusoidal-vibration.mp4" type="video/mp4">
-          </video>
+          <img class="loop-gif" src="assets/pawl-gear-sinusoidal-vibration.gif" alt="GIF animation of the pawl-gear submodel under sinusoidal vibration.">
           <figcaption><strong>Pawl-gear.</strong> Sinusoidal vibration.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="section-block" aria-label="Directional excitation checks">
-      <h2>Directional excitation checks</h2>
-      <div class="animation-grid compact">
-        <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/haversine-pulse-x-poster.jpg">
-            <source src="assets/haversine-pulse-x.mp4" type="video/mp4">
-          </video>
-          <figcaption>Haversine pulse, 6000 g, 0.5 ms, +x.</figcaption>
-        </figure>
-        <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/haversine-pulse-z-poster.jpg">
-            <source src="assets/haversine-pulse-z.mp4" type="video/mp4">
-          </video>
-          <figcaption>Haversine pulse, 6000 g, 0.5 ms, +z.</figcaption>
-        </figure>
-        <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/sinusoid-pawl-x-poster.jpg">
-            <source src="assets/sinusoid-pawl-x.mp4" type="video/mp4">
-          </video>
-          <figcaption>Sinusoidal pawl displacement, 0.005 in, +x.</figcaption>
-        </figure>
-        <figure>
-          <video autoplay muted loop playsinline preload="auto" poster="assets/sinusoid-pawl-z-poster.jpg">
-            <source src="assets/sinusoid-pawl-z.mp4" type="video/mp4">
-          </video>
-          <figcaption>Sinusoidal pawl displacement, 0.005 in, +z.</figcaption>
-        </figure>
-      </div>
+    <section class="section-block" aria-label="Slide 81 result matrix">
+      <h2>Slide 81 result matrix</h2>
+      <p>The completed slide-81 Key Results panel is kept in its original presentation form so the convergence summary stays tied to the source deck.</p>
+      <figure class="figure-card result-matrix">
+        <img src="assets/results-slide81-key-results.png" alt="Key Results panel from slide 81 with the completed convergence matrix for pin-spring-pawl, pin-pawl, and pawl-gear submodels.">
+        <figcaption>Key Results panel and completed matrix from slide 81 of the NOMAD final presentation.</figcaption>
+      </figure>
     </section>
 
     <section class="section-block downloads" id="downloads" aria-label="Downloads">
@@ -319,31 +185,5 @@
     <p>Public research record for Alan Pham's Sandia internship work. Not an official Sandia National Laboratories site.</p>
     <p>Sandia National Laboratories is managed and operated by National Technology &amp; Engineering Solutions of Sandia, LLC for the U.S. Department of Energy's National Nuclear Security Administration under contract DE-NA0003525.</p>
   </footer>
-  <script>
-    (() => {
-      const loops = Array.from(document.querySelectorAll('video[autoplay]'));
-      const start = (video) => {
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        const play = video.play();
-        if (play && typeof play.catch === 'function') play.catch(() => {});
-      };
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) start(entry.target);
-          });
-        }, { rootMargin: '220px 0px' });
-        loops.forEach((video) => observer.observe(video));
-      } else {
-        loops.forEach(start);
-      }
-      window.addEventListener('pageshow', () => loops.forEach(start));
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) loops.forEach(start);
-      });
-    })();
-  </script>
 </body>
 </html>
