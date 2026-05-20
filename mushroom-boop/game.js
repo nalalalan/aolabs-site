@@ -9,6 +9,16 @@
   const rushMax = 100;
   const rushSeconds = 20;
   const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
+  const meadowNames = [
+    "Puddlecap Patch",
+    "Dewdrop Nook",
+    "Buttoncap Bend",
+    "Mosslight Hollow",
+    "Petal Ring",
+    "Glowcap Garden",
+    "Moonmoss Grove",
+    "Starspore Vale"
+  ];
 
   const machines = [
     { id: "plot", name: "Baby cap", base: 15, scale: 1.16, rate: 0.1, desc: "A tiny mushroom that releases a slow spore puff." },
@@ -71,9 +81,10 @@
     "rushValue", "rushHint", "rushProgress", "questState", "questList",
     "perkCount", "perkList", "leaderboardState", "leaderboardList", "playerName", "submitScoreButton",
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
-    "multiplierValue", "shareButton", "exportButton", "importButton", "saveDialog",
+    "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
-    "bottomTabs"
+    "bottomTabs", "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed",
+    "dewSkillButton", "boostSkillButton", "bloomSkillButton"
   ].forEach(id => { els[id] = document.getElementById(id); });
 
   function setScreen(tab) {
@@ -99,6 +110,8 @@
       rushCharge: 0,
       rushUntil: 0,
       rushes: 0,
+      meadowLevel: 1,
+      meadowBloom: 0,
       lastDaily: "",
       streak: 0,
       questDay: "",
@@ -232,6 +245,24 @@
     return bloomThreshold * Math.pow(1.72, Number(target.rootstock || 0));
   }
 
+  function meadowRequirement(target = state) {
+    const level = Math.max(1, Number(target.meadowLevel || 1));
+    return Math.round((18 + level * 7) * Math.pow(1.14, level - 1) * rootBonus(target));
+  }
+
+  function meadowTitle(target = state) {
+    const level = Math.max(1, Number(target.meadowLevel || 1));
+    return meadowNames[(level - 1) % meadowNames.length];
+  }
+
+  function meadowMood(target = state) {
+    if (rushActive(target)) return "glowing";
+    const progress = Math.max(0, Math.min(1, Number(target.meadowBloom || 0) / meadowRequirement(target)));
+    if (progress >= 0.82) return "nearly blooming";
+    if (progress >= 0.45) return "wiggly";
+    return "sleepy";
+  }
+
   function rootBonus(target = state) {
     const base = hasUpgrade("prestige-soft", target) ? 0.23 : 0.15;
     return 1 + Number(target.rootstock || 0) * base;
@@ -266,6 +297,27 @@
       return sum + Number(target.machines[machine.id] || 0) * machine.rate;
     }, 0);
     return machineBase * rateMultiplier(target);
+  }
+
+  function addMeadowCare(amount, target = state) {
+    target.meadowLevel = Math.max(1, Number(target.meadowLevel || 1));
+    target.meadowBloom = Math.max(0, Number(target.meadowBloom || 0)) + Math.max(0, Number(amount) || 0);
+    let blooms = 0;
+    let reward = 0;
+    while (target.meadowBloom >= meadowRequirement(target) && blooms < 12) {
+      const required = meadowRequirement(target);
+      target.meadowBloom -= required;
+      target.meadowLevel += 1;
+      const bloomReward = Math.max(25, required * (0.55 + rootBonus(target) * 0.18));
+      addLoops(target, bloomReward);
+      reward += bloomReward;
+      blooms += 1;
+    }
+    if (blooms > 0) {
+      recordSporeBurst(reward);
+      addRushCharge(12 + blooms * 3, target);
+    }
+    return { blooms, reward };
   }
 
   function recordSporeBurst(amount) {
@@ -373,6 +425,8 @@
     state.focusUntil = 0;
     state.rushCharge = 0;
     state.rushUntil = 0;
+    state.meadowLevel = 1;
+    state.meadowBloom = 0;
     state.machines = keep.machines;
     state.perks = keptPerks;
     state.upgrades = [];
@@ -512,12 +566,16 @@
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
     addLoops(state, gained);
+    const meadow = addMeadowCare(gained);
     recordSporeBurst(gained);
     state.clicks += 1;
     addRushCharge(2 + Math.min(5, comboCount / 6));
     markDirty();
     checkAchievements();
     showPop(x, y, `+${format(gained)}`, comboCount);
+    if (meadow.blooms > 0) {
+      showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
+    }
     showSporeBurst(x, y);
     showTapImpact(x, y, rect, comboCount);
     renderCombo();
@@ -859,6 +917,10 @@
     const ready = state.lastDaily !== todayKey();
     els.dailyReward.textContent = ready ? `${state.streak ? `${state.streak + 1}x streak` : "ready"}` : `${state.streak}x claimed`;
     els.dailyButton.disabled = !ready;
+    if (els.dewSkillButton) {
+      els.dewSkillButton.disabled = !ready;
+      els.dewSkillButton.textContent = ready ? "dew" : "dew done";
+    }
   }
 
   function renderPrestige() {
@@ -869,6 +931,10 @@
     els.prestigeProgress.style.width = `${Math.round(progress * 100)}%`;
     els.prestigeButton.disabled = gain <= 0;
     els.prestigeButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
+    if (els.bloomSkillButton) {
+      els.bloomSkillButton.disabled = gain <= 0;
+      els.bloomSkillButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
+    }
     els.prestigeHint.textContent = gain > 0
       ? `Reset for ${format(gain)} mycelium. Spend mycelium on permanent perks below.`
       : `Reach ${format(required)} spores this run to bloom the colony.`;
@@ -879,6 +945,10 @@
     els.focusValue.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m left` : "inactive";
     els.focusButton.disabled = remaining > 0;
     els.focusButton.textContent = remaining > 0 ? "boost active" : "watch ad for boost";
+    if (els.boostSkillButton) {
+      els.boostSkillButton.disabled = remaining > 0;
+      els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "glow";
+    }
   }
 
   function renderRush() {
@@ -895,6 +965,19 @@
     els.rushHint.textContent = "Tap, buy, claim, and boost to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
+  }
+
+  function renderMeadow() {
+    const required = meadowRequirement();
+    const bloom = Math.max(0, Number(state.meadowBloom || 0));
+    const progress = Math.max(0, Math.min(1, bloom / required));
+    els.meadowValue.textContent = `meadow ${format(state.meadowLevel || 1)}`;
+    els.sessionMeadowValue.textContent = format(state.meadowLevel || 1);
+    els.meadowName.textContent = meadowTitle();
+    els.meadowMood.textContent = meadowMood();
+    els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
+    els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care to bloom`;
+    document.body.dataset.meadowMood = meadowMood().replace(/\s+/g, "-");
   }
 
   function renderQuests() {
@@ -937,6 +1020,7 @@
     renderAchievements();
     renderOrchard();
     renderDaily();
+    renderMeadow();
     renderPrestige();
     renderFocus();
     renderRush();
@@ -951,6 +1035,7 @@
     const earned = incomePerSecond() * dt;
     if (earned > 0) {
       addLoops(state, earned);
+      addMeadowCare(earned * 0.08);
       markDirty();
       checkAchievements();
     }
@@ -978,6 +1063,9 @@
   els.prestigeButton.addEventListener("click", graft);
   els.dailyButton.addEventListener("click", claimDaily);
   els.focusButton.addEventListener("click", useFocus);
+  els.dewSkillButton.addEventListener("click", claimDaily);
+  els.boostSkillButton.addEventListener("click", useFocus);
+  els.bloomSkillButton.addEventListener("click", graft);
   els.shareButton.addEventListener("click", shareScore);
   els.exportButton.addEventListener("click", exportSave);
   els.importButton.addEventListener("click", importSave);

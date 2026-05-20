@@ -329,6 +329,159 @@ button:not(:disabled):hover {
   animation: comboPulse .34s ease-in-out infinite alternate;
 }
 
+.glade-stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.glade-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.glade-head span,
+.glade-head em,
+.bloom-track + small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.glade-head strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.glade-head em {
+  padding: 7px 9px;
+  border: 1px solid rgba(80, 67, 39, .16);
+  border-radius: 999px;
+  background: rgba(255, 247, 223, .9);
+  color: var(--cap-dark);
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.bloom-track {
+  height: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(80, 67, 39, .18);
+  border-radius: 999px;
+  background: rgba(255, 253, 250, .78);
+  box-shadow: inset 0 2px 5px rgba(83, 48, 58, .08);
+}
+
+.bloom-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, #9dd985, #ffe17a, #ff8ba0, #9dd985);
+  background-size: 180% 100%;
+  box-shadow: 0 0 18px rgba(233, 120, 136, .28);
+  transition: width .24s ease;
+  animation: progressCandy 1.3s linear infinite;
+}
+
+.friend-scene {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  border: 1px solid rgba(80, 67, 39, .13);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 240, 152, .42), transparent 28%),
+    linear-gradient(180deg, rgba(201, 231, 255, .62) 0 38%, rgba(222, 244, 210, .88) 39% 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.74), 0 14px 28px rgba(83,48,58,.08);
+}
+
+.friend-scene::before {
+  content: "";
+  position: absolute;
+  inset: auto -8% 0;
+  height: 34%;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,.48), transparent 24%),
+    repeating-linear-gradient(90deg, rgba(93, 141, 100, .16) 0 12px, rgba(150, 189, 125, .08) 12px 24px),
+    linear-gradient(180deg, rgba(190, 231, 171, .76), rgba(127, 178, 113, .42));
+}
+
+.friend-scene::after {
+  content: "";
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 14%;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(91, 86, 61, .11);
+  filter: blur(4px);
+}
+
+.sunbeam {
+  position: absolute;
+  top: 10%;
+  right: 12%;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #fff4a8 0 35%, #ffd66b 36% 62%, rgba(255,214,107,0) 63%);
+  box-shadow: 0 0 34px rgba(255, 214, 107, .48);
+  animation: sunWiggle 2.6s ease-in-out infinite alternate;
+}
+
+.friend-scene .seed-button {
+  width: min(68%, 270px);
+  margin: 8px auto 0;
+}
+
+.friend-scene .orchard-visual {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 8%;
+  width: auto;
+  margin: 0;
+}
+
+.skill-row,
+.save-tools {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.skill-row button {
+  min-height: 46px;
+  border-color: rgba(185, 77, 92, .22);
+  background:
+    radial-gradient(circle at 50% 0, rgba(255, 231, 168, .62), transparent 56%),
+    linear-gradient(180deg, #fffaf0, #ffe7ee);
+  color: var(--cap-dark);
+}
+
+.skill-row button:disabled {
+  border-color: rgba(80, 67, 39, .12);
+  background: rgba(255, 250, 240, .62);
+  color: rgba(43, 38, 27, .38);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+}
+
 .seed-button::before {
   content: "";
   position: absolute;
@@ -977,6 +1130,11 @@ button:not(:disabled):hover {
   to { filter: brightness(1.16) saturate(1.24); }
 }
 
+@keyframes sunWiggle {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(5px) scale(1.05); }
+}
+
 @keyframes popFloat {
   from { opacity: 1; transform: translate(-50%, -20%) scale(.9); }
   to { opacity: 0; transform: translate(-50%, -130%) scale(1.14); }
@@ -1007,6 +1165,10 @@ button:not(:disabled):hover {
   .pop,
   .progress-track span,
   .combo-badge.hot {
+    animation-duration: .01ms;
+  }
+
+  .sunbeam {
     animation-duration: .01ms;
   }
 }
@@ -1174,7 +1336,7 @@ body.game-page {
 
 .game-page .game-shell {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: 8px;
   width: 100%;
   height: 100%;
@@ -1189,13 +1351,7 @@ body.game-page {
 }
 
 .game-page .hero-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 108px;
-  gap: 8px;
-  align-items: center;
-  min-height: 0;
-  margin: 0;
-  padding: 10px;
+  display: none;
 }
 
 .game-page .hero-panel::after,
@@ -1259,7 +1415,7 @@ body[data-tab="board"] .log-grid {
 }
 
 body[data-tab="play"] .play-grid {
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
 }
 
 body[data-tab="store"] .store-grid {
@@ -1283,20 +1439,85 @@ body[data-tab="board"] .badges-panel {
 
 .game-page .tap-panel {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   align-items: center;
   min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-page .glade-stage {
+  align-self: stretch;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 6px;
+  min-height: 0;
+  margin-top: 8px;
   padding: 10px;
+  border: 1px solid rgba(80, 67, 39, .13);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 240, 152, .34), transparent 27%),
+    linear-gradient(180deg, rgba(255, 253, 246, .84), rgba(244, 250, 231, .72));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.76), 0 16px 30px rgba(83, 48, 58, .1);
+}
+
+.game-page .glade-head {
+  align-items: center;
+}
+
+.game-page .glade-head span,
+.game-page .glade-head em,
+.game-page .bloom-track + small {
+  font-size: 8px;
+  letter-spacing: .04em;
+}
+
+.game-page .glade-head strong {
+  margin-top: 2px;
+  font-size: 15px;
+}
+
+.game-page .glade-head em {
+  padding: 5px 7px;
+}
+
+.game-page .bloom-track {
+  height: 10px;
+}
+
+.game-page .friend-scene {
+  display: grid;
+  place-items: center;
+  min-height: clamp(330px, 54dvh, 570px);
+  height: auto;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.64);
 }
 
 .game-page .resource-row {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .game-page .resource-row div {
-  min-height: 58px;
-  padding: 8px 6px;
+  min-height: 38px;
+  padding: 4px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-page .resource-row div + div {
+  border-left: 0;
 }
 
 .game-page .resource-row .metric-label {
@@ -1306,18 +1527,18 @@ body[data-tab="board"] .badges-panel {
 }
 
 .game-page .resource-row strong {
-  margin-top: 3px;
-  font-size: 22px;
+  margin-top: 2px;
+  font-size: 19px;
 }
 
 .game-page .resource-row small {
-  margin-top: 4px;
+  margin-top: 2px;
   font-size: 9px;
 }
 
 .game-page .seed-button {
-  width: min(58vw, 220px);
-  margin: 10px auto 4px;
+  width: min(70vw, 260px);
+  margin: 0 auto 4px;
 }
 
 .game-page .seed-text {
@@ -1326,8 +1547,8 @@ body[data-tab="board"] .badges-panel {
 }
 
 .game-page .combo-badge {
-  min-height: 24px;
-  margin-top: 2px;
+  min-height: 20px;
+  margin-top: 0;
   font-size: 15px;
 }
 
@@ -1337,6 +1558,13 @@ body[data-tab="board"] .badges-panel {
   width: min(100%, 300px);
   min-height: 20px;
   margin-top: 2px;
+}
+
+.game-page .friend-scene .orchard-visual {
+  left: 9%;
+  right: 9%;
+  bottom: 7%;
+  width: auto;
 }
 
 .game-page .sprout {
@@ -1355,6 +1583,8 @@ body[data-tab="board"] .badges-panel {
 }
 
 .game-page .action-row button,
+.game-page .skill-row button,
+.game-page .save-tools button,
 .game-page .leaderboard-tools button,
 .game-page .store-item button,
 .game-page .quest-item button,
@@ -1364,8 +1594,31 @@ body[data-tab="board"] .badges-panel {
   font-size: 11px;
 }
 
+.game-page .skill-row {
+  gap: 6px;
+  overflow: visible;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-page .skill-row button {
+  min-height: 34px;
+  border: 1px solid rgba(185, 77, 92, .18);
+  border-radius: 9px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+.game-page .save-tools {
+  gap: 6px;
+  margin-top: 8px;
+}
+
 .game-page .side-panel {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   min-height: 0;
@@ -1598,8 +1851,7 @@ body[data-tab="board"] .badges-panel {
 
 @media (max-height: 780px) {
   .game-page .hero-panel {
-    grid-template-columns: minmax(0, 1fr) 96px;
-    padding: 8px;
+    display: none;
   }
 
   .game-page .hero-panel h1 {
@@ -1611,11 +1863,15 @@ body[data-tab="board"] .badges-panel {
   }
 
   .game-page .tap-panel {
-    padding: 8px;
+    padding: 0;
   }
 
   .game-page .seed-button {
-    width: min(50vw, 180px);
+    width: min(58vw, 198px);
+  }
+
+  .game-page .friend-scene {
+    min-height: 280px;
   }
 
   .game-page .orchard-visual {

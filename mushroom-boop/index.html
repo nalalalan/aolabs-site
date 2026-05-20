@@ -24,9 +24,9 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-fixed-app-2">
+  <link rel="stylesheet" href="./styles.css?v=20260520-bloom-stage-3">
   <script src="./ads-config.js"></script>
-  <script src="./online-config.js?v=20260520-fixed-app-2"></script>
+  <script src="./online-config.js?v=20260520-bloom-stage-3"></script>
 </head>
 <body class="game-page" data-tab="play">
   <div class="phone-frame" aria-label="Idle Shroom phone preview">
@@ -86,18 +86,34 @@
           </div>
         </div>
 
-        <button type="button" class="seed-button" id="seedButton" aria-label="boop the mushroom cap">
-          <span class="seed-core" aria-hidden="true"></span>
-          <span class="seed-text">boop</span>
-        </button>
+        <div class="glade-stage">
+          <div class="glade-head">
+            <div>
+              <span id="meadowValue">meadow 1</span>
+              <strong id="meadowName">Puddlecap Patch</strong>
+            </div>
+            <em id="meadowMood">sleepy</em>
+          </div>
+          <div class="bloom-track" aria-label="meadow bloom progress">
+            <span id="bloomProgress"></span>
+          </div>
+          <small id="bloomNeed">care to bloom</small>
+
+          <div class="friend-scene">
+            <span class="sunbeam" aria-hidden="true"></span>
+            <button type="button" class="seed-button" id="seedButton" aria-label="boop the mushroom cap">
+              <span class="seed-core" aria-hidden="true"></span>
+              <span class="seed-text">boop</span>
+            </button>
+            <div class="orchard-visual" id="orchardVisual"></div>
+          </div>
+        </div>
         <span class="combo-badge" id="comboBadge" aria-live="polite"></span>
 
-        <div class="orchard-visual" id="orchardVisual" aria-hidden="true"></div>
-
-        <div class="action-row">
-          <button type="button" id="shareButton">share score</button>
-          <button type="button" id="exportButton">export save</button>
-          <button type="button" id="importButton">import</button>
+        <div class="skill-row" aria-label="meadow skills">
+          <button type="button" id="dewSkillButton">dew</button>
+          <button type="button" id="boostSkillButton">glow</button>
+          <button type="button" id="bloomSkillButton">bloom</button>
         </div>
       </section>
 
@@ -182,8 +198,14 @@
           <p><span>boops</span><strong id="clicksValue">0</strong></p>
           <p><span>run spores</span><strong id="runValue">0</strong></p>
           <p><span>lifetime spores</span><strong id="lifetimeValue">0</strong></p>
+          <p><span>meadow</span><strong id="sessionMeadowValue">1</strong></p>
           <p><span>multiplier</span><strong id="multiplierValue">1x</strong></p>
           <p><span>offline cap</span><strong>8h</strong></p>
+        </div>
+        <div class="save-tools">
+          <button type="button" id="shareButton">share score</button>
+          <button type="button" id="exportButton">export save</button>
+          <button type="button" id="importButton">import</button>
         </div>
       </section>
       <section class="store-panel leaderboard-panel" id="leaderboard">
@@ -223,7 +245,7 @@
     </dialog>
   </div>
 
-  <script src="./ads.js?v=20260520-fixed-app-2"></script>
-  <script src="./game.js?v=20260520-fixed-app-2"></script>
+  <script src="./ads.js?v=20260520-bloom-stage-3"></script>
+  <script src="./game.js?v=20260520-bloom-stage-3"></script>
 </body>
 </html>
