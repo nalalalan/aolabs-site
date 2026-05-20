@@ -1,6 +1,12 @@
 # Idle Shroom App Store Prep
 
-Current status: source is mobile-ready, but no App Store binary has been produced from this Windows machine.
+Current status: the web app is installable on phones as a PWA from `https://aolabs.io/mushroom-boop/`, and the standalone domain is prepared at `idleshroom.aolabs.io`. No App Store binary has been produced from this Windows machine.
+
+## Phone install path now
+
+- iPhone/iPad: open the HTTPS game route in Safari, use Share, then Add to Home Screen.
+- Android: open the HTTPS game route in Chrome, use Install app or Add to Home screen.
+- Use `https://aolabs.io/mushroom-boop/` until GitHub finishes the HTTPS certificate for `idleshroom.aolabs.io`.
 
 ## Required before App Store submission
 
