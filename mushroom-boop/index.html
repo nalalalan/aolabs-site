@@ -24,28 +24,29 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-retention-rush">
+  <link rel="stylesheet" href="./styles.css?v=20260520-fixed-app">
   <script src="./ads-config.js"></script>
-  <script src="./online-config.js?v=20260520-retention-rush"></script>
+  <script src="./online-config.js?v=20260520-fixed-app"></script>
 </head>
-<body>
-  <header class="suite-topbar">
-    <div class="suite-brand-cluster">
-      <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
-        <img src="/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
-      </a>
-      <a class="suite-app-brand" href="./" aria-label="Idle Shroom home">
-        <img class="suite-app-mark" src="./icon.svg" alt="">
-        <span class="suite-app-name">Idle Shroom</span>
-      </a>
-    </div>
-    <nav class="suite-topbar-actions" aria-label="Idle Shroom">
-      <a href="./about.html">about</a>
-      <a href="./privacy.html">privacy</a>
-    </nav>
-  </header>
+<body class="game-page" data-tab="play">
+  <div class="phone-frame" aria-label="Idle Shroom phone preview">
+    <header class="suite-topbar">
+      <div class="suite-brand-cluster">
+        <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
+          <img src="/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
+        </a>
+        <a class="suite-app-brand" href="./" aria-label="Idle Shroom home">
+          <img class="suite-app-mark" src="./icon.svg" alt="">
+          <span class="suite-app-name">Idle Shroom</span>
+        </a>
+      </div>
+      <nav class="suite-topbar-actions" aria-label="Idle Shroom">
+        <a href="./about.html">about</a>
+        <a href="./privacy.html">privacy</a>
+      </nav>
+    </header>
 
-  <main class="game-shell">
+    <main class="game-shell">
     <aside class="ad-slot ad-slot-top" data-ad-unit="top" aria-label="advertising"></aside>
 
     <section class="hero-panel">
@@ -67,7 +68,7 @@
       </div>
     </section>
 
-    <section class="play-grid">
+    <section class="play-grid screen-panel" data-screen="play">
       <section class="tap-panel" aria-label="mushroom colony">
         <div class="resource-row">
           <div>
@@ -129,8 +130,8 @@
       </section>
     </section>
 
-    <section class="store-grid">
-      <section class="store-panel">
+    <section class="store-grid screen-panel" data-screen="store">
+      <section class="store-panel colony-panel">
         <div class="section-head">
           <h2>colony</h2>
           <span id="machineCount">spend spores</span>
@@ -138,7 +139,7 @@
         <div class="store-list" id="machineList"></div>
       </section>
 
-      <section class="store-panel">
+      <section class="store-panel charms-panel">
         <div class="section-head">
           <h2>charms</h2>
           <span id="upgradeCount">0 active</span>
@@ -146,7 +147,7 @@
         <div class="store-list" id="upgradeList"></div>
       </section>
 
-      <section class="store-panel">
+      <section class="store-panel perks-panel">
         <div class="section-head">
           <h2>perks</h2>
           <span id="perkCount">0 active</span>
@@ -157,7 +158,7 @@
 
     <aside class="ad-slot ad-slot-mid" data-ad-unit="mid" aria-label="advertising"></aside>
 
-    <section class="log-grid">
+    <section class="log-grid screen-panel" data-screen="quests">
       <section class="store-panel quest-panel">
         <div class="section-head">
           <h2>daily quests</h2>
@@ -165,14 +166,14 @@
         </div>
         <div class="quest-list" id="questList"></div>
       </section>
-      <section class="store-panel">
+      <section class="store-panel badges-panel">
         <div class="section-head">
           <h2>badges</h2>
           <span id="achievementCount">0 unlocked</span>
         </div>
         <div class="achievement-list" id="achievementList"></div>
       </section>
-      <section class="store-panel">
+      <section class="store-panel session-panel">
         <div class="section-head">
           <h2>session</h2>
           <span id="saveState">saved</span>
@@ -198,23 +199,31 @@
       </section>
     </section>
 
+    <nav class="bottom-tabs" id="bottomTabs" aria-label="Idle Shroom screens">
+      <button type="button" data-tab-target="play" aria-pressed="true">tap</button>
+      <button type="button" data-tab-target="store" aria-pressed="false">grow</button>
+      <button type="button" data-tab-target="quests" aria-pressed="false">quests</button>
+      <button type="button" data-tab-target="board" aria-pressed="false">board</button>
+    </nav>
+
     <aside class="ad-slot ad-slot-bottom" data-ad-unit="bottom" aria-label="advertising"></aside>
-  </main>
+    </main>
 
-  <dialog class="save-dialog" id="saveDialog">
-    <form method="dialog">
-      <h2 id="dialogTitle">save</h2>
-      <p id="dialogHelp">Copy this save code somewhere safe.</p>
-      <textarea id="saveText" spellcheck="false"></textarea>
-      <div class="dialog-actions">
-        <button type="button" id="copySaveButton">copy</button>
-        <button type="button" id="loadSaveButton">load</button>
-        <button type="submit">close</button>
-      </div>
-    </form>
-  </dialog>
+    <dialog class="save-dialog" id="saveDialog">
+      <form method="dialog">
+        <h2 id="dialogTitle">save</h2>
+        <p id="dialogHelp">Copy this save code somewhere safe.</p>
+        <textarea id="saveText" spellcheck="false"></textarea>
+        <div class="dialog-actions">
+          <button type="button" id="copySaveButton">copy</button>
+          <button type="button" id="loadSaveButton">load</button>
+          <button type="submit">close</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
 
-  <script src="./ads.js?v=20260520-retention-rush"></script>
-  <script src="./game.js?v=20260520-retention-rush"></script>
+  <script src="./ads.js?v=20260520-fixed-app"></script>
+  <script src="./game.js?v=20260520-fixed-app"></script>
 </body>
 </html>

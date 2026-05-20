@@ -72,8 +72,19 @@
     "perkCount", "perkList", "leaderboardState", "leaderboardList", "playerName", "submitScoreButton",
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
     "multiplierValue", "shareButton", "exportButton", "importButton", "saveDialog",
-    "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState"
+    "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
+    "bottomTabs"
   ].forEach(id => { els[id] = document.getElementById(id); });
+
+  function setScreen(tab) {
+    const screens = new Set(["play", "store", "quests", "board"]);
+    const next = screens.has(tab) ? tab : "play";
+    document.body.dataset.tab = next;
+    if (!els.bottomTabs) return;
+    els.bottomTabs.querySelectorAll("[data-tab-target]").forEach(button => {
+      button.setAttribute("aria-pressed", button.dataset.tabTarget === next ? "true" : "false");
+    });
+  }
 
   function defaultState() {
     return {
@@ -973,6 +984,12 @@
   els.copySaveButton.addEventListener("click", copySaveCode);
   els.loadSaveButton.addEventListener("click", loadSaveCode);
   els.submitScoreButton.addEventListener("click", submitScore);
+  if (els.bottomTabs) {
+    els.bottomTabs.addEventListener("click", event => {
+      const tab = event.target.closest("button")?.dataset.tabTarget;
+      if (tab) setScreen(tab);
+    });
+  }
 
   window.addEventListener("beforeunload", save);
   document.addEventListener("visibilitychange", () => {
@@ -980,6 +997,7 @@
   });
 
   checkAchievements();
+  setScreen(document.body.dataset.tab);
   loadLeaderboard();
   render();
   window.setInterval(tick, 1000);
