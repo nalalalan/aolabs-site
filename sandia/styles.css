@@ -195,7 +195,8 @@ h1 {
 }
 
 .institution-logos .logo-nomad {
-  max-height: 56px;
+  width: min(100%, 210px);
+  max-height: none;
 }
 
 .fact-line {
@@ -577,7 +578,16 @@ footer p + p {
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 28px;
+  }
+
+  .paper-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .primary-actions {
+    justify-content: stretch;
   }
 
   .facts-table div,
