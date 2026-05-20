@@ -30,6 +30,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   color: var(--ink);
   background:
     linear-gradient(135deg, rgba(233, 120, 136, .12) 0 25%, transparent 25% 50%, rgba(150, 189, 125, .10) 50% 75%, transparent 75%) 0 0 / 44px 44px,
@@ -94,6 +95,10 @@ button:not(:disabled):hover {
   padding: 24px;
 }
 
+.hero-copy {
+  min-width: 0;
+}
+
 .eyebrow,
 .metric-label,
 .daily-card span,
@@ -121,6 +126,7 @@ button:not(:disabled):hover {
   font-size: 18px;
   line-height: 1.35;
   font-weight: 650;
+  overflow-wrap: anywhere;
 }
 
 .daily-card {
@@ -209,8 +215,35 @@ button:not(:disabled):hover {
   box-shadow: 0 18px 36px rgba(126, 60, 74, .18);
   transition: transform .08s ease, box-shadow .08s ease;
   isolation: isolate;
+  overflow: visible;
+  touch-action: manipulation;
   transform-origin: 50% 68%;
   will-change: transform;
+}
+
+.combo-badge {
+  display: block;
+  min-height: 34px;
+  margin: 12px auto 0;
+  color: var(--cap-dark);
+  font-size: 18px;
+  font-weight: 950;
+  text-align: center;
+  transform: scale(.86);
+  opacity: 0;
+  transition: opacity .12s ease, transform .18s ease;
+}
+
+.combo-badge.show {
+  opacity: 1;
+  transform: scale(1);
+  animation: comboPop .28s cubic-bezier(.18, 1.8, .28, 1);
+}
+
+.combo-badge.hot {
+  color: var(--cap-dark);
+  text-shadow: 0 0 18px rgba(241, 136, 120, .35);
+  animation: comboPulse .34s ease-in-out infinite alternate;
 }
 
 .seed-button::before {
@@ -220,6 +253,7 @@ button:not(:disabled):hover {
   top: 7%;
   width: 92%;
   height: 53%;
+  z-index: 1;
   border-radius: 52% 52% 40% 40% / 82% 82% 28% 28%;
   background:
     radial-gradient(circle at 21% 58%, #fff8dc 0 8%, transparent 9%),
@@ -241,6 +275,7 @@ button:not(:disabled):hover {
   top: 48%;
   width: 66%;
   height: 17%;
+  z-index: 2;
   border-radius: 0 0 52% 52% / 0 0 95% 95%;
   background:
     repeating-linear-gradient(90deg, rgba(171, 119, 78, .16) 0 4px, transparent 4px 16px),
@@ -250,20 +285,20 @@ button:not(:disabled):hover {
 
 .seed-button:active,
 .seed-button.is-pressed {
-  animation: mushroomSquash .24s cubic-bezier(.2, 1.7, .32, 1);
-  box-shadow: 0 10px 22px rgba(126, 60, 74, .16);
+  animation: mushroomSquash .32s cubic-bezier(.2, 1.32, .28, 1);
+  box-shadow: 0 10px 22px rgba(126, 60, 74, .16), 0 0 44px rgba(233, 120, 136, .26);
 }
 
 .seed-button.is-pressed::before {
-  animation: capBounce .3s cubic-bezier(.2, 1.55, .32, 1);
+  animation: capBounce .32s cubic-bezier(.2, 1.32, .28, 1);
 }
 
 .seed-button.is-pressed::after {
-  animation: gillFlash .28s ease-out;
+  animation: gillFlash .32s cubic-bezier(.2, 1.32, .28, 1);
 }
 
 .seed-button.is-pressed .seed-core {
-  animation: stemBoing .3s cubic-bezier(.2, 1.6, .32, 1);
+  animation: stemBoing .32s cubic-bezier(.2, 1.32, .28, 1);
 }
 
 .seed-core {
@@ -272,6 +307,7 @@ button:not(:disabled):hover {
   top: 56%;
   width: 30%;
   height: 35%;
+  z-index: 3;
   border-radius: 44% 44% 28% 28%;
   background:
     radial-gradient(ellipse at 50% 18%, rgba(255,255,255,.56), transparent 44%),
@@ -314,7 +350,39 @@ button:not(:disabled):hover {
 }
 
 .seed-button.is-pressed .seed-text {
-  animation: labelPop .24s ease-out;
+  animation: labelPop .32s cubic-bezier(.2, 1.32, .28, 1);
+}
+
+.tap-ring,
+.tap-flash {
+  position: absolute;
+  pointer-events: none;
+}
+
+.tap-ring {
+  z-index: 5;
+  width: 18px;
+  height: 18px;
+  border: 4px solid rgba(255, 250, 210, .96);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(233, 120, 136, .24), 0 0 24px rgba(255, 242, 181, .72);
+  transform: translate(-50%, -50%) scale(.2);
+  animation: tapRing .46s cubic-bezier(.18, .88, .26, 1) forwards;
+}
+
+.tap-ring.hot {
+  border-color: #fff7b8;
+  box-shadow: 0 0 0 10px rgba(233, 120, 136, .34), 0 0 42px rgba(255, 226, 116, .9);
+}
+
+.tap-flash {
+  z-index: 4;
+  inset: 5%;
+  border-radius: 28%;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 255, 212, .62), transparent 32%),
+    radial-gradient(circle at 50% 62%, rgba(233, 120, 136, .22), transparent 44%);
+  animation: tapFlash .32s ease-out forwards;
 }
 
 .orchard-visual {
@@ -398,7 +466,33 @@ button:not(:disabled):hover {
   width: 100%;
 }
 
-.store-grid,
+.progress-track {
+  width: 100%;
+  height: 12px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  border: 1px solid rgba(80, 67, 39, .18);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, .7);
+}
+
+.progress-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green-2), var(--gold), var(--cap));
+  box-shadow: 0 0 18px rgba(233, 120, 136, .26);
+  transition: width .28s ease;
+}
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
 .log-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -507,6 +601,52 @@ button:not(:disabled):hover {
   font-weight: 700;
 }
 
+.leaderboard-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.leaderboard-tools input {
+  min-width: 0;
+  border: 1px solid rgba(80, 67, 39, .22);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #fffaf0;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 750;
+}
+
+.leaderboard-list {
+  display: grid;
+  gap: 8px;
+}
+
+.leaderboard-row,
+.leaderboard-empty {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(80, 67, 39, .14);
+  font-weight: 800;
+}
+
+.leaderboard-row em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.leaderboard-empty {
+  grid-template-columns: 1fr;
+  color: var(--muted);
+}
+
 .ad-slot {
   display: none;
   min-height: 90px;
@@ -576,9 +716,16 @@ button:not(:disabled):hover {
   z-index: 40;
   pointer-events: none;
   color: var(--green);
+  font-size: 22px;
   font-weight: 950;
-  text-shadow: 0 1px 0 rgba(255,255,255,.74);
-  animation: popFloat .72s ease-out forwards;
+  text-shadow: 0 2px 0 rgba(255,255,255,.84), 0 8px 22px rgba(93, 141, 100, .28);
+  animation: popFloat .88s cubic-bezier(.12, .78, .18, 1) forwards;
+}
+
+.pop-hot {
+  color: var(--cap-dark);
+  transform-origin: center;
+  text-shadow: 0 2px 0 rgba(255,255,255,.84), 0 0 24px rgba(233, 120, 136, .46);
 }
 
 .spore-pop {
@@ -592,20 +739,36 @@ button:not(:disabled):hover {
     radial-gradient(circle at 35% 30%, #fff8dc 0 26%, transparent 27%),
     linear-gradient(180deg, #ffe7a8, #f08a98);
   box-shadow: 0 4px 12px rgba(185, 77, 92, .22);
-  animation: sporeBurst .74s cubic-bezier(.16, .88, .28, 1) forwards;
+  animation: sporeBurst .7s cubic-bezier(.18, .88, .26, 1) forwards;
+}
+
+.spore-pop.big {
+  box-shadow: 0 5px 18px rgba(185, 77, 92, .3), 0 0 18px rgba(255, 231, 168, .6);
+}
+
+.spore-spark {
+  position: fixed;
+  z-index: 40;
+  width: var(--size);
+  height: var(--size);
+  pointer-events: none;
+  background: #ffeeb8;
+  clip-path: polygon(50% 0, 61% 36%, 100% 50%, 61% 64%, 50% 100%, 39% 64%, 0 50%, 39% 36%);
+  filter: drop-shadow(0 0 9px rgba(255, 214, 87, .74));
+  animation: sporeBurst .72s cubic-bezier(.18, .88, .26, 1) forwards;
 }
 
 @keyframes mushroomSquash {
   0% { transform: scale(1); }
-  32% { transform: scaleX(1.08) scaleY(.88) translateY(7px); }
-  68% { transform: scaleX(.94) scaleY(1.09) translateY(-5px); }
+  35% { transform: scaleX(1.1) scaleY(.86) translateY(8px); }
+  68% { transform: scaleX(.96) scaleY(1.06) translateY(-4px); }
   100% { transform: scale(1); }
 }
 
 @keyframes capBounce {
   0% { transform: translateY(0) scale(1); filter: brightness(1); }
-  32% { transform: translateY(9px) scaleX(1.08) scaleY(.88); filter: brightness(1.12); }
-  70% { transform: translateY(-6px) scaleX(.96) scaleY(1.06); }
+  35% { transform: translateY(8px) scaleX(1.1) scaleY(.86); filter: brightness(1.18) saturate(1.06); }
+  68% { transform: translateY(-4px) scaleX(.96) scaleY(1.06); }
   100% { transform: translateY(0) scale(1); filter: brightness(1); }
 }
 
@@ -617,8 +780,8 @@ button:not(:disabled):hover {
 
 @keyframes stemBoing {
   0% { transform: translateY(0) scale(1); }
-  36% { transform: translateY(9px) scaleX(1.12) scaleY(.86); }
-  72% { transform: translateY(-7px) scaleX(.93) scaleY(1.12); }
+  35% { transform: translateY(8px) scaleX(1.1) scaleY(.86); }
+  68% { transform: translateY(-4px) scaleX(.96) scaleY(1.06); }
   100% { transform: translateY(0) scale(1); }
 }
 
@@ -626,6 +789,28 @@ button:not(:disabled):hover {
   0% { transform: translateY(0) scale(1); }
   45% { transform: translateY(-8px) scale(1.18); }
   100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes tapRing {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(.22); }
+  58% { opacity: .75; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(6.4); }
+}
+
+@keyframes tapFlash {
+  0% { opacity: .95; transform: scale(.8); }
+  100% { opacity: 0; transform: scale(1.22); }
+}
+
+@keyframes comboPop {
+  0% { transform: scale(.62); }
+  62% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes comboPulse {
+  from { transform: scale(1) rotate(-1deg); }
+  to { transform: scale(1.08) rotate(1deg); }
 }
 
 @keyframes popFloat {
@@ -652,7 +837,11 @@ button:not(:disabled):hover {
   .seed-button.is-pressed .seed-core,
   .seed-button.is-pressed .seed-text,
   .spore-pop,
-  .pop {
+  .spore-spark,
+  .tap-ring,
+  .tap-flash,
+  .pop,
+  .combo-badge.hot {
     animation-duration: .01ms;
   }
 }
@@ -677,19 +866,26 @@ button:not(:disabled):hover {
   .hero-panel {
     padding: 18px;
   }
+
+  .summary {
+    max-width: min(100%, 360px);
+  }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .game-shell {
-    width: min(calc(100% - 20px), 380px);
-    padding-top: 14px;
+    width: 100%;
+    max-width: none;
+    padding: 14px 10px 44px;
   }
 
   .hero-panel h1 {
-    font-size: 48px;
+    font-size: 46px;
   }
 
   .summary {
+    width: 100%;
+    max-width: min(100%, 330px);
     font-size: 15px;
   }
 
@@ -710,5 +906,14 @@ button:not(:disabled):hover {
 
   .store-item button {
     width: 100%;
+  }
+
+  .leaderboard-tools,
+  .leaderboard-row {
+    grid-template-columns: 1fr;
+  }
+
+  .leaderboard-row em {
+    white-space: normal;
   }
 }

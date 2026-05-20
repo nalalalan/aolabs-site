@@ -1,4 +1,4 @@
-# Mushroom Boop App Store Prep
+# Idle Shroom App Store Prep
 
 Current status: source is mobile-ready, but no App Store binary has been produced from this Windows machine.
 
@@ -14,7 +14,9 @@ Current status: source is mobile-ready, but no App Store binary has been produce
 
 ## Native ad path
 
-The web build has gated ad slots in `ads-config.js`. The cozy boost is designed as a rewarded-ad placement: a completed rewarded ad unlocks a 10-minute spores/sec boost. For iOS, use the `admob` ids in that config as the source of truth, then add the native AdMob plugin during the Capacitor build. Keep ads appropriate for the app rating, clearly dismissible when interruptive, and never require or encourage ad clicks.
+The web build has gated ad slots in `ads-config.js`. The cozy boost is designed as a rewarded-ad placement: a completed rewarded ad unlocks a 10+ minute spores/sec boost. For iOS, use the `admob` ids in that config as the source of truth, then add the native AdMob plugin during the Capacitor build. Keep ads appropriate for the app rating, clearly dismissible when interruptive, and never require or encourage ad clicks.
+
+Real online leaderboard or multiplayer needs a backend endpoint configured in `online-config.js`. Railway is a reasonable place for that backend, but the static web game itself does not need Railway.
 
 ## Build outline on macOS
 

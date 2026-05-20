@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Mushroom Boop / cute idle clicker game</title>
-  <meta name="description" content="Mushroom Boop is an original mushroom idle clicker about booping a fly agaric, collecting spores, and growing a cozy colony.">
+  <title>Idle Shroom / cute mushroom idle clicker game</title>
+  <meta name="description" content="Idle Shroom is an original mushroom idle clicker about booping a fly agaric, collecting spores, blooming, and buying permanent perks.">
   <link rel="canonical" href="https://aolabs.io/mushroom-boop/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
-  <meta property="og:title" content="Mushroom Boop">
-  <meta property="og:description" content="Boop the fly agaric, collect spores, grow the colony, and bloom into bigger numbers.">
+  <meta property="og:title" content="Idle Shroom">
+  <meta property="og:description" content="Click the fly agaric, collect spores, bloom for mycelium perks, and climb the board.">
   <meta property="og:url" content="https://aolabs.io/mushroom-boop/">
   <meta property="og:image" content="https://aolabs.io/mushroom-boop/icon.svg">
   <meta name="twitter:card" content="summary">
@@ -17,8 +17,9 @@
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20260520-mobile-copy-fit">
   <script src="./ads-config.js"></script>
+  <script src="./online-config.js"></script>
 </head>
 <body>
   <header class="suite-topbar">
@@ -26,12 +27,12 @@
       <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
         <img src="/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
       </a>
-      <a class="suite-app-brand" href="./" aria-label="mushroom boop home">
+      <a class="suite-app-brand" href="./" aria-label="idle shroom home">
         <img class="suite-app-mark" src="./icon.svg" alt="">
-        <span class="suite-app-name">mushroom boop</span>
+        <span class="suite-app-name">idle shroom</span>
       </a>
     </div>
-    <nav class="suite-topbar-actions" aria-label="mushroom boop">
+    <nav class="suite-topbar-actions" aria-label="idle shroom">
       <a href="./about.html">about</a>
       <a href="./privacy.html">privacy</a>
     </nav>
@@ -43,8 +44,8 @@
     <section class="hero-panel">
       <div class="hero-copy">
         <p class="eyebrow">cute idle clicker</p>
-        <h1>Mushroom Boop</h1>
-        <p class="summary">Boop for spores. Spend spores below. Colony pieces raise your baseline spores/sec.</p>
+        <h1>Idle Shroom</h1>
+        <p class="summary">Click the cap for spores. Spend spores, bloom for mycelium, and buy perks that make the next run faster.</p>
       </div>
       <div class="daily-card" id="dailyCard">
         <span>daily dew</span>
@@ -75,6 +76,7 @@
           <span class="seed-core" aria-hidden="true"></span>
           <span class="seed-text">boop</span>
         </button>
+        <span class="combo-badge" id="comboBadge" aria-live="polite"></span>
 
         <div class="orchard-visual" id="orchardVisual" aria-hidden="true"></div>
 
@@ -89,14 +91,17 @@
         <div class="state-card prestige-card">
           <span class="metric-label">mycelium</span>
           <strong id="rootstockValue">0</strong>
-          <p id="prestigeHint">Reach 1,000,000 lifetime spores to bloom the colony.</p>
+          <p id="prestigeHint">Reach 25,000 spores this run to bloom the colony.</p>
+          <div class="progress-track" aria-label="bloom progress">
+            <span id="prestigeProgress"></span>
+          </div>
           <button type="button" id="prestigeButton" disabled>bloom</button>
         </div>
 
         <div class="state-card">
           <span class="metric-label">cozy boost</span>
           <strong id="focusValue">inactive</strong>
-          <p id="boostHint">Watch a reward ad to double spores/sec for 10 minutes. Demo boost runs while ad IDs are not configured.</p>
+          <p id="boostHint">Watch a reward ad to double spores/sec for 10+ minutes. Demo boost runs while ad IDs are not configured.</p>
           <button type="button" id="focusButton">watch ad for boost</button>
         </div>
       </section>
@@ -118,6 +123,14 @@
         </div>
         <div class="store-list" id="upgradeList"></div>
       </section>
+
+      <section class="store-panel">
+        <div class="section-head">
+          <h2>perks</h2>
+          <span id="perkCount">0 active</span>
+        </div>
+        <div class="store-list" id="perkList"></div>
+      </section>
     </section>
 
     <aside class="ad-slot ad-slot-mid" data-ad-unit="mid" aria-label="advertising"></aside>
@@ -137,10 +150,22 @@
         </div>
         <div class="stat-list">
           <p><span>boops</span><strong id="clicksValue">0</strong></p>
+          <p><span>run spores</span><strong id="runValue">0</strong></p>
           <p><span>lifetime spores</span><strong id="lifetimeValue">0</strong></p>
           <p><span>multiplier</span><strong id="multiplierValue">1x</strong></p>
           <p><span>offline cap</span><strong>8h</strong></p>
         </div>
+      </section>
+      <section class="store-panel leaderboard-panel">
+        <div class="section-head">
+          <h2>leaderboard</h2>
+          <span id="leaderboardState">local board</span>
+        </div>
+        <div class="leaderboard-tools">
+          <input id="playerName" maxlength="18" placeholder="name" aria-label="leaderboard name">
+          <button type="button" id="submitScoreButton">submit score</button>
+        </div>
+        <div class="leaderboard-list" id="leaderboardList"></div>
       </section>
     </section>
 
@@ -160,7 +185,7 @@
     </form>
   </dialog>
 
-  <script src="./ads.js?v=20260520-mushroom-boop"></script>
-  <script src="./game.js?v=20260520-boop-burst"></script>
+  <script src="./ads.js?v=20260520-idle-shroom"></script>
+  <script src="./game.js?v=20260520-bloom-progress"></script>
 </body>
 </html>

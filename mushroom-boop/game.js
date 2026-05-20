@@ -2,7 +2,10 @@
   "use strict";
 
   const saveKey = "mushroom-boop-save-v1";
+  const leaderboardKey = "mushroom-boop-leaderboard-v1";
   const maxOfflineSeconds = 8 * 60 * 60;
+  const bloomThreshold = 25000;
+  const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
 
   const machines = [
     { id: "plot", name: "Baby cap", base: 15, scale: 1.16, rate: 0.1, desc: "A tiny mushroom that releases a slow spore puff." },
@@ -34,18 +37,32 @@
     { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 }
   ];
 
+  const perks = [
+    { id: "spore-memory", name: "Spore memory", baseCost: 1, max: 10, desc: "Baseline spores/sec +18% per level." },
+    { id: "soft-hands", name: "Soft hands", baseCost: 1, max: 10, desc: "Boop power +25% per level." },
+    { id: "cheap-caps", name: "Frugal moss", baseCost: 2, max: 8, desc: "Colony pieces cost 6% less per level." },
+    { id: "long-boost", name: "Long glow", baseCost: 2, max: 5, desc: "Reward boost lasts 2 more minutes per level." },
+    { id: "starter-cap", name: "Starter cap", baseCost: 3, max: 1, desc: "Each bloom starts with one Baby cap." }
+  ];
+
   const state = loadState();
   let lastTick = Date.now();
   let dirty = false;
   let displayedRate = incomePerSecond(state);
   let clickRateBurst = 0;
+  let lastTapTime = 0;
+  let comboCount = 0;
+  let comboTimer = 0;
+  let leaderboardEntries = [];
 
   const els = {};
   [
     "loopsValue", "rateValue", "baseRateValue", "tapValue", "seedButton", "orchardVisual", "machineList",
-    "upgradeList", "rootstockValue", "prestigeHint", "prestigeButton", "dailyReward",
+    "comboBadge",
+    "upgradeList", "rootstockValue", "prestigeHint", "prestigeProgress", "prestigeButton", "dailyReward",
     "dailyButton", "focusValue", "focusButton", "boostHint", "machineCount", "upgradeCount",
-    "achievementCount", "achievementList", "clicksValue", "lifetimeValue",
+    "perkCount", "perkList", "leaderboardState", "leaderboardList", "playerName", "submitScoreButton",
+    "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
     "multiplierValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState"
   ].forEach(id => { els[id] = document.getElementById(id); });
@@ -64,6 +81,7 @@
       streak: 0,
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
+      perks: Object.fromEntries(perks.map(perk => [perk.id, 0])),
       upgrades: [],
       achievements: []
     };
@@ -74,12 +92,14 @@
     try {
       if (new URLSearchParams(window.location.search).has("reset")) {
         localStorage.removeItem(saveKey);
+        localStorage.removeItem(leaderboardKey);
       }
       const raw = localStorage.getItem(saveKey);
       if (!raw) return fallback;
       const parsed = JSON.parse(raw);
       const merged = { ...fallback, ...parsed };
       merged.machines = { ...fallback.machines, ...(parsed.machines || {}) };
+      merged.perks = { ...fallback.perks, ...(parsed.perks || {}) };
       merged.upgrades = Array.isArray(parsed.upgrades) ? parsed.upgrades : [];
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       applyOffline(merged);
@@ -121,6 +141,15 @@
     return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(number);
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function todayKey(offsetDays = 0) {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays);
@@ -135,6 +164,18 @@
     return target.upgrades.includes(id);
   }
 
+  function perkLevel(id, target = state) {
+    return Number(target.perks?.[id] || 0);
+  }
+
+  function perkCost(perk, target = state) {
+    return perk.baseCost + perkLevel(perk.id, target);
+  }
+
+  function bloomRequirement(target = state) {
+    return bloomThreshold * Math.pow(1.72, Number(target.rootstock || 0));
+  }
+
   function rootBonus(target = state) {
     const base = hasUpgrade("prestige-soft", target) ? 0.23 : 0.15;
     return 1 + Number(target.rootstock || 0) * base;
@@ -142,6 +183,7 @@
 
   function rateMultiplier(target = state) {
     let mult = rootBonus(target);
+    mult *= 1 + perkLevel("spore-memory", target) * 0.18;
     upgrades.forEach(upgrade => {
       if (upgrade.kind === "rate" && hasUpgrade(upgrade.id, target)) mult *= upgrade.value;
     });
@@ -157,6 +199,7 @@
     if (hasUpgrade("tap-rate", target)) {
       tap *= 1 + Number(target.machines.press || 0) * 0.08;
     }
+    tap *= 1 + perkLevel("soft-hands", target) * 0.25;
     return tap * rootBonus(target);
   }
 
@@ -172,6 +215,22 @@
     displayedRate = Math.max(displayedRate, incomePerSecond() + clickRateBurst);
   }
 
+  function renderCombo() {
+    if (!els.comboBadge) return;
+    if (comboCount <= 1) {
+      els.comboBadge.textContent = "";
+      els.comboBadge.className = "combo-badge";
+      return;
+    }
+    els.comboBadge.textContent = `combo x${comboCount}`;
+    els.comboBadge.className = `combo-badge show${comboCount >= 12 ? " hot" : ""}`;
+    window.clearTimeout(comboTimer);
+    comboTimer = window.setTimeout(() => {
+      comboCount = 0;
+      renderCombo();
+    }, 1100);
+  }
+
   function updateDisplayedRate(dt) {
     clickRateBurst *= Math.pow(0.72, dt);
     const baseline = incomePerSecond();
@@ -185,7 +244,9 @@
   }
 
   function machineCost(machine, target = state) {
-    return machine.base * Math.pow(machine.scale, Number(target.machines[machine.id] || 0));
+    return machine.base
+      * Math.pow(machine.scale, Number(target.machines[machine.id] || 0))
+      * Math.pow(0.94, perkLevel("cheap-caps", target));
   }
 
   function addLoops(target, amount) {
@@ -217,22 +278,48 @@
     render();
   }
 
+  function buyPerk(id) {
+    const perk = perks.find(item => item.id === id);
+    if (!perk) return;
+    const level = perkLevel(id);
+    const cost = perkCost(perk);
+    if (level >= perk.max || state.rootstock < cost) return;
+    state.rootstock -= cost;
+    state.perks[id] = level + 1;
+    if (id === "starter-cap" && state.machines.plot < 1) {
+      state.machines.plot = 1;
+    }
+    displayedRate = Math.max(displayedRate, incomePerSecond());
+    markDirty();
+    render();
+  }
+
   function graftGain() {
-    if (state.lifetimeLoops < 1000000) return 0;
-    return Math.max(1, Math.floor(Math.sqrt(state.lifetimeLoops / 1000000)));
+    const required = bloomRequirement();
+    if (state.totalLoops < required) return 0;
+    return Math.max(1, Math.floor(Math.sqrt(state.totalLoops / required)));
   }
 
   function graft() {
     const gain = graftGain();
     if (gain <= 0) return;
     const keep = defaultState();
+    const keptPerks = { ...keep.perks, ...(state.perks || {}) };
+    const keptAchievements = Array.isArray(state.achievements) ? [...state.achievements] : [];
     state.rootstock += gain;
     state.loops = 0;
     state.totalLoops = 0;
     state.clicks = 0;
     state.focusUntil = 0;
     state.machines = keep.machines;
+    state.perks = keptPerks;
     state.upgrades = [];
+    state.achievements = keptAchievements;
+    if (perkLevel("starter-cap", state) > 0) {
+      state.machines.plot = 1;
+      displayedRate = incomePerSecond();
+    }
+    clickRateBurst = 0;
     markDirty();
     checkAchievements();
     save();
@@ -273,7 +360,8 @@
       renderFocus();
       return;
     }
-    state.focusUntil = now + 10 * 60 * 1000;
+    const boostMinutes = 10 + perkLevel("long-boost") * 2;
+    state.focusUntil = now + boostMinutes * 60 * 1000;
     displayedRate = Math.max(displayedRate, incomePerSecond());
     els.boostHint.textContent = result.demo
       ? "Demo boost active. Configure rewarded AdMob IDs before App Store release."
@@ -295,44 +383,68 @@
     const rect = els.seedButton.getBoundingClientRect();
     const x = event?.clientX || rect.left + rect.width / 2;
     const y = event?.clientY || rect.top + rect.height / 2;
+    const now = Date.now();
+    comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
+    lastTapTime = now;
     addLoops(state, gained);
     recordSporeBurst(gained);
     state.clicks += 1;
     markDirty();
     checkAchievements();
-    showPop(x, y, `+${format(gained)}`);
+    showPop(x, y, `+${format(gained)}`, comboCount);
     showSporeBurst(x, y);
+    showTapImpact(x, y, rect, comboCount);
+    renderCombo();
     if (navigator.vibrate) navigator.vibrate(10);
     els.seedButton.classList.add("is-pressed");
-    window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 240);
+    window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
     render();
   }
 
-  function showPop(x, y, text) {
+  function showPop(x, y, text, combo = 1) {
     const pop = document.createElement("span");
-    pop.className = "pop";
+    pop.className = `pop${combo >= 6 ? " pop-hot" : ""}`;
     pop.textContent = text;
     pop.style.left = `${x}px`;
     pop.style.top = `${y}px`;
     document.body.appendChild(pop);
-    window.setTimeout(() => pop.remove(), 780);
+    window.setTimeout(() => pop.remove(), 900);
+  }
+
+  function showTapImpact(x, y, rect, combo = 1) {
+    const localX = Math.max(0, Math.min(rect.width, x - rect.left));
+    const localY = Math.max(0, Math.min(rect.height, y - rect.top));
+    const ring = document.createElement("span");
+    ring.className = `tap-ring${combo >= 8 ? " hot" : ""}`;
+    ring.style.left = `${localX}px`;
+    ring.style.top = `${localY}px`;
+    els.seedButton.appendChild(ring);
+
+    const flash = document.createElement("span");
+    flash.className = "tap-flash";
+    els.seedButton.appendChild(flash);
+
+    window.setTimeout(() => ring.remove(), 620);
+    window.setTimeout(() => flash.remove(), 440);
   }
 
   function showSporeBurst(x, y) {
-    const count = window.matchMedia("(max-width: 620px)").matches ? 14 : 10;
+    const mobile = window.matchMedia("(max-width: 620px)").matches;
+    const count = mobile ? 16 : 12;
     for (let i = 0; i < count; i += 1) {
-      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.35;
-      const distance = 42 + Math.random() * 76;
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.45;
+      const distance = 44 + Math.random() * (mobile ? 86 : 74);
       const spore = document.createElement("span");
-      spore.className = "spore-pop";
+      const sparkle = i % 3 === 0;
+      spore.className = `${sparkle ? "spore-spark" : "spore-pop"}${comboCount >= 8 && !sparkle ? " big" : ""}`;
       spore.style.left = `${x}px`;
       spore.style.top = `${y}px`;
       spore.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
       spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 28}px`);
       spore.style.setProperty("--spin", `${Math.random() * 220 - 110}deg`);
-      spore.style.setProperty("--size", `${6 + Math.random() * 8}px`);
+      spore.style.setProperty("--size", `${sparkle ? 7 + Math.random() * 9 : 7 + Math.random() * 11}px`);
       document.body.appendChild(spore);
-      window.setTimeout(() => spore.remove(), 760);
+      window.setTimeout(() => spore.remove(), 900);
     }
   }
 
@@ -348,7 +460,7 @@
 
   function importSave() {
     els.dialogTitle.textContent = "import save";
-    els.dialogHelp.textContent = "Paste a Mushroom Boop save code.";
+    els.dialogHelp.textContent = "Paste an Idle Shroom save code.";
     els.saveText.value = "";
     els.loadSaveButton.style.display = "";
     els.copySaveButton.style.display = "none";
@@ -362,6 +474,7 @@
       Object.keys(state).forEach(key => delete state[key]);
       Object.assign(state, fallback, imported);
       state.machines = { ...fallback.machines, ...(imported.machines || {}) };
+      state.perks = { ...fallback.perks, ...(imported.perks || {}) };
       state.upgrades = Array.isArray(imported.upgrades) ? imported.upgrades : [];
       state.achievements = Array.isArray(imported.achievements) ? imported.achievements : [];
       save();
@@ -384,10 +497,10 @@
   }
 
   async function shareScore() {
-    const text = `I grew ${format(state.lifetimeLoops)} lifetime spores in Mushroom Boop. Play at https://aolabs.io/mushroom-boop/`;
+    const text = `I grew ${format(state.lifetimeLoops)} lifetime spores in Idle Shroom. Play at https://aolabs.io/mushroom-boop/`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Mushroom Boop", text, url: "https://aolabs.io/mushroom-boop/" });
+        await navigator.share({ title: "Idle Shroom", text, url: "https://aolabs.io/mushroom-boop/" });
         return;
       } catch {
         /* fall through to clipboard */
@@ -399,6 +512,96 @@
     } catch {
       els.saveState.textContent = "share ready";
     }
+  }
+
+  function leaderboardEndpoint() {
+    return String(onlineConfig.leaderboardEndpoint || "").trim();
+  }
+
+  function playerName() {
+    return String(els.playerName.value || "").trim().slice(0, 18) || "local cap";
+  }
+
+  function scorePayload() {
+    return {
+      name: playerName(),
+      lifetimeSpores: Math.floor(state.lifetimeLoops),
+      spores: Math.floor(state.loops),
+      mycelium: Math.floor(state.rootstock),
+      boops: Math.floor(state.clicks),
+      sporesPerSecond: Number(incomePerSecond().toFixed(3)),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  function sortLeaderboard(entries) {
+    return entries
+      .filter(entry => entry && typeof entry === "object")
+      .sort((a, b) => {
+        const myceliumDiff = Number(b.mycelium || 0) - Number(a.mycelium || 0);
+        if (myceliumDiff) return myceliumDiff;
+        return Number(b.lifetimeSpores || 0) - Number(a.lifetimeSpores || 0);
+      })
+      .slice(0, 10);
+  }
+
+  function loadLocalLeaderboard() {
+    try {
+      const entries = JSON.parse(localStorage.getItem(leaderboardKey) || "[]");
+      return Array.isArray(entries) ? sortLeaderboard(entries) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveLocalLeaderboard(entries) {
+    localStorage.setItem(leaderboardKey, JSON.stringify(sortLeaderboard(entries)));
+  }
+
+  async function loadLeaderboard() {
+    const endpoint = leaderboardEndpoint();
+    if (!endpoint) {
+      leaderboardEntries = loadLocalLeaderboard();
+      renderLeaderboard();
+      return;
+    }
+    try {
+      const response = await fetch(endpoint, { headers: { "Accept": "application/json" } });
+      if (!response.ok) throw new Error("leaderboard unavailable");
+      const data = await response.json();
+      leaderboardEntries = sortLeaderboard(Array.isArray(data) ? data : data.scores || []);
+      els.leaderboardState.textContent = "online";
+    } catch {
+      leaderboardEntries = loadLocalLeaderboard();
+      els.leaderboardState.textContent = "local fallback";
+    }
+    renderLeaderboard();
+  }
+
+  async function submitScore() {
+    const payload = scorePayload();
+    const endpoint = leaderboardEndpoint();
+    els.submitScoreButton.disabled = true;
+    els.submitScoreButton.textContent = "submitting";
+    if (endpoint) {
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error("score rejected");
+        await loadLeaderboard();
+        els.submitScoreButton.textContent = "submitted";
+        window.setTimeout(renderLeaderboard, 900);
+        return;
+      } catch {
+        els.leaderboardState.textContent = "local fallback";
+      }
+    }
+    leaderboardEntries = sortLeaderboard([...loadLocalLeaderboard(), payload]);
+    saveLocalLeaderboard(leaderboardEntries);
+    renderLeaderboard();
   }
 
   function renderMachines() {
@@ -439,6 +642,45 @@
     }).join("");
   }
 
+  function renderPerks() {
+    const active = perks.reduce((sum, perk) => sum + perkLevel(perk.id), 0);
+    els.perkCount.textContent = `${active} active`;
+    els.perkList.innerHTML = perks.map(perk => {
+      const level = perkLevel(perk.id);
+      const cost = perkCost(perk);
+      const maxed = level >= perk.max;
+      const disabled = maxed || state.rootstock < cost ? "disabled" : "";
+      return `
+        <article class="store-item">
+          <div>
+            <h3>${perk.name}</h3>
+            <p>${perk.desc}</p>
+            <span class="owned">level ${level}/${perk.max}</span>
+          </div>
+          <button type="button" data-buy-perk="${perk.id}" ${disabled}>${maxed ? "max" : `${format(cost)} mycelium`}</button>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function renderLeaderboard() {
+    const endpoint = leaderboardEndpoint();
+    els.leaderboardState.textContent = endpoint ? (els.leaderboardState.textContent || "online") : "local board";
+    els.submitScoreButton.disabled = false;
+    els.submitScoreButton.textContent = "submit score";
+    if (!leaderboardEntries.length) {
+      els.leaderboardList.innerHTML = `<article class="leaderboard-empty">No scores yet. Submit after a run.</article>`;
+      return;
+    }
+    els.leaderboardList.innerHTML = sortLeaderboard(leaderboardEntries).map((entry, index) => `
+      <article class="leaderboard-row">
+        <strong>${index + 1}</strong>
+        <span>${escapeHtml(entry.name || "local cap")}</span>
+        <em>${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores</em>
+      </article>
+    `).join("");
+  }
+
   function renderAchievements() {
     els.achievementList.innerHTML = achievements.map(achievement => {
       const unlocked = state.achievements.includes(achievement.id);
@@ -472,12 +714,15 @@
 
   function renderPrestige() {
     const gain = graftGain();
+    const required = bloomRequirement();
+    const progress = Math.max(0, Math.min(1, state.totalLoops / required));
     els.rootstockValue.textContent = format(state.rootstock);
+    els.prestigeProgress.style.width = `${Math.round(progress * 100)}%`;
     els.prestigeButton.disabled = gain <= 0;
     els.prestigeButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
     els.prestigeHint.textContent = gain > 0
-      ? `Reset for ${format(gain)} mycelium. Each mycelium permanently increases output.`
-      : `Reach 1,000,000 lifetime spores to bloom the colony.`;
+      ? `Reset for ${format(gain)} mycelium. Spend mycelium on permanent perks below.`
+      : `Reach ${format(required)} spores this run to bloom the colony.`;
   }
 
   function renderFocus() {
@@ -493,6 +738,7 @@
     els.baseRateValue.textContent = `base ${format(incomePerSecond())}`;
     els.tapValue.textContent = format(state.clicks);
     els.clicksValue.textContent = format(state.clicks);
+    els.runValue.textContent = format(state.totalLoops);
     els.lifetimeValue.textContent = format(state.lifetimeLoops);
     els.multiplierValue.textContent = `${rateMultiplier().toFixed(rateMultiplier() >= 10 ? 1 : 2)}x`;
     els.machineCount.textContent = "spend spores";
@@ -500,11 +746,13 @@
     els.achievementCount.textContent = `${state.achievements.length} unlocked`;
     renderMachines();
     renderUpgrades();
+    renderPerks();
     renderAchievements();
     renderOrchard();
     renderDaily();
     renderPrestige();
     renderFocus();
+    renderLeaderboard();
   }
 
   function tick() {
@@ -530,6 +778,10 @@
     const id = event.target.closest("button")?.dataset.buyUpgrade;
     if (id) buyUpgrade(id);
   });
+  els.perkList.addEventListener("click", event => {
+    const id = event.target.closest("button")?.dataset.buyPerk;
+    if (id) buyPerk(id);
+  });
   els.prestigeButton.addEventListener("click", graft);
   els.dailyButton.addEventListener("click", claimDaily);
   els.focusButton.addEventListener("click", useFocus);
@@ -538,6 +790,7 @@
   els.importButton.addEventListener("click", importSave);
   els.copySaveButton.addEventListener("click", copySaveCode);
   els.loadSaveButton.addEventListener("click", loadSaveCode);
+  els.submitScoreButton.addEventListener("click", submitScore);
 
   window.addEventListener("beforeunload", save);
   document.addEventListener("visibilitychange", () => {
@@ -545,6 +798,7 @@
   });
 
   checkAchievements();
+  loadLeaderboard();
   render();
   window.setInterval(tick, 1000);
   window.setInterval(() => { if (dirty) save(); }, 5000);

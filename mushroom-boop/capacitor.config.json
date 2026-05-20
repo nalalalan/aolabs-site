@@ -1,6 +1,6 @@
 {
   "appId": "io.aolabs.mushroomboop",
-  "appName": "Mushroom Boop",
+  "appName": "Idle Shroom",
   "webDir": ".",
   "server": {
     "androidScheme": "https"

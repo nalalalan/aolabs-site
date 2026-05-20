@@ -1,10 +1,11 @@
-const CACHE_NAME = "mushroom-boop-v4";
+const CACHE_NAME = "mushroom-boop-v16";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./game.js",
   "./ads-config.js",
+  "./online-config.js",
   "./ads.js",
   "./icon.svg",
   "./manifest.webmanifest",
