@@ -346,7 +346,7 @@ button:not(:disabled):hover {
 
 .glade-head span,
 .glade-head em,
-.bloom-track + small {
+.bloom-copy small {
   color: var(--muted);
   font-size: 12px;
   line-height: 1;
@@ -394,6 +394,12 @@ button:not(:disabled):hover {
   animation: progressCandy 1.3s linear infinite;
 }
 
+.bloom-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .friend-scene {
   position: relative;
   min-height: 330px;
@@ -429,8 +435,22 @@ button:not(:disabled):hover {
   filter: blur(4px);
 }
 
+.sky-glow,
 .sunbeam {
   position: absolute;
+  pointer-events: none;
+}
+
+.sky-glow {
+  inset: 6% 10% auto;
+  height: 42%;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(255, 246, 186, .5), transparent 62%);
+  filter: blur(6px);
+}
+
+.sunbeam {
   top: 10%;
   right: 12%;
   width: 58px;
@@ -440,6 +460,79 @@ button:not(:disabled):hover {
     radial-gradient(circle, #fff4a8 0 35%, #ffd66b 36% 62%, rgba(255,214,107,0) 63%);
   box-shadow: 0 0 34px rgba(255, 214, 107, .48);
   animation: sunWiggle 2.6s ease-in-out infinite alternate;
+}
+
+.cloud,
+.meadow-hill {
+  position: absolute;
+  pointer-events: none;
+}
+
+.cloud {
+  width: 78px;
+  height: 28px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 24% 48%, rgba(255,255,255,.86) 0 28%, transparent 29%),
+    radial-gradient(circle at 48% 34%, rgba(255,255,255,.92) 0 34%, transparent 35%),
+    radial-gradient(circle at 72% 50%, rgba(255,255,255,.82) 0 26%, transparent 27%),
+    linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.36));
+  filter: drop-shadow(0 8px 14px rgba(109, 141, 168, .12));
+  opacity: .86;
+}
+
+.cloud-a {
+  left: 9%;
+  top: 13%;
+  animation: cloudDrift 8s ease-in-out infinite alternate;
+}
+
+.cloud-b {
+  right: 20%;
+  top: 23%;
+  width: 56px;
+  transform: scale(.78);
+  opacity: .58;
+  animation: cloudDrift 10s ease-in-out infinite alternate-reverse;
+}
+
+.meadow-hill {
+  left: -12%;
+  right: -12%;
+  bottom: 24%;
+  height: 27%;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg, rgba(223, 246, 204, .7), rgba(163, 211, 143, .2));
+}
+
+.hill-b {
+  left: 24%;
+  right: -28%;
+  bottom: 29%;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(246, 236, 190, .52), rgba(163, 211, 143, .12));
+}
+
+.rush-orbit {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  z-index: 4;
+  width: min(82%, 310px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    conic-gradient(from -90deg, rgba(255, 223, 103, .92) var(--rush, 0%), rgba(255, 255, 255, .28) 0);
+  opacity: .74;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 16px rgba(255, 215, 107, .2));
+  mask: radial-gradient(circle, transparent 62%, #000 63% 66%, transparent 67%);
+  pointer-events: none;
+}
+
+.rush-orbit.active {
+  animation: rushOrbit .72s linear infinite;
+  opacity: .95;
 }
 
 .friend-scene .seed-button {
@@ -456,6 +549,95 @@ button:not(:disabled):hover {
   margin: 0;
 }
 
+.companion-row {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 18%;
+  z-index: 5;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.companion {
+  position: relative;
+  width: 24px;
+  height: 29px;
+  opacity: 0;
+  transform: translateY(10px) scale(.68);
+  transition: opacity .18s ease, transform .24s cubic-bezier(.18, 1.7, .28, 1);
+}
+
+.companion.live {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: companionBreathe 1.8s ease-in-out infinite alternate;
+}
+
+.companion::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  top: 0;
+  width: 84%;
+  height: 52%;
+  border-radius: 52% 52% 36% 36% / 78% 78% 28% 28%;
+  background:
+    radial-gradient(circle at 31% 54%, rgba(255,248,220,.96) 0 9%, transparent 10%),
+    radial-gradient(circle at 62% 33%, rgba(255,248,220,.92) 0 8%, transparent 9%),
+    linear-gradient(180deg, #f18896, #ba5362);
+  box-shadow: 0 5px 10px rgba(116, 37, 50, .18);
+}
+
+.companion i {
+  position: absolute;
+  left: 34%;
+  bottom: 0;
+  width: 32%;
+  height: 55%;
+  border-radius: 42% 42% 28% 28%;
+  background: linear-gradient(180deg, #f8ddb0, #e4b06f);
+}
+
+.companion i::before,
+.companion i::after {
+  content: "";
+  position: absolute;
+  top: 34%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #5c3e38;
+}
+
+.companion i::before {
+  left: 20%;
+}
+
+.companion i::after {
+  right: 20%;
+}
+
+.scene-pulse {
+  position: absolute;
+  z-index: 3;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 248, 184, .88);
+  box-shadow: 0 0 0 12px rgba(255, 221, 118, .16), 0 0 30px rgba(255, 221, 118, .38);
+  transform: translate(-50%, -50%) scale(.5);
+  pointer-events: none;
+  animation: scenePulse .68s ease-out forwards;
+}
+
+.scene-pulse.hot {
+  border-color: #fff8b8;
+  box-shadow: 0 0 0 16px rgba(233, 120, 136, .24), 0 0 42px rgba(255, 221, 118, .58);
+}
+
 .skill-row,
 .save-tools {
   position: relative;
@@ -467,12 +649,42 @@ button:not(:disabled):hover {
 }
 
 .skill-row button {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, max-content);
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
   min-height: 46px;
   border-color: rgba(185, 77, 92, .22);
   background:
     radial-gradient(circle at 50% 0, rgba(255, 231, 168, .62), transparent 56%),
     linear-gradient(180deg, #fffaf0, #ffe7ee);
   color: var(--cap-dark);
+}
+
+.skill-row button::before {
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--skill-dot, var(--cap));
+  box-shadow: 0 0 14px var(--skill-glow, rgba(233, 120, 136, .34));
+}
+
+#dewSkillButton {
+  --skill-dot: radial-gradient(circle at 34% 27%, #fff 0 19%, transparent 20%), linear-gradient(180deg, #9ad7ff, #6d8da8);
+  --skill-glow: rgba(109, 141, 168, .38);
+}
+
+#boostSkillButton {
+  --skill-dot: radial-gradient(circle at 50% 50%, #fff9c8 0 28%, transparent 29%), linear-gradient(180deg, #ffe17a, #e97888);
+  --skill-glow: rgba(255, 225, 122, .48);
+}
+
+#bloomSkillButton {
+  --skill-dot: radial-gradient(circle at 42% 36%, #fff8dc 0 16%, transparent 17%), linear-gradient(180deg, #9dd985, #5d8d64);
+  --skill-glow: rgba(93, 141, 100, .38);
 }
 
 .skill-row button:disabled {
@@ -1109,6 +1321,11 @@ button:not(:disabled):hover {
   100% { opacity: 0; transform: scale(1.22); }
 }
 
+@keyframes scenePulse {
+  0% { opacity: .95; transform: translate(-50%, -50%) scale(.3); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(9); }
+}
+
 @keyframes comboPop {
   0% { transform: scale(.62); }
   62% { transform: scale(1.18); }
@@ -1133,6 +1350,38 @@ button:not(:disabled):hover {
 @keyframes sunWiggle {
   from { transform: translateY(0) scale(1); }
   to { transform: translateY(5px) scale(1.05); }
+}
+
+@keyframes cloudDrift {
+  from { transform: translateX(-4px); }
+  to { transform: translateX(12px); }
+}
+
+@keyframes rushOrbit {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes companionBreathe {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-4px) scale(1.04); }
+}
+
+@keyframes sceneBloom {
+  0% { filter: brightness(1) saturate(1); }
+  38% { filter: brightness(1.16) saturate(1.14); }
+  100% { filter: brightness(1) saturate(1); }
+}
+
+.friend-scene.scene-tapped .companion.live {
+  animation: companionBreathe .24s ease-in-out 2 alternate;
+}
+
+.friend-scene.scene-bloomed {
+  animation: sceneBloom .88s ease-out;
+}
+
+.friend-scene.scene-bloomed .companion.live {
+  animation: companionBreathe .18s ease-in-out 5 alternate;
 }
 
 @keyframes popFloat {
@@ -1162,13 +1411,18 @@ button:not(:disabled):hover {
   .spore-spark,
   .tap-ring,
   .tap-flash,
+  .scene-pulse,
   .pop,
   .progress-track span,
   .combo-badge.hot {
     animation-duration: .01ms;
   }
 
-  .sunbeam {
+  .sunbeam,
+  .cloud,
+  .companion.live,
+  .rush-orbit.active,
+  .friend-scene.scene-bloomed {
     animation-duration: .01ms;
   }
 }
@@ -1469,7 +1723,7 @@ body[data-tab="board"] .badges-panel {
 
 .game-page .glade-head span,
 .game-page .glade-head em,
-.game-page .bloom-track + small {
+.game-page .bloom-copy small {
   font-size: 8px;
   letter-spacing: .04em;
 }
@@ -1487,14 +1741,26 @@ body[data-tab="board"] .badges-panel {
   height: 10px;
 }
 
+.game-page .bloom-copy {
+  min-height: 10px;
+  align-items: center;
+}
+
+.game-page .bloom-copy small:last-child {
+  color: rgba(80, 67, 39, .48);
+}
+
 .game-page .friend-scene {
   display: grid;
   place-items: center;
-  min-height: clamp(330px, 54dvh, 570px);
+  min-height: clamp(350px, 57dvh, 590px);
   height: auto;
   border: 0;
-  border-radius: 14px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.64);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 246, 186, .48), transparent 29%),
+    linear-gradient(180deg, rgba(202, 233, 255, .72) 0 43%, rgba(222, 244, 210, .94) 44% 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 14px 28px rgba(83,48,58,.08);
 }
 
 .game-page .resource-row {
@@ -1537,8 +1803,9 @@ body[data-tab="board"] .badges-panel {
 }
 
 .game-page .seed-button {
+  z-index: 6;
   width: min(70vw, 260px);
-  margin: 0 auto 4px;
+  margin: 4px auto 8px;
 }
 
 .game-page .seed-text {
@@ -1563,8 +1830,9 @@ body[data-tab="board"] .badges-panel {
 .game-page .friend-scene .orchard-visual {
   left: 9%;
   right: 9%;
-  bottom: 7%;
+  bottom: 5%;
   width: auto;
+  opacity: .74;
 }
 
 .game-page .sprout {
@@ -1610,6 +1878,17 @@ body[data-tab="board"] .badges-panel {
   border: 1px solid rgba(185, 77, 92, .18);
   border-radius: 9px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+  white-space: nowrap;
+}
+
+.game-page .skill-row button[data-ready="true"]:not(:disabled) {
+  border-color: rgba(233, 120, 136, .28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.78), 0 8px 16px rgba(185, 77, 92, .12);
+}
+
+.game-page .skill-row button[data-ready="active"] {
+  color: #fffdf8;
+  background: linear-gradient(180deg, #e97888, #b94d5c);
 }
 
 .game-page .save-tools {
@@ -1871,10 +2150,133 @@ body[data-tab="board"] .badges-panel {
   }
 
   .game-page .friend-scene {
-    min-height: 280px;
+    min-height: 300px;
   }
 
   .game-page .orchard-visual {
     display: none;
+  }
+}
+
+@media (max-height: 560px) {
+  .game-page .suite-topbar {
+    min-height: 42px;
+    padding: 4px 8px 0;
+  }
+
+  .game-page .suite-ao-home {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+
+  .game-page .suite-ao-home img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .game-page .suite-app-mark {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .game-page .suite-app-brand {
+    font-size: 13px;
+  }
+
+  .game-page .game-shell {
+    gap: 5px;
+    padding: 5px 8px max(5px, env(safe-area-inset-bottom));
+  }
+
+  .game-page .tap-panel {
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+
+  .game-page .resource-row {
+    gap: 4px;
+  }
+
+  .game-page .resource-row div {
+    min-height: 28px;
+    padding: 2px 3px;
+  }
+
+  .game-page .resource-row .metric-label {
+    font-size: 7px;
+  }
+
+  .game-page .resource-row strong {
+    font-size: 16px;
+  }
+
+  .game-page .resource-row small {
+    display: none;
+  }
+
+  .game-page .glade-stage {
+    gap: 3px;
+    margin-top: 3px;
+    padding: 7px;
+    border-radius: 11px;
+  }
+
+  .game-page .glade-head strong {
+    font-size: 14px;
+  }
+
+  .game-page .glade-head em,
+  .game-page .bloom-copy small {
+    font-size: 7px;
+  }
+
+  .game-page .bloom-track {
+    height: 7px;
+  }
+
+  .game-page .bloom-copy small:last-child {
+    display: none;
+  }
+
+  .game-page .friend-scene {
+    min-height: 0;
+    height: 100%;
+    border-radius: 10px;
+  }
+
+  .game-page .cloud-b,
+  .game-page .orchard-visual,
+  .game-page .companion-row {
+    display: none;
+  }
+
+  .game-page .sunbeam {
+    width: 42px;
+    height: 42px;
+  }
+
+  .game-page .seed-button {
+    width: min(38vh, 156px);
+  }
+
+  .game-page .skill-row {
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .game-page .skill-row button {
+    min-height: 29px;
+    font-size: 10px;
+  }
+
+  .bottom-tabs {
+    min-height: 42px;
+    padding: 5px;
+  }
+
+  .bottom-tabs button {
+    min-height: 31px;
+    font-size: 11px;
   }
 }

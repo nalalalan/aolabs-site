@@ -83,7 +83,8 @@
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
     "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
-    "bottomTabs", "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed",
+    "bottomTabs", "friendScene", "companionRow", "rushOrbit",
+    "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "dewSkillButton", "boostSkillButton", "bloomSkillButton"
   ].forEach(id => { els[id] = document.getElementById(id); });
 
@@ -250,8 +251,8 @@
     return Math.round((18 + level * 7) * Math.pow(1.14, level - 1) * rootBonus(target));
   }
 
-  function meadowTitle(target = state) {
-    const level = Math.max(1, Number(target.meadowLevel || 1));
+  function meadowTitle(target = state, offset = 0) {
+    const level = Math.max(1, Number(target.meadowLevel || 1) + offset);
     return meadowNames[(level - 1) % meadowNames.length];
   }
 
@@ -578,6 +579,7 @@
     }
     showSporeBurst(x, y);
     showTapImpact(x, y, rect, comboCount);
+    pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
     renderCombo();
     if (navigator.vibrate) navigator.vibrate(10);
     els.seedButton.classList.add("is-pressed");
@@ -608,8 +610,26 @@
     flash.className = "tap-flash";
     els.seedButton.appendChild(flash);
 
+    if (els.friendScene) {
+      const sceneRect = els.friendScene.getBoundingClientRect();
+      const pulse = document.createElement("span");
+      pulse.className = `scene-pulse${combo >= 8 ? " hot" : ""}`;
+      pulse.style.left = `${Math.max(0, Math.min(sceneRect.width, x - sceneRect.left))}px`;
+      pulse.style.top = `${Math.max(0, Math.min(sceneRect.height, y - sceneRect.top))}px`;
+      els.friendScene.appendChild(pulse);
+      window.setTimeout(() => pulse.remove(), 720);
+    }
+
     window.setTimeout(() => ring.remove(), 620);
     window.setTimeout(() => flash.remove(), 440);
+  }
+
+  function pulseScene(className) {
+    if (!els.friendScene) return;
+    els.friendScene.classList.remove("scene-tapped", "scene-bloomed");
+    void els.friendScene.offsetWidth;
+    els.friendScene.classList.add(className);
+    window.setTimeout(() => els.friendScene.classList.remove(className), className === "scene-bloomed" ? 920 : 360);
   }
 
   function showSporeBurst(x, y) {
@@ -913,6 +933,19 @@
     });
   }
 
+  function renderCompanions() {
+    if (!els.companionRow) return;
+    if (!els.companionRow.childElementCount) {
+      els.companionRow.innerHTML = Array.from({ length: 6 }, (_, index) => (
+        `<span class="companion companion-${index + 1}"><i></i></span>`
+      )).join("");
+    }
+    const active = Math.min(6, Math.max(1, Math.ceil((state.meadowLevel || 1) / 2) + Math.floor(ownedTotal() / 10)));
+    Array.from(els.companionRow.children).forEach((child, index) => {
+      child.classList.toggle("live", index < active);
+    });
+  }
+
   function renderDaily() {
     const ready = state.lastDaily !== todayKey();
     els.dailyReward.textContent = ready ? `${state.streak ? `${state.streak + 1}x streak` : "ready"}` : `${state.streak}x claimed`;
@@ -920,6 +953,7 @@
     if (els.dewSkillButton) {
       els.dewSkillButton.disabled = !ready;
       els.dewSkillButton.textContent = ready ? "dew" : "dew done";
+      els.dewSkillButton.dataset.ready = ready ? "true" : "false";
     }
   }
 
@@ -934,6 +968,7 @@
     if (els.bloomSkillButton) {
       els.bloomSkillButton.disabled = gain <= 0;
       els.bloomSkillButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
+      els.bloomSkillButton.dataset.ready = gain > 0 ? "true" : "false";
     }
     els.prestigeHint.textContent = gain > 0
       ? `Reset for ${format(gain)} mycelium. Spend mycelium on permanent perks below.`
@@ -948,6 +983,7 @@
     if (els.boostSkillButton) {
       els.boostSkillButton.disabled = remaining > 0;
       els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "glow";
+      els.boostSkillButton.dataset.ready = remaining > 0 ? "active" : "true";
     }
   }
 
@@ -959,12 +995,20 @@
       els.rushHint.textContent = "Cap rush active: x3 spores/sec and x2 boops.";
       els.rushProgress.style.width = "100%";
       els.rushProgress.classList.add("rush-active");
+      if (els.rushOrbit) {
+        els.rushOrbit.style.setProperty("--rush", "100%");
+        els.rushOrbit.classList.add("active");
+      }
       return;
     }
     els.rushValue.textContent = `${Math.floor(charge)}%`;
     els.rushHint.textContent = "Tap, buy, claim, and boost to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
+    if (els.rushOrbit) {
+      els.rushOrbit.style.setProperty("--rush", `${charge}%`);
+      els.rushOrbit.classList.remove("active");
+    }
   }
 
   function renderMeadow() {
@@ -976,8 +1020,14 @@
     els.meadowName.textContent = meadowTitle();
     els.meadowMood.textContent = meadowMood();
     els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
-    els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care to bloom`;
-    document.body.dataset.meadowMood = meadowMood().replace(/\s+/g, "-");
+    els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care`;
+    if (els.nextBloomName) els.nextBloomName.textContent = `next: ${meadowTitle(state, 1)}`;
+    const mood = meadowMood();
+    document.body.dataset.meadowMood = mood.replace(/\s+/g, "-");
+    if (els.friendScene) {
+      els.friendScene.dataset.mood = mood;
+      els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood}`);
+    }
   }
 
   function renderQuests() {
@@ -1019,6 +1069,7 @@
     renderPerks();
     renderAchievements();
     renderOrchard();
+    renderCompanions();
     renderDaily();
     renderMeadow();
     renderPrestige();

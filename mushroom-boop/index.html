@@ -24,9 +24,9 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-bloom-stage-3">
+  <link rel="stylesheet" href="./styles.css?v=20260520-game-stage-1">
   <script src="./ads-config.js"></script>
-  <script src="./online-config.js?v=20260520-bloom-stage-3"></script>
+  <script src="./online-config.js?v=20260520-game-stage-1"></script>
 </head>
 <body class="game-page" data-tab="play">
   <div class="phone-frame" aria-label="Idle Shroom phone preview">
@@ -72,11 +72,11 @@
       <section class="tap-panel" aria-label="mushroom colony">
         <div class="resource-row">
           <div>
-            <span class="metric-label">spores to spend</span>
+            <span class="metric-label">spores</span>
             <strong id="loopsValue">0</strong>
           </div>
           <div>
-            <span class="metric-label">spores/sec</span>
+            <span class="metric-label">per sec</span>
             <strong id="rateValue">0</strong>
             <small id="baseRateValue">base 0</small>
           </div>
@@ -97,14 +97,24 @@
           <div class="bloom-track" aria-label="meadow bloom progress">
             <span id="bloomProgress"></span>
           </div>
-          <small id="bloomNeed">care to bloom</small>
+          <div class="bloom-copy">
+            <small id="bloomNeed">care to bloom</small>
+            <small id="nextBloomName">next: Dewdrop Nook</small>
+          </div>
 
-          <div class="friend-scene">
+          <div class="friend-scene" id="friendScene">
+            <span class="sky-glow" aria-hidden="true"></span>
             <span class="sunbeam" aria-hidden="true"></span>
+            <span class="cloud cloud-a" aria-hidden="true"></span>
+            <span class="cloud cloud-b" aria-hidden="true"></span>
+            <span class="meadow-hill hill-a" aria-hidden="true"></span>
+            <span class="meadow-hill hill-b" aria-hidden="true"></span>
+            <span class="rush-orbit" id="rushOrbit" aria-hidden="true"></span>
             <button type="button" class="seed-button" id="seedButton" aria-label="boop the mushroom cap">
               <span class="seed-core" aria-hidden="true"></span>
               <span class="seed-text">boop</span>
             </button>
+            <div class="companion-row" id="companionRow" aria-hidden="true"></div>
             <div class="orchard-visual" id="orchardVisual"></div>
           </div>
         </div>
@@ -245,7 +255,7 @@
     </dialog>
   </div>
 
-  <script src="./ads.js?v=20260520-bloom-stage-3"></script>
-  <script src="./game.js?v=20260520-bloom-stage-3"></script>
+  <script src="./ads.js?v=20260520-game-stage-1"></script>
+  <script src="./game.js?v=20260520-game-stage-1"></script>
 </body>
 </html>
