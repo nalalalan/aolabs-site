@@ -500,10 +500,10 @@
   }
 
   async function shareScore() {
-    const text = `I grew ${format(state.lifetimeLoops)} lifetime spores in Idle Shroom. Play at https://aolabs.io/mushroom-boop/`;
+    const text = `I grew ${format(state.lifetimeLoops)} lifetime spores in Idle Shroom. Play at https://idleshroom.aolabs.io/`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Idle Shroom", text, url: "https://aolabs.io/mushroom-boop/" });
+        await navigator.share({ title: "Idle Shroom", text, url: "https://idleshroom.aolabs.io/" });
         return;
       } catch {
         /* fall through to clipboard */

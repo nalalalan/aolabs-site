@@ -1,6 +1,6 @@
 # Idle Shroom
 
-Idle Shroom is an original cute mushroom idle clicker game for `https://aolabs.io/mushroom-boop/`.
+Idle Shroom is an original cute mushroom idle clicker game for `https://idleshroom.aolabs.io/`.
 
 What is included:
 

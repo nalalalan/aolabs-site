@@ -1,7 +1,7 @@
 {
   "name": "Idle Shroom",
   "short_name": "Idle Shroom",
-  "description": "An original cute mushroom idle clicker about booping a fly agaric and growing a cozy colony.",
+  "description": "An original cute mushroom idle clicker about tapping a fly agaric, popping spores, and growing a cozy colony.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
