@@ -4,12 +4,12 @@ Idle Shroom is an original cute mushroom idle clicker game for `https://aolabs.i
 
 What is included:
 
-- boop cycle, colony upgrades, charms, daily dew reward, cozy boost, badges, offline progress, mycelium prestige, permanent perks, and a local leaderboard
+- boop cycle, colony upgrades, charms, daily dew reward, cozy boost, badges, offline progress, mycelium prestige, permanent perks, and the Railway-backed global leaderboard
 - local save, export, import, and share text
 - PWA manifest and service worker
 - web ad slots gated by `ads-config.js`
 - rewarded-ad boost hook with demo fallback until AdMob IDs are configured
-- online leaderboard hook gated by `online-config.js`; real online play requires a backend endpoint
+- online leaderboard endpoint in `online-config.js`; backend lives in `_apps/idle-shroom-api`
 - Capacitor config for later iOS/Android packaging
 - privacy and about pages for web trust and ad review readiness
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = "mushroom-boop-v16";
+const CACHE_NAME = "mushroom-boop-v17";
 const ASSETS = [
   "./",
   "./index.html",
@@ -25,6 +25,11 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.pathname.endsWith("/online-config.js")) {
+    event.respondWith(fetch(event.request, { cache: "no-store" }));
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
       const copy = response.clone();

@@ -3,6 +3,7 @@
 
   const saveKey = "mushroom-boop-save-v1";
   const leaderboardKey = "mushroom-boop-leaderboard-v1";
+  const playerIdKey = "mushroom-boop-player-id-v1";
   const maxOfflineSeconds = 8 * 60 * 60;
   const bloomThreshold = 25000;
   const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
@@ -54,6 +55,8 @@
   let comboCount = 0;
   let comboTimer = 0;
   let leaderboardEntries = [];
+  let leaderboardStatus = "";
+  let leaderboardSubmitting = false;
 
   const els = {};
   [
@@ -522,8 +525,21 @@
     return String(els.playerName.value || "").trim().slice(0, 18) || "local cap";
   }
 
+  function playerId() {
+    try {
+      const existing = localStorage.getItem(playerIdKey);
+      if (existing) return existing;
+      const created = crypto.randomUUID ? crypto.randomUUID() : `player-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+      localStorage.setItem(playerIdKey, created);
+      return created;
+    } catch {
+      return `session-${Date.now().toString(36)}`;
+    }
+  }
+
   function scorePayload() {
     return {
+      playerId: playerId(),
       name: playerName(),
       lifetimeSpores: Math.floor(state.lifetimeLoops),
       spores: Math.floor(state.loops),
@@ -562,6 +578,7 @@
     const endpoint = leaderboardEndpoint();
     if (!endpoint) {
       leaderboardEntries = loadLocalLeaderboard();
+      leaderboardStatus = "local board";
       renderLeaderboard();
       return;
     }
@@ -570,10 +587,10 @@
       if (!response.ok) throw new Error("leaderboard unavailable");
       const data = await response.json();
       leaderboardEntries = sortLeaderboard(Array.isArray(data) ? data : data.scores || []);
-      els.leaderboardState.textContent = "online";
+      leaderboardStatus = "global board";
     } catch {
       leaderboardEntries = loadLocalLeaderboard();
-      els.leaderboardState.textContent = "local fallback";
+      leaderboardStatus = "local fallback";
     }
     renderLeaderboard();
   }
@@ -581,8 +598,8 @@
   async function submitScore() {
     const payload = scorePayload();
     const endpoint = leaderboardEndpoint();
-    els.submitScoreButton.disabled = true;
-    els.submitScoreButton.textContent = "submitting";
+    leaderboardSubmitting = true;
+    renderLeaderboard();
     if (endpoint) {
       try {
         const response = await fetch(endpoint, {
@@ -591,16 +608,23 @@
           body: JSON.stringify(payload)
         });
         if (!response.ok) throw new Error("score rejected");
-        await loadLeaderboard();
-        els.submitScoreButton.textContent = "submitted";
-        window.setTimeout(renderLeaderboard, 900);
+        const data = await response.json();
+        leaderboardEntries = sortLeaderboard(data.scores || []);
+        leaderboardStatus = data.rank ? `rank #${data.rank}` : "score saved";
+        leaderboardSubmitting = false;
+        renderLeaderboard();
+        window.setTimeout(() => {
+          leaderboardStatus = "global board";
+          renderLeaderboard();
+        }, 1600);
         return;
       } catch {
-        els.leaderboardState.textContent = "local fallback";
+        leaderboardStatus = "local fallback";
       }
     }
     leaderboardEntries = sortLeaderboard([...loadLocalLeaderboard(), payload]);
     saveLocalLeaderboard(leaderboardEntries);
+    leaderboardSubmitting = false;
     renderLeaderboard();
   }
 
@@ -665,9 +689,9 @@
 
   function renderLeaderboard() {
     const endpoint = leaderboardEndpoint();
-    els.leaderboardState.textContent = endpoint ? (els.leaderboardState.textContent || "online") : "local board";
-    els.submitScoreButton.disabled = false;
-    els.submitScoreButton.textContent = "submit score";
+    els.leaderboardState.textContent = leaderboardStatus || (endpoint ? "global board" : "local board");
+    els.submitScoreButton.disabled = leaderboardSubmitting;
+    els.submitScoreButton.textContent = leaderboardSubmitting ? "submitting" : "submit score";
     if (!leaderboardEntries.length) {
       els.leaderboardList.innerHTML = `<article class="leaderboard-empty">No scores yet. Submit after a run.</article>`;
       return;
@@ -676,7 +700,7 @@
       <article class="leaderboard-row">
         <strong>${index + 1}</strong>
         <span>${escapeHtml(entry.name || "local cap")}</span>
-        <em>${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores</em>
+        <em>${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores / ${format(entry.sporesPerSecond || 0)}/s</em>
       </article>
     `).join("");
   }
