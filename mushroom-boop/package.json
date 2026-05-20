@@ -1,0 +1,21 @@
+{
+  "name": "mushroom-boop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Original cute mushroom idle clicker game for web and future mobile packaging.",
+  "scripts": {
+    "serve": "npx http-server . -p 3033 -c-1",
+    "cap:add:ios": "npx cap add ios",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

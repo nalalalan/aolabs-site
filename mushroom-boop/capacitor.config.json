@@ -1,0 +1,15 @@
+{
+  "appId": "io.aolabs.mushroomboop",
+  "appName": "Mushroom Boop",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "backgroundColor": "#f8efe6",
+      "showSpinner": false
+    }
+  }
+}

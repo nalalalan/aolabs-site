@@ -1,0 +1,20 @@
+{
+  "name": "Mushroom Boop",
+  "short_name": "Mushroom Boop",
+  "description": "An original cute mushroom idle clicker about booping a fly agaric and growing a cozy colony.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8efe6",
+  "theme_color": "#faedf0",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment"]
+}

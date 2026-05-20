@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mushroom Boop / cute idle clicker game</title>
+  <meta name="description" content="Mushroom Boop is an original mushroom idle clicker about booping a fly agaric, collecting spores, and growing a cozy colony.">
+  <link rel="canonical" href="https://aolabs.io/mushroom-boop/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AO Labs">
+  <meta property="og:title" content="Mushroom Boop">
+  <meta property="og:description" content="Boop the fly agaric, collect spores, grow the colony, and bloom into bigger numbers.">
+  <meta property="og:url" content="https://aolabs.io/mushroom-boop/">
+  <meta property="og:image" content="https://aolabs.io/mushroom-boop/icon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#f2e9cf">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./ads-config.js"></script>
+</head>
+<body>
+  <header class="suite-topbar">
+    <div class="suite-brand-cluster">
+      <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
+        <img src="/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
+      </a>
+      <a class="suite-app-brand" href="./" aria-label="mushroom boop home">
+        <img class="suite-app-mark" src="./icon.svg" alt="">
+        <span class="suite-app-name">mushroom boop</span>
+      </a>
+    </div>
+    <nav class="suite-topbar-actions" aria-label="mushroom boop">
+      <a href="./about.html">about</a>
+      <a href="./privacy.html">privacy</a>
+    </nav>
+  </header>
+
+  <main class="game-shell">
+    <aside class="ad-slot ad-slot-top" data-ad-unit="top" aria-label="advertising"></aside>
+
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">cute idle clicker</p>
+        <h1>Mushroom Boop</h1>
+        <p class="summary">Boop for spores. Spend spores below. Colony pieces raise your baseline spores/sec.</p>
+      </div>
+      <div class="daily-card" id="dailyCard">
+        <span>daily dew</span>
+        <strong id="dailyReward">ready</strong>
+        <button type="button" id="dailyButton">claim</button>
+      </div>
+    </section>
+
+    <section class="play-grid">
+      <section class="tap-panel" aria-label="mushroom colony">
+        <div class="resource-row">
+          <div>
+            <span class="metric-label">spores to spend</span>
+            <strong id="loopsValue">0</strong>
+          </div>
+          <div>
+            <span class="metric-label">spores/sec</span>
+            <strong id="rateValue">0</strong>
+            <small id="baseRateValue">base 0</small>
+          </div>
+          <div>
+            <span class="metric-label">boops</span>
+            <strong id="tapValue">1</strong>
+          </div>
+        </div>
+
+        <button type="button" class="seed-button" id="seedButton" aria-label="boop the mushroom cap">
+          <span class="seed-core" aria-hidden="true"></span>
+          <span class="seed-text">boop</span>
+        </button>
+
+        <div class="orchard-visual" id="orchardVisual" aria-hidden="true"></div>
+
+        <div class="action-row">
+          <button type="button" id="shareButton">share score</button>
+          <button type="button" id="exportButton">export save</button>
+          <button type="button" id="importButton">import</button>
+        </div>
+      </section>
+
+      <section class="side-panel">
+        <div class="state-card prestige-card">
+          <span class="metric-label">mycelium</span>
+          <strong id="rootstockValue">0</strong>
+          <p id="prestigeHint">Reach 1,000,000 lifetime spores to bloom the colony.</p>
+          <button type="button" id="prestigeButton" disabled>bloom</button>
+        </div>
+
+        <div class="state-card">
+          <span class="metric-label">cozy boost</span>
+          <strong id="focusValue">inactive</strong>
+          <p id="boostHint">Watch a reward ad to double spores/sec for 10 minutes. Demo boost runs while ad IDs are not configured.</p>
+          <button type="button" id="focusButton">watch ad for boost</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="store-grid">
+      <section class="store-panel">
+        <div class="section-head">
+          <h2>colony</h2>
+          <span id="machineCount">spend spores</span>
+        </div>
+        <div class="store-list" id="machineList"></div>
+      </section>
+
+      <section class="store-panel">
+        <div class="section-head">
+          <h2>charms</h2>
+          <span id="upgradeCount">0 active</span>
+        </div>
+        <div class="store-list" id="upgradeList"></div>
+      </section>
+    </section>
+
+    <aside class="ad-slot ad-slot-mid" data-ad-unit="mid" aria-label="advertising"></aside>
+
+    <section class="log-grid">
+      <section class="store-panel">
+        <div class="section-head">
+          <h2>badges</h2>
+          <span id="achievementCount">0 unlocked</span>
+        </div>
+        <div class="achievement-list" id="achievementList"></div>
+      </section>
+      <section class="store-panel">
+        <div class="section-head">
+          <h2>session</h2>
+          <span id="saveState">saved</span>
+        </div>
+        <div class="stat-list">
+          <p><span>boops</span><strong id="clicksValue">0</strong></p>
+          <p><span>lifetime spores</span><strong id="lifetimeValue">0</strong></p>
+          <p><span>multiplier</span><strong id="multiplierValue">1x</strong></p>
+          <p><span>offline cap</span><strong>8h</strong></p>
+        </div>
+      </section>
+    </section>
+
+    <aside class="ad-slot ad-slot-bottom" data-ad-unit="bottom" aria-label="advertising"></aside>
+  </main>
+
+  <dialog class="save-dialog" id="saveDialog">
+    <form method="dialog">
+      <h2 id="dialogTitle">save</h2>
+      <p id="dialogHelp">Copy this save code somewhere safe.</p>
+      <textarea id="saveText" spellcheck="false"></textarea>
+      <div class="dialog-actions">
+        <button type="button" id="copySaveButton">copy</button>
+        <button type="button" id="loadSaveButton">load</button>
+        <button type="submit">close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./ads.js?v=20260520-mushroom-boop"></script>
+  <script src="./game.js?v=20260520-boop-burst"></script>
+</body>
+</html>
