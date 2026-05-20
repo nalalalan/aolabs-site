@@ -178,9 +178,10 @@ h1 {
 
 .institution-logos {
   display: grid;
-  grid-template-columns: .9fr 1.05fr 1.35fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   align-items: center;
+  justify-items: center;
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
@@ -190,12 +191,21 @@ h1 {
   display: block;
   width: auto;
   max-width: 100%;
-  max-height: 46px;
   object-fit: contain;
 }
 
+.institution-logos .logo-sandia {
+  width: min(100%, 260px);
+  max-height: none;
+}
+
+.institution-logos .logo-unm {
+  width: min(100%, 250px);
+  max-height: 56px;
+}
+
 .institution-logos .logo-nomad {
-  width: min(100%, 210px);
+  width: min(100%, 230px);
   max-height: none;
 }
 
@@ -622,6 +632,12 @@ footer p + p {
   .institution-logos {
     justify-items: start;
     gap: 14px;
+  }
+
+  .institution-logos .logo-sandia,
+  .institution-logos .logo-unm,
+  .institution-logos .logo-nomad {
+    justify-self: center;
   }
 
   table {
