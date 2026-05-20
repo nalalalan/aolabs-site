@@ -538,6 +538,21 @@ footer p + p {
   background: #fff;
 }
 
+.paper-preview {
+  display: block;
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  overflow: hidden;
+}
+
+.paper-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (max-width: 840px) {
   .paper-header,
   .summary-grid,
