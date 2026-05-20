@@ -17,9 +17,9 @@
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-idleshroom-case">
+  <link rel="stylesheet" href="./styles.css?v=20260520-retention-rush">
   <script src="./ads-config.js"></script>
-  <script src="./online-config.js?v=20260520-idleshroom-case"></script>
+  <script src="./online-config.js?v=20260520-retention-rush"></script>
 </head>
 <body>
   <header class="suite-topbar">
@@ -110,6 +110,15 @@
           <p id="boostHint">Watch a reward ad to double spores/sec for 10+ minutes. Demo boost runs while ad IDs are not configured.</p>
           <button type="button" id="focusButton">watch ad for boost</button>
         </div>
+
+        <div class="state-card rush-card">
+          <span class="metric-label">cap rush</span>
+          <strong id="rushValue">0%</strong>
+          <p id="rushHint">Tap, buy, claim, and boost to fill the meter.</p>
+          <div class="progress-track rush-track" aria-label="cap rush progress">
+            <span id="rushProgress"></span>
+          </div>
+        </div>
       </section>
     </section>
 
@@ -142,6 +151,13 @@
     <aside class="ad-slot ad-slot-mid" data-ad-unit="mid" aria-label="advertising"></aside>
 
     <section class="log-grid">
+      <section class="store-panel quest-panel">
+        <div class="section-head">
+          <h2>daily quests</h2>
+          <span id="questState">0/3 claimed</span>
+        </div>
+        <div class="quest-list" id="questList"></div>
+      </section>
       <section class="store-panel">
         <div class="section-head">
           <h2>badges</h2>
@@ -191,7 +207,7 @@
     </form>
   </dialog>
 
-  <script src="./ads.js?v=20260520-idleshroom-case"></script>
-  <script src="./game.js?v=20260520-idleshroom-case"></script>
+  <script src="./ads.js?v=20260520-retention-rush"></script>
+  <script src="./game.js?v=20260520-retention-rush"></script>
 </body>
 </html>

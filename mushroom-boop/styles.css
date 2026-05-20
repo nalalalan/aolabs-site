@@ -571,6 +571,18 @@ button:not(:disabled):hover {
   animation: progressCandy 1.8s linear infinite;
 }
 
+.rush-card {
+  background:
+    linear-gradient(155deg, rgba(255,247,223,.96), rgba(250,237,240,.9) 55%, rgba(215,239,214,.86)),
+    radial-gradient(circle at 78% 18%, rgba(233,120,136,.18), transparent 32%);
+}
+
+.rush-track span.rush-active {
+  background: linear-gradient(90deg, var(--cap), var(--gold), var(--green-2), var(--cap));
+  box-shadow: 0 0 24px rgba(233, 120, 136, .42);
+  animation: rushGlow .55s ease-in-out infinite alternate;
+}
+
 .store-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -604,13 +616,15 @@ button:not(:disabled):hover {
 }
 
 .store-list,
-.achievement-list {
+.achievement-list,
+.quest-list {
   display: grid;
   gap: 10px;
 }
 
 .store-item,
-.achievement {
+.achievement,
+.quest-item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
@@ -624,21 +638,24 @@ button:not(:disabled):hover {
 }
 
 .store-item:hover,
-.achievement:hover {
+.achievement:hover,
+.quest-item:hover {
   border-color: rgba(233, 120, 136, .28);
   transform: translateY(-1px);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.78), 0 10px 20px rgba(83, 48, 58, .08);
 }
 
 .store-item h3,
-.achievement strong {
+.achievement strong,
+.quest-item h3 {
   margin: 0;
   font-size: 17px;
   line-height: 1.12;
 }
 
 .store-item p,
-.achievement span {
+.achievement span,
+.quest-item p {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 13px;
@@ -649,6 +666,49 @@ button:not(:disabled):hover {
 .store-item button {
   min-width: 136px;
   padding: 0 12px;
+}
+
+.quest-panel {
+  grid-column: 1 / -1;
+}
+
+.quest-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quest-item {
+  align-items: stretch;
+}
+
+.quest-item.ready {
+  border-color: rgba(93, 141, 100, .34);
+  background: linear-gradient(145deg, rgba(241,250,235,.96), rgba(255,253,246,.9));
+}
+
+.quest-item.claimed {
+  opacity: .72;
+}
+
+.quest-item button {
+  min-width: 104px;
+  padding: 0 12px;
+}
+
+.mini-progress {
+  width: 100%;
+  height: 8px;
+  margin-top: 9px;
+  overflow: hidden;
+  border: 1px solid rgba(80, 67, 39, .14);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, .7);
+}
+
+.mini-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green-2), var(--cap));
 }
 
 .owned {
@@ -912,6 +972,11 @@ button:not(:disabled):hover {
   to { background-position: 180% 0; }
 }
 
+@keyframes rushGlow {
+  from { filter: brightness(1) saturate(1); }
+  to { filter: brightness(1.16) saturate(1.24); }
+}
+
 @keyframes popFloat {
   from { opacity: 1; transform: translate(-50%, -20%) scale(.9); }
   to { opacity: 0; transform: translate(-50%, -130%) scale(1.14); }
@@ -1016,7 +1081,16 @@ button:not(:disabled):hover {
     grid-template-columns: 1fr;
   }
 
-  .store-item button {
+  .quest-list {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-item {
+    grid-template-columns: 1fr;
+  }
+
+  .store-item button,
+  .quest-item button {
     width: 100%;
   }
 

@@ -6,6 +6,8 @@
   const playerIdKey = "mushroom-boop-player-id-v1";
   const maxOfflineSeconds = 8 * 60 * 60;
   const bloomThreshold = 25000;
+  const rushMax = 100;
+  const rushSeconds = 20;
   const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
 
   const machines = [
@@ -35,7 +37,9 @@
     { id: "clicker", name: "Boop rhythm", desc: "Boop 250 times.", req: state => state.clicks >= 250 },
     { id: "million", name: "Million-spore meadow", desc: "Earn 1,000,000 lifetime spores.", req: state => state.lifetimeLoops >= 1000000 },
     { id: "rooted", name: "Mycelium", desc: "Bloom the colony once.", req: state => state.rootstock >= 1 },
-    { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 }
+    { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 },
+    { id: "rush", name: "Cap rush", desc: "Trigger a cap rush.", req: state => state.rushes >= 1 },
+    { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 }
   ];
 
   const perks = [
@@ -64,6 +68,7 @@
     "comboBadge",
     "upgradeList", "rootstockValue", "prestigeHint", "prestigeProgress", "prestigeButton", "dailyReward",
     "dailyButton", "focusValue", "focusButton", "boostHint", "machineCount", "upgradeCount",
+    "rushValue", "rushHint", "rushProgress", "questState", "questList",
     "perkCount", "perkList", "leaderboardState", "leaderboardList", "playerName", "submitScoreButton",
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
     "multiplierValue", "shareButton", "exportButton", "importButton", "saveDialog",
@@ -80,8 +85,15 @@
       rootstock: 0,
       dailyClaims: 0,
       focusUntil: 0,
+      rushCharge: 0,
+      rushUntil: 0,
+      rushes: 0,
       lastDaily: "",
       streak: 0,
+      questDay: "",
+      questBaselines: { clicks: 0, spores: 0, pieces: 0 },
+      claimedQuests: [],
+      questsClaimed: 0,
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
       perks: Object.fromEntries(perks.map(perk => [perk.id, 0])),
@@ -103,8 +115,10 @@
       const merged = { ...fallback, ...parsed };
       merged.machines = { ...fallback.machines, ...(parsed.machines || {}) };
       merged.perks = { ...fallback.perks, ...(parsed.perks || {}) };
+      merged.questBaselines = { ...fallback.questBaselines, ...(parsed.questBaselines || {}) };
       merged.upgrades = Array.isArray(parsed.upgrades) ? parsed.upgrades : [];
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
+      merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
       applyOffline(merged);
       return merged;
     } catch {
@@ -175,6 +189,34 @@
     return perk.baseCost + perkLevel(perk.id, target);
   }
 
+  function rushActive(target = state) {
+    return Date.now() < Number(target.rushUntil || 0);
+  }
+
+  function rushRemaining(target = state) {
+    return Math.max(0, Number(target.rushUntil || 0) - Date.now());
+  }
+
+  function rushMultiplier(target = state) {
+    return rushActive(target) ? 3 : 1;
+  }
+
+  function activateRush(target = state) {
+    target.rushCharge = 0;
+    target.rushUntil = Date.now() + rushSeconds * 1000;
+    target.rushes = Number(target.rushes || 0) + 1;
+    displayedRate = Math.max(displayedRate, incomePerSecond(target));
+    if (navigator.vibrate) navigator.vibrate([16, 20, 16]);
+  }
+
+  function addRushCharge(amount, target = state) {
+    if (rushActive(target)) return;
+    target.rushCharge = Math.min(rushMax, Number(target.rushCharge || 0) + amount);
+    if (target.rushCharge >= rushMax) {
+      activateRush(target);
+    }
+  }
+
   function bloomRequirement(target = state) {
     return bloomThreshold * Math.pow(1.72, Number(target.rootstock || 0));
   }
@@ -191,6 +233,7 @@
       if (upgrade.kind === "rate" && hasUpgrade(upgrade.id, target)) mult *= upgrade.value;
     });
     if (Date.now() < Number(target.focusUntil || 0)) mult *= 2;
+    mult *= rushMultiplier(target);
     return mult;
   }
 
@@ -203,6 +246,7 @@
       tap *= 1 + Number(target.machines.press || 0) * 0.08;
     }
     tap *= 1 + perkLevel("soft-hands", target) * 0.25;
+    if (rushActive(target)) tap *= 2;
     return tap * rootBonus(target);
   }
 
@@ -264,6 +308,7 @@
     if (!machine || state.loops < cost) return;
     state.loops -= cost;
     state.machines[id] += 1;
+    addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     markDirty();
     checkAchievements();
@@ -275,6 +320,7 @@
     if (!upgrade || hasUpgrade(id) || !upgrade.req(state) || state.loops < upgrade.cost) return;
     state.loops -= upgrade.cost;
     state.upgrades.push(id);
+    addRushCharge(12);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     markDirty();
     checkAchievements();
@@ -314,6 +360,8 @@
     state.totalLoops = 0;
     state.clicks = 0;
     state.focusUntil = 0;
+    state.rushCharge = 0;
+    state.rushUntil = 0;
     state.machines = keep.machines;
     state.perks = keptPerks;
     state.upgrades = [];
@@ -338,6 +386,67 @@
     const reward = Math.max(50, incomePerSecond() * 600 + tapPower() * 25) * Math.max(1, state.streak);
     addLoops(state, reward);
     recordSporeBurst(reward);
+    addRushCharge(18);
+    markDirty();
+    checkAchievements();
+    render();
+  }
+
+  function ensureDailyQuestState() {
+    const today = todayKey();
+    if (state.questDay === today && state.questBaselines && Array.isArray(state.claimedQuests)) return;
+    state.questDay = today;
+    state.questBaselines = {
+      clicks: Number(state.clicks || 0),
+      spores: Number(state.lifetimeLoops || 0),
+      pieces: ownedTotal(state)
+    };
+    state.claimedQuests = [];
+    markDirty();
+  }
+
+  function questDefinitions() {
+    ensureDailyQuestState();
+    const base = state.questBaselines || { clicks: 0, spores: 0, pieces: 0 };
+    const boopTarget = 65 + Math.min(135, Number(state.rootstock || 0) * 10);
+    const pieceTarget = Math.max(3, Math.min(18, 5 + Number(state.rootstock || 0)));
+    const sporeTarget = Math.max(900, bloomRequirement() * 0.1);
+    return [
+      {
+        id: "boops",
+        name: "Boop burst",
+        desc: `Boop ${format(boopTarget)} times today.`,
+        current: Math.max(0, Number(state.clicks || 0) - Number(base.clicks || 0)),
+        target: boopTarget,
+        reward: Math.max(180, tapPower() * boopTarget * 2.5)
+      },
+      {
+        id: "pieces",
+        name: "Grow the grove",
+        desc: `Buy ${format(pieceTarget)} colony pieces today.`,
+        current: Math.max(0, ownedTotal(state) - Number(base.pieces || 0)),
+        target: pieceTarget,
+        reward: Math.max(450, incomePerSecond() * 240 + tapPower() * 80)
+      },
+      {
+        id: "spores",
+        name: "Spore sprint",
+        desc: `Earn ${format(sporeTarget)} spores today.`,
+        current: Math.max(0, Number(state.lifetimeLoops || 0) - Number(base.spores || 0)),
+        target: sporeTarget,
+        reward: Math.max(600, sporeTarget * 0.22)
+      }
+    ];
+  }
+
+  function claimQuest(id) {
+    const quest = questDefinitions().find(item => item.id === id);
+    if (!quest || state.claimedQuests.includes(id) || quest.current < quest.target) return;
+    state.claimedQuests.push(id);
+    state.questsClaimed = Number(state.questsClaimed || 0) + 1;
+    addLoops(state, quest.reward);
+    recordSporeBurst(quest.reward);
+    addRushCharge(25);
     markDirty();
     checkAchievements();
     render();
@@ -365,11 +474,13 @@
     }
     const boostMinutes = 10 + perkLevel("long-boost") * 2;
     state.focusUntil = now + boostMinutes * 60 * 1000;
+    addRushCharge(35);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     els.boostHint.textContent = result.demo
       ? "Demo boost active. Configure rewarded AdMob IDs before App Store release."
       : "Reward boost active.";
     markDirty();
+    checkAchievements();
     render();
   }
 
@@ -392,6 +503,7 @@
     addLoops(state, gained);
     recordSporeBurst(gained);
     state.clicks += 1;
+    addRushCharge(2 + Math.min(5, comboCount / 6));
     markDirty();
     checkAchievements();
     showPop(x, y, `+${format(gained)}`, comboCount);
@@ -478,8 +590,10 @@
       Object.assign(state, fallback, imported);
       state.machines = { ...fallback.machines, ...(imported.machines || {}) };
       state.perks = { ...fallback.perks, ...(imported.perks || {}) };
+      state.questBaselines = { ...fallback.questBaselines, ...(imported.questBaselines || {}) };
       state.upgrades = Array.isArray(imported.upgrades) ? imported.upgrades : [];
       state.achievements = Array.isArray(imported.achievements) ? imported.achievements : [];
+      state.claimedQuests = Array.isArray(imported.claimedQuests) ? imported.claimedQuests : [];
       save();
       render();
       els.saveDialog.close();
@@ -756,6 +870,44 @@
     els.focusButton.textContent = remaining > 0 ? "boost active" : "watch ad for boost";
   }
 
+  function renderRush() {
+    const remaining = rushRemaining();
+    const charge = Math.max(0, Math.min(rushMax, Number(state.rushCharge || 0)));
+    if (remaining > 0) {
+      els.rushValue.textContent = `${Math.ceil(remaining / 1000)}s`;
+      els.rushHint.textContent = "Cap rush active: x3 spores/sec and x2 boops.";
+      els.rushProgress.style.width = "100%";
+      els.rushProgress.classList.add("rush-active");
+      return;
+    }
+    els.rushValue.textContent = `${Math.floor(charge)}%`;
+    els.rushHint.textContent = "Tap, buy, claim, and boost to fill the meter.";
+    els.rushProgress.style.width = `${charge}%`;
+    els.rushProgress.classList.remove("rush-active");
+  }
+
+  function renderQuests() {
+    const quests = questDefinitions();
+    const claimed = quests.filter(quest => state.claimedQuests.includes(quest.id)).length;
+    els.questState.textContent = `${claimed}/${quests.length} claimed`;
+    els.questList.innerHTML = quests.map(quest => {
+      const done = quest.current >= quest.target;
+      const claimedQuest = state.claimedQuests.includes(quest.id);
+      const progress = Math.max(0, Math.min(1, quest.current / quest.target));
+      return `
+        <article class="quest-item ${done ? "ready" : ""} ${claimedQuest ? "claimed" : ""}">
+          <div>
+            <h3>${quest.name}</h3>
+            <p>${quest.desc}</p>
+            <span class="owned">${format(Math.min(quest.current, quest.target))}/${format(quest.target)} / reward ${format(quest.reward)} spores</span>
+            <div class="mini-progress" aria-hidden="true"><span style="width:${Math.round(progress * 100)}%"></span></div>
+          </div>
+          <button type="button" data-claim-quest="${quest.id}" ${!done || claimedQuest ? "disabled" : ""}>${claimedQuest ? "claimed" : "claim"}</button>
+        </article>
+      `;
+    }).join("");
+  }
+
   function render() {
     els.loopsValue.textContent = format(state.loops);
     els.rateValue.textContent = format(displayedRate);
@@ -776,6 +928,8 @@
     renderDaily();
     renderPrestige();
     renderFocus();
+    renderRush();
+    renderQuests();
     renderLeaderboard();
   }
 
@@ -805,6 +959,10 @@
   els.perkList.addEventListener("click", event => {
     const id = event.target.closest("button")?.dataset.buyPerk;
     if (id) buyPerk(id);
+  });
+  els.questList.addEventListener("click", event => {
+    const id = event.target.closest("button")?.dataset.claimQuest;
+    if (id) claimQuest(id);
   });
   els.prestigeButton.addEventListener("click", graft);
   els.dailyButton.addEventListener("click", claimDaily);
