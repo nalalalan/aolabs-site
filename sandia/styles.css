@@ -176,6 +176,28 @@ h1 {
   max-width: 900px;
 }
 
+.institution-logos {
+  display: grid;
+  grid-template-columns: .9fr 1.05fr 1.35fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.institution-logos img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+.institution-logos .logo-nomad {
+  max-height: 56px;
+}
+
 .fact-line {
   margin-top: 16px;
   padding-top: 13px;
@@ -567,8 +589,14 @@ footer p + p {
   .result-notes,
   .animation-grid,
   .animation-grid.compact,
-  .life-grid {
+  .life-grid,
+  .institution-logos {
     grid-template-columns: 1fr;
+  }
+
+  .institution-logos {
+    justify-items: start;
+    gap: 14px;
   }
 
   table {
