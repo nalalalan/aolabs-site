@@ -16,7 +16,7 @@
   <meta name="twitter:title" content="sandia.aolabs.io">
   <meta name="twitter:description" content="Sandia NOMAD research record, coauthored paper, FEA study results, autoplaying mechanism media, and presentations.">
   <meta name="twitter:image" content="https://sandia.aolabs.io/assets/paper-cover.jpg">
-  <link rel="icon" href="assets/sandia.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/sandia-512.png" type="image/png">
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
   <link rel="stylesheet" href="styles.css?v=20260519-sandia-research2">
 </head>
@@ -27,7 +27,7 @@
         <img src="https://aolabs.io/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
       </a>
       <a class="suite-app-brand" href="./" aria-label="sandia home">
-        <img class="suite-app-mark" src="assets/sandia.svg" alt="">
+        <img class="suite-app-mark" src="assets/sandia-512.png" alt="">
         <span class="suite-app-name">sandia.aolabs.io</span>
       </a>
     </div>
@@ -55,13 +55,13 @@
         <h2>Research record</h2>
         <p>Summer 2025 internship work on a watch-like ratcheting mechanism, focused on separating physical response from sensitivity introduced by finite-element setup choices.</p>
         <p>NOMAD stands for Nonlinear Mechanics and Dynamics Research Institute. Alan's 2025 internship ran June 16-August 8 in Albuquerque through Sandia National Laboratories and the University of New Mexico, with the final NOMAD presentation delivered August 5, 2025.</p>
-        <p>The public record includes the coauthored paper, the final NOMAD presentation, Alan's Soft Robotics Lab presentation, the completed slide-81 result matrix, and mechanism/FEA media extracted from the final deck.</p>
+        <p>The public record includes the coauthored paper, the final NOMAD presentation, Alan's Soft Robotics Lab presentation, the completed results matrix, and mechanism/FEA media extracted from the final deck.</p>
       </div>
       <p class="fact-line">Summer intern; paper coauthor / Sierra/SM and MATLAB / Sandia National Laboratories and University of New Mexico / Albuquerque, New Mexico</p>
     </section>
 
-    <section class="section-block" aria-label="Mechanism motion">
-      <h2>Mechanism motion</h2>
+    <section class="section-block" id="ratcheting-mechanism" aria-label="Ratcheting mechanism">
+      <h2>Ratcheting mechanism</h2>
       <p>Multibody animation loops show the ratcheting assembly and the contact-rich motion that motivated the submodel sensitivity study.</p>
       <div class="animation-grid mechanism-grid">
         <figure>
@@ -70,15 +70,11 @@
         </figure>
         <figure>
           <img class="loop-gif" src="assets/gear-contact.gif" alt="Autoplaying close-up animation of pawl and gear contact.">
-          <figcaption><strong>Pawl-gear contact.</strong> Tooth engagement detail.</figcaption>
+          <figcaption><strong>Pawl gear contact.</strong> Tooth engagement detail.</figcaption>
         </figure>
         <figure>
-          <img class="loop-gif" src="assets/pawl-contact.gif" alt="Autoplaying close-up animation of the stop pawl contact interface.">
-          <figcaption><strong>Stop-pawl interface.</strong> Contact surface detail.</figcaption>
-        </figure>
-        <figure>
-          <img class="loop-gif" src="assets/multibody-model.gif" alt="Autoplaying animation of the pin-spring-pawl submodel.">
-          <figcaption><strong>Pin-spring-pawl.</strong> Isolated submodel motion.</figcaption>
+          <img class="loop-gif" src="assets/pawl-contact.gif" alt="Autoplaying close-up animation of the pawl gear contact interface.">
+          <figcaption><strong>Pawl gear interface.</strong> Contact surface detail.</figcaption>
         </figure>
       </div>
     </section>
@@ -93,7 +89,7 @@
 
     <section class="section-block" aria-label="FEA study results">
       <h2>FEA study results</h2>
-      <p>The stop-pawl assembly was divided into pin-spring-pawl, pin-pawl, and pawl-gear submodels. Each was tested under Haversine shock and sinusoidal vibration while varying momentum-balance iteration, mesh density, and processor count.</p>
+      <p>The pawl gear assembly was divided into pin-spring-pawl, pin-pawl, and pawl-gear submodels. Each was tested under Haversine shock and sinusoidal vibration while varying momentum-balance iteration, mesh density, and processor count.</p>
       <div class="result-notes">
         <article>
           <h3>Pin-spring-pawl</h3>
@@ -105,7 +101,7 @@
         </article>
         <article>
           <h3>Pawl-gear</h3>
-          <p>Momentum-balance iteration and mesh density remained sensitive. Processor-count variation was the one Pawl-gear parameter class marked convergent in the completed slide-81 summary.</p>
+          <p>Momentum-balance iteration and mesh density remained sensitive. Processor-count variation was the one Pawl-gear parameter class marked convergent in the completed results summary.</p>
         </article>
       </div>
     </section>
@@ -141,12 +137,11 @@
       </div>
     </section>
 
-    <section class="section-block" aria-label="Slide 81 result matrix">
-      <h2>Slide 81 result matrix</h2>
-      <p>The completed slide-81 Key Results panel is kept in its original presentation form so the convergence summary stays tied to the source deck.</p>
+    <section class="section-block" id="results" aria-label="Results">
+      <h2>Results</h2>
       <figure class="figure-card result-matrix">
-        <img src="assets/results-slide81-key-results.png" alt="Key Results panel from slide 81 with the completed convergence matrix for pin-spring-pawl, pin-pawl, and pawl-gear submodels.">
-        <figcaption>Key Results panel and completed matrix from slide 81 of the NOMAD final presentation.</figcaption>
+        <img src="assets/results-matrix-complete.png" alt="Completed convergence matrix for pin-spring-pawl, pin-pawl, and pawl-gear submodels.">
+        <figcaption>Each submodel exhibited a different response to non-physical parameter changes. The pin-spring-pawl model converged for all parameters, the pin-pawl model did not converge and showed chaotic behavior around contact and friction, and the pawl-gear model converged only for processor count.</figcaption>
       </figure>
     </section>
 
