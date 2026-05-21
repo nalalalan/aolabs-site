@@ -57,6 +57,7 @@
       --league: #8a738d;
       --mushroom-boop: #e97888;
       --meowtronome: #d8897c;
+      --sleep: #b96f5f;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -157,7 +158,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr .98fr .94fr .9fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr;
+      grid-template-columns: 1.05fr 1fr .98fr .94fr .9fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr;
       height: 9px;
       margin: 24px 0 0 132px;
       overflow: hidden;
@@ -188,6 +189,7 @@
     .palette-strip span:nth-child(21) { background: var(--league); }
     .palette-strip span:nth-child(22) { background: var(--mushroom-boop); }
     .palette-strip span:nth-child(23) { background: var(--meowtronome); }
+    .palette-strip span:nth-child(24) { background: var(--sleep); }
 
     .grid {
       display: grid;
@@ -352,6 +354,7 @@
     .league { --accent: var(--league); }
     .mushroom-boop { --accent: var(--mushroom-boop); }
     .meowtronome { --accent: var(--meowtronome); }
+    .sleep { --accent: var(--sleep); }
 
     footer {
       display: flex;
@@ -473,7 +476,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -528,6 +531,19 @@
           <p class="desc">metronome with generated meow ticks, beat grouping, and tap tempo.</p>
         </div>
         <div class="card-foot"><span class="url">aolabs.io/meowtronome</span></div>
+      </a>
+
+      <a class="app sleep" href="https://sleep.aolabs.io/" aria-label="sleep">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>sleep</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sleep.svg?v=20260521-sleep" alt=""></span>
+          </div>
+          <p class="desc">warm low-stimulation shutdown surface and sleep-transition paper.</p>
+        </div>
+        <div class="card-foot"><span class="url">sleep.aolabs.io</span></div>
       </a>
 
       <a class="app cv" href="https://cv.aolabs.io" aria-label="cv">
