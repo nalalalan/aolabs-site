@@ -1129,7 +1129,7 @@
     const revealByOwnership = machines.findIndex(machine => Number(state.machines[machine.id] || 0) <= 0 && state.loops < machineCost(machine));
     const revealLimit = Math.min(
       machines.length - 1,
-      Math.max(2, revealByOwnership < 0 ? machines.length - 1 : revealByOwnership)
+      Math.max(0, revealByOwnership < 0 ? machines.length - 1 : revealByOwnership)
     );
     const visibleMachines = machines.filter((machine, index) => {
       return index <= revealLimit || Number(state.machines[machine.id] || 0) > 0;

@@ -3750,3 +3750,623 @@ body[data-tab="board"] .session-panel {
 body[data-tab="board"] .leaderboard-panel {
   min-height: 0;
 }
+
+/* Premium rebuild pass: one painted game stage, fewer panels, no compressed dashboard feel. */
+.game-page {
+  --premium-ink: rgba(52, 36, 31, .78);
+  --premium-line: rgba(52, 36, 31, .22);
+  --premium-paper: rgba(255, 252, 238, .82);
+  --premium-rose: #d65366;
+  --premium-rose-deep: #9f3242;
+  --premium-meadow: #6da35e;
+  --premium-sun: #ffd976;
+}
+
+.game-page .phone-frame {
+  background:
+    radial-gradient(ellipse at 50% 13%, rgba(255, 236, 145, .86), transparent 25%),
+    radial-gradient(ellipse at 18% 24%, rgba(255, 255, 255, .58), transparent 17%),
+    radial-gradient(ellipse at 82% 28%, rgba(255, 255, 255, .48), transparent 16%),
+    radial-gradient(ellipse at 48% 63%, rgba(255, 222, 150, .26), transparent 33%),
+    repeating-linear-gradient(7deg, rgba(77, 53, 38, .03) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, #c9ebf8 0 36%, #e6f5cf 37% 61%, #83b970 62% 100%);
+}
+
+.game-page .resource-row {
+  min-height: 58px;
+  padding: 7px 9px;
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 22% 0, rgba(255,255,255,.76), transparent 30%),
+    repeating-linear-gradient(104deg, rgba(88, 58, 43, .035) 0 1px, transparent 1px 8px),
+    rgba(255, 252, 238, .8);
+  box-shadow:
+    0 8px 18px rgba(59, 63, 38, .08),
+    inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+.game-page .resource-row strong {
+  font-size: clamp(19px, 4.7vw, 31px);
+}
+
+.game-page .resource-row small {
+  margin-top: 3px;
+  font-size: 10px;
+}
+
+.game-page .glade-stage {
+  gap: 5px;
+  margin-top: 6px;
+  min-height: 0;
+}
+
+.game-page .glade-head {
+  padding: 0 2px;
+}
+
+.game-page .glade-head strong {
+  font-size: clamp(18px, 4.7vw, 27px);
+}
+
+.game-page .bloom-copy {
+  margin-top: -2px;
+}
+
+.game-page .friend-scene {
+  min-height: 0;
+  height: min(55vh, 510px);
+  border-radius: 28px 30px 22px 24px / 32px 25px 22px 26px;
+  background:
+    radial-gradient(ellipse at 48% 33%, rgba(255, 250, 184, .76), transparent 34%),
+    radial-gradient(ellipse at 18% 49%, rgba(255, 255, 255, .38), transparent 20%),
+    radial-gradient(ellipse at 82% 52%, rgba(255, 255, 255, .28), transparent 18%),
+    linear-gradient(180deg, rgba(195, 236, 250, .88) 0 43%, rgba(219, 244, 194, .92) 44% 61%, rgba(117, 176, 99, .92) 62% 100%);
+  box-shadow:
+    inset 0 -22px 46px rgba(58, 112, 60, .18),
+    inset 0 1px 0 rgba(255,255,255,.44);
+}
+
+.game-page .friend-scene::before {
+  left: -12%;
+  right: -12%;
+  bottom: -2%;
+  height: 42%;
+  border-radius: 46% 54% 0 0 / 28% 34% 0 0;
+  background:
+    radial-gradient(ellipse at 28% 20%, rgba(255, 247, 201, .54), transparent 24%),
+    radial-gradient(ellipse at 74% 16%, rgba(203, 239, 186, .62), transparent 27%),
+    repeating-linear-gradient(88deg, rgba(54, 110, 61, .24) 0 4px, rgba(255, 232, 158, .16) 4px 10px, rgba(74, 139, 71, .16) 10px 16px),
+    repeating-linear-gradient(16deg, rgba(41, 88, 50, .09) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, rgba(186, 225, 139, .98), rgba(72, 136, 82, .9));
+  filter: saturate(1.04);
+}
+
+.game-page .friend-scene::after {
+  left: 20%;
+  right: 20%;
+  bottom: 22%;
+  height: 34px;
+  z-index: 2;
+  opacity: .76;
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(49, 53, 31, .25), transparent 66%);
+  filter: blur(.5px);
+}
+
+.game-page .sky-glow {
+  inset: -6% 0 auto;
+  height: 64%;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 246, 166, .86), transparent 39%),
+    radial-gradient(ellipse at 50% 54%, rgba(255, 255, 255, .28), transparent 60%);
+  opacity: .92;
+}
+
+.game-page .sunbeam {
+  right: 8%;
+  top: 5%;
+  width: 66px;
+  height: 66px;
+  border-width: 0;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255,255,255,.58) 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 50%, #ffe08a 0 48%, #efb84f 49% 100%);
+  box-shadow: 0 0 38px rgba(255, 218, 100, .52);
+}
+
+.game-page .cloud {
+  height: 28px;
+  opacity: .78;
+  border: 0;
+  background:
+    radial-gradient(ellipse at 22% 55%, rgba(255,255,255,.92) 0 23%, transparent 24%),
+    radial-gradient(ellipse at 52% 46%, rgba(255,255,255,.96) 0 31%, transparent 32%),
+    radial-gradient(ellipse at 78% 57%, rgba(255,255,255,.9) 0 23%, transparent 24%);
+  filter: drop-shadow(0 2px 0 rgba(72, 49, 42, .08));
+}
+
+.game-page .meadow-hill {
+  opacity: .76;
+  filter: blur(.1px) saturate(1.02);
+}
+
+.game-page .friend-scene .seed-button {
+  width: min(76%, 332px);
+  margin-top: 4%;
+  transform-origin: 50% 72%;
+  filter:
+    drop-shadow(2px 5px 0 rgba(52, 36, 31, .13))
+    drop-shadow(0 24px 18px rgba(58, 75, 39, .18));
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  animation: premiumTapSquash .3s cubic-bezier(.16, 1.45, .26, 1);
+}
+
+.seed-button::before {
+  left: 1%;
+  top: 8%;
+  width: 98%;
+  height: 58%;
+  z-index: 3;
+  border: 3px solid rgba(76, 31, 39, .5);
+  border-radius: 49% 53% 36% 39% / 78% 74% 31% 29%;
+  background:
+    radial-gradient(circle at 20% 59%, #fff7d7 0 8.4%, transparent 9.4%),
+    radial-gradient(circle at 35% 33%, #fff3cf 0 6.4%, transparent 7.3%),
+    radial-gradient(circle at 51% 22%, #fff9df 0 9.2%, transparent 10.2%),
+    radial-gradient(circle at 66% 39%, #fff0c9 0 6.8%, transparent 7.8%),
+    radial-gradient(circle at 81% 58%, #fff6d5 0 8%, transparent 9%),
+    radial-gradient(ellipse at 35% 9%, rgba(255,255,255,.34), transparent 36%),
+    repeating-linear-gradient(166deg, rgba(255,255,255,.1) 0 2px, transparent 2px 10px),
+    repeating-linear-gradient(11deg, rgba(85, 29, 39, .055) 0 1px, transparent 1px 13px),
+    linear-gradient(180deg, #f4777d 0%, #da4051 58%, #9f2c3b 100%);
+  box-shadow:
+    inset 0 13px 24px rgba(255,255,255,.23),
+    inset 0 -20px 26px rgba(88, 18, 30, .2),
+    1px 5px 0 rgba(52, 36, 31, .16);
+}
+
+.seed-button::after {
+  left: 12%;
+  top: 50%;
+  width: 76%;
+  height: 16%;
+  z-index: 4;
+  border: 2px solid rgba(84, 55, 43, .26);
+  border-top: 0;
+  border-radius: 0 0 48% 52% / 0 0 94% 90%;
+  background:
+    repeating-linear-gradient(89deg, rgba(116, 74, 43, .2) 0 3px, transparent 3px 13px),
+    linear-gradient(180deg, #fff3d7, #efc58b);
+}
+
+.seed-core {
+  left: 35.5%;
+  top: 58%;
+  width: 29%;
+  height: 34%;
+  z-index: 5;
+  border: 2px solid rgba(84, 55, 43, .34);
+  border-radius: 42% 48% 31% 34% / 44% 43% 31% 33%;
+  background:
+    radial-gradient(ellipse at 48% 14%, rgba(255,255,255,.6), transparent 42%),
+    repeating-linear-gradient(93deg, rgba(112, 72, 43, .08) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, #f8dbad 0%, #e8b772 100%);
+  box-shadow:
+    inset 0 -9px 15px rgba(124,70,37,.14),
+    1px 4px 0 rgba(52, 36, 31, .14);
+}
+
+.seed-core::before,
+.seed-core::after {
+  top: 43%;
+  width: 6px;
+  height: 7px;
+  background: #573b35;
+}
+
+.seed-mouth {
+  left: 44.5%;
+  top: 76%;
+  z-index: 7;
+  width: 11%;
+  height: 6%;
+  border-bottom: 2px solid rgba(75, 51, 47, .82);
+}
+
+.seed-cheeks {
+  left: 35.5%;
+  top: 70.5%;
+  z-index: 6;
+  width: 29%;
+  opacity: .88;
+}
+
+.seed-text {
+  display: none;
+}
+
+.root-ring {
+  width: min(84%, 338px);
+  opacity: .64;
+  filter:
+    drop-shadow(0 0 16px rgba(255, 221, 118, .35));
+}
+
+.rush-orbit {
+  width: min(72%, 292px);
+  opacity: .6;
+}
+
+.game-page .orchard-visual .sprout:not(.live),
+.game-page .companion:not(.live) {
+  opacity: 0;
+}
+
+.game-page .orchard-visual {
+  bottom: 9%;
+  opacity: .72;
+}
+
+.game-page .sprout.live:nth-child(3n) { transform: translateY(2px) rotate(-5deg); }
+.game-page .sprout.live:nth-child(3n + 1) { transform: translateY(-1px) rotate(4deg); }
+.game-page .sprout.live:nth-child(3n + 2) { transform: translateY(1px) rotate(1deg); }
+
+.game-page .skill-row {
+  gap: 6px;
+  margin-top: 7px;
+  padding: 4px;
+  border-radius: 17px;
+}
+
+.game-page .skill-row button {
+  min-height: 39px;
+  font-size: 12px;
+}
+
+body[data-tab="store"] .store-grid {
+  grid-template-rows: minmax(0, 1fr) 74px 88px;
+  gap: 8px;
+}
+
+body[data-tab="quests"] .log-grid,
+body[data-tab="board"] .log-grid {
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+}
+
+body[data-tab="quests"] .badges-panel,
+body[data-tab="quests"] .session-panel,
+body[data-tab="quests"] .leaderboard-panel,
+body[data-tab="board"] .quest-panel,
+body[data-tab="board"] .badges-panel,
+body[data-tab="board"] .session-panel {
+  display: none;
+}
+
+.game-page .store-panel {
+  padding: 10px;
+  border-radius: 17px;
+  overflow: hidden;
+}
+
+.game-page .section-head {
+  margin-bottom: 7px;
+}
+
+.game-page .section-head h2 {
+  font-size: clamp(20px, 5.3vw, 29px);
+  line-height: 1;
+}
+
+.game-page .section-head span {
+  font-size: 9px;
+  letter-spacing: .04em;
+}
+
+.game-page .store-list,
+.game-page .quest-list,
+.game-page .achievement-list,
+.game-page .leaderboard-list {
+  gap: 8px;
+}
+
+.game-page .store-item.garden-card {
+  grid-template-columns: 45px minmax(0, 1fr) minmax(75px, auto);
+  min-height: 82px;
+  padding: 9px;
+}
+
+.game-page .store-item.garden-card p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 11px;
+}
+
+.game-page .store-item.garden-card .owned,
+.game-page .friend-card .owned {
+  font-size: 10px;
+}
+
+.game-page .charms-panel .store-item,
+.game-page .perks-panel .store-item {
+  min-height: 0;
+  height: 100%;
+  grid-template-columns: 39px minmax(0, 1fr);
+  padding: 9px;
+}
+
+.game-page .charms-panel .store-item button,
+.game-page .perks-panel .store-item button {
+  grid-column: 1 / -1;
+  min-height: 30px;
+  margin-top: 3px;
+}
+
+.game-page .charms-panel .store-item h3,
+.game-page .perks-panel .store-item h3 {
+  font-size: 13px;
+}
+
+.game-page .charms-panel .store-item p,
+.game-page .perks-panel .store-item p {
+  margin-top: 1px;
+  font-size: 10.5px;
+  line-height: 1.18;
+}
+
+.game-page .charms-panel .owned,
+.game-page .perks-panel .owned {
+  display: none;
+}
+
+.game-page .store-visual {
+  width: 36px;
+  height: 36px;
+}
+
+.game-page .quest-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.game-page .quest-list {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  min-height: 0;
+}
+
+.game-page .friend-card {
+  grid-template-columns: 70px minmax(0, 1fr) minmax(72px, auto);
+  min-height: 0;
+  padding: 10px;
+}
+
+.game-page .friend-token {
+  width: 58px;
+  height: 58px;
+}
+
+.game-page .friend-copy h3 {
+  font-size: 16px;
+}
+
+.game-page .friend-copy p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 11px;
+}
+
+.game-page .mini-progress {
+  margin-top: 5px;
+}
+
+.game-page .friend-card button {
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.game-page .leaderboard-panel {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-height: 0;
+  padding: 11px;
+}
+
+.game-page .leaderboard-tools {
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.game-page .leaderboard-empty {
+  min-height: 0;
+  height: 100%;
+  align-content: end;
+  padding: 22px 18px;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 50% 24%, rgba(255, 241, 162, .56), transparent 30%),
+    radial-gradient(ellipse at 50% 78%, rgba(88, 136, 82, .18), transparent 44%),
+    repeating-linear-gradient(90deg, rgba(68, 118, 70, .08) 0 4px, transparent 4px 13px),
+    rgba(255, 252, 236, .64);
+}
+
+.game-page .leaderboard-empty::before {
+  content: "";
+  display: block;
+  width: 88px;
+  height: 112px;
+  margin: 0 auto 18px;
+  border-radius: 44px 44px 16px 16px / 56px 56px 14px 14px;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255,255,255,.62) 0 15%, transparent 16%),
+    radial-gradient(circle at 50% 22%, #ffd976 0 34%, transparent 35%),
+    linear-gradient(180deg, #b3d093 0 52%, #7fa869 53% 100%);
+  box-shadow:
+    inset 0 -10px 0 rgba(67, 104, 58, .16),
+    0 8px 0 rgba(52, 36, 31, .1);
+}
+
+@keyframes premiumTapSquash {
+  0% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(7px) scaleX(1.055) scaleY(.92); }
+  68% { transform: translateY(-5px) scaleX(.975) scaleY(1.045); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (max-height: 700px) {
+  .game-page .friend-scene {
+    height: min(50vh, 360px);
+  }
+
+  .game-page .friend-scene .seed-button {
+    width: min(58%, 228px);
+  }
+
+  body[data-tab="store"] .store-grid {
+    grid-template-rows: minmax(0, 1fr) 62px 74px;
+    gap: 6px;
+  }
+
+  .game-page .store-item.garden-card {
+    min-height: 66px;
+    padding: 7px;
+  }
+
+  .game-page .store-item.garden-card p,
+  .game-page .friend-copy p {
+    -webkit-line-clamp: 1;
+  }
+
+  .game-page .friend-card {
+    grid-template-columns: 54px minmax(0, 1fr) minmax(62px, auto);
+    padding: 7px;
+  }
+
+  .game-page .friend-token {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Premium correction: no boxed stage and no clipped submenu cards. */
+.game-page .friend-scene {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-page .friend-scene::before {
+  left: -16%;
+  right: -16%;
+  bottom: -4%;
+}
+
+body[data-tab="store"] .store-grid {
+  grid-template-rows: minmax(0, 1fr) 54px 58px;
+}
+
+.game-page .colony-panel .store-list {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.game-page .colony-panel .store-list:has(.garden-card + .garden-card) {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  text-align: center;
+  gap: 13px;
+  padding: 22px 24px;
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card .store-visual {
+  width: 104px;
+  height: 104px;
+  border-width: 3px;
+  box-shadow:
+    2px 5px 0 rgba(52, 36, 31, .12),
+    inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card .store-copy {
+  max-width: 235px;
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card h3 {
+  font-size: 19px;
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card p {
+  display: block;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.game-page .colony-panel .store-list:not(:has(.garden-card + .garden-card)) .garden-card button {
+  min-width: 154px;
+}
+
+.game-page .charms-panel,
+.game-page .perks-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game-page .charms-panel .section-head,
+.game-page .perks-panel .section-head {
+  width: 100%;
+  margin: 0;
+}
+
+.game-page .charms-panel .store-list,
+.game-page .perks-panel .store-list {
+  display: none;
+}
+
+.game-page .charms-panel .section-head::after {
+  content: "wake after roots";
+}
+
+.game-page .perks-panel .section-head::after {
+  content: "reset season";
+}
+
+.game-page .charms-panel .section-head::after,
+.game-page .perks-panel .section-head::after {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border: 1px solid rgba(84, 55, 43, .16);
+  border-radius: 999px;
+  color: rgba(72, 49, 42, .68);
+  background: rgba(255, 252, 238, .58);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.game-page .store-list,
+.game-page .quest-list,
+.game-page .leaderboard-list,
+.game-page .achievement-list,
+.game-page .stat-list {
+  overflow: hidden;
+}
+
+@media (max-height: 700px) {
+  body[data-tab="store"] .store-grid {
+    grid-template-rows: minmax(0, 1fr) 48px 52px;
+  }
+}
