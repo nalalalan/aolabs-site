@@ -732,8 +732,9 @@
   async function requestRewardedBoost() {
     const ads = window.MUSHROOM_BOOP_ADS || {};
     const rewardId = String(ads.admob?.rewardedUnitId || "").trim();
-    if (window.MushroomBoopRewardedAd?.show && rewardId) {
-      return window.MushroomBoopRewardedAd.show({ adUnitId: rewardId });
+    const nativeRewardedAd = window.MushroomBoopRewardedAd || window.Capacitor?.Plugins?.MushroomBoopRewardedAd;
+    if (nativeRewardedAd?.show && rewardId) {
+      return nativeRewardedAd.show({ adUnitId: rewardId });
     }
     return { rewarded: true, demo: true };
   }
