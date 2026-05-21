@@ -32,6 +32,22 @@
     { id: "relay", name: "Moonspore hollow", base: 720000, scale: 1.22, rate: 5200, desc: "A moonlit hollow that releases huge sleepy spore clouds." }
   ];
 
+  const machineArt = {
+    plot: { className: "root-thread", label: "tiny root" },
+    press: { className: "dew-cup", label: "dew cup" },
+    clock: { className: "lantern-cap", label: "lantern cap" },
+    collector: { className: "friend-burrow", label: "friend burrow" },
+    greenhouse: { className: "rainleaf-canopy", label: "rainleaf" },
+    rail: { className: "glowroot-web", label: "glowroot" },
+    relay: { className: "moonspore-hollow", label: "moon hollow" }
+  };
+
+  const friendArt = {
+    boops: { name: "Dew Beetle", className: "dew-beetle", promise: "Keeps the tap chorus bright." },
+    pieces: { name: "Lantern Moth", className: "lantern-moth", promise: "Guides new meadow pieces home." },
+    spores: { name: "Puff Sprite", className: "puff-sprite", promise: "Carries big spore clouds." }
+  };
+
   const upgrades = [
     { id: "tap-2", name: "Dew touch", cost: 120, req: state => state.totalLoops >= 80, desc: "Each tap sends twice as many spores through the roots.", kind: "tap", value: 2 },
     { id: "rate-1", name: "Root chorus", cost: 850, req: state => ownedTotal(state) >= 12, desc: "Roots hum together for 1.5x spores/sec.", kind: "rate", value: 1.5 },
@@ -360,6 +376,10 @@
     displayedRate = Math.max(displayedRate, incomePerSecond() + clickRateBurst);
   }
 
+  function visibleTapBurst() {
+    return Math.max(0, displayedRate - incomePerSecond());
+  }
+
   function renderCombo() {
     if (!els.comboBadge) return;
     if (comboCount <= 1) {
@@ -408,6 +428,7 @@
     state.machines[id] += 1;
     addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
+    playTone("tap", 4);
     markDirty();
     checkAchievements();
     render();
@@ -420,6 +441,7 @@
     state.upgrades.push(id);
     addRushCharge(12);
     displayedRate = Math.max(displayedRate, incomePerSecond());
+    playTone("bloom", 4);
     markDirty();
     checkAchievements();
     render();
@@ -437,6 +459,7 @@
       state.machines.plot = 1;
     }
     displayedRate = Math.max(displayedRate, incomePerSecond());
+    playTone("bloom", 4);
     markDirty();
     render();
   }
@@ -554,6 +577,7 @@
     addLoops(state, quest.reward);
     recordSporeBurst(quest.reward);
     addRushCharge(25);
+    playTone("bloom", 5);
     markDirty();
     checkAchievements();
     render();
@@ -1102,18 +1126,35 @@
   }
 
   function renderMachines() {
-    els.machineList.innerHTML = machines.map(machine => {
+    const revealByOwnership = machines.findIndex(machine => Number(state.machines[machine.id] || 0) <= 0 && state.loops < machineCost(machine));
+    const revealLimit = Math.min(
+      machines.length - 1,
+      Math.max(2, revealByOwnership < 0 ? machines.length - 1 : revealByOwnership)
+    );
+    const visibleMachines = machines.filter((machine, index) => {
+      return index <= revealLimit || Number(state.machines[machine.id] || 0) > 0;
+    });
+    const recommended = visibleMachines.find(machine => state.loops >= machineCost(machine))
+      || visibleMachines.find(machine => state.loops < machineCost(machine))
+      || visibleMachines[0];
+    els.machineCount.textContent = recommended ? `next: ${recommended.name}` : "garden grown";
+    els.machineList.innerHTML = visibleMachines.map(machine => {
       const cost = machineCost(machine);
       const count = Number(state.machines[machine.id] || 0);
       const disabled = state.loops < cost ? "disabled" : "";
+      const progress = Math.max(0, Math.min(100, (state.loops / cost) * 100));
+      const art = machineArt[machine.id] || { className: "root-thread", label: "meadow piece" };
       return `
-        <article class="store-item">
-          <div>
+        <article class="store-item garden-card ${machine.id === recommended?.id ? "recommended" : ""}" data-machine="${machine.id}">
+          <span class="store-visual ${art.className}" aria-label="${art.label}">
+            <i style="--progress:${Math.round(progress)}%"></i>
+          </span>
+          <div class="store-copy">
             <h3>${machine.name}</h3>
             <p>${machine.desc}</p>
-            <span class="owned">${count} owned / ${format(machine.rate * rateMultiplier())} spores/sec each</span>
+            <span class="owned">${count} owned / +${format(machine.rate * rateMultiplier())}/sec</span>
           </div>
-          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${format(cost)} spores</button>
+          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `grow ${format(cost)}` : format(cost)}</button>
         </article>
       `;
     }).join("");
@@ -1122,18 +1163,28 @@
   function renderUpgrades() {
     const available = upgrades.filter(upgrade => !hasUpgrade(upgrade.id) && upgrade.req(state));
     if (!available.length) {
-      els.upgradeList.innerHTML = `<article class="store-item"><div><h3>No charm ready</h3><p>Spend spores and grow meadow pieces to reveal the next charm.</p></div></article>`;
+      els.upgradeList.innerHTML = `
+        <article class="store-item charm-card waiting">
+          <span class="store-visual charm-seed" aria-hidden="true"><i></i></span>
+          <div class="store-copy">
+            <h3>Next charm sleeping</h3>
+            <p>Grow roots and meadow pieces to wake the next rhythm.</p>
+            <span class="owned">no spend needed yet</span>
+          </div>
+        </article>
+      `;
       return;
     }
     els.upgradeList.innerHTML = available.map(upgrade => {
       const disabled = state.loops < upgrade.cost ? "disabled" : "";
       return `
-        <article class="store-item">
-          <div>
+        <article class="store-item charm-card ${state.loops >= upgrade.cost ? "recommended" : ""}">
+          <span class="store-visual charm-seed" aria-hidden="true"><i></i></span>
+          <div class="store-copy">
             <h3>${upgrade.name}</h3>
             <p>${upgrade.desc}</p>
           </div>
-          <button type="button" data-buy-upgrade="${upgrade.id}" ${disabled}>${format(upgrade.cost)} spores</button>
+          <button type="button" data-buy-upgrade="${upgrade.id}" ${disabled}>${state.loops >= upgrade.cost ? `wake ${format(upgrade.cost)}` : format(upgrade.cost)}</button>
         </article>
       `;
     }).join("");
@@ -1142,14 +1193,28 @@
   function renderPerks() {
     const active = perks.reduce((sum, perk) => sum + perkLevel(perk.id), 0);
     els.perkCount.textContent = `${format(state.rootstock)} mycelium / ${active} perks`;
+    if (Number(state.rootstock || 0) <= 0 && active <= 0) {
+      els.perkList.innerHTML = `
+        <article class="store-item mycelium-card waiting">
+          <span class="store-visual mycelium-knot" aria-hidden="true"><i></i></span>
+          <div class="store-copy">
+            <h3>First Great Bloom</h3>
+            <p>Reach ${format(bloomRequirement())} run spores, reset the season, and keep permanent mycelium.</p>
+            <span class="owned">${format(Math.min(state.totalLoops, bloomRequirement()))}/${format(bloomRequirement())} run spores</span>
+          </div>
+        </article>
+      `;
+      return;
+    }
     els.perkList.innerHTML = perks.map(perk => {
       const level = perkLevel(perk.id);
       const cost = perkCost(perk);
       const maxed = level >= perk.max;
       const disabled = maxed || state.rootstock < cost ? "disabled" : "";
       return `
-        <article class="store-item">
-          <div>
+        <article class="store-item mycelium-card ${!disabled ? "recommended" : ""}">
+          <span class="store-visual mycelium-knot" aria-hidden="true"><i></i></span>
+          <div class="store-copy">
             <h3>${perk.name}</h3>
             <p>${perk.desc}</p>
             <span class="owned">level ${level}/${perk.max}</span>
@@ -1166,7 +1231,12 @@
     els.submitScoreButton.disabled = leaderboardSubmitting;
     els.submitScoreButton.textContent = leaderboardSubmitting ? "submitting" : "submit score";
     if (!leaderboardEntries.length) {
-      els.leaderboardList.innerHTML = `<article class="leaderboard-empty">No scores yet. Submit after a run.</article>`;
+      els.leaderboardList.innerHTML = `
+        <article class="leaderboard-empty">
+          <strong>First grove pending</strong>
+          <span>Submit a strong run or a Great Bloom to mark the atlas.</span>
+        </article>
+      `;
       return;
     }
     els.leaderboardList.innerHTML = sortLeaderboard(leaderboardEntries).map((entry, index) => `
@@ -1300,6 +1370,7 @@
     const mood = meadowMood();
     document.body.dataset.meadowMood = mood.replace(/\s+/g, "-");
     document.body.dataset.tutorial = tutorial.id;
+    document.body.dataset.meadowTier = String(Math.min(5, Math.max(1, Math.ceil(Number(state.meadowLevel || 1) / 2))));
     if (els.friendScene) {
       els.friendScene.dataset.mood = mood;
       els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood}`);
@@ -1314,11 +1385,13 @@
       const done = quest.current >= quest.target;
       const claimedQuest = state.claimedQuests.includes(quest.id);
       const progress = Math.max(0, Math.min(1, quest.current / quest.target));
+      const friend = friendArt[quest.id] || { name: quest.name, className: "dew-beetle", promise: quest.desc };
       return `
-        <article class="quest-item ${done ? "ready" : ""} ${claimedQuest ? "claimed" : ""}">
-          <div>
-            <h3>${quest.name}</h3>
-            <p>${quest.desc}</p>
+        <article class="quest-item friend-card ${done ? "ready" : ""} ${claimedQuest ? "claimed" : ""}" data-friend="${quest.id}">
+          <span class="friend-token ${friend.className}" aria-hidden="true"><i></i></span>
+          <div class="friend-copy">
+            <h3>${friend.name}</h3>
+            <p>${quest.name}: ${friend.promise}</p>
             <span class="owned">${format(Math.min(quest.current, quest.target))}/${format(quest.target)} / reward ${format(quest.reward)} spores</span>
             <div class="mini-progress" aria-hidden="true"><span style="width:${Math.round(progress * 100)}%"></span></div>
           </div>
@@ -1329,15 +1402,18 @@
   }
 
   function render() {
+    const passiveRate = incomePerSecond();
+    const tapBurst = visibleTapBurst();
     els.loopsValue.textContent = format(state.loops);
-    els.rateValue.textContent = format(displayedRate);
-    els.baseRateValue.textContent = `base ${format(incomePerSecond())}`;
+    els.rateValue.textContent = format(passiveRate);
+    els.baseRateValue.textContent = passiveRate > 0
+      ? (tapBurst > 0.1 ? `tap burst +${format(tapBurst)}` : "passive garden")
+      : "buy roots";
     els.tapValue.textContent = format(state.clicks);
     els.clicksValue.textContent = format(state.clicks);
     els.runValue.textContent = format(state.totalLoops);
     els.lifetimeValue.textContent = format(state.lifetimeLoops);
     els.multiplierValue.textContent = `${rateMultiplier().toFixed(rateMultiplier() >= 10 ? 1 : 2)}x`;
-    els.machineCount.textContent = "spend spores";
     els.upgradeCount.textContent = `${state.upgrades.length} active`;
     els.achievementCount.textContent = `${state.achievements.length} unlocked`;
     renderMachines();

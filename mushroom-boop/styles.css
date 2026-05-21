@@ -3447,3 +3447,306 @@ body.game-page {
   from { opacity: .8; transform: translateX(-2px) scale(.995); }
   to { opacity: 1; transform: translateX(2px) scale(1.01); }
 }
+
+/* Game-loop pass: make the numbers honest and the screens feel less like forms. */
+body[data-tab="store"] .store-grid {
+  grid-template-rows: minmax(0, 1.18fr) minmax(0, .74fr) minmax(0, .82fr);
+}
+
+body[data-tab="quests"] .log-grid {
+  grid-template-rows: minmax(0, 1.18fr) minmax(0, .82fr);
+}
+
+body[data-meadow-tier="2"] .friend-scene {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 246, 186, .56), transparent 29%),
+    linear-gradient(180deg, rgba(204, 236, 255, .76) 0 43%, rgba(217, 246, 201, .96) 44% 100%);
+}
+
+body[data-meadow-tier="3"] .friend-scene,
+body[data-meadow-tier="4"] .friend-scene,
+body[data-meadow-tier="5"] .friend-scene {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 238, 150, .62), transparent 29%),
+    radial-gradient(circle at 24% 62%, rgba(245, 160, 175, .16), transparent 24%),
+    linear-gradient(180deg, rgba(196, 232, 255, .78) 0 41%, rgba(199, 237, 177, .98) 42% 100%);
+}
+
+.seed-mouth,
+.seed-cheeks {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.seed-mouth {
+  left: 45.6%;
+  top: 75%;
+  width: 9%;
+  height: 5%;
+  border-bottom: 2px solid rgba(75, 51, 47, .78);
+  border-radius: 0 0 999px 999px;
+  opacity: .92;
+}
+
+.seed-cheeks {
+  left: 37%;
+  top: 70%;
+  width: 26%;
+  height: 9%;
+  background:
+    radial-gradient(circle at 0 50%, rgba(230, 112, 126, .22) 0 20%, transparent 21%),
+    radial-gradient(circle at 100% 50%, rgba(230, 112, 126, .22) 0 20%, transparent 21%);
+  opacity: 0;
+  transform: translateY(1px);
+}
+
+body[data-tutorial="sleeping"] .seed-mouth {
+  width: 12%;
+  border-radius: 999px;
+  transform: translateX(-1px) rotate(-1deg);
+  opacity: .58;
+}
+
+body[data-tutorial="awake"] .seed-mouth,
+body[data-tutorial="baby"] .seed-mouth {
+  height: 7%;
+  border-bottom-width: 2px;
+}
+
+body[data-tutorial="root"] .seed-mouth,
+body[data-tutorial="friend"] .seed-mouth,
+body[data-tutorial="forest"] .seed-mouth {
+  left: 43%;
+  width: 14%;
+  height: 8%;
+  border-bottom-width: 3px;
+}
+
+body[data-tutorial="root"] .seed-cheeks,
+body[data-tutorial="friend"] .seed-cheeks,
+body[data-tutorial="forest"] .seed-cheeks {
+  opacity: 1;
+}
+
+.friend-scene.scene-tapped .seed-mouth {
+  animation: mouthPop .24s ease-out;
+}
+
+@keyframes mouthPop {
+  0% { transform: translateY(0) scaleX(1); }
+  50% { transform: translateY(1px) scaleX(1.35); }
+  100% { transform: translateY(0) scaleX(1); }
+}
+
+.game-page .store-item.garden-card,
+.game-page .store-item.charm-card,
+.game-page .store-item.mycelium-card {
+  grid-template-columns: 52px minmax(0, 1fr) minmax(74px, auto);
+  align-items: center;
+  min-height: 76px;
+}
+
+.game-page .store-item.waiting {
+  grid-template-columns: 52px minmax(0, 1fr);
+}
+
+.game-page .store-item.recommended {
+  border-color: rgba(185, 77, 92, .34);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.62), transparent 24%),
+    radial-gradient(circle at 88% 14%, rgba(255, 213, 130, .24), transparent 26%),
+    rgba(255, 250, 231, .9);
+}
+
+.store-visual {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(62, 42, 35, .25);
+  border-radius: 45% 55% 48% 52%;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,.62), transparent 26%),
+    linear-gradient(180deg, #f5d59e, #d99a5d);
+  box-shadow: 1px 2px 0 rgba(62,42,35,.12), inset 0 1px 0 rgba(255,255,255,.48);
+}
+
+.store-visual i {
+  position: absolute;
+  inset: auto 5px 5px;
+  height: 5px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, #e97987 var(--progress, 0%), rgba(80, 67, 39, .12) 0);
+}
+
+.root-thread {
+  background:
+    repeating-linear-gradient(120deg, rgba(92, 64, 43, .22) 0 2px, transparent 2px 8px),
+    linear-gradient(180deg, #ead0a2, #b8794d);
+}
+
+.dew-cup {
+  background:
+    radial-gradient(circle at 50% 30%, #dff9ff 0 20%, transparent 21%),
+    linear-gradient(180deg, #a9d98e, #5e9c61);
+}
+
+.lantern-cap {
+  background:
+    radial-gradient(circle at 50% 30%, #fff4a6 0 24%, transparent 25%),
+    linear-gradient(180deg, #ef7e8b, #a94350);
+}
+
+.friend-burrow {
+  background:
+    radial-gradient(ellipse at 50% 72%, rgba(87, 56, 38, .52) 0 26%, transparent 27%),
+    linear-gradient(180deg, #b8e4cc, #78b17a);
+}
+
+.rainleaf-canopy {
+  background:
+    radial-gradient(ellipse at 50% 34%, #bdeaa8 0 42%, transparent 43%),
+    linear-gradient(180deg, #e5c27b, #8bb566);
+}
+
+.glowroot-web {
+  background:
+    repeating-conic-gradient(from 20deg, rgba(255,239,128,.55) 0 8deg, transparent 8deg 22deg),
+    linear-gradient(180deg, #73b79b, #4b7868);
+}
+
+.moonspore-hollow {
+  background:
+    radial-gradient(circle at 42% 32%, #fff0a8 0 18%, transparent 19%),
+    linear-gradient(180deg, #98a2d8, #565283);
+}
+
+.charm-seed {
+  background:
+    radial-gradient(circle at 45% 34%, #fff4a6 0 20%, transparent 21%),
+    linear-gradient(180deg, #f1a2ad, #b94d5c);
+}
+
+.mycelium-knot {
+  background:
+    repeating-radial-gradient(circle at 48% 48%, rgba(255,239,128,.44) 0 3px, transparent 3px 8px),
+    linear-gradient(180deg, #ddd0a5, #7ea16d);
+}
+
+.store-copy h3,
+.friend-copy h3 {
+  margin: 0;
+}
+
+.store-copy p,
+.friend-copy p {
+  margin: 3px 0 0;
+}
+
+.game-page .friend-card {
+  grid-template-columns: 48px minmax(0, 1fr) minmax(72px, auto);
+  align-items: center;
+  min-height: 108px;
+}
+
+.friend-token {
+  position: relative;
+  display: block;
+  width: 39px;
+  height: 39px;
+  border: 2px solid rgba(62,42,35,.25);
+  border-radius: 50% 48% 52% 46%;
+  background:
+    radial-gradient(circle at 32% 25%, rgba(255,255,255,.66), transparent 24%),
+    linear-gradient(180deg, #88d2ca, #4d9a96);
+  box-shadow: 1px 2px 0 rgba(62,42,35,.13);
+}
+
+.friend-token i,
+.friend-token::before,
+.friend-token::after {
+  content: "";
+  position: absolute;
+}
+
+.friend-token i {
+  left: 31%;
+  right: 31%;
+  bottom: 4px;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.44);
+}
+
+.friend-token::before,
+.friend-token::after {
+  top: 46%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #55403a;
+}
+
+.friend-token::before { left: 34%; }
+.friend-token::after { right: 34%; }
+
+.lantern-moth {
+  border-radius: 52% 48% 46% 54%;
+  background:
+    radial-gradient(ellipse at 30% 48%, rgba(255,240,170,.72) 0 24%, transparent 25%),
+    radial-gradient(ellipse at 70% 48%, rgba(255,240,170,.72) 0 24%, transparent 25%),
+    linear-gradient(180deg, #d7b1ef, #8d6ab2);
+}
+
+.puff-sprite {
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.82) 0 20%, transparent 21%),
+    radial-gradient(circle at 63% 32%, rgba(255,255,255,.7) 0 18%, transparent 19%),
+    linear-gradient(180deg, #f2a9b5, #ba6070);
+}
+
+.game-page .friend-card.ready {
+  border-color: rgba(101, 156, 88, .45);
+}
+
+.game-page .friend-card.ready button {
+  color: #fffdf8;
+  background:
+    radial-gradient(circle at 30% 15%, rgba(255,255,255,.35), transparent 26%),
+    linear-gradient(180deg, #83bd74, #4f8d5c);
+}
+
+.game-page .leaderboard-empty {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  min-height: 112px;
+  padding: 16px;
+  text-align: left;
+}
+
+.game-page .leaderboard-empty strong {
+  display: block;
+  font-family: var(--drawn-font);
+  color: #3c2a25;
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.game-page .leaderboard-empty span {
+  display: block;
+  margin-top: 5px;
+  color: #7d635c;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+body[data-tab="board"] .session-panel {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+body[data-tab="board"] .leaderboard-panel {
+  min-height: 0;
+}
