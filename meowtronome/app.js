@@ -1,6 +1,6 @@
 const meowSources = [
-  { url: "./assets/meow-cute-clean.mp3", type: "audio/mpeg" },
-  { url: "./assets/meow-cute-clean.ogg", type: "audio/ogg" },
+  { url: "./assets/meow-cute-clean.mp3?v=20260521-yap", type: "audio/mpeg" },
+  { url: "./assets/meow-cute-clean.ogg?v=20260521-yap", type: "audio/ogg" },
 ];
 
 const meowSourceUrl = (() => {
@@ -178,7 +178,7 @@ function playMeow(time, accented) {
   const highpass = audioContext.createBiquadFilter();
   const lowpass = audioContext.createBiquadFilter();
   const playbackRate = accented ? 0.98 : 1.015;
-  const maxLength = Math.min(0.78, Math.max(0.26, secondsPerBeat() * 0.92));
+  const maxLength = Math.min(0.42, Math.max(0.22, secondsPerBeat() * 0.82));
   const playFor = Math.min(state.meowBuffer.duration / playbackRate, maxLength);
   const fadeOutStart = Math.max(0.13, playFor - Math.min(0.11, playFor * 0.32));
 
@@ -186,16 +186,16 @@ function playMeow(time, accented) {
   source.playbackRate.setValueAtTime(playbackRate, time);
 
   highpass.type = "highpass";
-  highpass.frequency.setValueAtTime(280, time);
+  highpass.frequency.setValueAtTime(255, time);
   highpass.Q.setValueAtTime(0.24, time);
 
   lowpass.type = "lowpass";
-  lowpass.frequency.setValueAtTime(accented ? 7600 : 7200, time);
+  lowpass.frequency.setValueAtTime(accented ? 6600 : 6200, time);
   lowpass.Q.setValueAtTime(0.16, time);
 
   gain.gain.setValueAtTime(0.0001, time);
-  gain.gain.linearRampToValueAtTime(accented ? 1.08 : 1.0, time + 0.065);
-  gain.gain.setValueAtTime(accented ? 1.08 : 1.0, time + fadeOutStart);
+  gain.gain.linearRampToValueAtTime(accented ? 1.04 : 0.98, time + 0.035);
+  gain.gain.setValueAtTime(accented ? 1.04 : 0.98, time + fadeOutStart);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + playFor);
 
   source.connect(highpass);

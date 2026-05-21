@@ -91,13 +91,11 @@ input:focus-visible {
   display: grid;
   gap: clamp(7px, 1.15svh, 12px);
   padding: clamp(12px, 2.2svh, 20px);
-  border: 1px solid var(--line);
+  border: 0;
   border-radius: 8px;
-  background:
-    linear-gradient(160deg, rgba(255, 253, 247, .98), rgba(238, 244, 235, .92)),
-    var(--paper);
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
 .zen-card > * {
@@ -502,6 +500,12 @@ input[type="range"]::-moz-range-thumb {
   .zen-card {
     gap: 13px;
     padding: 16px 12px 18px;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(160deg, rgba(255, 253, 247, .98), rgba(238, 244, 235, .92)),
+      var(--paper);
+    box-shadow: var(--shadow);
+    overflow: hidden;
   }
 
   h1 {
