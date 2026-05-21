@@ -4468,3 +4468,353 @@ body[data-tab="store"] .store-grid {
     transform: translateY(-6px);
   }
 }
+
+/* Long-play pass: environment art, late-game garden icons, and tap feedback for thousands of clicks. */
+.scene-decor {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  pointer-events: none;
+  opacity: .86;
+  filter:
+    drop-shadow(1px 2px 0 rgba(62, 42, 35, .12))
+    saturate(.98);
+}
+
+.decor-a {
+  left: 11%;
+  bottom: 28%;
+  width: 38px;
+  height: 46px;
+  border-radius: 50% 50% 14px 14px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(255,255,255,.76) 0 15%, transparent 16%),
+    radial-gradient(circle at 50% 28%, #ffd871 0 38%, transparent 39%),
+    linear-gradient(180deg, #94c982 0 55%, #6fa95f 56% 100%);
+}
+
+.decor-b {
+  right: 13%;
+  bottom: 34%;
+  width: 28px;
+  height: 36px;
+  border-radius: 999px 999px 10px 10px;
+  background:
+    radial-gradient(circle at 50% 28%, #fff6bc 0 24%, transparent 25%),
+    linear-gradient(180deg, #f2929c 0 52%, #c34859 53% 100%);
+}
+
+.decor-c {
+  left: 23%;
+  bottom: 22%;
+  width: 54px;
+  height: 18px;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 28% 50%, rgba(255,255,255,.62), transparent 30%),
+    linear-gradient(180deg, rgba(139, 199, 119, .86), rgba(90, 151, 88, .74));
+}
+
+.decor-d {
+  right: 26%;
+  bottom: 20%;
+  width: 48px;
+  height: 18px;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 66% 42%, rgba(255,255,255,.5), transparent 34%),
+    linear-gradient(180deg, rgba(178, 218, 135, .86), rgba(99, 154, 82, .72));
+}
+
+body[data-click-stage="0"] .decor-b,
+body[data-click-stage="0"] .decor-c,
+body[data-click-stage="0"] .decor-d,
+body[data-click-stage="1"] .decor-c,
+body[data-click-stage="1"] .decor-d {
+  opacity: 0;
+}
+
+body[data-click-stage="0"] .decor-a,
+body[data-click-stage="1"] .decor-a {
+  opacity: .42;
+  transform: scale(.72);
+}
+
+body[data-biome="lantern"] .friend-scene,
+body[data-biome="glow"] .friend-scene,
+body[data-biome="star"] .friend-scene,
+body[data-biome="moon"] .friend-scene {
+  background:
+    radial-gradient(ellipse at 50% 25%, rgba(255, 229, 140, .34), transparent 35%),
+    linear-gradient(180deg, rgba(153, 195, 222, .68) 0 42%, rgba(185, 224, 175, .8) 43% 62%, rgba(93, 149, 91, .72) 63% 100%);
+}
+
+body[data-biome="rain"] .friend-scene,
+body[data-biome="brook"] .friend-scene,
+body[data-biome="cloud"] .friend-scene {
+  background:
+    repeating-linear-gradient(102deg, rgba(255,255,255,.18) 0 1px, transparent 1px 15px),
+    radial-gradient(ellipse at 50% 32%, rgba(217, 244, 255, .55), transparent 42%),
+    linear-gradient(180deg, rgba(174, 221, 239, .72) 0 44%, rgba(190, 231, 183, .82) 45% 62%, rgba(85, 146, 100, .76) 63% 100%);
+}
+
+body[data-biome="honey"] .friend-scene,
+body[data-biome="velvet"] .friend-scene {
+  background:
+    radial-gradient(ellipse at 48% 31%, rgba(255, 230, 145, .48), transparent 38%),
+    radial-gradient(ellipse at 18% 66%, rgba(244, 132, 154, .18), transparent 26%),
+    radial-gradient(ellipse at 82% 64%, rgba(255, 200, 110, .18), transparent 25%),
+    linear-gradient(180deg, rgba(207, 232, 223, .72) 0 43%, rgba(223, 238, 176, .82) 44% 62%, rgba(105, 159, 92, .76) 63% 100%);
+}
+
+body[data-biome="crystal"] .friend-scene,
+body[data-biome="aurora"] .friend-scene,
+body[data-biome="ancient"] .friend-scene {
+  background:
+    radial-gradient(ellipse at 50% 32%, rgba(211, 255, 232, .42), transparent 36%),
+    radial-gradient(ellipse at 26% 53%, rgba(191, 150, 255, .16), transparent 26%),
+    radial-gradient(ellipse at 74% 50%, rgba(111, 224, 218, .18), transparent 26%),
+    linear-gradient(180deg, rgba(181, 219, 235, .74) 0 43%, rgba(194, 232, 194, .82) 44% 62%, rgba(82, 139, 94, .76) 63% 100%);
+}
+
+body[data-biome="lantern"] .decor-a,
+body[data-biome="glow"] .decor-a,
+body[data-biome="star"] .decor-a,
+body[data-biome="moon"] .decor-a,
+body[data-biome="aurora"] .decor-a {
+  width: 16px;
+  height: 16px;
+  bottom: 55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8b4 0 34%, rgba(255, 214, 96, .52) 35% 66%, transparent 67%);
+  box-shadow:
+    42px 18px 0 -3px rgba(255, 239, 155, .72),
+    96px -14px 0 -4px rgba(255, 239, 155, .58),
+    210px 24px 0 -5px rgba(255, 239, 155, .64);
+  animation: fireflyFloat 2.4s ease-in-out infinite alternate;
+}
+
+body[data-biome="brook"] .decor-a,
+body[data-biome="rain"] .decor-a,
+body[data-biome="cloud"] .decor-a {
+  left: 9%;
+  right: 9%;
+  bottom: 23%;
+  width: auto;
+  height: 18px;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 34% 52%, rgba(255,255,255,.7), transparent 30%),
+    linear-gradient(180deg, rgba(169, 224, 222, .68), rgba(94, 165, 164, .4));
+  box-shadow: none;
+  animation: waterShimmer 2.6s ease-in-out infinite alternate;
+}
+
+body[data-biome="crystal"] .decor-b,
+body[data-biome="aurora"] .decor-b,
+body[data-biome="ancient"] .decor-b {
+  right: 12%;
+  bottom: 27%;
+  width: 34px;
+  height: 58px;
+  border-radius: 48% 52% 14% 16% / 70% 70% 18% 18%;
+  background:
+    linear-gradient(130deg, rgba(255,255,255,.68), transparent 32%),
+    linear-gradient(180deg, #bdf3e6, #7d8bdb 52%, #5d679d);
+  box-shadow:
+    -72px 24px 0 -10px rgba(153, 216, 218, .58),
+    0 0 28px rgba(171, 248, 230, .44);
+}
+
+body[data-biome="honey"] .decor-b,
+body[data-biome="velvet"] .decor-b {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #fff6b9 0 20%, transparent 21%),
+    conic-gradient(from 20deg, #f39aa7 0 18%, #ffd680 18% 36%, #f39aa7 36% 54%, #ffd680 54% 72%, #f39aa7 72% 100%);
+  animation: flowerNod 1.8s ease-in-out infinite alternate;
+}
+
+body[data-click-stage="4"] .decor-c,
+body[data-click-stage="5"] .decor-c,
+body[data-click-stage="6"] .decor-c,
+body[data-click-stage="7"] .decor-c,
+body[data-click-stage="8"] .decor-c,
+body[data-click-stage="9"] .decor-c,
+body[data-click-stage="10"] .decor-c,
+body[data-click-stage="11"] .decor-c,
+body[data-click-stage="12"] .decor-c,
+body[data-click-stage="13"] .decor-c,
+body[data-click-stage="14"] .decor-c,
+body[data-click-stage="15"] .decor-c,
+body[data-click-stage="16"] .decor-c {
+  box-shadow:
+    56px -8px 0 -6px rgba(255, 245, 176, .72),
+    122px 2px 0 -8px rgba(255, 245, 176, .62);
+}
+
+.bellcap-choir {
+  background:
+    radial-gradient(circle at 50% 27%, #fff4a8 0 23%, transparent 24%),
+    radial-gradient(ellipse at 50% 70%, rgba(127, 76, 45, .34) 0 24%, transparent 25%),
+    linear-gradient(180deg, #f0a4a6, #a84658);
+}
+
+.dreamspring-pool {
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(255,255,255,.72) 0 22%, transparent 23%),
+    radial-gradient(ellipse at 50% 63%, #9adbd9 0 43%, transparent 44%),
+    linear-gradient(180deg, #bdd5ff, #5e91a6);
+}
+
+.starcap-observatory {
+  background:
+    radial-gradient(circle at 45% 27%, #fff3a7 0 13%, transparent 14%),
+    radial-gradient(circle at 66% 38%, #fff8c8 0 8%, transparent 9%),
+    linear-gradient(180deg, #9ea8da, #525781);
+}
+
+.aurora-rootway {
+  background:
+    repeating-conic-gradient(from 12deg, rgba(194, 255, 225, .66) 0 9deg, rgba(190, 158, 255, .42) 9deg 18deg, transparent 18deg 28deg),
+    linear-gradient(180deg, #86cab3, #5d719f);
+}
+
+.heartwood-grove {
+  background:
+    radial-gradient(circle at 50% 28%, #ffe5a7 0 20%, transparent 21%),
+    repeating-linear-gradient(94deg, rgba(73, 43, 29, .22) 0 3px, transparent 3px 9px),
+    linear-gradient(180deg, #c99d68, #735139);
+}
+
+.game-page .friend-scene .seed-button {
+  will-change: transform;
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  animation: longplayMushroomBounce .38s cubic-bezier(.13, 1.55, .22, 1);
+}
+
+.game-page .seed-button.is-pressed::before {
+  animation: longplayCapSnap .38s cubic-bezier(.13, 1.55, .22, 1);
+}
+
+.game-page .seed-button.is-pressed::after {
+  animation: longplayGillGlow .38s ease-out;
+}
+
+.game-page .seed-button.is-pressed .seed-core {
+  animation: longplayStemSpring .38s cubic-bezier(.13, 1.55, .22, 1);
+}
+
+.game-page .seed-button.is-pressed .seed-cheeks {
+  animation: longplayCheekPop .38s ease-out;
+}
+
+.friend-scene.scene-tapped .root-ring {
+  animation: longplayRingPing .42s ease-out;
+}
+
+.friend-scene.scene-tapped .scene-decor {
+  animation: decorJump .34s ease-out;
+}
+
+.tap-petal {
+  position: absolute;
+  z-index: 8;
+  width: 8px;
+  height: 12px;
+  border-radius: 60% 40% 60% 40%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 38% 22%, rgba(255,255,255,.74), transparent 30%),
+    linear-gradient(180deg, #fff0a3, #f19aa8);
+  transform: translate(-50%, -50%);
+  animation: tapPetal .62s cubic-bezier(.18, .88, .26, 1) forwards;
+}
+
+.tap-petal.petal-1 { background: linear-gradient(180deg, #d7fff0, #89cfb0); }
+.tap-petal.petal-2 { background: linear-gradient(180deg, #fff6c1, #f4c466); }
+.tap-petal.petal-3 { background: linear-gradient(180deg, #f0dcff, #b49be3); }
+
+@keyframes longplayMushroomBounce {
+  0% { transform: translateY(-10px) scale(1); filter: brightness(1); }
+  26% { transform: translateY(-2px) scaleX(1.065) scaleY(.9); filter: brightness(1.08); }
+  52% { transform: translateY(-18px) scaleX(.965) scaleY(1.07); }
+  76% { transform: translateY(-7px) scaleX(1.015) scaleY(.985); }
+  100% { transform: translateY(-10px) scale(1); filter: brightness(1); }
+}
+
+@keyframes longplayCapSnap {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  32% { transform: translateY(7px) rotate(-1deg) scaleX(1.04) scaleY(.9); }
+  62% { transform: translateY(-6px) rotate(1deg) scaleX(.98) scaleY(1.08); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+@keyframes longplayGillGlow {
+  0% { filter: brightness(1); }
+  35% { filter: brightness(1.18) saturate(1.12); }
+  100% { filter: brightness(1); }
+}
+
+@keyframes longplayStemSpring {
+  0% { transform: translateY(0) scale(1); }
+  34% { transform: translateY(7px) scaleX(1.08) scaleY(.88); }
+  66% { transform: translateY(-5px) scaleX(.96) scaleY(1.08); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes longplayCheekPop {
+  0% { opacity: .74; transform: scale(.92); }
+  34% { opacity: 1; transform: scale(1.14); }
+  100% { opacity: .88; transform: scale(1); }
+}
+
+@keyframes longplayRingPing {
+  0% { opacity: .9; transform: translate(-50%, -50%) scale(.94); }
+  68% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: .64; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes tapPetal {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.45) rotate(0deg); }
+  16% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(.08) rotate(var(--turn)); }
+}
+
+@keyframes decorJump {
+  0% { transform: translateY(0) scale(1); }
+  44% { transform: translateY(-6px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes fireflyFloat {
+  from { transform: translateY(0) translateX(-2px); opacity: .58; }
+  to { transform: translateY(-8px) translateX(4px); opacity: .95; }
+}
+
+@keyframes waterShimmer {
+  from { transform: translateX(-2px) scaleX(.98); opacity: .58; }
+  to { transform: translateX(4px) scaleX(1.02); opacity: .86; }
+}
+
+@keyframes flowerNod {
+  from { transform: rotate(-4deg) translateY(1px); }
+  to { transform: rotate(5deg) translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tap-petal,
+  .scene-decor,
+  .game-page .seed-button.is-pressed::before,
+  .game-page .seed-button.is-pressed::after,
+  .game-page .seed-button.is-pressed .seed-core,
+  .game-page .seed-button.is-pressed .seed-cheeks,
+  .friend-scene.scene-tapped .root-ring {
+    animation-duration: .01ms;
+  }
+}

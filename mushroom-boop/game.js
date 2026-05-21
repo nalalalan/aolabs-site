@@ -9,17 +9,91 @@
   const rushMax = 100;
   const rushSeconds = 20;
   const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
-  const meadowNames = [
-    "Sleeping Cap",
-    "Dew Cap",
-    "Tiny Grove",
-    "Lantern Ring",
-    "Puff Meadow",
-    "Mooncap Hollow",
-    "Sporefall Garden",
-    "Glowroot Village",
-    "Starcap Forest",
-    "Ancient Mycelium"
+  const testPlayMode = new URLSearchParams(window.location.search).has("testplay");
+  const environments = [
+    { id: "sleeping-cap", name: "Sleeping Cap", biome: "morning" },
+    { id: "dew-cap", name: "Dew Cap", biome: "morning" },
+    { id: "tiny-grove", name: "Tiny Grove", biome: "grove" },
+    { id: "lantern-ring", name: "Lantern Ring", biome: "lantern" },
+    { id: "puff-meadow", name: "Puff Meadow", biome: "grove" },
+    { id: "mooncap-hollow", name: "Mooncap Hollow", biome: "moon" },
+    { id: "sporefall-garden", name: "Sporefall Garden", biome: "rain" },
+    { id: "glowroot-village", name: "Glowroot Village", biome: "glow" },
+    { id: "starcap-forest", name: "Starcap Forest", biome: "star" },
+    { id: "rainwhisper-vale", name: "Rainwhisper Vale", biome: "rain" },
+    { id: "honeycap-field", name: "Honeycap Field", biome: "honey" },
+    { id: "mossbell-steps", name: "Mossbell Steps", biome: "grove" },
+    { id: "velvet-hollow", name: "Velvet Hollow", biome: "velvet" },
+    { id: "firefly-fen", name: "Firefly Fen", biome: "lantern" },
+    { id: "bluecap-brook", name: "Bluecap Brook", biome: "brook" },
+    { id: "sunspore-terrace", name: "Sunspore Terrace", biome: "honey" },
+    { id: "cloudcap-ridge", name: "Cloudcap Ridge", biome: "cloud" },
+    { id: "crystal-root", name: "Crystal Root", biome: "crystal" },
+    { id: "ambercap-glade", name: "Ambercap Glade", biome: "honey" },
+    { id: "dreamcap-pond", name: "Dreamcap Pond", biome: "brook" },
+    { id: "aurora-mycelium", name: "Aurora Mycelium", biome: "aurora" },
+    { id: "sugarcap-orchard", name: "Sugarcap Orchard", biome: "velvet" },
+    { id: "bellcap-basin", name: "Bellcap Basin", biome: "brook" },
+    { id: "wishroot-wood", name: "Wishroot Wood", biome: "star" },
+    { id: "silver-spore-coast", name: "Silver Spore Coast", biome: "moon" },
+    { id: "comet-cap-camp", name: "Comet Cap Camp", biome: "star" },
+    { id: "prismcap-garden", name: "Prismcap Garden", biome: "crystal" },
+    { id: "velvet-rainforest", name: "Velvet Rainforest", biome: "rain" },
+    { id: "starlit-burrow", name: "Starlit Burrow", biome: "moon" },
+    { id: "golden-spore-sea", name: "Golden Spore Sea", biome: "honey" },
+    { id: "buttercap-crossing", name: "Buttercap Crossing", biome: "honey" },
+    { id: "misty-morel-marsh", name: "Misty Morel Marsh", biome: "rain" },
+    { id: "pebblecap-path", name: "Pebblecap Path", biome: "grove" },
+    { id: "lullaby-log", name: "Lullaby Log", biome: "morning" },
+    { id: "ribbonroot-ravine", name: "Ribbonroot Ravine", biome: "aurora" },
+    { id: "cherrycap-grove", name: "Cherrycap Grove", biome: "velvet" },
+    { id: "fiddlehead-fen", name: "Fiddlehead Fen", biome: "brook" },
+    { id: "softlight-steppe", name: "Softlight Steppe", biome: "cloud" },
+    { id: "bubblecap-bay", name: "Bubblecap Bay", biome: "brook" },
+    { id: "embermoss-hollow", name: "Embermoss Hollow", biome: "lantern" },
+    { id: "lumenleaf-loop", name: "Lumenleaf Loop", biome: "glow" },
+    { id: "cocoa-cap-copse", name: "Cocoa Cap Copse", biome: "ancient" },
+    { id: "snowdrop-sporefield", name: "Snowdrop Sporefield", biome: "cloud" },
+    { id: "violetcap-vale", name: "Violetcap Vale", biome: "velvet" },
+    { id: "taffycap-terrace", name: "Taffycap Terrace", biome: "honey" },
+    { id: "willowspore-woods", name: "Willowspore Woods", biome: "grove" },
+    { id: "teacup-hollow", name: "Teacup Hollow", biome: "morning" },
+    { id: "marmalade-moss", name: "Marmalade Moss", biome: "honey" },
+    { id: "raindrop-rootworks", name: "Raindrop Rootworks", biome: "rain" },
+    { id: "pearlcap-pier", name: "Pearlcap Pier", biome: "brook" },
+    { id: "satin-spore-glade", name: "Satin Spore Glade", biome: "velvet" },
+    { id: "echo-cap-canyon", name: "Echo Cap Canyon", biome: "star" },
+    { id: "honeydew-heights", name: "Honeydew Heights", biome: "honey" },
+    { id: "lacecap-lagoon", name: "Lacecap Lagoon", biome: "brook" },
+    { id: "cottoncap-cloudbank", name: "Cottoncap Cloudbank", biome: "cloud" },
+    { id: "opal-root-grove", name: "Opal Root Grove", biome: "crystal" },
+    { id: "firefly-orchard", name: "Firefly Orchard", biome: "lantern" },
+    { id: "wishcap-waterfall", name: "Wishcap Waterfall", biome: "rain" },
+    { id: "moonmilk-meadow", name: "Moonmilk Meadow", biome: "moon" },
+    { id: "crystalcake-cavern", name: "Crystalcake Cavern", biome: "crystal" },
+    { id: "sunbeam-sporehouse", name: "Sunbeam Sporehouse", biome: "honey" },
+    { id: "velvet-star-nursery", name: "Velvet Star Nursery", biome: "aurora" },
+    { id: "ancient-mycelium", name: "Ancient Mycelium", biome: "ancient" },
+    { id: "forever-bloom", name: "Forever Bloom", biome: "aurora" }
+  ];
+  const meadowNames = environments.map(environment => environment.name);
+  const clickMilestones = [
+    { id: "wake", clicks: 10, name: "Dew freckles", reward: 28 },
+    { id: "root-hum", clicks: 50, name: "Root hum", reward: 120 },
+    { id: "first-chorus", clicks: 150, name: "Tiny chorus", reward: 520 },
+    { id: "soft-glow", clicks: 300, name: "Soft glow", reward: 1800 },
+    { id: "lantern-wake", clicks: 600, name: "Lantern wake", reward: 7200 },
+    { id: "puff-parade", clicks: 1000, name: "Puff parade", reward: 26000 },
+    { id: "moon-bells", clicks: 1500, name: "Moon bells", reward: 90000 },
+    { id: "sporefall", clicks: 2500, name: "Sporefall", reward: 340000 },
+    { id: "root-fireworks", clicks: 4000, name: "Root fireworks", reward: 1200000 },
+    { id: "aurora-path", clicks: 6500, name: "Aurora path", reward: 4600000 },
+    { id: "prism-rain", clicks: 10000, name: "Prism rain", reward: 18000000 },
+    { id: "forever-garden", clicks: 15000, name: "Forever garden", reward: 72000000 },
+    { id: "silver-season", clicks: 25000, name: "Silver season", reward: 290000000 },
+    { id: "golden-season", clicks: 40000, name: "Golden season", reward: 1200000000 },
+    { id: "ancient-season", clicks: 65000, name: "Ancient season", reward: 5200000000 },
+    { id: "endless-season", clicks: 100000, name: "Endless season", reward: 24000000000 }
   ];
 
   const machines = [
@@ -29,7 +103,12 @@
     { id: "collector", name: "Friend burrow", base: 3200, scale: 1.19, rate: 23, desc: "A tiny home where meadow helpers gather and nudge spores along." },
     { id: "greenhouse", name: "Rainleaf canopy", base: 18000, scale: 1.2, rate: 130, desc: "A broad leaf canopy that turns rain into spore showers." },
     { id: "rail", name: "Glowroot web", base: 112000, scale: 1.21, rate: 820, desc: "Bright mycelium paths that carry nutrients through the meadow." },
-    { id: "relay", name: "Moonspore hollow", base: 720000, scale: 1.22, rate: 5200, desc: "A moonlit hollow that releases huge sleepy spore clouds." }
+    { id: "relay", name: "Moonspore hollow", base: 720000, scale: 1.22, rate: 5200, desc: "A moonlit hollow that releases huge sleepy spore clouds." },
+    { id: "bell", name: "Bellcap choir", base: 4800000, scale: 1.23, rate: 33000, desc: "A circle of tiny bells that chimes spores through the roots." },
+    { id: "spring", name: "Dreamspring pool", base: 32000000, scale: 1.24, rate: 210000, desc: "A glowing pool that turns quiet idle time into drifting spores." },
+    { id: "observatory", name: "Starcap observatory", base: 230000000, scale: 1.25, rate: 1400000, desc: "A little hilltop lens that catches constellations for the meadow." },
+    { id: "aurora", name: "Aurora rootway", base: 1900000000, scale: 1.26, rate: 9500000, desc: "A ribbon of roots that keeps the whole forest shimmering." },
+    { id: "heartwood", name: "Heartwood grove", base: 15000000000, scale: 1.27, rate: 65000000, desc: "An ancient warm grove that grows spores even through long breaks." }
   ];
 
   const machineArt = {
@@ -39,7 +118,12 @@
     collector: { className: "friend-burrow", label: "friend burrow" },
     greenhouse: { className: "rainleaf-canopy", label: "rainleaf" },
     rail: { className: "glowroot-web", label: "glowroot" },
-    relay: { className: "moonspore-hollow", label: "moon hollow" }
+    relay: { className: "moonspore-hollow", label: "moon hollow" },
+    bell: { className: "bellcap-choir", label: "bellcap choir" },
+    spring: { className: "dreamspring-pool", label: "dreamspring" },
+    observatory: { className: "starcap-observatory", label: "starcap observatory" },
+    aurora: { className: "aurora-rootway", label: "aurora rootway" },
+    heartwood: { className: "heartwood-grove", label: "heartwood grove" }
   };
 
   const friendArt = {
@@ -55,7 +139,13 @@
     { id: "rate-2", name: "Lantern pollen", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Lantern caps double passive spores/sec.", kind: "rate", value: 2 },
     { id: "tap-rate", name: "Dewline trail", cost: 160000, req: state => state.machines.press >= 12, desc: "Tap power grows with every Dew cup.", kind: "tapRoute", value: 0.08 },
     { id: "rate-3", name: "Moonroot glow", cost: 880000, req: state => state.totalLoops >= 420000, desc: "Moonlit roots boost spores/sec x2.25.", kind: "rate", value: 2.25 },
-    { id: "prestige-soft", name: "Ancient mycelium", cost: 4200000, req: state => state.rootstock >= 3, desc: "Great Bloom mycelium perks become stronger.", kind: "root", value: 0.08 }
+    { id: "prestige-soft", name: "Ancient mycelium", cost: 4200000, req: state => state.rootstock >= 3, desc: "Great Bloom mycelium perks become stronger.", kind: "root", value: 0.08 },
+    { id: "tap-echo", name: "Cap echo", cost: 12000000, req: state => state.clicks >= 1500, desc: "Every tap lands with a brighter echo. Tap power x2.2.", kind: "tap", value: 2.2 },
+    { id: "rate-4", name: "Bellcap rhythm", cost: 42000000, req: state => Number(state.machines.bell || 0) >= 1, desc: "Bellcap choirs keep spores/sec x2.6.", kind: "rate", value: 2.6 },
+    { id: "tap-route-2", name: "Dreamline trail", cost: 180000000, req: state => state.clicks >= 4000, desc: "Tap power grows with every Dreamspring pool.", kind: "tapMachine", machine: "spring", value: 0.12 },
+    { id: "rate-5", name: "Aurora canopy", cost: 900000000, req: state => Number(state.meadowLevel || 1) >= 20, desc: "Aurora environments multiply spores/sec x3.", kind: "rate", value: 3 },
+    { id: "tap-aurora", name: "Prism touch", cost: 5200000000, req: state => state.clicks >= 10000, desc: "Late-game taps glow harder. Tap power x3.", kind: "tap", value: 3 },
+    { id: "rate-6", name: "Heartwood memory", cost: 22000000000, req: state => Number(state.machines.heartwood || 0) >= 1, desc: "Heartwood groves multiply spores/sec x3.5.", kind: "rate", value: 3.5 }
   ];
 
   const achievements = [
@@ -67,7 +157,12 @@
     { id: "rooted", name: "Great Bloom", desc: "Release the meadow into a stronger season.", req: state => Number(state.bloomCount || 0) >= 1 },
     { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 },
     { id: "rush", name: "Spore Rush", desc: "Trigger a Spore Rush.", req: state => state.rushes >= 1 },
-    { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 }
+    { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 },
+    { id: "click-1000", name: "Thousand taps", desc: "Tap 1,000 times.", req: state => state.clicks >= 1000 },
+    { id: "click-5000", name: "Five-thousand rhythm", desc: "Tap 5,000 times.", req: state => state.clicks >= 5000 },
+    { id: "click-10000", name: "Ten-thousand shimmer", desc: "Tap 10,000 times.", req: state => state.clicks >= 10000 },
+    { id: "env-16", name: "Far meadow", desc: "Reach environment 16.", req: state => Number(state.meadowLevel || 1) >= 16 },
+    { id: "env-32", name: "Forever map", desc: "Reach environment 32.", req: state => Number(state.meadowLevel || 1) >= 32 }
   ];
 
   const perks = [
@@ -144,6 +239,7 @@
       questDay: "",
       questBaselines: { clicks: 0, spores: 0, pieces: 0 },
       claimedQuests: [],
+      claimedClickMilestones: [],
       questsClaimed: 0,
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
@@ -170,6 +266,7 @@
       merged.upgrades = Array.isArray(parsed.upgrades) ? parsed.upgrades : [];
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
+      merged.claimedClickMilestones = Array.isArray(parsed.claimedClickMilestones) ? parsed.claimedClickMilestones : [];
       applyOffline(merged);
       return merged;
     } catch {
@@ -280,9 +377,52 @@
     return Math.round((18 + level * 7) * Math.pow(1.14, level - 1) * rootBonus(target));
   }
 
-  function meadowTitle(target = state, offset = 0) {
+  function environmentForLevel(target = state, offset = 0) {
     const level = Math.max(1, Number(target.meadowLevel || 1) + offset);
-    return meadowNames[(level - 1) % meadowNames.length];
+    const index = (level - 1) % environments.length;
+    const cycle = Math.floor((level - 1) / environments.length);
+    const environment = environments[index];
+    return {
+      ...environment,
+      level,
+      cycle,
+      label: cycle > 0 ? `${environment.name} ${cycle + 1}` : environment.name
+    };
+  }
+
+  function meadowTitle(target = state, offset = 0) {
+    return environmentForLevel(target, offset).label;
+  }
+
+  function clickMilestoneCount(target = state) {
+    const clicks = Number(target.clicks || 0);
+    return clickMilestones.filter(milestone => clicks >= milestone.clicks).length;
+  }
+
+  function nextClickMilestone(target = state) {
+    const clicks = Number(target.clicks || 0);
+    return clickMilestones.find(milestone => clicks < milestone.clicks);
+  }
+
+  function claimClickMilestones(target = state) {
+    if (!Array.isArray(target.claimedClickMilestones)) target.claimedClickMilestones = [];
+    let reward = 0;
+    let latest = null;
+    clickMilestones.forEach(milestone => {
+      if (Number(target.clicks || 0) < milestone.clicks || target.claimedClickMilestones.includes(milestone.id)) return;
+      const amount = Math.max(
+        milestone.reward,
+        tapPower(target) * milestone.clicks * 0.32 + incomePerSecond(target) * 18
+      );
+      target.claimedClickMilestones.push(milestone.id);
+      addLoops(target, amount);
+      addMeadowCare(amount * 0.12, target);
+      addRushCharge(6 + Math.min(18, milestone.clicks / 1000), target);
+      reward += amount;
+      latest = milestone;
+    });
+    if (reward > 0) recordSporeBurst(reward);
+    return { reward, latest };
   }
 
   function meadowMood(target = state) {
@@ -305,6 +445,8 @@
     if (clicks < 15) return { id: "baby", next: `${15 - clicks} taps to root glow` };
     if (clicks < 25) return { id: "root", next: `${25 - clicks} taps to Dew Beetle` };
     if (Number(target.meadowLevel || 1) < 2) return { id: "friend", next: "care ring is waking" };
+    const milestone = nextClickMilestone(target);
+    if (milestone) return { id: "forest", next: `${format(milestone.clicks - clicks)} taps to ${milestone.name}` };
     return { id: "forest", next: `next: ${meadowTitle(target, 1)}` };
   }
 
@@ -328,6 +470,9 @@
     let tap = 1;
     upgrades.forEach(upgrade => {
       if (upgrade.kind === "tap" && hasUpgrade(upgrade.id, target)) tap *= upgrade.value;
+      if (upgrade.kind === "tapMachine" && hasUpgrade(upgrade.id, target)) {
+        tap *= 1 + Number(target.machines?.[upgrade.machine] || 0) * upgrade.value;
+      }
     });
     if (hasUpgrade("tap-rate", target)) {
       tap *= 1 + Number(target.machines.press || 0) * 0.08;
@@ -487,6 +632,7 @@
     state.rushUntil = 0;
     state.meadowLevel = 1;
     state.meadowBloom = 0;
+    state.claimedClickMilestones = [];
     state.firstTapAt = 0;
     state.firstBloomSeconds = 0;
     state.bestFirstBloomSeconds = bestFirstBloomSeconds;
@@ -774,6 +920,7 @@
   }
 
   function playTone(kind = "tap", strength = 1) {
+    if (testPlayMode) return;
     const ctx = ensureAudio();
     if (!ctx) return;
     const now = ctx.currentTime;
@@ -857,18 +1004,26 @@
     const meadow = addMeadowCare(gained);
     recordSporeBurst(gained);
     state.clicks += 1;
+    const milestone = claimClickMilestones();
     addRushCharge(2 + Math.min(5, comboCount / 6));
     markDirty();
     checkAchievements();
-    showPop(x, y, `+${format(gained)}`, comboCount);
+    const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
+    if (showFullImpact) showPop(x, y, `+${format(gained)}`, comboCount);
+    if (milestone.reward > 0) {
+      showPop(rect.left + rect.width / 2, rect.bottom - 16, `${milestone.latest.name} +${format(milestone.reward)}`, comboCount + 8);
+      playTone("bloom", comboCount + 2);
+    }
     if (meadow.blooms > 0) {
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
       playTone("bloom", comboCount);
-    } else {
+    } else if (milestone.reward <= 0) {
       playTone("tap", comboCount);
     }
-    showSporeBurst(x, y);
-    showTapImpact(x, y, rect, comboCount);
+    if (showFullImpact) {
+      showSporeBurst(x, y);
+      showTapImpact(x, y, rect, comboCount);
+    }
     pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
     renderCombo();
     if (navigator.vibrate) navigator.vibrate(meadow.blooms > 0 ? [12, 18, 18] : 10);
@@ -899,6 +1054,21 @@
     const flash = document.createElement("span");
     flash.className = "tap-flash";
     els.seedButton.appendChild(flash);
+
+    const petalCount = combo >= 8 ? 10 : 6;
+    for (let i = 0; i < petalCount; i += 1) {
+      const angle = (Math.PI * 2 * i) / petalCount + Math.random() * 0.28;
+      const distance = 28 + Math.random() * 36 + Math.min(22, combo * 1.5);
+      const petal = document.createElement("span");
+      petal.className = `tap-petal petal-${i % 4}`;
+      petal.style.left = `${localX}px`;
+      petal.style.top = `${localY}px`;
+      petal.style.setProperty("--px", `${Math.cos(angle) * distance}px`);
+      petal.style.setProperty("--py", `${Math.sin(angle) * distance - 18}px`);
+      petal.style.setProperty("--turn", `${Math.random() * 220 - 110}deg`);
+      els.seedButton.appendChild(petal);
+      window.setTimeout(() => petal.remove(), 720);
+    }
 
     if (els.friendScene) {
       const sceneRect = els.friendScene.getBoundingClientRect();
@@ -973,6 +1143,7 @@
       state.upgrades = Array.isArray(imported.upgrades) ? imported.upgrades : [];
       state.achievements = Array.isArray(imported.achievements) ? imported.achievements : [];
       state.claimedQuests = Array.isArray(imported.claimedQuests) ? imported.claimedQuests : [];
+      state.claimedClickMilestones = Array.isArray(imported.claimedClickMilestones) ? imported.claimedClickMilestones : [];
       save();
       render();
       els.saveDialog.close();
@@ -1126,18 +1297,17 @@
   }
 
   function renderMachines() {
-    const revealByOwnership = machines.findIndex(machine => Number(state.machines[machine.id] || 0) <= 0 && state.loops < machineCost(machine));
-    const revealLimit = Math.min(
-      machines.length - 1,
-      Math.max(0, revealByOwnership < 0 ? machines.length - 1 : revealByOwnership)
-    );
-    const visibleMachines = machines.filter((machine, index) => {
-      return index <= revealLimit || Number(state.machines[machine.id] || 0) > 0;
+    const strongestAffordable = [...machines].reverse().find(machine => state.loops >= machineCost(machine));
+    const nextLocked = machines.find(machine => state.loops < machineCost(machine));
+    const strongestOwned = [...machines].reverse().find(machine => Number(state.machines[machine.id] || 0) > 0);
+    const visibleMachines = [];
+    [strongestAffordable, nextLocked, strongestOwned, machines[0]].forEach(machine => {
+      if (machine && !visibleMachines.some(item => item.id === machine.id) && visibleMachines.length < 2) {
+        visibleMachines.push(machine);
+      }
     });
-    const recommended = visibleMachines.find(machine => state.loops >= machineCost(machine))
-      || visibleMachines.find(machine => state.loops < machineCost(machine))
-      || visibleMachines[0];
-    els.machineCount.textContent = recommended ? `next: ${recommended.name}` : "garden grown";
+    const recommended = strongestAffordable || nextLocked || strongestOwned || visibleMachines[0];
+    els.machineCount.textContent = nextLocked ? `next: ${nextLocked.name}` : "heartwood looping";
     els.machineList.innerHTML = visibleMachines.map(machine => {
       const cost = machineCost(machine);
       const count = Number(state.machines[machine.id] || 0);
@@ -1356,9 +1526,10 @@
     const bloom = Math.max(0, Number(state.meadowBloom || 0));
     const progress = Math.max(0, Math.min(1, bloom / required));
     const tutorial = tutorialStage();
+    const environment = environmentForLevel();
     els.meadowValue.textContent = `meadow ${format(state.meadowLevel || 1)}`;
     els.sessionMeadowValue.textContent = format(state.meadowLevel || 1);
-    els.meadowName.textContent = meadowTitle();
+    els.meadowName.textContent = environment.label;
     els.meadowMood.textContent = meadowMood();
     els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
     els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care`;
@@ -1370,7 +1541,10 @@
     const mood = meadowMood();
     document.body.dataset.meadowMood = mood.replace(/\s+/g, "-");
     document.body.dataset.tutorial = tutorial.id;
-    document.body.dataset.meadowTier = String(Math.min(5, Math.max(1, Math.ceil(Number(state.meadowLevel || 1) / 2))));
+    document.body.dataset.biome = environment.biome;
+    document.body.dataset.environment = environment.id;
+    document.body.dataset.clickStage = String(Math.min(16, clickMilestoneCount()));
+    document.body.dataset.meadowTier = String(Math.min(8, Math.max(1, Math.ceil(Number(state.meadowLevel || 1) / 4))));
     if (els.friendScene) {
       els.friendScene.dataset.mood = mood;
       els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood}`);
