@@ -5499,6 +5499,28 @@ body[data-biome="ancient"] .scene-sparkle {
   animation: livingMeadowBreath 4.8s ease-in-out infinite alternate;
 }
 
+.game-page .friend-scene::after {
+  left: -8%;
+  right: -8%;
+  bottom: 4%;
+  z-index: 3;
+  height: 24%;
+  border-radius: 42% 58% 0 0 / 22% 30% 0 0;
+  opacity: .82;
+  background:
+    radial-gradient(circle at 11% 52%, rgba(255, 230, 137, .82) 0 3px, transparent 4px),
+    radial-gradient(circle at 17% 70%, rgba(255, 249, 222, .64) 0 2px, transparent 3px),
+    radial-gradient(circle at 26% 60%, rgba(246, 159, 178, .54) 0 3px, transparent 4px),
+    radial-gradient(circle at 41% 73%, rgba(255, 236, 164, .66) 0 2px, transparent 3px),
+    radial-gradient(circle at 61% 58%, rgba(255, 249, 222, .62) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 72%, rgba(246, 159, 178, .5) 0 3px, transparent 4px),
+    radial-gradient(circle at 89% 56%, rgba(255, 230, 137, .78) 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 110%, rgba(41, 95, 51, .38), transparent 62%),
+    repeating-linear-gradient(85deg, transparent 0 8px, rgba(35, 92, 45, .14) 8px 10px, transparent 10px 15px),
+    linear-gradient(180deg, rgba(139, 194, 112, .1), rgba(72, 138, 75, .34));
+  filter: blur(.15px) saturate(1.08);
+}
+
 .game-page .scene-mist {
   animation-name: mistDrift, livingMistPulse;
   animation-duration: 7.5s, 3.8s;
@@ -5534,6 +5556,32 @@ body[data-biome="ancient"] .scene-sparkle {
 @keyframes livingMistPulse {
   from { opacity: .26; }
   to { opacity: .48; }
+}
+
+body[data-biome="rain"] .game-page .friend-scene::after,
+body[data-biome="brook"] .game-page .friend-scene::after,
+body[data-biome="cloud"] .game-page .friend-scene::after {
+  background:
+    radial-gradient(circle at 13% 53%, rgba(217, 249, 255, .78) 0 3px, transparent 4px),
+    radial-gradient(circle at 28% 67%, rgba(255, 249, 222, .58) 0 2px, transparent 3px),
+    radial-gradient(circle at 51% 59%, rgba(150, 216, 226, .5) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 71%, rgba(217, 249, 255, .62) 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 110%, rgba(38, 93, 70, .36), transparent 62%),
+    repeating-linear-gradient(86deg, transparent 0 8px, rgba(35, 92, 65, .14) 8px 10px, transparent 10px 15px),
+    linear-gradient(180deg, rgba(129, 193, 158, .1), rgba(69, 133, 91, .34));
+}
+
+body[data-biome="crystal"] .game-page .friend-scene::after,
+body[data-biome="aurora"] .game-page .friend-scene::after,
+body[data-biome="ancient"] .game-page .friend-scene::after {
+  background:
+    radial-gradient(circle at 12% 54%, rgba(204, 255, 236, .76) 0 3px, transparent 4px),
+    radial-gradient(circle at 30% 67%, rgba(216, 202, 255, .58) 0 3px, transparent 4px),
+    radial-gradient(circle at 52% 58%, rgba(255, 249, 222, .62) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 72%, rgba(204, 255, 236, .58) 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 110%, rgba(42, 82, 73, .38), transparent 62%),
+    repeating-linear-gradient(87deg, transparent 0 8px, rgba(39, 102, 78, .13) 8px 10px, transparent 10px 15px),
+    linear-gradient(180deg, rgba(124, 190, 163, .1), rgba(59, 124, 93, .34));
 }
 
 @keyframes premiumSparkleBloom {

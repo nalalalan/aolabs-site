@@ -262,6 +262,7 @@
       questsClaimed: 0,
       offlineReward: 0,
       offlineSeconds: 0,
+      lastReadyAction: "",
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
       perks: Object.fromEntries(perks.map(perk => [perk.id, 0])),
@@ -527,6 +528,31 @@
     }
 
     return { detail: `${format(bloomNeed)} run spores to Great Bloom`, kind: "bloom", ready: false };
+  }
+
+  function actionMomentTitle(action) {
+    const labels = {
+      dew: "dew ready",
+      bloom: "Great Bloom ready",
+      charm: "new charm ready",
+      piece: "meadow piece ready"
+    };
+    return labels[action.kind] || "new goal ready";
+  }
+
+  function announceReadyAction() {
+    const action = nextAction();
+    if (!action.ready) {
+      state.lastReadyAction = "";
+      return;
+    }
+    if (Number(state.offlineReward || 0) > 0) return;
+    const key = `${action.kind}:${action.detail}`;
+    if (state.lastReadyAction === key) return;
+    state.lastReadyAction = key;
+    showMoment(actionMomentTitle(action), action.detail, action.kind === "bloom" ? "great" : "unlock");
+    playTone(action.kind === "bloom" ? "great" : "unlock", 3);
+    markDirty();
   }
 
   function rootBonus(target = state) {
@@ -1252,6 +1278,7 @@
     state.offlineReward = 0;
     state.offlineSeconds = 0;
     markDirty();
+    window.setTimeout(announceReadyAction, 2100);
   }
 
   function checkAchievements() {
@@ -1899,6 +1926,7 @@
     renderFocus();
     renderRush();
     renderSound();
+    announceReadyAction();
   }
 
   function render() {
@@ -2003,6 +2031,7 @@
           offlineSeconds: Number(state.offlineSeconds || 0),
           nextAction: nextAction().detail,
           nextActionReady: nextAction().ready,
+          lastReadyAction: state.lastReadyAction || "",
           meadowLevel: Number(state.meadowLevel || 1),
           meadowName: meadowTitle(),
           achievements: state.achievements.length,
