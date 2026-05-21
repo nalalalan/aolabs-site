@@ -1154,7 +1154,7 @@
             <p>${machine.desc}</p>
             <span class="owned">${count} owned / +${format(machine.rate * rateMultiplier())}/sec</span>
           </div>
-          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `grow ${format(cost)}` : format(cost)}</button>
+          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `grow ${format(cost)}` : `need ${format(cost)}`}</button>
         </article>
       `;
     }).join("");
@@ -1184,7 +1184,7 @@
             <h3>${upgrade.name}</h3>
             <p>${upgrade.desc}</p>
           </div>
-          <button type="button" data-buy-upgrade="${upgrade.id}" ${disabled}>${state.loops >= upgrade.cost ? `wake ${format(upgrade.cost)}` : format(upgrade.cost)}</button>
+          <button type="button" data-buy-upgrade="${upgrade.id}" ${disabled}>${state.loops >= upgrade.cost ? `wake ${format(upgrade.cost)}` : `need ${format(upgrade.cost)}`}</button>
         </article>
       `;
     }).join("");
@@ -1219,7 +1219,7 @@
             <p>${perk.desc}</p>
             <span class="owned">level ${level}/${perk.max}</span>
           </div>
-          <button type="button" data-buy-perk="${perk.id}" ${disabled}>${maxed ? "max" : `${format(cost)} mycelium`}</button>
+          <button type="button" data-buy-perk="${perk.id}" ${disabled}>${maxed ? "max" : (state.rootstock >= cost ? `shape ${format(cost)}` : `need ${format(cost)}`)}</button>
         </article>
       `;
     }).join("");
