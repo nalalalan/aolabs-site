@@ -2085,7 +2085,7 @@ body[data-tab="board"] .badges-panel {
   max-height: calc(100dvh - 24px);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 560px) and (min-height: 760px) {
   body.game-page {
     padding: 24px;
   }
@@ -2695,7 +2695,7 @@ body[data-tutorial="forest"] .root-ring {
   100% { opacity: .86; transform: translate(-50%, -50%) scale(1); }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 560px) and (min-height: 760px) {
   .game-page .phone-frame {
     width: min(430px, calc(100vw - 64px));
     height: min(932px, calc(100vh - 48px));
@@ -5326,4 +5326,187 @@ body[data-biome="ancient"] .scene-sparkle {
   font-weight: 900;
   line-height: 1;
   text-align: center;
+}
+
+/* Premium polish pass: explicit reward moments and a meadow that never looks empty. */
+.game-page .moment-banner {
+  position: absolute;
+  left: clamp(14px, 5vw, 28px);
+  right: clamp(14px, 5vw, 28px);
+  top: calc(env(safe-area-inset-top) + 66px);
+  z-index: 80;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  column-gap: 11px;
+  align-items: center;
+  min-height: 58px;
+  padding: 9px 13px 10px 9px;
+  border: 2px solid rgba(73, 47, 39, .24);
+  border-radius: 18px 15px 18px 16px / 16px 18px 15px 18px;
+  pointer-events: none;
+  color: #35251f;
+  background:
+    radial-gradient(circle at 22px 50%, rgba(255, 255, 255, .88) 0 20px, transparent 21px),
+    radial-gradient(circle at 50% 0, rgba(255, 241, 168, .58), transparent 48%),
+    repeating-linear-gradient(104deg, rgba(92, 61, 42, .045) 0 1px, transparent 1px 8px),
+    linear-gradient(180deg, rgba(255, 253, 241, .96), rgba(255, 234, 226, .92));
+  box-shadow:
+    0 12px 28px rgba(61, 44, 36, .14),
+    inset 0 1px 0 rgba(255,255,255,.78);
+  transform: translateY(-14px) scale(.97);
+  opacity: 0;
+  animation: momentArrive .42s cubic-bezier(.13, 1.42, .24, 1) forwards;
+}
+
+.game-page .moment-banner::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 42px;
+  aspect-ratio: 1;
+  border: 2px solid rgba(78, 45, 43, .18);
+  border-radius: 50% 48% 47% 53%;
+  background:
+    radial-gradient(circle at 38% 32%, rgba(255,255,255,.82) 0 12%, transparent 13%),
+    radial-gradient(circle at 50% 43%, #fff3b8 0 24%, transparent 25%),
+    linear-gradient(180deg, #f4838d, #af4654);
+  box-shadow: inset 0 -7px 11px rgba(96, 29, 40, .14);
+}
+
+.game-page .moment-banner strong,
+.game-page .moment-banner span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.game-page .moment-banner strong {
+  align-self: end;
+  font-family: var(--drawn-font);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.02;
+}
+
+.game-page .moment-banner span {
+  align-self: start;
+  color: rgba(80, 58, 52, .72);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.game-page .moment-banner.badge::before,
+.game-page .moment-banner.unlock::before {
+  background:
+    radial-gradient(circle at 50% 50%, #fff9c9 0 19%, transparent 20%),
+    conic-gradient(from 0deg, #ffd972, #e98793, #97c77e, #ffd972);
+}
+
+.game-page .moment-banner.buy::before,
+.game-page .moment-banner.dew::before {
+  background:
+    radial-gradient(circle at 35% 27%, rgba(255,255,255,.86) 0 14%, transparent 15%),
+    radial-gradient(ellipse at 50% 62%, #9cd7da 0 37%, transparent 38%),
+    linear-gradient(180deg, #c8f0dc, #6da987);
+}
+
+.game-page .moment-banner.shower::before {
+  background:
+    radial-gradient(circle at 38% 30%, rgba(255,255,255,.88) 0 14%, transparent 15%),
+    repeating-linear-gradient(120deg, rgba(255,255,255,.42) 0 3px, transparent 3px 9px),
+    linear-gradient(180deg, #a9ddeb, #74a9c4);
+}
+
+.game-page .moment-banner.great::before,
+.game-page .moment-banner.meadow::before {
+  background:
+    radial-gradient(circle at 50% 38%, #fff8bd 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.62) 0 31%, transparent 32%),
+    linear-gradient(180deg, #b9edd5, #8a87d2);
+}
+
+.game-page .moment-banner.leaving {
+  animation: momentLeave .34s ease-in forwards;
+}
+
+.game-page .orchard-visual .sprout:not(.live) {
+  opacity: .16;
+  transform: scale(.58) translateY(8px);
+  filter: grayscale(.18) saturate(.85);
+}
+
+.game-page .companion:not(.live):nth-child(-n+2) {
+  opacity: .18;
+  transform: translateY(8px) scale(.72);
+  filter: grayscale(.16) saturate(.8);
+}
+
+.game-page .friend-scene::before {
+  animation: livingMeadowBreath 4.8s ease-in-out infinite alternate;
+}
+
+.game-page .scene-mist {
+  animation-name: mistDrift, livingMistPulse;
+  animation-duration: 7.5s, 3.8s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, alternate;
+}
+
+.game-page .friend-scene.scene-bloomed .scene-sparkle {
+  animation: premiumSparkleBloom .78s ease-out;
+}
+
+@keyframes momentArrive {
+  0% { opacity: 0; transform: translateY(-14px) scale(.97); }
+  62% { opacity: 1; transform: translateY(3px) scale(1.012); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes momentLeave {
+  to { opacity: 0; transform: translateY(-10px) scale(.98); }
+}
+
+@keyframes livingMeadowBreath {
+  from { transform: translateY(0) scaleX(.996); filter: saturate(1); }
+  to { transform: translateY(-4px) scaleX(1.01); filter: saturate(1.06); }
+}
+
+@keyframes livingMistPulse {
+  from { opacity: .26; }
+  to { opacity: .48; }
+}
+
+@keyframes premiumSparkleBloom {
+  0% { opacity: .4; transform: scale(.72) rotate(-8deg); }
+  46% { opacity: 1; transform: scale(1.56) rotate(7deg); filter: brightness(1.35); }
+  100% { opacity: .7; transform: scale(.9) rotate(0); }
+}
+
+@media (max-height: 760px) {
+  .game-page .moment-banner {
+    top: calc(env(safe-area-inset-top) + 54px);
+    min-height: 50px;
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .game-page .moment-banner::before {
+    width: 34px;
+  }
+
+  .game-page .moment-banner strong {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-page .moment-banner,
+  .game-page .moment-banner.leaving,
+  .game-page .friend-scene::before,
+  .game-page .scene-mist,
+  .game-page .friend-scene.scene-bloomed .scene-sparkle {
+    animation-duration: .01ms;
+    animation-iteration-count: 1;
+  }
 }

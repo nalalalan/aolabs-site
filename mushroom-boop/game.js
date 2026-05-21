@@ -204,6 +204,7 @@
   let coreRenderQueued = false;
   let pressTimer = 0;
   let lastScenePulseAt = 0;
+  let momentTimer = 0;
 
   const els = {};
   [
@@ -516,10 +517,12 @@
     target.meadowBloom = Math.max(0, Number(target.meadowBloom || 0)) + Math.max(0, Number(amount) || 0);
     let blooms = 0;
     let reward = 0;
+    let latest = null;
     while (target.meadowBloom >= meadowRequirement(target) && blooms < 12) {
       const required = meadowRequirement(target);
       target.meadowBloom -= required;
       target.meadowLevel += 1;
+      latest = environmentForLevel(target);
       const bloomReward = Math.max(25, required * (0.55 + rootBonus(target) * 0.18));
       addLoops(target, bloomReward);
       reward += bloomReward;
@@ -535,7 +538,7 @@
       recordSporeBurst(reward);
       addRushCharge(12 + blooms * 3, target);
     }
-    return { blooms, reward };
+    return { blooms, reward, latest };
   }
 
   function recordSporeBurst(amount) {
@@ -598,7 +601,8 @@
     state.machines[id] += 1;
     addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    playTone("tap", 4);
+    playTone("buy", 4);
+    showMoment(machine.name, `${format(incomePerSecond())} spores/sec`, "buy");
     markDirty();
     checkAchievements();
     render();
@@ -611,7 +615,8 @@
     state.upgrades.push(id);
     addRushCharge(12);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    playTone("bloom", 4);
+    playTone("unlock", 4);
+    showMoment(upgrade.name, upgrade.desc, "unlock");
     markDirty();
     checkAchievements();
     render();
@@ -629,7 +634,8 @@
       state.machines.plot = 1;
     }
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    playTone("bloom", 4);
+    playTone("unlock", 4);
+    showMoment(perk.name, `level ${format(level + 1)}`, "unlock");
     markDirty();
     render();
   }
@@ -671,6 +677,7 @@
     }
     clickRateBurst = 0;
     playTone("great");
+    showMoment("Great Bloom", `+${format(gain)} mycelium`, "great");
     if (navigator.vibrate) navigator.vibrate([18, 22, 18, 36]);
     markDirty();
     checkAchievements();
@@ -688,6 +695,8 @@
     addLoops(state, reward);
     recordSporeBurst(reward);
     addRushCharge(18);
+    playTone("dew", 4);
+    showMoment("daily dew", `+${format(reward)} spores`, "dew");
     markDirty();
     checkAchievements();
     render();
@@ -748,7 +757,8 @@
     addLoops(state, quest.reward);
     recordSporeBurst(quest.reward);
     addRushCharge(25);
-    playTone("bloom", 5);
+    playTone("unlock", 5);
+    showMoment(quest.name, `+${format(quest.reward)} spores`, "unlock");
     markDirty();
     checkAchievements();
     render();
@@ -783,6 +793,7 @@
       ? "Demo Spore Shower active. Configure rewarded AdMob IDs before App Store release."
       : "Spore Shower active.";
     playTone("shower");
+    showMoment("Spore Shower", `${Math.round(boostMinutes)} minute boost`, "shower");
     markDirty();
     checkAchievements();
     render();
@@ -1098,6 +1109,31 @@
       return;
     }
 
+    if (kind === "buy") {
+      playRootThump(ctx, now, .026, pan * .2);
+      playPluck(ctx, 392, now + .018, .36, .03, -.1);
+      playPluck(ctx, 587.33, now + .07, .44, .024, .14);
+      playBrush(ctx, now + .02, .12, .01, 1750, 0);
+      return;
+    }
+
+    if (kind === "unlock") {
+      [440, 554.37, 659.25, 880].forEach((frequency, index) => {
+        playPluck(ctx, frequency, now + index * .052, .62, .036 - index * .004, (index - 1.5) * .11);
+      });
+      playBell(ctx, 1318.51, now + .18, .86, .026, .16);
+      playBrush(ctx, now + .05, .22, .013, 2800, -.12);
+      return;
+    }
+
+    if (kind === "dew") {
+      playBrush(ctx, now, .28, .014, 4100, -.16);
+      [523.25, 659.25, 783.99].forEach((frequency, index) => {
+        playBell(ctx, frequency, now + index * .055, .58, .022, (index - 1) * .16);
+      });
+      return;
+    }
+
     if (kind === "great") {
       [261.63, 392, 523.25, 659.25, 783.99].forEach((frequency, index) => {
         playPluck(ctx, frequency, now + index * .07, 1.05, .058 - index * .004, (index - 2) * .08);
@@ -1131,12 +1167,38 @@
     els.soundButton.setAttribute("aria-label", state.soundOn ? "sound on" : "sound off");
   }
 
+  function showMoment(title, detail = "", kind = "bloom") {
+    if (testPlayMode || !document.body) return;
+    const host = document.querySelector(".phone-frame") || document.body;
+    const existing = host.querySelector(".moment-banner");
+    if (existing) existing.remove();
+    const banner = document.createElement("div");
+    banner.className = `moment-banner ${kind}`;
+    banner.innerHTML = `
+      <strong>${escapeHtml(title)}</strong>
+      <span>${escapeHtml(detail)}</span>
+    `;
+    host.appendChild(banner);
+    window.clearTimeout(momentTimer);
+    momentTimer = window.setTimeout(() => {
+      banner.classList.add("leaving");
+      window.setTimeout(() => banner.remove(), 420);
+    }, 1850);
+  }
+
   function checkAchievements() {
+    const unlockedNow = [];
     achievements.forEach(achievement => {
       if (!state.achievements.includes(achievement.id) && achievement.req(state)) {
         state.achievements.push(achievement.id);
+        unlockedNow.push(achievement);
       }
     });
+    if (unlockedNow.length) {
+      const latest = unlockedNow[unlockedNow.length - 1];
+      showMoment(latest.name, "badge unlocked", "badge");
+      playTone("unlock", 3 + unlockedNow.length);
+    }
   }
 
   function tap(event) {
@@ -1161,10 +1223,12 @@
     if (showFullImpact) showPop(x, y, `+${format(gained)}`, comboCount);
     if (milestone.reward > 0) {
       showPop(rect.left + rect.width / 2, rect.bottom - 16, `${milestone.latest.name} +${format(milestone.reward)}`, comboCount + 8);
+      showMoment(milestone.latest.name, `+${format(milestone.reward)} spores`, "badge");
       playTone("bloom", comboCount + 2);
     }
     if (meadow.blooms > 0) {
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
+      showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} meadow blooms` : "new meadow bloom", "meadow");
       playTone("bloom", comboCount);
     } else if (milestone.reward <= 0) {
       playTone("tap", comboCount);
@@ -1791,7 +1855,11 @@
     const earned = incomePerSecond() * dt;
     if (earned > 0) {
       addLoops(state, earned);
-      addMeadowCare(earned * 0.08);
+      const meadow = addMeadowCare(earned * 0.08);
+      if (meadow.blooms > 0) {
+        showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} meadow blooms` : "new meadow bloom", "meadow");
+        playTone("bloom", 2);
+      }
       markDirty();
       checkAchievements();
     }
@@ -1838,6 +1906,45 @@
         render();
       }
     });
+  }
+
+  if (testPlayMode) {
+    window.IDLESHROOM_TEST = {
+      tapMany(count = 1) {
+        const rect = els.seedButton.getBoundingClientRect();
+        const event = {
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2
+        };
+        const total = Math.max(0, Math.min(100000, Number(count) || 0));
+        for (let index = 0; index < total; index += 1) tap(event);
+        renderCore();
+        return this.metrics();
+      },
+      metrics() {
+        return {
+          taps: Number(state.clicks || 0),
+          spores: Number(state.loops || 0),
+          totalSpores: Number(state.totalLoops || 0),
+          meadowLevel: Number(state.meadowLevel || 1),
+          meadowName: meadowTitle(),
+          achievements: state.achievements.length,
+          maxCombo: Number(state.maxCombo || 0),
+          sporesPerSecond: incomePerSecond(),
+          scrollable: document.documentElement.scrollHeight > window.innerHeight + 1,
+          overflowX: document.documentElement.scrollWidth > window.innerWidth + 1
+        };
+      }
+    };
+    const requestedClicks = Number(new URLSearchParams(window.location.search).get("simClicks") || 0);
+    if (requestedClicks > 0) {
+      const started = Date.now();
+      const result = window.IDLESHROOM_TEST.tapMany(requestedClicks);
+      document.body.dataset.testMetrics = JSON.stringify({
+        elapsed: Date.now() - started,
+        ...result
+      });
+    }
   }
 
   window.addEventListener("beforeunload", save);
