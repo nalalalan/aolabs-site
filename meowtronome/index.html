@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>meowtronome / aolabs.io</title>
-  <meta name="description" content="A browser metronome whose beat is a meow.">
+  <meta name="description" content="A quiet browser metronome using a real cat meow recording.">
   <link rel="canonical" href="https://aolabs.io/meowtronome/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
   <meta property="og:title" content="meowtronome">
-  <meta property="og:description" content="A browser metronome whose beat is a meow.">
+  <meta property="og:description" content="A quiet browser metronome using a real cat meow recording.">
   <meta property="og:url" content="https://aolabs.io/meowtronome/">
   <meta property="og:image" content="https://aolabs.io/meowtronome/icon.svg">
   <meta name="twitter:card" content="summary">
   <meta name="application-name" content="meowtronome">
-  <meta name="theme-color" content="#f7efe6">
+  <meta name="theme-color" content="#f5eee4">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="preload" href="./assets/meow-silas.mp3" as="fetch" type="audio/mpeg" crossorigin>
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-meowtronome">
+  <link rel="stylesheet" href="./styles.css?v=20260520-zen-meow">
 </head>
 <body>
   <header class="suite-topbar">
@@ -34,14 +35,12 @@
   </header>
 
   <main class="shell">
-    <section class="stage" aria-label="meowtronome controls">
-      <div class="instrument">
-        <div class="meter" aria-hidden="true">
-          <div class="meter-track"></div>
-          <div class="meter-arm" id="meterArm">
-            <span></span>
-          </div>
-          <div class="cat-face">
+    <section class="zen-card" aria-label="meowtronome controls">
+      <div class="cat-scene" id="catScene" aria-hidden="true">
+        <div class="pulse-ring" id="beatPulse"></div>
+        <div class="cat-dancer" id="catDancer">
+          <span class="tail"></span>
+          <div class="cat-face" id="catFace">
             <span class="ear left"></span>
             <span class="ear right"></span>
             <span class="eye left"></span>
@@ -53,61 +52,59 @@
             <span class="whisker w3"></span>
             <span class="whisker w4"></span>
           </div>
-          <div class="meter-base">
-            <span id="beatLabel">ready</span>
+          <div class="cat-body">
+            <span class="belly"></span>
+            <span class="paw left"></span>
+            <span class="paw right"></span>
+            <span class="foot left"></span>
+            <span class="foot right"></span>
           </div>
         </div>
       </div>
 
-      <div class="controls">
-        <div class="tempo-readout">
-          <h1>meowtronome</h1>
-          <div>
-            <strong id="bpmValue">96</strong>
-            <span>bpm</span>
-          </div>
+      <div class="tempo-readout">
+        <h1>meowtronome</h1>
+        <p>Silas meow</p>
+        <div class="tempo-number">
+          <strong id="bpmValue">96</strong>
+          <span>bpm</span>
         </div>
-
-        <label class="slider-row" for="bpmRange">
-          <span>tempo</span>
-          <input id="bpmRange" type="range" min="40" max="220" value="96">
-        </label>
-
-        <div class="nudge-row" aria-label="tempo controls">
-          <button type="button" class="nudge" data-nudge="-5">-5</button>
-          <button type="button" class="nudge" data-nudge="-1">-1</button>
-          <input id="bpmInput" type="number" min="40" max="220" value="96" aria-label="beats per minute">
-          <button type="button" class="nudge" data-nudge="1">+1</button>
-          <button type="button" class="nudge" data-nudge="5">+5</button>
-        </div>
-
-        <fieldset class="segmented">
-          <legend>beats</legend>
-          <label><input type="radio" name="beats" value="2"><span>2</span></label>
-          <label><input type="radio" name="beats" value="3"><span>3</span></label>
-          <label><input type="radio" name="beats" value="4" checked><span>4</span></label>
-          <label><input type="radio" name="beats" value="6"><span>6</span></label>
-        </fieldset>
-
-        <fieldset class="segmented">
-          <legend>meow</legend>
-          <label><input type="radio" name="voice" value="soft" checked><span>soft</span></label>
-          <label><input type="radio" name="voice" value="bright"><span>bright</span></label>
-          <label><input type="radio" name="voice" value="tiny"><span>tiny</span></label>
-        </fieldset>
-
-        <div class="beat-dots" id="beatDots" aria-label="beat position"></div>
-
-        <div class="actions">
-          <button type="button" class="primary" id="toggleButton" aria-pressed="false">start</button>
-          <button type="button" id="tapButton">tap tempo</button>
-        </div>
-
-        <p class="state" id="statusText">press start to enable audio</p>
       </div>
+
+      <label class="slider-row" for="bpmRange">
+        <span>tempo</span>
+        <input id="bpmRange" type="range" min="40" max="220" value="96">
+      </label>
+
+      <div class="fine-row" aria-label="tempo controls">
+        <button type="button" class="nudge" data-nudge="-1" aria-label="decrease tempo">-</button>
+        <input id="bpmInput" type="number" min="40" max="220" value="96" aria-label="beats per minute">
+        <button type="button" class="nudge" data-nudge="1" aria-label="increase tempo">+</button>
+      </div>
+
+      <fieldset class="segmented">
+        <legend>beats</legend>
+        <label><input type="radio" name="beats" value="2"><span>2</span></label>
+        <label><input type="radio" name="beats" value="3"><span>3</span></label>
+        <label><input type="radio" name="beats" value="4" checked><span>4</span></label>
+        <label><input type="radio" name="beats" value="6"><span>6</span></label>
+      </fieldset>
+
+      <div class="beat-dots" id="beatDots" aria-label="beat position"></div>
+
+      <div class="actions">
+        <button type="button" class="primary" id="toggleButton" aria-pressed="false">start</button>
+        <button type="button" id="tapButton">tap</button>
+      </div>
+
+      <p class="state" id="statusText">real cat sound ready</p>
+      <p class="credit">
+        <a href="https://commons.wikimedia.org/wiki/File:Meow.ogg">Meow.ogg</a>
+        by Dan Crosby / Dcrosby, CC BY-SA 3.0
+      </p>
     </section>
   </main>
 
-  <script src="./app.js?v=20260520-meowtronome"></script>
+  <script src="./app.js?v=20260520-zen-meow"></script>
 </body>
 </html>

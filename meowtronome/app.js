@@ -1,3 +1,14 @@
+const meowSources = [
+  { url: "./assets/meow-silas.mp3", type: "audio/mpeg" },
+  { url: "./assets/meow-silas.ogg", type: "audio/ogg" },
+];
+
+const meowSourceUrl = (() => {
+  const audio = document.createElement("audio");
+  const source = meowSources.find((candidate) => audio.canPlayType(candidate.type));
+  return (source || meowSources[0]).url;
+})();
+
 const state = {
   bpm: 96,
   beatsPerMeasure: 4,
@@ -7,8 +18,9 @@ const state = {
   nextNoteTime: 0,
   schedulerTimer: null,
   audioContext: null,
+  meowBuffer: null,
+  meowBytesPromise: null,
   tapTimes: [],
-  voice: "soft",
 };
 
 const lookaheadMs = 25;
@@ -21,8 +33,8 @@ const elements = {
   toggleButton: document.querySelector("#toggleButton"),
   tapButton: document.querySelector("#tapButton"),
   beatDots: document.querySelector("#beatDots"),
-  beatLabel: document.querySelector("#beatLabel"),
-  meterArm: document.querySelector("#meterArm"),
+  catDancer: document.querySelector("#catDancer"),
+  catFace: document.querySelector("#catFace"),
   statusText: document.querySelector("#statusText"),
 };
 
@@ -55,14 +67,27 @@ function renderBeatDots() {
   );
 }
 
+function pulseCat() {
+  document.body.classList.add("is-beating");
+  elements.catDancer.style.setProperty("--dance-dir", state.beatIndex % 2 === 0 ? "-1" : "1");
+  elements.catDancer.classList.remove("dance");
+  elements.catFace.classList.remove("pop");
+  void elements.catDancer.offsetWidth;
+  window.requestAnimationFrame(() => {
+    elements.catDancer.classList.add("dance");
+    elements.catFace.classList.add("pop");
+  });
+  window.setTimeout(() => {
+    document.body.classList.remove("is-beating");
+    elements.catDancer.classList.remove("dance");
+    elements.catFace.classList.remove("pop");
+  }, 260);
+}
+
 function setBeat(index) {
   state.beatIndex = index % state.beatsPerMeasure;
   renderBeatDots();
-  elements.beatLabel.textContent = state.isRunning
-    ? `${state.beatIndex + 1} / ${state.beatsPerMeasure}`
-    : "ready";
-  const swing = state.beatIndex % 2 === 0 ? -21 : 21;
-  elements.meterArm.style.transform = `translateX(-50%) rotate(${swing}deg)`;
+  if (state.isRunning) pulseCat();
 }
 
 function ensureAudio() {
@@ -76,76 +101,67 @@ function ensureAudio() {
   return Promise.resolve();
 }
 
-function makeNoiseBuffer(audioContext, duration) {
-  const sampleCount = Math.max(1, Math.floor(audioContext.sampleRate * duration));
-  const buffer = audioContext.createBuffer(1, sampleCount, audioContext.sampleRate);
-  const channel = buffer.getChannelData(0);
-  for (let index = 0; index < sampleCount; index += 1) {
-    channel[index] = (Math.random() * 2 - 1) * (1 - index / sampleCount);
+function fetchMeowBytes() {
+  if (!state.meowBytesPromise) {
+    state.meowBytesPromise = fetch(meowSourceUrl).then((response) => {
+      if (!response.ok) throw new Error("meow sample unavailable");
+      return response.arrayBuffer();
+    });
   }
-  return buffer;
+  return state.meowBytesPromise;
+}
+
+function decodeAudioData(audioContext, arrayBuffer) {
+  return new Promise((resolve, reject) => {
+    const promise = audioContext.decodeAudioData(arrayBuffer, resolve, reject);
+    if (promise && typeof promise.then === "function") {
+      promise.then(resolve, reject);
+    }
+  });
+}
+
+async function loadMeowSample() {
+  if (state.meowBuffer) return state.meowBuffer;
+  elements.statusText.textContent = "loading cat sound";
+  const bytes = await fetchMeowBytes();
+  state.meowBuffer = await decodeAudioData(state.audioContext, bytes.slice(0));
+  elements.statusText.textContent = "real cat sound ready";
+  return state.meowBuffer;
 }
 
 function playMeow(time, accented) {
   const audioContext = state.audioContext;
-  const profile = {
-    soft: { start: 480, peak: 760, end: 390, gain: .34, length: .22 },
-    bright: { start: 560, peak: 920, end: 430, gain: .38, length: .2 },
-    tiny: { start: 720, peak: 1040, end: 620, gain: .25, length: .16 },
-  }[state.voice] || { start: 480, peak: 760, end: 390, gain: .34, length: .22 };
+  if (!audioContext || !state.meowBuffer) return;
 
-  const length = accented ? profile.length + .045 : profile.length;
-  const voiceGain = audioContext.createGain();
+  const source = audioContext.createBufferSource();
+  const gain = audioContext.createGain();
   const filter = audioContext.createBiquadFilter();
-  const oscillator = audioContext.createOscillator();
-  const secondOscillator = audioContext.createOscillator();
+  const playbackRate = accented ? 1.04 : 1.14;
+  const maxLength = Math.min(0.52, Math.max(0.18, secondsPerBeat() * 0.78));
+  const playFor = Math.min(state.meowBuffer.duration / playbackRate, maxLength);
 
-  filter.type = "bandpass";
-  filter.frequency.setValueAtTime(accented ? 1180 : 980, time);
-  filter.Q.setValueAtTime(accented ? 7 : 5.5, time);
+  source.buffer = state.meowBuffer;
+  source.playbackRate.setValueAtTime(playbackRate, time);
 
-  oscillator.type = "sawtooth";
-  oscillator.frequency.setValueAtTime(profile.start * (accented ? 1.08 : 1), time);
-  oscillator.frequency.exponentialRampToValueAtTime(profile.peak * (accented ? 1.1 : 1), time + length * .32);
-  oscillator.frequency.exponentialRampToValueAtTime(profile.end, time + length);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(accented ? 6400 : 5600, time);
+  filter.Q.setValueAtTime(0.2, time);
 
-  secondOscillator.type = "triangle";
-  secondOscillator.frequency.setValueAtTime(profile.start * .5, time);
-  secondOscillator.frequency.exponentialRampToValueAtTime(profile.end * .58, time + length);
+  gain.gain.setValueAtTime(0.0001, time);
+  gain.gain.exponentialRampToValueAtTime(accented ? 0.58 : 0.44, time + 0.018);
+  gain.gain.exponentialRampToValueAtTime(0.0001, time + playFor);
 
-  voiceGain.gain.setValueAtTime(0.0001, time);
-  voiceGain.gain.exponentialRampToValueAtTime(profile.gain * (accented ? 1.25 : 1), time + .018);
-  voiceGain.gain.exponentialRampToValueAtTime(0.0001, time + length);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(audioContext.destination);
 
-  oscillator.connect(filter);
-  secondOscillator.connect(filter);
-  filter.connect(voiceGain);
-  voiceGain.connect(audioContext.destination);
-
-  const noise = audioContext.createBufferSource();
-  const noiseGain = audioContext.createGain();
-  const noiseFilter = audioContext.createBiquadFilter();
-  noise.buffer = makeNoiseBuffer(audioContext, .055);
-  noiseFilter.type = "highpass";
-  noiseFilter.frequency.setValueAtTime(1300, time);
-  noiseGain.gain.setValueAtTime(accented ? .07 : .045, time);
-  noiseGain.gain.exponentialRampToValueAtTime(.0001, time + .055);
-  noise.connect(noiseFilter);
-  noiseFilter.connect(noiseGain);
-  noiseGain.connect(audioContext.destination);
-
-  oscillator.start(time);
-  secondOscillator.start(time);
-  noise.start(time);
-  oscillator.stop(time + length + .02);
-  secondOscillator.stop(time + length + .02);
-  noise.stop(time + .065);
+  source.start(time, 0);
+  source.stop(time + playFor + 0.015);
 }
 
 function scheduleBeat(beatNumber, time) {
   const beatIndex = beatNumber % state.beatsPerMeasure;
-  const accented = beatIndex === 0;
-  playMeow(time, accented);
+  playMeow(time, beatIndex === 0);
 
   const delay = Math.max(0, (time - state.audioContext.currentTime) * 1000);
   window.setTimeout(() => setBeat(beatIndex), delay);
@@ -161,13 +177,14 @@ function scheduler() {
 
 async function start() {
   await ensureAudio();
+  await loadMeowSample();
   state.isRunning = true;
   state.beatIndex = 0;
   state.nextBeatIndex = 0;
-  state.nextNoteTime = state.audioContext.currentTime + .045;
+  state.nextNoteTime = state.audioContext.currentTime + 0.045;
   elements.toggleButton.textContent = "stop";
   elements.toggleButton.setAttribute("aria-pressed", "true");
-  elements.statusText.textContent = "meow is running";
+  elements.statusText.textContent = "meowing";
   document.body.classList.add("is-running");
   scheduler();
   state.schedulerTimer = window.setInterval(scheduler, lookaheadMs);
@@ -180,10 +197,9 @@ function stop() {
   elements.toggleButton.textContent = "start";
   elements.toggleButton.setAttribute("aria-pressed", "false");
   elements.statusText.textContent = "paused";
-  document.body.classList.remove("is-running");
+  document.body.classList.remove("is-running", "is-beating");
   setBeat(0);
   state.nextBeatIndex = 0;
-  elements.meterArm.style.transform = "translateX(-50%) rotate(0deg)";
 }
 
 function toggle() {
@@ -192,7 +208,7 @@ function toggle() {
     return;
   }
   start().catch(() => {
-    elements.statusText.textContent = "audio unavailable";
+    elements.statusText.textContent = "cat sound unavailable";
   });
 }
 
@@ -211,8 +227,12 @@ function tapTempo() {
   }
   const average = intervals.reduce((sum, value) => sum + value, 0) / intervals.length;
   setBpm(Math.round(60000 / average));
-  elements.statusText.textContent = "tempo set from taps";
+  elements.statusText.textContent = "tempo set";
 }
+
+fetchMeowBytes().catch(() => {
+  elements.statusText.textContent = "cat sound unavailable";
+});
 
 elements.toggleButton.addEventListener("click", toggle);
 elements.tapButton.addEventListener("click", tapTempo);
@@ -239,12 +259,6 @@ document.querySelectorAll('input[name="beats"]').forEach((input) => {
   });
 });
 
-document.querySelectorAll('input[name="voice"]').forEach((input) => {
-  input.addEventListener("change", () => {
-    state.voice = input.value;
-  });
-});
-
 setBpm(state.bpm);
 setBeat(0);
 
@@ -253,6 +267,7 @@ window.Meowtronome = {
     bpm: state.bpm,
     beatsPerMeasure: state.beatsPerMeasure,
     isRunning: state.isRunning,
-    voice: state.voice,
+    sampleLoaded: Boolean(state.meowBuffer),
+    sampleUrl: meowSourceUrl,
   }),
 };
