@@ -17,10 +17,10 @@
   <meta name="theme-color" content="#f5eee4">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="preload" href="./assets/cat-dance-fluid.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="./assets/meow-silas.mp3" as="fetch" type="audio/mpeg" crossorigin>
+  <link rel="preload" href="./assets/meow-warm.mp3" as="fetch" type="audio/mpeg" crossorigin>
+  <link rel="preload" href="./assets/cat-dance-sheet.webp" as="image">
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-fluid-cat">
+  <link rel="stylesheet" href="./styles.css?v=20260520-photo-cat">
 </head>
 <body>
   <header class="suite-topbar">
@@ -39,10 +39,13 @@
     <section class="zen-card" aria-label="meowtronome controls">
       <div class="cat-scene" id="catScene" aria-hidden="true">
         <div class="pulse-ring" id="beatPulse"></div>
-        <video class="cat-dancer" id="catDancer" poster="./assets/cat-dance-poster.png" muted playsinline loop preload="auto">
-          <source src="./assets/cat-dance-fluid.webm" type="video/webm">
-          <source src="./assets/cat-dance-fluid.mp4" type="video/mp4">
-        </video>
+        <div class="cat-dancer motion-1" id="catDancer" data-pose="1">
+          <div class="cat-shadow"></div>
+          <div class="photo-cat">
+            <span class="cat-frame previous pose-1" id="catFramePrevious"></span>
+            <span class="cat-frame current pose-1" id="catFrameCurrent"></span>
+          </div>
+        </div>
       </div>
 
       <div class="tempo-readout">
@@ -65,9 +68,9 @@
 
       <fieldset class="segmented">
         <legend>beats</legend>
-        <label><input type="radio" name="beats" value="2"><span>2</span></label>
-        <label><input type="radio" name="beats" value="3"><span>3</span></label>
-        <label><input type="radio" name="beats" value="4" checked><span>4</span></label>
+        <label><input type="radio" name="beats" value="2"><span>2/4</span></label>
+        <label><input type="radio" name="beats" value="3"><span>3/4</span></label>
+        <label><input type="radio" name="beats" value="4" checked><span>4/4</span></label>
       </fieldset>
 
       <div class="beat-dots" id="beatDots" aria-label="beat position"></div>
@@ -85,6 +88,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=20260520-fluid-cat"></script>
+  <script src="./app.js?v=20260520-photo-cat"></script>
 </body>
 </html>
