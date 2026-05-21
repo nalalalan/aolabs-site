@@ -5268,3 +5268,62 @@ body[data-biome="ancient"] .scene-sparkle {
     animation-iteration-count: 1;
   }
 }
+
+/* Rating-depth pass: keep early Bloom and Atlas screens purposeful before online rows exist. */
+.game-page .store-list:has(.garden-card + .garden-card) {
+  align-content: stretch;
+}
+
+.game-page .store-list:has(.garden-card + .garden-card) .garden-card {
+  min-height: 0;
+}
+
+.game-page .atlas-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+  align-content: stretch;
+  gap: 12px;
+  text-align: left;
+}
+
+.game-page .atlas-card::before {
+  justify-self: center;
+  align-self: end;
+  margin: 0 0 8px;
+}
+
+.game-page .atlas-card strong {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.game-page .atlas-card span,
+.game-page .atlas-card em {
+  display: block;
+  color: rgba(91, 68, 62, .78);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.game-page .atlas-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.game-page .atlas-stats b {
+  min-width: 0;
+  padding: 8px 5px;
+  border: 1px solid rgba(84, 55, 43, .13);
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255,255,255,.76), transparent 46%),
+    rgba(255, 245, 224, .58);
+  color: #4d3531;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}

@@ -162,7 +162,19 @@
     { id: "click-5000", name: "Five-thousand rhythm", desc: "Tap 5,000 times.", req: state => state.clicks >= 5000 },
     { id: "click-10000", name: "Ten-thousand shimmer", desc: "Tap 10,000 times.", req: state => state.clicks >= 10000 },
     { id: "env-16", name: "Far meadow", desc: "Reach environment 16.", req: state => Number(state.meadowLevel || 1) >= 16 },
-    { id: "env-32", name: "Forever map", desc: "Reach environment 32.", req: state => Number(state.meadowLevel || 1) >= 32 }
+    { id: "env-32", name: "Forever map", desc: "Reach environment 32.", req: state => Number(state.meadowLevel || 1) >= 32 },
+    { id: "combo-25", name: "Cap rhythm", desc: "Reach a 25 tap combo.", req: state => Number(state.maxCombo || 0) >= 25 },
+    { id: "combo-75", name: "Spore drummer", desc: "Reach a 75 tap combo.", req: state => Number(state.maxCombo || 0) >= 75 },
+    { id: "machine-50", name: "Busy meadow", desc: "Own 50 meadow pieces.", req: state => ownedTotal(state) >= 50 },
+    { id: "machine-150", name: "Tiny city", desc: "Own 150 meadow pieces.", req: state => ownedTotal(state) >= 150 },
+    { id: "rate-100", name: "Soft engine", desc: "Reach 100 spores/sec.", req: state => incomePerSecond(state) >= 100 },
+    { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 spores/sec.", req: state => incomePerSecond(state) >= 10000 },
+    { id: "bloom-3", name: "Third season", desc: "Great Bloom 3 times.", req: state => Number(state.bloomCount || 0) >= 3 },
+    { id: "bloom-10", name: "Ancient seasons", desc: "Great Bloom 10 times.", req: state => Number(state.bloomCount || 0) >= 10 },
+    { id: "streak-3", name: "Dew habit", desc: "Keep a 3 day dew streak.", req: state => Number(state.streak || 0) >= 3 },
+    { id: "quest-day", name: "Friend day", desc: "Claim all 3 friend quests in a day.", req: state => Number(state.claimedQuests?.length || 0) >= 3 },
+    { id: "rush-10", name: "Rush garden", desc: "Trigger 10 Spore Rushes.", req: state => Number(state.rushes || 0) >= 10 },
+    { id: "env-64", name: "Full atlas", desc: "Reach environment 64.", req: state => Number(state.meadowLevel || 1) >= 64 }
   ];
 
   const perks = [
@@ -226,6 +238,7 @@
       totalLoops: 0,
       lifetimeLoops: 0,
       clicks: 0,
+      maxCombo: 0,
       rootstock: 0,
       dailyClaims: 0,
       focusUntil: 0,
@@ -1134,6 +1147,7 @@
     if (!state.firstTapAt) state.firstTapAt = now;
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
+    state.maxCombo = Math.max(Number(state.maxCombo || 0), comboCount);
     const gained = tapPower() * comboTapMultiplier(comboCount);
     addLoops(state, gained);
     const meadow = addMeadowCare(gained);
@@ -1438,9 +1452,11 @@
   function renderMachines() {
     const strongestAffordable = [...machines].reverse().find(machine => state.loops >= machineCost(machine));
     const nextLocked = machines.find(machine => state.loops < machineCost(machine));
+    const nextLockedIndex = machines.findIndex(machine => machine.id === nextLocked?.id);
+    const nextPreview = nextLockedIndex >= 0 ? machines[nextLockedIndex + 1] : null;
     const strongestOwned = [...machines].reverse().find(machine => Number(state.machines[machine.id] || 0) > 0);
     const visibleMachines = [];
-    [strongestAffordable, nextLocked, strongestOwned, machines[0]].forEach(machine => {
+    [strongestAffordable, nextLocked, nextPreview, strongestOwned, machines[0], machines[1]].forEach(machine => {
       if (machine && !visibleMachines.some(item => item.id === machine.id) && visibleMachines.length < 2) {
         visibleMachines.push(machine);
       }
@@ -1540,10 +1556,19 @@
     els.submitScoreButton.disabled = leaderboardSubmitting;
     els.submitScoreButton.textContent = leaderboardSubmitting ? "submitting" : "submit score";
     if (!leaderboardEntries.length) {
+      const goal = nextClickMilestone()
+        ? `${format(nextClickMilestone().clicks - Number(state.clicks || 0))} taps to ${nextClickMilestone().name}`
+        : `${format(Math.max(0, bloomRequirement() - Number(state.totalLoops || 0)))} spores to Great Bloom`;
       els.leaderboardList.innerHTML = `
-        <article class="leaderboard-empty">
-          <strong>First grove pending</strong>
-          <span>Submit a strong run or a Great Bloom to mark the atlas.</span>
+        <article class="leaderboard-empty atlas-card">
+          <strong>Current run</strong>
+          <span>${format(state.bloomCount || 0)} blooms / ${format(state.rootstock || 0)} mycelium / ${format(state.lifetimeLoops || 0)} lifetime spores</span>
+          <div class="atlas-stats" aria-hidden="true">
+            <b>${format(state.clicks || 0)} taps</b>
+            <b>${format(state.meadowLevel || 1)} meadow</b>
+            <b>${format(state.maxCombo || 0)} combo</b>
+          </div>
+          <em>${goal}</em>
         </article>
       `;
       return;
