@@ -260,6 +260,8 @@
       claimedQuests: [],
       claimedClickMilestones: [],
       questsClaimed: 0,
+      offlineReward: 0,
+      offlineSeconds: 0,
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
       perks: Object.fromEntries(perks.map(perk => [perk.id, 0])),
@@ -298,7 +300,11 @@
     const elapsed = Math.max(0, Math.min(maxOfflineSeconds, (now - Number(target.lastSaved || now)) / 1000));
     if (elapsed < 30) return;
     const earned = incomePerSecond(target) * elapsed * 0.55;
-    if (earned > 0) addLoops(target, earned);
+    if (earned > 0) {
+      addLoops(target, earned);
+      target.offlineReward = earned;
+      target.offlineSeconds = elapsed;
+    }
   }
 
   function save() {
@@ -323,6 +329,13 @@
     }
     if (number < 1000) return number.toFixed(number % 1 ? 1 : 0);
     return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(number);
+  }
+
+  function formatDuration(seconds) {
+    const value = Math.max(0, Number(seconds) || 0);
+    if (value < 90) return `${Math.round(value)}s`;
+    if (value < 5400) return `${Math.round(value / 60)}m`;
+    return `${Math.round(value / 3600)}h`;
   }
 
   function escapeHtml(value) {
@@ -467,6 +480,53 @@
     const milestone = nextClickMilestone(target);
     if (milestone) return { id: "forest", next: `${format(milestone.clicks - clicks)} taps to ${milestone.name}` };
     return { id: "forest", next: `next: ${meadowTitle(target, 1)}` };
+  }
+
+  function bloomGainFor(target = state) {
+    const required = bloomRequirement(target);
+    if (Number(target.totalLoops || 0) < required) return 0;
+    return Math.max(1, Math.floor(Math.sqrt(Number(target.totalLoops || 0) / required)));
+  }
+
+  function nextAction(target = state) {
+    const tutorial = tutorialStage(target);
+    if (tutorial.id !== "forest") {
+      return { detail: tutorial.next, kind: "tap", ready: false };
+    }
+
+    if (target.lastDaily !== todayKey()) {
+      return { detail: "daily dew ready", kind: "dew", ready: true };
+    }
+
+    const bloomGain = bloomGainFor(target);
+    if (bloomGain > 0) {
+      return { detail: `Great Bloom ready +${format(bloomGain)}`, kind: "bloom", ready: true };
+    }
+
+    const affordableCharm = upgrades.find(upgrade => !hasUpgrade(upgrade.id, target) && upgrade.req(target) && Number(target.loops || 0) >= upgrade.cost);
+    if (affordableCharm) {
+      return { detail: `wake ${affordableCharm.name}`, kind: "charm", ready: true };
+    }
+
+    const affordablePiece = [...machines].reverse().find(machine => Number(target.loops || 0) >= machineCost(machine, target));
+    if (affordablePiece) {
+      return { detail: `grow ${affordablePiece.name}`, kind: "piece", ready: true };
+    }
+
+    const nextMilestone = nextClickMilestone(target);
+    const nextPiece = machines.find(machine => Number(target.loops || 0) < machineCost(machine, target));
+    const pieceNeed = nextPiece ? Math.max(0, machineCost(nextPiece, target) - Number(target.loops || 0)) : Infinity;
+    const bloomNeed = Math.max(0, bloomRequirement(target) - Number(target.totalLoops || 0));
+
+    if (nextMilestone && Number(nextMilestone.clicks || 0) - Number(target.clicks || 0) <= 90) {
+      return { detail: `${format(nextMilestone.clicks - Number(target.clicks || 0))} taps to ${nextMilestone.name}`, kind: "tap", ready: false };
+    }
+
+    if (nextPiece && (pieceNeed <= bloomNeed || incomePerSecond(target) > 0)) {
+      return { detail: `${format(pieceNeed)} spores to ${nextPiece.name}`, kind: "piece", ready: false };
+    }
+
+    return { detail: `${format(bloomNeed)} run spores to Great Bloom`, kind: "bloom", ready: false };
   }
 
   function rootBonus(target = state) {
@@ -641,9 +701,7 @@
   }
 
   function graftGain() {
-    const required = bloomRequirement();
-    if (state.totalLoops < required) return 0;
-    return Math.max(1, Math.floor(Math.sqrt(state.totalLoops / required)));
+    return bloomGainFor();
   }
 
   function graft() {
@@ -1184,6 +1242,16 @@
       banner.classList.add("leaving");
       window.setTimeout(() => banner.remove(), 420);
     }, 1850);
+  }
+
+  function showOfflineReturn() {
+    const reward = Number(state.offlineReward || 0);
+    if (reward <= 0) return;
+    showMoment("welcome back", `+${format(reward)} spores / ${formatDuration(state.offlineSeconds)} away`, "dew");
+    playTone("dew", 2);
+    state.offlineReward = 0;
+    state.offlineSeconds = 0;
+    markDirty();
   }
 
   function checkAchievements() {
@@ -1761,7 +1829,12 @@
     els.meadowMood.textContent = meadowMood();
     els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
     els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care`;
-    if (els.nextBloomName) els.nextBloomName.textContent = tutorial.next || `next: ${meadowTitle(state, 1)}`;
+    if (els.nextBloomName) {
+      const action = nextAction();
+      els.nextBloomName.textContent = action.detail;
+      els.nextBloomName.dataset.ready = action.ready ? "true" : "false";
+      els.nextBloomName.dataset.kind = action.kind;
+    }
     if (els.rootRing) {
       els.rootRing.style.setProperty("--bloom", `${Math.round(progress * 100)}%`);
       els.rootRing.classList.toggle("ready", progress >= 0.98);
@@ -1926,6 +1999,10 @@
           taps: Number(state.clicks || 0),
           spores: Number(state.loops || 0),
           totalSpores: Number(state.totalLoops || 0),
+          offlineReward: Number(state.offlineReward || 0),
+          offlineSeconds: Number(state.offlineSeconds || 0),
+          nextAction: nextAction().detail,
+          nextActionReady: nextAction().ready,
           meadowLevel: Number(state.meadowLevel || 1),
           meadowName: meadowTitle(),
           achievements: state.achievements.length,
@@ -1936,7 +2013,18 @@
         };
       }
     };
-    const requestedClicks = Number(new URLSearchParams(window.location.search).get("simClicks") || 0);
+    const testParams = new URLSearchParams(window.location.search);
+    const requestedOfflineMinutes = Number(testParams.get("simOfflineMinutes") || 0);
+    if (requestedOfflineMinutes > 0) {
+      state.soundOn = false;
+      state.machines.plot = Math.max(Number(state.machines.plot || 0), 20);
+      state.machines.press = Math.max(Number(state.machines.press || 0), 6);
+      state.machines.clock = Math.max(Number(state.machines.clock || 0), 2);
+      state.lastDaily = todayKey();
+      state.lastSaved = Date.now() - requestedOfflineMinutes * 60 * 1000;
+      applyOffline(state);
+    }
+    const requestedClicks = Number(testParams.get("simClicks") || 0);
     if (requestedClicks > 0) {
       const started = Date.now();
       const result = window.IDLESHROOM_TEST.tapMany(requestedClicks);
@@ -1961,6 +2049,7 @@
   setScreen(document.body.dataset.tab);
   loadLeaderboard();
   render();
+  showOfflineReturn();
   window.setInterval(tick, 1000);
   window.setInterval(() => { if (dirty) save(); }, 5000);
 
