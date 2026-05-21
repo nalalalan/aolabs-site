@@ -74,6 +74,8 @@
   let leaderboardStatus = "";
   let leaderboardSubmitting = false;
   let audioContext = null;
+  let audioGraph = null;
+  let melodyStep = 0;
 
   const els = {};
   [
@@ -596,39 +598,211 @@
     if (!AudioCtx) return null;
     if (!audioContext) audioContext = new AudioCtx();
     if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+    ensureAudioGraph(audioContext);
     return audioContext;
   }
 
-  function playTone(kind = "tap") {
+  function createNoiseBuffer(ctx, seconds = 0.16) {
+    const length = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < length; i += 1) {
+      const fade = 1 - i / length;
+      data[i] = (Math.random() * 2 - 1) * fade * fade;
+    }
+    return buffer;
+  }
+
+  function createReverbBuffer(ctx) {
+    const seconds = 1.65;
+    const length = Math.floor(ctx.sampleRate * seconds);
+    const buffer = ctx.createBuffer(2, length, ctx.sampleRate);
+    for (let channel = 0; channel < 2; channel += 1) {
+      const data = buffer.getChannelData(channel);
+      for (let i = 0; i < length; i += 1) {
+        const fade = 1 - i / length;
+        data[i] = (Math.random() * 2 - 1) * fade * fade * (channel ? .82 : 1);
+      }
+    }
+    return buffer;
+  }
+
+  function ensureAudioGraph(ctx) {
+    if (audioGraph?.context === ctx) return audioGraph;
+    const dry = ctx.createGain();
+    const wet = ctx.createGain();
+    const master = ctx.createGain();
+    const compressor = ctx.createDynamicsCompressor();
+    const reverb = ctx.createConvolver();
+    const warmth = ctx.createBiquadFilter();
+
+    dry.gain.value = .76;
+    wet.gain.value = .18;
+    master.gain.value = .78;
+    compressor.threshold.value = -22;
+    compressor.knee.value = 20;
+    compressor.ratio.value = 3;
+    compressor.attack.value = .01;
+    compressor.release.value = .22;
+    warmth.type = "lowpass";
+    warmth.frequency.value = 6800;
+    warmth.Q.value = .45;
+    reverb.buffer = createReverbBuffer(ctx);
+
+    dry.connect(master);
+    wet.connect(reverb);
+    reverb.connect(master);
+    master.connect(warmth);
+    warmth.connect(compressor);
+    compressor.connect(ctx.destination);
+
+    audioGraph = { context: ctx, dry, wet };
+    return audioGraph;
+  }
+
+  function outputNode(ctx, panValue = 0) {
+    const graph = ensureAudioGraph(ctx);
+    if (!ctx.createStereoPanner) return { input: graph.dry, wet: graph.wet };
+    const dryPan = ctx.createStereoPanner();
+    const wetPan = ctx.createStereoPanner();
+    dryPan.pan.value = panValue;
+    wetPan.pan.value = panValue * .55;
+    dryPan.connect(graph.dry);
+    wetPan.connect(graph.wet);
+    return { input: dryPan, wet: wetPan };
+  }
+
+  function centsToRatio(cents) {
+    return Math.pow(2, cents / 1200);
+  }
+
+  function playBrush(ctx, when, seconds, volume, filterFrequency, panValue = 0) {
+    const source = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    const out = outputNode(ctx, panValue);
+    source.buffer = createNoiseBuffer(ctx, seconds);
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(filterFrequency, when);
+    filter.Q.value = 2.6;
+    gain.gain.setValueAtTime(.0001, when);
+    gain.gain.exponentialRampToValueAtTime(volume, when + .008);
+    gain.gain.exponentialRampToValueAtTime(.0001, when + seconds);
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(out.input);
+    gain.connect(out.wet);
+    source.start(when);
+    source.stop(when + seconds + .03);
+  }
+
+  function playPluck(ctx, frequency, when, seconds, volume, panValue = 0) {
+    const out = outputNode(ctx, panValue);
+    const body = ctx.createOscillator();
+    const air = ctx.createOscillator();
+    const bodyGain = ctx.createGain();
+    const airGain = ctx.createGain();
+    const tone = ctx.createBiquadFilter();
+    const detune = centsToRatio((Math.random() * 10) - 5);
+
+    body.type = "triangle";
+    air.type = "sine";
+    body.frequency.setValueAtTime(frequency * detune, when);
+    air.frequency.setValueAtTime(frequency * 2.01 * centsToRatio((Math.random() * 8) - 4), when);
+    tone.type = "lowpass";
+    tone.frequency.setValueAtTime(4200, when);
+    tone.frequency.exponentialRampToValueAtTime(1500, when + seconds);
+    bodyGain.gain.setValueAtTime(.0001, when);
+    bodyGain.gain.exponentialRampToValueAtTime(volume, when + .012);
+    bodyGain.gain.exponentialRampToValueAtTime(.0001, when + seconds);
+    airGain.gain.setValueAtTime(.0001, when + .006);
+    airGain.gain.exponentialRampToValueAtTime(volume * .22, when + .025);
+    airGain.gain.exponentialRampToValueAtTime(.0001, when + seconds * .72);
+
+    body.connect(bodyGain);
+    air.connect(airGain);
+    bodyGain.connect(tone);
+    airGain.connect(tone);
+    tone.connect(out.input);
+    tone.connect(out.wet);
+    body.start(when);
+    air.start(when + .004);
+    body.stop(when + seconds + .04);
+    air.stop(when + seconds + .04);
+  }
+
+  function playBell(ctx, frequency, when, seconds, volume, panValue = 0) {
+    const out = outputNode(ctx, panValue);
+    [1, 2.02, 3.01].forEach((partial, index) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = index === 0 ? "sine" : "triangle";
+      osc.frequency.setValueAtTime(frequency * partial * centsToRatio((Math.random() * 7) - 3.5), when);
+      gain.gain.setValueAtTime(.0001, when);
+      gain.gain.exponentialRampToValueAtTime(volume / (index + 1.6), when + .018 + index * .006);
+      gain.gain.exponentialRampToValueAtTime(.0001, when + seconds * (1 - index * .12));
+      osc.connect(gain);
+      gain.connect(out.input);
+      gain.connect(out.wet);
+      osc.start(when);
+      osc.stop(when + seconds + .04);
+    });
+  }
+
+  function playTone(kind = "tap", strength = 1) {
     const ctx = ensureAudio();
     if (!ctx) return;
     const now = ctx.currentTime;
-    const notes = {
-      tap: [520 + Math.random() * 80, 0.045, 0.035],
-      bloom: [740, 0.18, 0.07],
-      shower: [610, 0.24, 0.055],
-      great: [440, 0.5, 0.08]
-    }[kind] || [520, 0.05, 0.04];
-    const oscillator = ctx.createOscillator();
-    const gain = ctx.createGain();
-    oscillator.type = kind === "great" ? "triangle" : "sine";
-    oscillator.frequency.setValueAtTime(notes[0], now);
-    if (kind === "tap") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 1.35, now + notes[1]);
-    if (kind === "bloom" || kind === "shower") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 1.5, now + notes[1]);
-    if (kind === "great") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 2.25, now + notes[1]);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(notes[2], now + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + notes[1]);
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-    oscillator.start(now);
-    oscillator.stop(now + notes[1] + 0.04);
+    const scale = [392, 440, 493.88, 587.33, 659.25, 783.99, 880, 987.77];
+    const bloomChord = [523.25, 659.25, 783.99, 1046.5];
+    const pan = (Math.random() * .46) - .23;
+
+    if (kind === "tap") {
+      melodyStep = (melodyStep + 1) % 64;
+      const frequency = scale[(melodyStep + Math.floor(comboCount / 3)) % scale.length];
+      const volume = Math.min(.052, .026 + Math.min(12, strength) * .0026);
+      playBrush(ctx, now, .045, volume * .48, 1450 + Math.random() * 600, pan * .6);
+      playPluck(ctx, frequency, now + Math.random() * .01, .34, volume, pan);
+      if (comboCount >= 7) playBell(ctx, frequency * 1.5, now + .035, .28, volume * .48, -pan);
+      return;
+    }
+
+    if (kind === "bloom") {
+      bloomChord.forEach((frequency, index) => {
+        playPluck(ctx, frequency, now + index * .045, .56, .052 - index * .006, (index - 1.5) * .12);
+      });
+      playBrush(ctx, now + .02, .18, .018, 2400, .12);
+      playBell(ctx, 1318.51, now + .15, .75, .034, -.18);
+      return;
+    }
+
+    if (kind === "shower") {
+      for (let i = 0; i < 9; i += 1) {
+        const frequency = scale[(i * 2 + melodyStep) % scale.length] * (i > 5 ? 1.5 : 1);
+        playBell(ctx, frequency, now + i * .052 + Math.random() * .018, .68, .022, (i - 4) * .07);
+      }
+      playBrush(ctx, now, .42, .02, 3200, 0);
+      return;
+    }
+
+    if (kind === "great") {
+      [261.63, 392, 523.25, 659.25, 783.99].forEach((frequency, index) => {
+        playPluck(ctx, frequency, now + index * .07, 1.05, .058 - index * .004, (index - 2) * .08);
+      });
+      [1046.5, 1318.51, 1567.98].forEach((frequency, index) => {
+        playBell(ctx, frequency, now + .28 + index * .12, 1.1, .028, (index - 1) * .2);
+      });
+      playBrush(ctx, now + .12, .55, .026, 1800, 0);
+      return;
+    }
+
+    playPluck(ctx, 523.25, now, .3, .028, pan);
   }
 
   function toggleSound() {
     state.soundOn = !state.soundOn;
     markDirty();
-    if (state.soundOn) playTone("tap");
+    if (state.soundOn) playTone("tap", 4);
     renderSound();
   }
 
@@ -665,9 +839,9 @@
     showPop(x, y, `+${format(gained)}`, comboCount);
     if (meadow.blooms > 0) {
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
-      playTone("bloom");
+      playTone("bloom", comboCount);
     } else {
-      playTone("tap");
+      playTone("tap", comboCount);
     }
     showSporeBurst(x, y);
     showTapImpact(x, y, rect, comboCount);
