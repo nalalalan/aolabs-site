@@ -1,6 +1,6 @@
 const meowSources = [
-  { url: "./assets/meow-warm.mp3", type: "audio/mpeg" },
-  { url: "./assets/meow-warm.ogg", type: "audio/ogg" },
+  { url: "./assets/meow-cute-clean.mp3", type: "audio/mpeg" },
+  { url: "./assets/meow-cute-clean.ogg", type: "audio/ogg" },
 ];
 
 const meowSourceUrl = (() => {
@@ -21,6 +21,7 @@ const state = {
   audioContext: null,
   meowBuffer: null,
   meowBytesPromise: null,
+  outputLimiter: null,
   tapTimes: [],
 };
 
@@ -30,7 +31,6 @@ const scheduleAheadSeconds = 0.12;
 const elements = {
   bpmValue: document.querySelector("#bpmValue"),
   bpmRange: document.querySelector("#bpmRange"),
-  bpmInput: document.querySelector("#bpmInput"),
   toggleButton: document.querySelector("#toggleButton"),
   tapButton: document.querySelector("#tapButton"),
   beatDots: document.querySelector("#beatDots"),
@@ -41,9 +41,9 @@ const elements = {
 };
 
 const posePhrases = {
-  2: [2, 7],
+  2: [1, 6],
   3: [1, 3, 6],
-  4: [1, 2, 4, 7],
+  4: [1, 2, 3, 6],
 };
 
 function clampBpm(value) {
@@ -60,10 +60,21 @@ function setBpm(value) {
   state.bpm = clampBpm(value);
   elements.bpmValue.textContent = String(state.bpm);
   elements.bpmRange.value = String(state.bpm);
-  elements.bpmInput.value = String(state.bpm);
+  const fill = ((state.bpm - 40) / (220 - 40)) * 100;
+  elements.bpmRange.style.setProperty("--tempo-fill", `${fill}%`);
+  const beatMs = secondsPerBeat() * 1000;
+  const motionMs = Math.min(1050, Math.max(440, beatMs * 1.28));
   document.documentElement.style.setProperty(
     "--motion-ms",
-    `${Math.round(Math.min(720, Math.max(260, secondsPerBeat() * 920)))}ms`
+    `${Math.round(motionMs)}ms`
+  );
+  document.documentElement.style.setProperty(
+    "--fade-ms",
+    `${Math.round(motionMs * 1.18)}ms`
+  );
+  document.documentElement.style.setProperty(
+    "--phrase-ms",
+    `${Math.round(beatMs * state.beatsPerMeasure)}ms`
   );
 }
 
@@ -120,6 +131,9 @@ function ensureAudio() {
   if (!state.audioContext) {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     state.audioContext = new AudioContextClass();
+    state.outputLimiter = state.audioContext.createGain();
+    state.outputLimiter.gain.setValueAtTime(0.94, state.audioContext.currentTime);
+    state.outputLimiter.connect(state.audioContext.destination);
   }
   if (state.audioContext.state === "suspended") {
     return state.audioContext.resume();
@@ -161,27 +175,35 @@ function playMeow(time, accented) {
 
   const source = audioContext.createBufferSource();
   const gain = audioContext.createGain();
-  const filter = audioContext.createBiquadFilter();
-  const playbackRate = accented ? 0.96 : 1;
-  const maxLength = Math.min(0.82, Math.max(0.34, secondsPerBeat() * 1.16));
+  const highpass = audioContext.createBiquadFilter();
+  const lowpass = audioContext.createBiquadFilter();
+  const playbackRate = accented ? 0.98 : 1.015;
+  const maxLength = Math.min(0.78, Math.max(0.26, secondsPerBeat() * 0.92));
   const playFor = Math.min(state.meowBuffer.duration / playbackRate, maxLength);
+  const fadeOutStart = Math.max(0.13, playFor - Math.min(0.11, playFor * 0.32));
 
   source.buffer = state.meowBuffer;
   source.playbackRate.setValueAtTime(playbackRate, time);
 
-  filter.type = "lowpass";
-  filter.frequency.setValueAtTime(accented ? 4200 : 3900, time);
-  filter.Q.setValueAtTime(0.28, time);
+  highpass.type = "highpass";
+  highpass.frequency.setValueAtTime(280, time);
+  highpass.Q.setValueAtTime(0.24, time);
+
+  lowpass.type = "lowpass";
+  lowpass.frequency.setValueAtTime(accented ? 7600 : 7200, time);
+  lowpass.Q.setValueAtTime(0.16, time);
 
   gain.gain.setValueAtTime(0.0001, time);
-  gain.gain.exponentialRampToValueAtTime(accented ? 0.54 : 0.42, time + 0.026);
+  gain.gain.linearRampToValueAtTime(accented ? 1.08 : 1.0, time + 0.065);
+  gain.gain.setValueAtTime(accented ? 1.08 : 1.0, time + fadeOutStart);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + playFor);
 
-  source.connect(filter);
-  filter.connect(gain);
-  gain.connect(audioContext.destination);
+  source.connect(highpass);
+  highpass.connect(lowpass);
+  lowpass.connect(gain);
+  gain.connect(state.outputLimiter || audioContext.destination);
 
-  source.start(time, 0);
+  source.start(time, 0.012);
   source.stop(time + playFor + 0.015);
 }
 
@@ -271,14 +293,11 @@ elements.bpmRange.addEventListener("input", (event) => {
   setBpm(event.target.value);
 });
 
-elements.bpmInput.addEventListener("input", (event) => {
-  setBpm(event.target.value);
-});
-
 document.querySelectorAll('input[name="beats"]').forEach((input) => {
   input.addEventListener("change", () => {
     state.beatsPerMeasure = Number(input.value);
     state.nextBeatIndex = 0;
+    setBpm(state.bpm);
     setBeat(0);
   });
 });

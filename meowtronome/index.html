@@ -14,13 +14,13 @@
   <meta property="og:image" content="https://aolabs.io/meowtronome/icon.svg">
   <meta name="twitter:card" content="summary">
   <meta name="application-name" content="meowtronome">
-  <meta name="theme-color" content="#f5eee4">
+  <meta name="theme-color" content="#f3f6f1">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="preload" href="./assets/meow-warm.mp3" as="fetch" type="audio/mpeg" crossorigin>
-  <link rel="preload" href="./assets/cat-dance-sheet.webp" as="image">
+  <link rel="preload" href="./assets/meow-cute-clean.mp3" as="fetch" type="audio/mpeg" crossorigin>
+  <link rel="preload" href="./assets/cat-dance-cutout.webp" as="image">
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-photo-cat">
+  <link rel="stylesheet" href="./styles.css?v=20260521-cute-slider">
 </head>
 <body>
   <header class="suite-topbar">
@@ -59,12 +59,8 @@
 
       <label class="slider-row" for="bpmRange">
         <span>tempo</span>
-        <input id="bpmRange" type="range" min="40" max="220" value="96">
+        <input id="bpmRange" type="range" min="40" max="220" step="1" value="96">
       </label>
-
-      <div class="fine-row" aria-label="tempo controls">
-        <input id="bpmInput" type="number" min="40" max="220" value="96" aria-label="beats per minute">
-      </div>
 
       <fieldset class="segmented">
         <legend>beats</legend>
@@ -88,6 +84,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=20260520-photo-cat"></script>
+  <script src="./app.js?v=20260521-cute-slider"></script>
 </body>
 </html>
