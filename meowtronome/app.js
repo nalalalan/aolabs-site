@@ -25,6 +25,7 @@ const state = {
 
 const lookaheadMs = 25;
 const scheduleAheadSeconds = 0.12;
+const fallbackDanceDuration = 1.9;
 
 const elements = {
   bpmValue: document.querySelector("#bpmValue"),
@@ -34,7 +35,6 @@ const elements = {
   tapButton: document.querySelector("#tapButton"),
   beatDots: document.querySelector("#beatDots"),
   catDancer: document.querySelector("#catDancer"),
-  catFace: document.querySelector("#catFace"),
   statusText: document.querySelector("#statusText"),
 };
 
@@ -53,6 +53,17 @@ function setBpm(value) {
   elements.bpmValue.textContent = String(state.bpm);
   elements.bpmRange.value = String(state.bpm);
   elements.bpmInput.value = String(state.bpm);
+  syncDanceSpeed();
+}
+
+function danceDuration() {
+  return Number.isFinite(elements.catDancer.duration) && elements.catDancer.duration > 0
+    ? elements.catDancer.duration
+    : fallbackDanceDuration;
+}
+
+function danceSegmentDuration() {
+  return danceDuration() / state.beatsPerMeasure;
 }
 
 function renderBeatDots() {
@@ -67,27 +78,40 @@ function renderBeatDots() {
   );
 }
 
-function pulseCat() {
+function cueDanceMotion(beatNumber) {
+  const motionIndex = beatNumber % state.beatsPerMeasure;
+  const segment = danceSegmentDuration();
+  const duration = danceDuration();
+  const targetTime = Math.min(motionIndex * segment + 0.002, Math.max(0, duration - 0.04));
+  elements.catDancer.dataset.motion = String(motionIndex + 1);
+  if (elements.catDancer.readyState > 0) {
+    elements.catDancer.currentTime = targetTime;
+  }
+}
+
+function pulseCat(beatNumber) {
+  cueDanceMotion(beatNumber);
   document.body.classList.add("is-beating");
-  elements.catDancer.style.setProperty("--dance-dir", state.beatIndex % 2 === 0 ? "-1" : "1");
+  elements.catDancer.style.setProperty("--dance-dir", beatNumber % 2 === 0 ? "-1" : "1");
   elements.catDancer.classList.remove("dance");
-  elements.catFace.classList.remove("pop");
   void elements.catDancer.offsetWidth;
   window.requestAnimationFrame(() => {
     elements.catDancer.classList.add("dance");
-    elements.catFace.classList.add("pop");
   });
   window.setTimeout(() => {
     document.body.classList.remove("is-beating");
     elements.catDancer.classList.remove("dance");
-    elements.catFace.classList.remove("pop");
-  }, 260);
+  }, 420);
 }
 
-function setBeat(index) {
+function syncDanceSpeed() {
+  elements.catDancer.playbackRate = Math.min(2.4, Math.max(0.2, danceSegmentDuration() / secondsPerBeat()));
+}
+
+function setBeat(index, beatNumber = index) {
   state.beatIndex = index % state.beatsPerMeasure;
   renderBeatDots();
-  if (state.isRunning) pulseCat();
+  if (state.isRunning) pulseCat(beatNumber);
 }
 
 function ensureAudio() {
@@ -164,7 +188,7 @@ function scheduleBeat(beatNumber, time) {
   playMeow(time, beatIndex === 0);
 
   const delay = Math.max(0, (time - state.audioContext.currentTime) * 1000);
-  window.setTimeout(() => setBeat(beatIndex), delay);
+  window.setTimeout(() => setBeat(beatIndex, beatNumber), delay);
 }
 
 function scheduler() {
@@ -182,6 +206,10 @@ async function start() {
   state.beatIndex = 0;
   state.nextBeatIndex = 0;
   state.nextNoteTime = state.audioContext.currentTime + 0.045;
+  syncDanceSpeed();
+  elements.catDancer.currentTime = 0;
+  elements.catDancer.dataset.motion = "1";
+  elements.catDancer.play().catch(() => {});
   elements.toggleButton.textContent = "stop";
   elements.toggleButton.setAttribute("aria-pressed", "true");
   elements.statusText.textContent = "meowing";
@@ -194,6 +222,8 @@ function stop() {
   state.isRunning = false;
   window.clearInterval(state.schedulerTimer);
   state.schedulerTimer = null;
+  elements.catDancer.pause();
+  elements.catDancer.currentTime = 0;
   elements.toggleButton.textContent = "start";
   elements.toggleButton.setAttribute("aria-pressed", "false");
   elements.statusText.textContent = "paused";
@@ -234,6 +264,8 @@ fetchMeowBytes().catch(() => {
   elements.statusText.textContent = "cat sound unavailable";
 });
 
+elements.catDancer.addEventListener("loadedmetadata", syncDanceSpeed);
+
 elements.toggleButton.addEventListener("click", toggle);
 elements.tapButton.addEventListener("click", tapTempo);
 
@@ -245,16 +277,11 @@ elements.bpmInput.addEventListener("input", (event) => {
   setBpm(event.target.value);
 });
 
-document.querySelectorAll(".nudge").forEach((button) => {
-  button.addEventListener("click", () => {
-    setBpm(state.bpm + Number(button.dataset.nudge));
-  });
-});
-
 document.querySelectorAll('input[name="beats"]').forEach((input) => {
   input.addEventListener("change", () => {
     state.beatsPerMeasure = Number(input.value);
     state.nextBeatIndex = 0;
+    syncDanceSpeed();
     setBeat(0);
   });
 });
@@ -266,6 +293,7 @@ window.Meowtronome = {
   getState: () => ({
     bpm: state.bpm,
     beatsPerMeasure: state.beatsPerMeasure,
+    dancePhraseBeats: state.beatsPerMeasure,
     isRunning: state.isRunning,
     sampleLoaded: Boolean(state.meowBuffer),
     sampleUrl: meowSourceUrl,

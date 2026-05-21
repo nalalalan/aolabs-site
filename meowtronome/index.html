@@ -17,9 +17,10 @@
   <meta name="theme-color" content="#f5eee4">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="preload" href="./assets/cat-dance-fluid.mp4" as="video" type="video/mp4">
   <link rel="preload" href="./assets/meow-silas.mp3" as="fetch" type="audio/mpeg" crossorigin>
   <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260520-zen-meow">
+  <link rel="stylesheet" href="./styles.css?v=20260520-fluid-cat">
 </head>
 <body>
   <header class="suite-topbar">
@@ -38,28 +39,10 @@
     <section class="zen-card" aria-label="meowtronome controls">
       <div class="cat-scene" id="catScene" aria-hidden="true">
         <div class="pulse-ring" id="beatPulse"></div>
-        <div class="cat-dancer" id="catDancer">
-          <span class="tail"></span>
-          <div class="cat-face" id="catFace">
-            <span class="ear left"></span>
-            <span class="ear right"></span>
-            <span class="eye left"></span>
-            <span class="eye right"></span>
-            <span class="nose"></span>
-            <span class="mouth"></span>
-            <span class="whisker w1"></span>
-            <span class="whisker w2"></span>
-            <span class="whisker w3"></span>
-            <span class="whisker w4"></span>
-          </div>
-          <div class="cat-body">
-            <span class="belly"></span>
-            <span class="paw left"></span>
-            <span class="paw right"></span>
-            <span class="foot left"></span>
-            <span class="foot right"></span>
-          </div>
-        </div>
+        <video class="cat-dancer" id="catDancer" poster="./assets/cat-dance-poster.png" muted playsinline loop preload="auto">
+          <source src="./assets/cat-dance-fluid.webm" type="video/webm">
+          <source src="./assets/cat-dance-fluid.mp4" type="video/mp4">
+        </video>
       </div>
 
       <div class="tempo-readout">
@@ -77,9 +60,7 @@
       </label>
 
       <div class="fine-row" aria-label="tempo controls">
-        <button type="button" class="nudge" data-nudge="-1" aria-label="decrease tempo">-</button>
         <input id="bpmInput" type="number" min="40" max="220" value="96" aria-label="beats per minute">
-        <button type="button" class="nudge" data-nudge="1" aria-label="increase tempo">+</button>
       </div>
 
       <fieldset class="segmented">
@@ -87,7 +68,6 @@
         <label><input type="radio" name="beats" value="2"><span>2</span></label>
         <label><input type="radio" name="beats" value="3"><span>3</span></label>
         <label><input type="radio" name="beats" value="4" checked><span>4</span></label>
-        <label><input type="radio" name="beats" value="6"><span>6</span></label>
       </fieldset>
 
       <div class="beat-dots" id="beatDots" aria-label="beat position"></div>
@@ -105,6 +85,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=20260520-zen-meow"></script>
+  <script src="./app.js?v=20260520-fluid-cat"></script>
 </body>
 </html>

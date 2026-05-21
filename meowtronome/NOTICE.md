@@ -3,6 +3,12 @@
 The meow sound is `assets/meow-silas.ogg`, an unchanged copy of Wikimedia Commons `Meow.ogg`.
 `assets/meow-silas.mp3` is a browser-compatibility transcode of the same recording.
 
+The dancing cat visual assets are AO Labs generated bitmap/video assets made for this app:
+
+- `assets/cat-dance-fluid.mp4`
+- `assets/cat-dance-fluid.webm`
+- `assets/cat-dance-poster.png`
+
 - Source: https://commons.wikimedia.org/wiki/File:Meow.ogg
 - Description: My cat Silas meowing. by Dan Crosby.
 - Author/uploader: Dan Crosby / Dcrosby
