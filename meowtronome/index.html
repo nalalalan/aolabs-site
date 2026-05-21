@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>meowtronome / aolabs.io</title>
+  <meta name="description" content="A browser metronome whose beat is a meow.">
+  <link rel="canonical" href="https://aolabs.io/meowtronome/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AO Labs">
+  <meta property="og:title" content="meowtronome">
+  <meta property="og:description" content="A browser metronome whose beat is a meow.">
+  <meta property="og:url" content="https://aolabs.io/meowtronome/">
+  <meta property="og:image" content="https://aolabs.io/meowtronome/icon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="application-name" content="meowtronome">
+  <meta name="theme-color" content="#f7efe6">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
+  <link rel="stylesheet" href="./styles.css?v=20260520-meowtronome">
+</head>
+<body>
+  <header class="suite-topbar">
+    <div class="suite-brand-cluster">
+      <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
+        <img src="https://aolabs.io/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
+      </a>
+      <a class="suite-app-brand" href="./" aria-label="meowtronome home">
+        <img class="suite-app-mark" src="./icon.svg" alt="">
+        <span class="suite-app-name">meowtronome</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="stage" aria-label="meowtronome controls">
+      <div class="instrument">
+        <div class="meter" aria-hidden="true">
+          <div class="meter-track"></div>
+          <div class="meter-arm" id="meterArm">
+            <span></span>
+          </div>
+          <div class="cat-face">
+            <span class="ear left"></span>
+            <span class="ear right"></span>
+            <span class="eye left"></span>
+            <span class="eye right"></span>
+            <span class="nose"></span>
+            <span class="mouth"></span>
+            <span class="whisker w1"></span>
+            <span class="whisker w2"></span>
+            <span class="whisker w3"></span>
+            <span class="whisker w4"></span>
+          </div>
+          <div class="meter-base">
+            <span id="beatLabel">ready</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="tempo-readout">
+          <h1>meowtronome</h1>
+          <div>
+            <strong id="bpmValue">96</strong>
+            <span>bpm</span>
+          </div>
+        </div>
+
+        <label class="slider-row" for="bpmRange">
+          <span>tempo</span>
+          <input id="bpmRange" type="range" min="40" max="220" value="96">
+        </label>
+
+        <div class="nudge-row" aria-label="tempo controls">
+          <button type="button" class="nudge" data-nudge="-5">-5</button>
+          <button type="button" class="nudge" data-nudge="-1">-1</button>
+          <input id="bpmInput" type="number" min="40" max="220" value="96" aria-label="beats per minute">
+          <button type="button" class="nudge" data-nudge="1">+1</button>
+          <button type="button" class="nudge" data-nudge="5">+5</button>
+        </div>
+
+        <fieldset class="segmented">
+          <legend>beats</legend>
+          <label><input type="radio" name="beats" value="2"><span>2</span></label>
+          <label><input type="radio" name="beats" value="3"><span>3</span></label>
+          <label><input type="radio" name="beats" value="4" checked><span>4</span></label>
+          <label><input type="radio" name="beats" value="6"><span>6</span></label>
+        </fieldset>
+
+        <fieldset class="segmented">
+          <legend>meow</legend>
+          <label><input type="radio" name="voice" value="soft" checked><span>soft</span></label>
+          <label><input type="radio" name="voice" value="bright"><span>bright</span></label>
+          <label><input type="radio" name="voice" value="tiny"><span>tiny</span></label>
+        </fieldset>
+
+        <div class="beat-dots" id="beatDots" aria-label="beat position"></div>
+
+        <div class="actions">
+          <button type="button" class="primary" id="toggleButton" aria-pressed="false">start</button>
+          <button type="button" id="tapButton">tap tempo</button>
+        </div>
+
+        <p class="state" id="statusText">press start to enable audio</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js?v=20260520-meowtronome"></script>
+</body>
+</html>
