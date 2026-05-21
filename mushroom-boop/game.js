@@ -187,6 +187,11 @@
   let audioContext = null;
   let audioGraph = null;
   let melodyStep = 0;
+  let ambientTimer = 0;
+  let ambientStep = 0;
+  let coreRenderQueued = false;
+  let pressTimer = 0;
+  let lastScenePulseAt = 0;
 
   const els = {};
   [
@@ -482,6 +487,10 @@
     return tap * rootBonus(target);
   }
 
+  function comboTapMultiplier(combo = comboCount) {
+    return 1 + Math.min(0.72, Math.max(0, Number(combo || 0) - 1) * 0.018);
+  }
+
   function incomePerSecond(target = state) {
     const machineBase = machines.reduce((sum, machine) => {
       return sum + Number(target.machines[machine.id] || 0) * machine.rate;
@@ -532,7 +541,10 @@
       els.comboBadge.className = "combo-badge";
       return;
     }
-    els.comboBadge.textContent = `combo x${comboCount}`;
+    const comboBonus = comboTapMultiplier(comboCount);
+    els.comboBadge.textContent = comboBonus > 1.02
+      ? `combo x${comboCount} +${Math.round((comboBonus - 1) * 100)}%`
+      : `combo x${comboCount}`;
     els.comboBadge.className = `combo-badge show${comboCount >= 12 ? " hot" : ""}`;
     window.clearTimeout(comboTimer);
     comboTimer = window.setTimeout(() => {
@@ -770,6 +782,7 @@
     if (!audioContext) audioContext = new AudioCtx();
     if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
     ensureAudioGraph(audioContext);
+    startAmbient(audioContext);
     return audioContext;
   }
 
@@ -802,6 +815,7 @@
     if (audioGraph?.context === ctx) return audioGraph;
     const dry = ctx.createGain();
     const wet = ctx.createGain();
+    const ambience = ctx.createGain();
     const master = ctx.createGain();
     const compressor = ctx.createDynamicsCompressor();
     const reverb = ctx.createConvolver();
@@ -809,6 +823,7 @@
 
     dry.gain.value = .76;
     wet.gain.value = .18;
+    ambience.gain.value = .3;
     master.gain.value = .78;
     compressor.threshold.value = -22;
     compressor.knee.value = 20;
@@ -821,13 +836,14 @@
     reverb.buffer = createReverbBuffer(ctx);
 
     dry.connect(master);
+    ambience.connect(master);
     wet.connect(reverb);
     reverb.connect(master);
     master.connect(warmth);
     warmth.connect(compressor);
     compressor.connect(ctx.destination);
 
-    audioGraph = { context: ctx, dry, wet };
+    audioGraph = { context: ctx, dry, wet, ambience };
     return audioGraph;
   }
 
@@ -920,6 +936,116 @@
     });
   }
 
+  function playRootThump(ctx, when, volume, panValue = 0) {
+    const out = outputNode(ctx, panValue);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(118, when);
+    osc.frequency.exponentialRampToValueAtTime(74, when + .16);
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(360, when);
+    gain.gain.setValueAtTime(.0001, when);
+    gain.gain.exponentialRampToValueAtTime(volume, when + .012);
+    gain.gain.exponentialRampToValueAtTime(.0001, when + .18);
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(out.input);
+    osc.start(when);
+    osc.stop(when + .21);
+  }
+
+  function ambientPalette() {
+    const biome = document.body.dataset.biome || environmentForLevel().biome;
+    const palettes = {
+      morning: { root: 392, chord: [1, 5 / 4, 3 / 2], bell: 2, brush: 1800 },
+      grove: { root: 349.23, chord: [1, 6 / 5, 3 / 2], bell: 15 / 8, brush: 1500 },
+      lantern: { root: 329.63, chord: [1, 5 / 4, 15 / 8], bell: 3, brush: 2400 },
+      glow: { root: 369.99, chord: [1, 5 / 4, 3 / 2], bell: 5 / 2, brush: 2600 },
+      star: { root: 415.3, chord: [1, 9 / 8, 3 / 2], bell: 3, brush: 3200 },
+      moon: { root: 293.66, chord: [1, 6 / 5, 8 / 5], bell: 12 / 5, brush: 1600 },
+      rain: { root: 349.23, chord: [1, 5 / 4, 4 / 3], bell: 2, brush: 3900 },
+      brook: { root: 440, chord: [1, 6 / 5, 3 / 2], bell: 9 / 4, brush: 4200 },
+      honey: { root: 392, chord: [1, 5 / 4, 3 / 2], bell: 5 / 2, brush: 2100 },
+      cloud: { root: 329.63, chord: [1, 4 / 3, 3 / 2], bell: 2, brush: 3100 },
+      velvet: { root: 311.13, chord: [1, 6 / 5, 3 / 2], bell: 12 / 5, brush: 1900 },
+      crystal: { root: 466.16, chord: [1, 5 / 4, 15 / 8], bell: 3, brush: 3500 },
+      aurora: { root: 415.3, chord: [1, 6 / 5, 3 / 2, 15 / 8], bell: 3, brush: 3400 },
+      ancient: { root: 261.63, chord: [1, 5 / 4, 3 / 2], bell: 2, brush: 1200 }
+    };
+    return palettes[biome] || palettes.grove;
+  }
+
+  function playAmbientChord(ctx, palette, when) {
+    const graph = ensureAudioGraph(ctx);
+    const seconds = rushActive() ? 1.1 : 2.65;
+    palette.chord.forEach((ratio, index) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const tone = ctx.createBiquadFilter();
+      const panValue = ((index / Math.max(1, palette.chord.length - 1)) - .5) * .5;
+      const dryPan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+      const wetPan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+      const detune = centsToRatio((Math.random() * 7) - 3.5);
+      osc.type = index % 2 ? "triangle" : "sine";
+      osc.frequency.setValueAtTime(palette.root * ratio * detune, when);
+      tone.type = "lowpass";
+      tone.frequency.setValueAtTime(rushActive() ? 3100 : 1900, when);
+      gain.gain.setValueAtTime(.0001, when);
+      gain.gain.linearRampToValueAtTime(.008 + index * .0015, when + .32);
+      gain.gain.exponentialRampToValueAtTime(.0001, when + seconds);
+      osc.connect(tone);
+      tone.connect(gain);
+      if (dryPan && wetPan) {
+        dryPan.pan.value = panValue;
+        wetPan.pan.value = panValue * .55;
+        gain.connect(dryPan);
+        gain.connect(wetPan);
+        dryPan.connect(graph.ambience);
+        wetPan.connect(graph.wet);
+      } else {
+        gain.connect(graph.ambience);
+        gain.connect(graph.wet);
+      }
+      osc.start(when);
+      osc.stop(when + seconds + .06);
+    });
+  }
+
+  function playAmbientPhrase(ctx) {
+    if (!ctx || !state.soundOn || testPlayMode || document.visibilityState === "hidden") return;
+    if (ctx.state === "suspended") return;
+    const palette = ambientPalette();
+    const now = ctx.currentTime + .02;
+    ambientStep = (ambientStep + 1) % 16;
+    playAmbientChord(ctx, palette, now);
+    if (ambientStep % 4 === 0 || rushActive()) {
+      playBell(ctx, palette.root * palette.bell, now + .52, rushActive() ? .72 : 1.05, rushActive() ? .018 : .012, .18);
+    }
+    if (ambientStep % 3 === 0 || ["rain", "brook", "cloud"].includes(document.body.dataset.biome || "")) {
+      playBrush(ctx, now + .18, .42, .006, palette.brush, -.14);
+    }
+  }
+
+  function startAmbient(ctx = audioContext) {
+    if (!ctx || ambientTimer || !state.soundOn || testPlayMode) return;
+    playAmbientPhrase(ctx);
+    ambientTimer = window.setInterval(() => {
+      if (!state.soundOn || !audioContext) {
+        stopAmbient();
+        return;
+      }
+      playAmbientPhrase(audioContext);
+    }, 1950);
+  }
+
+  function stopAmbient() {
+    if (!ambientTimer) return;
+    window.clearInterval(ambientTimer);
+    ambientTimer = 0;
+  }
+
   function playTone(kind = "tap", strength = 1) {
     if (testPlayMode) return;
     const ctx = ensureAudio();
@@ -933,9 +1059,11 @@
       melodyStep = (melodyStep + 1) % 64;
       const frequency = scale[(melodyStep + Math.floor(comboCount / 3)) % scale.length];
       const volume = Math.min(.052, .026 + Math.min(12, strength) * .0026);
+      playRootThump(ctx, now, Math.min(.022, volume * .42), pan * .35);
       playBrush(ctx, now, .045, volume * .48, 1450 + Math.random() * 600, pan * .6);
       playPluck(ctx, frequency, now + Math.random() * .01, .34, volume, pan);
       if (comboCount >= 7) playBell(ctx, frequency * 1.5, now + .035, .28, volume * .48, -pan);
+      if (comboCount >= 18) playBell(ctx, frequency * 2, now + .09, .42, volume * .26, pan * .25);
       return;
     }
 
@@ -974,7 +1102,13 @@
   function toggleSound() {
     state.soundOn = !state.soundOn;
     markDirty();
-    if (state.soundOn) playTone("tap", 4);
+    if (state.soundOn) {
+      const ctx = ensureAudio();
+      if (ctx) startAmbient(ctx);
+      playTone("great", 3);
+    } else {
+      stopAmbient();
+    }
     renderSound();
   }
 
@@ -993,7 +1127,6 @@
   }
 
   function tap(event) {
-    const gained = tapPower();
     const rect = els.seedButton.getBoundingClientRect();
     const x = event?.clientX || rect.left + rect.width / 2;
     const y = event?.clientY || rect.top + rect.height / 2;
@@ -1001,6 +1134,7 @@
     if (!state.firstTapAt) state.firstTapAt = now;
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
+    const gained = tapPower() * comboTapMultiplier(comboCount);
     addLoops(state, gained);
     const meadow = addMeadowCare(gained);
     recordSporeBurst(gained);
@@ -1029,8 +1163,9 @@
     renderCombo();
     if (navigator.vibrate) navigator.vibrate(meadow.blooms > 0 ? [12, 18, 18] : 10);
     els.seedButton.classList.add("is-pressed");
-    window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
-    render();
+    window.clearTimeout(pressTimer);
+    pressTimer = window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
+    requestRenderCore();
   }
 
   function showPop(x, y, text, combo = 1) {
@@ -1087,6 +1222,9 @@
 
   function pulseScene(className) {
     if (!els.friendScene) return;
+    const now = Date.now();
+    if (className === "scene-tapped" && now - lastScenePulseAt < 70) return;
+    lastScenePulseAt = now;
     els.friendScene.classList.remove("scene-tapped", "scene-bloomed");
     void els.friendScene.offsetWidth;
     els.friendScene.classList.add(className);
@@ -1576,7 +1714,7 @@
     }).join("");
   }
 
-  function render() {
+  function renderCore() {
     const passiveRate = incomePerSecond();
     const tapBurst = visibleTapBurst();
     els.loopsValue.textContent = format(state.loops);
@@ -1591,10 +1729,6 @@
     els.multiplierValue.textContent = `${rateMultiplier().toFixed(rateMultiplier() >= 10 ? 1 : 2)}x`;
     els.upgradeCount.textContent = `${state.upgrades.length} active`;
     els.achievementCount.textContent = `${state.achievements.length} unlocked`;
-    renderMachines();
-    renderUpgrades();
-    renderPerks();
-    renderAchievements();
     renderOrchard();
     renderCompanions();
     renderDaily();
@@ -1602,9 +1736,27 @@
     renderPrestige();
     renderFocus();
     renderRush();
+    renderSound();
+  }
+
+  function render() {
+    renderCore();
+    renderMachines();
+    renderUpgrades();
+    renderPerks();
+    renderAchievements();
     renderQuests();
     renderLeaderboard();
-    renderSound();
+  }
+
+  function requestRenderCore() {
+    if (coreRenderQueued) return;
+    coreRenderQueued = true;
+    const schedule = window.requestAnimationFrame || (callback => window.setTimeout(callback, 16));
+    schedule(() => {
+      coreRenderQueued = false;
+      renderCore();
+    });
   }
 
   function tick() {
@@ -1619,7 +1771,8 @@
       checkAchievements();
     }
     updateDisplayedRate(dt);
-    render();
+    if (document.body.dataset.tab === "play") renderCore();
+    else render();
   }
 
   els.seedButton.addEventListener("click", tap);
@@ -1655,13 +1808,21 @@
   if (els.bottomTabs) {
     els.bottomTabs.addEventListener("click", event => {
       const tab = event.target.closest("button")?.dataset.tabTarget;
-      if (tab) setScreen(tab);
+      if (tab) {
+        setScreen(tab);
+        render();
+      }
     });
   }
 
   window.addEventListener("beforeunload", save);
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") save();
+    if (document.visibilityState === "hidden") {
+      stopAmbient();
+      save();
+      return;
+    }
+    if (state.soundOn && audioContext) startAmbient(audioContext);
   });
 
   checkAchievements();

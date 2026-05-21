@@ -4818,3 +4818,453 @@ body[data-click-stage="16"] .decor-c {
     animation-duration: .01ms;
   }
 }
+
+/* Immersion polish: painterly stage, living ambience, and tactile character feedback. */
+.game-page .glade-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(ellipse at 50% 19%, rgba(255, 248, 198, .66), transparent 35%),
+    radial-gradient(ellipse at 17% 70%, rgba(169, 220, 151, .34), transparent 32%),
+    radial-gradient(ellipse at 83% 68%, rgba(239, 197, 130, .2), transparent 33%),
+    linear-gradient(180deg, rgba(226, 245, 246, .8) 0 43%, rgba(221, 242, 185, .82) 44% 64%, rgba(123, 180, 102, .7) 65% 100%);
+  box-shadow: none;
+}
+
+.game-page .glade-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(169deg, rgba(84, 64, 50, .028) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(8deg, rgba(255, 255, 255, .11) 0 1px, transparent 1px 15px),
+    radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.28), transparent 44%);
+  mix-blend-mode: multiply;
+  opacity: .75;
+}
+
+.game-page .glade-stage > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-biome="lantern"] .game-page .glade-stage,
+body[data-biome="glow"] .game-page .glade-stage {
+  background:
+    radial-gradient(ellipse at 50% 23%, rgba(255, 225, 133, .64), transparent 34%),
+    radial-gradient(ellipse at 18% 70%, rgba(255, 188, 110, .18), transparent 30%),
+    radial-gradient(ellipse at 83% 68%, rgba(99, 186, 132, .2), transparent 30%),
+    linear-gradient(180deg, rgba(169, 204, 217, .86) 0 43%, rgba(185, 223, 177, .84) 44% 64%, rgba(85, 145, 86, .74) 65% 100%);
+}
+
+body[data-biome="star"] .game-page .glade-stage,
+body[data-biome="moon"] .game-page .glade-stage {
+  background:
+    radial-gradient(ellipse at 52% 18%, rgba(255, 247, 185, .48), transparent 28%),
+    radial-gradient(ellipse at 17% 66%, rgba(164, 177, 225, .26), transparent 32%),
+    radial-gradient(ellipse at 84% 64%, rgba(210, 179, 255, .2), transparent 32%),
+    linear-gradient(180deg, rgba(146, 178, 205, .9) 0 43%, rgba(176, 211, 174, .84) 44% 64%, rgba(74, 127, 93, .76) 65% 100%);
+}
+
+body[data-biome="rain"] .game-page .glade-stage,
+body[data-biome="brook"] .game-page .glade-stage,
+body[data-biome="cloud"] .game-page .glade-stage {
+  background:
+    repeating-linear-gradient(103deg, rgba(255,255,255,.18) 0 1px, transparent 1px 16px),
+    radial-gradient(ellipse at 50% 28%, rgba(222, 247, 255, .66), transparent 38%),
+    radial-gradient(ellipse at 19% 70%, rgba(123, 203, 187, .28), transparent 31%),
+    linear-gradient(180deg, rgba(176, 222, 235, .9) 0 43%, rgba(194, 230, 186, .86) 44% 64%, rgba(86, 151, 107, .76) 65% 100%);
+}
+
+body[data-biome="honey"] .game-page .glade-stage,
+body[data-biome="velvet"] .game-page .glade-stage {
+  background:
+    radial-gradient(ellipse at 50% 21%, rgba(255, 229, 139, .68), transparent 34%),
+    radial-gradient(ellipse at 14% 69%, rgba(243, 143, 155, .26), transparent 31%),
+    radial-gradient(ellipse at 85% 67%, rgba(255, 194, 110, .24), transparent 32%),
+    linear-gradient(180deg, rgba(219, 232, 219, .88) 0 43%, rgba(226, 237, 177, .86) 44% 64%, rgba(111, 158, 87, .76) 65% 100%);
+}
+
+body[data-biome="crystal"] .game-page .glade-stage,
+body[data-biome="aurora"] .game-page .glade-stage,
+body[data-biome="ancient"] .game-page .glade-stage {
+  background:
+    radial-gradient(ellipse at 52% 20%, rgba(210, 255, 231, .58), transparent 34%),
+    radial-gradient(ellipse at 17% 67%, rgba(179, 145, 255, .24), transparent 31%),
+    radial-gradient(ellipse at 85% 66%, rgba(92, 224, 207, .22), transparent 33%),
+    linear-gradient(180deg, rgba(180, 211, 224, .9) 0 43%, rgba(190, 225, 188, .86) 44% 64%, rgba(78, 133, 92, .77) 65% 100%);
+}
+
+body[data-biome] .game-page .friend-scene {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-page .friend-scene::before {
+  inset: auto -28% -5%;
+  height: 41%;
+  border-radius: 55% 55% 0 0;
+  background:
+    radial-gradient(ellipse at 49% 11%, rgba(255,255,255,.38), transparent 22%),
+    repeating-linear-gradient(90deg, rgba(66, 124, 70, .16) 0 7px, rgba(255, 236, 166, .1) 7px 15px),
+    linear-gradient(180deg, rgba(181, 224, 139, .92), rgba(78, 142, 82, .78));
+  filter: saturate(1.08);
+}
+
+.game-page .friend-scene::after {
+  left: 18%;
+  right: 18%;
+  bottom: 18%;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(65, 76, 43, .22), transparent 70%);
+  opacity: .62;
+  filter: blur(.4px);
+}
+
+.canopy-shadow,
+.scene-mist,
+.scene-sparkle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.canopy-shadow {
+  left: -8%;
+  right: -8%;
+  top: -5%;
+  z-index: 1;
+  height: 28%;
+  background:
+    radial-gradient(ellipse at 18% 10%, rgba(77, 128, 79, .18), transparent 34%),
+    radial-gradient(ellipse at 82% 4%, rgba(82, 136, 92, .16), transparent 33%),
+    radial-gradient(ellipse at 51% -4%, rgba(255, 243, 170, .4), transparent 35%);
+  filter: blur(.15px);
+  opacity: .88;
+}
+
+.scene-mist {
+  z-index: 2;
+  width: 54%;
+  height: 20%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,.48), transparent 68%);
+  opacity: .42;
+  filter: blur(8px);
+  animation: mistDrift 7.5s ease-in-out infinite alternate;
+}
+
+.mist-a {
+  left: -5%;
+  top: 35%;
+}
+
+.mist-b {
+  right: -10%;
+  top: 52%;
+  width: 62%;
+  opacity: .28;
+  animation-duration: 9s;
+  animation-direction: alternate-reverse;
+}
+
+.scene-sparkle {
+  z-index: 4;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffdf0 0 34%, rgba(255, 222, 118, .7) 35% 68%, transparent 69%);
+  box-shadow:
+    34px 19px 0 -2px rgba(255, 246, 188, .72),
+    83px -14px 0 -3px rgba(255, 246, 188, .56),
+    142px 21px 0 -4px rgba(255, 246, 188, .62);
+  animation: sparkleBreath 2.8s ease-in-out infinite alternate;
+}
+
+.sparkle-a {
+  left: 16%;
+  top: 23%;
+}
+
+.sparkle-b {
+  right: 24%;
+  top: 31%;
+  animation-duration: 3.4s;
+  transform: scale(.78);
+}
+
+.sparkle-c {
+  left: 37%;
+  top: 58%;
+  animation-duration: 2.35s;
+  opacity: .66;
+  transform: scale(.62);
+}
+
+body[data-biome="rain"] .scene-sparkle,
+body[data-biome="brook"] .scene-sparkle,
+body[data-biome="cloud"] .scene-sparkle {
+  background: radial-gradient(circle, #f8ffff 0 34%, rgba(130, 212, 224, .66) 35% 68%, transparent 69%);
+  box-shadow:
+    42px 20px 0 -2px rgba(215, 249, 255, .64),
+    88px -9px 0 -3px rgba(215, 249, 255, .5),
+    152px 23px 0 -4px rgba(215, 249, 255, .56);
+}
+
+body[data-biome="crystal"] .scene-sparkle,
+body[data-biome="aurora"] .scene-sparkle,
+body[data-biome="ancient"] .scene-sparkle {
+  background: radial-gradient(circle, #ffffff 0 32%, rgba(192, 255, 232, .66) 33% 64%, transparent 65%);
+  box-shadow:
+    38px 17px 0 -2px rgba(205, 255, 238, .62),
+    87px -12px 0 -3px rgba(205, 196, 255, .52),
+    150px 20px 0 -4px rgba(142, 238, 229, .56);
+}
+
+.game-page .friend-scene .seed-button {
+  animation: none;
+  transform-origin: 50% 78%;
+  filter:
+    drop-shadow(2px 5px 0 rgba(52, 36, 31, .12))
+    drop-shadow(0 30px 18px rgba(56, 73, 39, .19));
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  animation: immersionMushroomTap .5s cubic-bezier(.12, 1.5, .22, 1);
+}
+
+.game-page .seed-button::before {
+  border-color: rgba(82, 35, 42, .54);
+  background:
+    radial-gradient(circle at 18% 59%, #fff8de 0 8.6%, transparent 9.5%),
+    radial-gradient(circle at 34% 32%, #fff3d3 0 6.2%, transparent 7.2%),
+    radial-gradient(circle at 51% 21%, #fffbe4 0 9.5%, transparent 10.5%),
+    radial-gradient(circle at 66% 39%, #fff1ce 0 6.8%, transparent 7.9%),
+    radial-gradient(circle at 82% 59%, #fff7d8 0 8.3%, transparent 9.3%),
+    radial-gradient(ellipse at 31% 11%, rgba(255,255,255,.46), transparent 35%),
+    radial-gradient(ellipse at 72% 78%, rgba(90, 20, 31, .23), transparent 39%),
+    repeating-linear-gradient(166deg, rgba(255,255,255,.12) 0 2px, transparent 2px 10px),
+    repeating-linear-gradient(12deg, rgba(83, 30, 38, .06) 0 1px, transparent 1px 12px),
+    linear-gradient(180deg, #f78588 0%, #da4252 58%, #932a39 100%);
+  box-shadow:
+    inset 0 16px 26px rgba(255,255,255,.24),
+    inset 0 -25px 28px rgba(83, 18, 29, .22),
+    2px 6px 0 rgba(52, 36, 31, .16);
+  animation: capAmbientBreath 4.2s ease-in-out infinite;
+}
+
+.game-page .seed-button::after {
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(255,255,255,.46), transparent 36%),
+    repeating-linear-gradient(89deg, rgba(116, 74, 43, .23) 0 3px, transparent 3px 12px),
+    linear-gradient(180deg, #fff5db, #edc287);
+  box-shadow:
+    inset 0 -8px 10px rgba(131, 82, 40, .12),
+    0 3px 0 rgba(52, 36, 31, .12);
+}
+
+.game-page .seed-core {
+  background:
+    radial-gradient(ellipse at 47% 12%, rgba(255,255,255,.66), transparent 43%),
+    radial-gradient(ellipse at 50% 82%, rgba(126, 75, 39, .18), transparent 44%),
+    repeating-linear-gradient(93deg, rgba(112, 72, 43, .1) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, #f9dfb6 0%, #e6b16d 100%);
+  box-shadow:
+    inset 0 -10px 15px rgba(124,70,37,.16),
+    1px 5px 0 rgba(52, 36, 31, .14);
+}
+
+.friend-scene.scene-tapped .root-ring {
+  animation: immersionRingPing .5s ease-out;
+}
+
+.friend-scene.scene-tapped .canopy-shadow {
+  animation: canopyWake .52s ease-out;
+}
+
+.friend-scene.scene-tapped .scene-mist {
+  animation: mistTap .62s ease-out;
+}
+
+.friend-scene.scene-tapped .scene-sparkle {
+  animation: sparklePop .48s ease-out;
+}
+
+.tap-ring,
+.game-page .tap-ring {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background:
+    radial-gradient(circle, rgba(255,255,255,.85) 0 22%, rgba(255, 235, 147, .5) 23% 43%, transparent 44%),
+    conic-gradient(from 0deg, rgba(255, 238, 147, .95), rgba(255, 145, 156, .8), rgba(177, 240, 197, .8), rgba(255, 238, 147, .95));
+  box-shadow: 0 0 24px rgba(255, 220, 117, .42);
+  animation: immersionTapRing .62s ease-out forwards;
+}
+
+.tap-petal {
+  box-shadow: 0 3px 0 rgba(52, 36, 31, .08);
+  filter: saturate(1.12);
+}
+
+.scene-pulse,
+.game-page .scene-pulse {
+  background: radial-gradient(circle, rgba(255, 244, 170, .42) 0 12%, rgba(255, 207, 121, .2) 13% 36%, transparent 37%);
+  animation: immersionScenePulse .72s ease-out forwards;
+}
+
+.game-page .resource-row {
+  border: 1px solid rgba(84, 55, 43, .13);
+  border-radius: 17px;
+  background:
+    radial-gradient(ellipse at 50% 0, rgba(255,255,255,.7), transparent 45%),
+    rgba(255, 253, 244, .68);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 10px 22px rgba(68, 62, 36, .07);
+}
+
+.game-page .skill-row {
+  border: 1px solid rgba(84, 55, 43, .12);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 50% 0, rgba(255, 239, 174, .42), transparent 54%),
+    rgba(255, 253, 244, .56);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 12px 20px rgba(68, 62, 36, .08);
+}
+
+.game-page .skill-row button {
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255,255,255,.86), transparent 34%),
+    linear-gradient(180deg, rgba(255, 251, 239, .96), rgba(255, 228, 235, .9));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    0 4px 0 rgba(109, 76, 59, .1);
+}
+
+.game-page .skill-row button:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 5px rgba(88, 49, 41, .12);
+}
+
+.game-page .bottom-tabs {
+  border: 1px solid rgba(84, 55, 43, .13);
+  background:
+    radial-gradient(ellipse at 50% 0, rgba(255,255,255,.64), transparent 52%),
+    rgba(255, 253, 244, .72);
+}
+
+.game-page .bottom-tabs button[aria-pressed="true"] {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 5px 0 rgba(92, 42, 51, .16),
+    0 0 22px rgba(255, 206, 128, .28);
+}
+
+@keyframes mushroomBreath {
+  0%, 100% { transform: translateY(-10px) scale(1); }
+  50% { transform: translateY(-13px) scale(1.012); }
+}
+
+@keyframes immersionMushroomTap {
+  0% { transform: translateY(-10px) scale(1); filter: brightness(1); }
+  24% { transform: translateY(-2px) scaleX(1.075) scaleY(.88); filter: brightness(1.1) saturate(1.08); }
+  51% { transform: translateY(-22px) scaleX(.96) scaleY(1.09); }
+  74% { transform: translateY(-7px) scaleX(1.018) scaleY(.982); }
+  100% { transform: translateY(-10px) scale(1); filter: brightness(1); }
+}
+
+@keyframes immersionRingPing {
+  0% { opacity: .96; transform: translate(-50%, -50%) scale(.88); filter: drop-shadow(0 0 8px rgba(255, 221, 118, .32)); }
+  58% { opacity: 1; transform: translate(-50%, -50%) scale(1.13); filter: drop-shadow(0 0 30px rgba(255, 221, 118, .58)); }
+  100% { opacity: .7; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes immersionTapRing {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.28) rotate(0deg); }
+  16% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(7.5) rotate(58deg); }
+}
+
+@keyframes immersionScenePulse {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+  18% { opacity: .9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4.2); }
+}
+
+@keyframes canopyWake {
+  0% { transform: translateY(0) scale(1); opacity: .88; }
+  40% { transform: translateY(-4px) scale(1.018); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: .88; }
+}
+
+@keyframes mistDrift {
+  from { transform: translate3d(-6px, 2px, 0) scaleX(.96); }
+  to { transform: translate3d(9px, -3px, 0) scaleX(1.04); }
+}
+
+@keyframes mistTap {
+  0% { transform: translate3d(0, 0, 0) scale(.96); opacity: .3; }
+  46% { transform: translate3d(8px, -9px, 0) scale(1.08); opacity: .52; }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: .36; }
+}
+
+@keyframes sparkleBreath {
+  from { opacity: .46; transform: translateY(2px) scale(.72); }
+  to { opacity: .95; transform: translateY(-4px) scale(1); }
+}
+
+@keyframes sparklePop {
+  0% { opacity: .55; transform: scale(.72); }
+  42% { opacity: 1; transform: scale(1.38); filter: brightness(1.28); }
+  100% { opacity: .62; transform: scale(.86); }
+}
+
+@media (max-height: 700px) {
+  .game-page .friend-scene.scene-tapped .seed-button,
+  .game-page .seed-button.is-pressed {
+    animation-name: immersionMushroomTapSmall;
+  }
+}
+
+@keyframes capAmbientBreath {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.035) saturate(1.03); }
+}
+
+@keyframes mushroomBreathSmall {
+  0%, 100% { transform: translateY(-6px) scale(1); }
+  50% { transform: translateY(-8px) scale(1.01); }
+}
+
+@keyframes immersionMushroomTapSmall {
+  0% { transform: translateY(-6px) scale(1); }
+  24% { transform: translateY(0) scaleX(1.06) scaleY(.9); }
+  51% { transform: translateY(-14px) scaleX(.97) scaleY(1.07); }
+  100% { transform: translateY(-6px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-page .friend-scene .seed-button,
+  .canopy-shadow,
+  .scene-mist,
+  .scene-sparkle,
+  .friend-scene.scene-tapped .canopy-shadow,
+  .friend-scene.scene-tapped .scene-mist,
+  .friend-scene.scene-tapped .scene-sparkle,
+  .tap-ring,
+  .game-page .tap-ring,
+  .scene-pulse,
+  .game-page .scene-pulse {
+    animation-duration: .01ms;
+    animation-iteration-count: 1;
+  }
+}
