@@ -4370,3 +4370,101 @@ body[data-tab="store"] .store-grid {
     grid-template-rows: minmax(0, 1fr) 48px 52px;
   }
 }
+
+/* Screenshot fix: phone-frame typography and character composition must not scale from desktop viewport width. */
+.game-page .resource-row {
+  min-height: 55px;
+  padding: 6px 8px;
+}
+
+.game-page .resource-row strong {
+  font-size: 26px;
+  line-height: .95;
+  letter-spacing: 0;
+}
+
+.game-page .resource-row small {
+  font-size: 9.5px;
+  line-height: 1.05;
+}
+
+.game-page .metric-label {
+  font-size: 9px;
+  letter-spacing: .03em;
+}
+
+.game-page .glade-head strong {
+  display: block;
+  max-width: 255px;
+  font-size: 28px;
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.game-page .glade-head em {
+  font-size: 11px;
+}
+
+.game-page .bloom-copy small {
+  font-size: 11px;
+}
+
+.game-page .friend-scene {
+  height: min(48vh, 440px);
+  min-height: 330px;
+}
+
+.game-page .friend-scene .seed-button {
+  width: min(62%, 258px);
+  margin-top: -2%;
+  transform: translateY(-10px);
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  animation: premiumTapSquashContained .3s cubic-bezier(.16, 1.45, .26, 1);
+}
+
+.seed-button::before {
+  top: 7%;
+}
+
+.seed-core {
+  top: 57%;
+}
+
+.seed-mouth {
+  top: 75%;
+}
+
+.game-page .skill-row {
+  margin-top: 6px;
+}
+
+@keyframes premiumTapSquashContained {
+  0% { transform: translateY(-10px) scale(1); }
+  38% { transform: translateY(-4px) scaleX(1.045) scaleY(.93); }
+  68% { transform: translateY(-15px) scaleX(.98) scaleY(1.035); }
+  100% { transform: translateY(-10px) scale(1); }
+}
+
+@media (max-height: 700px) {
+  .game-page .resource-row strong {
+    font-size: 22px;
+  }
+
+  .game-page .glade-head strong {
+    font-size: 22px;
+    max-width: 210px;
+  }
+
+  .game-page .friend-scene {
+    height: min(45vh, 330px);
+    min-height: 230px;
+  }
+
+  .game-page .friend-scene .seed-button {
+    width: min(48%, 190px);
+    transform: translateY(-6px);
+  }
+}
