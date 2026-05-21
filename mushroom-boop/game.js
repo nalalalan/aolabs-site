@@ -5,59 +5,61 @@
   const leaderboardKey = "mushroom-boop-leaderboard-v1";
   const playerIdKey = "mushroom-boop-player-id-v1";
   const maxOfflineSeconds = 8 * 60 * 60;
-  const bloomThreshold = 25000;
+  const greatBloomRequirements = [100000, 750000, 5000000, 40000000];
   const rushMax = 100;
   const rushSeconds = 20;
   const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
   const meadowNames = [
-    "Puddlecap Patch",
-    "Dewdrop Nook",
-    "Buttoncap Bend",
-    "Mosslight Hollow",
-    "Petal Ring",
-    "Glowcap Garden",
-    "Moonmoss Grove",
-    "Starspore Vale"
+    "Sleeping Cap",
+    "Dew Cap",
+    "Tiny Grove",
+    "Lantern Ring",
+    "Puff Meadow",
+    "Mooncap Hollow",
+    "Sporefall Garden",
+    "Glowroot Village",
+    "Starcap Forest",
+    "Ancient Mycelium"
   ];
 
   const machines = [
-    { id: "plot", name: "Baby cap", base: 15, scale: 1.16, rate: 0.1, desc: "A tiny mushroom that releases a slow spore puff." },
-    { id: "press", name: "Dew cup", base: 90, scale: 1.17, rate: 0.75, desc: "A leaf cup that feeds caps with steady morning dew." },
-    { id: "clock", name: "Moss bed", base: 520, scale: 1.18, rate: 4.4, desc: "Soft moss where spores settle and sprout faster." },
-    { id: "collector", name: "Fairy ring", base: 3200, scale: 1.19, rate: 23, desc: "A circle of caps that multiplies steady colony growth." },
-    { id: "greenhouse", name: "Glowcap cluster", base: 18000, scale: 1.2, rate: 130, desc: "Bright caps that keep the colony fruiting at night." },
-    { id: "rail", name: "Mycelium web", base: 112000, scale: 1.21, rate: 820, desc: "Underground threads that move nutrients across the colony." },
-    { id: "relay", name: "Moonlit grove", base: 720000, scale: 1.22, rate: 5200, desc: "A late-game grove that releases huge moonlit spore clouds." }
+    { id: "plot", name: "Root thread", base: 15, scale: 1.16, rate: 0.1, desc: "A soft root line that releases a slow spore pulse." },
+    { id: "press", name: "Dew cup", base: 90, scale: 1.17, rate: 0.75, desc: "A leaf cup that feeds the cap with morning dew." },
+    { id: "clock", name: "Lantern cap", base: 520, scale: 1.18, rate: 4.4, desc: "A glowing cap that keeps spores drifting at night." },
+    { id: "collector", name: "Friend burrow", base: 3200, scale: 1.19, rate: 23, desc: "A tiny home where meadow helpers gather and nudge spores along." },
+    { id: "greenhouse", name: "Rainleaf canopy", base: 18000, scale: 1.2, rate: 130, desc: "A broad leaf canopy that turns rain into spore showers." },
+    { id: "rail", name: "Glowroot web", base: 112000, scale: 1.21, rate: 820, desc: "Bright mycelium paths that carry nutrients through the meadow." },
+    { id: "relay", name: "Moonspore hollow", base: 720000, scale: 1.22, rate: 5200, desc: "A moonlit hollow that releases huge sleepy spore clouds." }
   ];
 
   const upgrades = [
-    { id: "tap-2", name: "Soft boop", cost: 120, req: state => state.totalLoops >= 80, desc: "Boop power x2.", kind: "tap", value: 2 },
-    { id: "rate-1", name: "Damp moss", cost: 850, req: state => ownedTotal(state) >= 12, desc: "Colony output x1.5.", kind: "rate", value: 1.5 },
-    { id: "tap-5", name: "Cap pat", cost: 5200, req: state => state.clicks >= 180, desc: "Boop power x2.5.", kind: "tap", value: 2.5 },
-    { id: "rate-2", name: "Dew veins", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Colony output x2.", kind: "rate", value: 2 },
-    { id: "tap-rate", name: "Spore trail", cost: 160000, req: state => state.machines.press >= 12, desc: "Boop power grows with dew cups.", kind: "tapRoute", value: 0.08 },
-    { id: "rate-3", name: "Moon glow", cost: 880000, req: state => state.totalLoops >= 420000, desc: "Colony output x2.25.", kind: "rate", value: 2.25 },
-    { id: "prestige-soft", name: "Deep mycelium", cost: 4200000, req: state => state.rootstock >= 3, desc: "Mycelium bonus is stronger.", kind: "root", value: 0.08 }
+    { id: "tap-2", name: "Dew touch", cost: 120, req: state => state.totalLoops >= 80, desc: "Each tap sends twice as many spores through the roots.", kind: "tap", value: 2 },
+    { id: "rate-1", name: "Root chorus", cost: 850, req: state => ownedTotal(state) >= 12, desc: "Roots hum together for 1.5x spores/sec.", kind: "rate", value: 1.5 },
+    { id: "tap-5", name: "Soft cap rhythm", cost: 5200, req: state => state.clicks >= 180, desc: "Tap power x2.5 when the cap is awake.", kind: "tap", value: 2.5 },
+    { id: "rate-2", name: "Lantern pollen", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Lantern caps double passive spores/sec.", kind: "rate", value: 2 },
+    { id: "tap-rate", name: "Dewline trail", cost: 160000, req: state => state.machines.press >= 12, desc: "Tap power grows with every Dew cup.", kind: "tapRoute", value: 0.08 },
+    { id: "rate-3", name: "Moonroot glow", cost: 880000, req: state => state.totalLoops >= 420000, desc: "Moonlit roots boost spores/sec x2.25.", kind: "rate", value: 2.25 },
+    { id: "prestige-soft", name: "Ancient mycelium", cost: 4200000, req: state => state.rootstock >= 3, desc: "Great Bloom mycelium perks become stronger.", kind: "root", value: 0.08 }
   ];
 
   const achievements = [
-    { id: "first-tap", name: "First spore", desc: "Boop once.", req: state => state.clicks >= 1 },
+    { id: "first-tap", name: "First spore", desc: "Tap once.", req: state => state.clicks >= 1 },
     { id: "hundred", name: "Hundred spores", desc: "Earn 100 lifetime spores.", req: state => state.lifetimeLoops >= 100 },
-    { id: "machine-ten", name: "Tiny colony", desc: "Own 10 colony pieces.", req: state => ownedTotal(state) >= 10 },
-    { id: "clicker", name: "Boop rhythm", desc: "Boop 250 times.", req: state => state.clicks >= 250 },
+    { id: "machine-ten", name: "Tiny meadow", desc: "Own 10 meadow pieces.", req: state => ownedTotal(state) >= 10 },
+    { id: "clicker", name: "Tap rhythm", desc: "Tap 250 times.", req: state => state.clicks >= 250 },
     { id: "million", name: "Million-spore meadow", desc: "Earn 1,000,000 lifetime spores.", req: state => state.lifetimeLoops >= 1000000 },
-    { id: "rooted", name: "Mycelium", desc: "Bloom the colony once.", req: state => state.rootstock >= 1 },
+    { id: "rooted", name: "Great Bloom", desc: "Release the meadow into a stronger season.", req: state => Number(state.bloomCount || 0) >= 1 },
     { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 },
-    { id: "rush", name: "Cap rush", desc: "Trigger a cap rush.", req: state => state.rushes >= 1 },
+    { id: "rush", name: "Spore Rush", desc: "Trigger a Spore Rush.", req: state => state.rushes >= 1 },
     { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 }
   ];
 
   const perks = [
-    { id: "spore-memory", name: "Spore memory", baseCost: 1, max: 10, desc: "Baseline spores/sec +18% per level." },
-    { id: "soft-hands", name: "Soft hands", baseCost: 1, max: 10, desc: "Boop power +25% per level." },
-    { id: "cheap-caps", name: "Frugal moss", baseCost: 2, max: 8, desc: "Colony pieces cost 6% less per level." },
-    { id: "long-boost", name: "Long glow", baseCost: 2, max: 5, desc: "Reward boost lasts 2 more minutes per level." },
-    { id: "starter-cap", name: "Starter cap", baseCost: 3, max: 1, desc: "Each bloom starts with one Baby cap." }
+    { id: "spore-memory", name: "Season memory", baseCost: 1, max: 10, desc: "Baseline spores/sec +18% per level." },
+    { id: "soft-hands", name: "Soft touch", baseCost: 1, max: 10, desc: "Tap power +25% per level." },
+    { id: "cheap-caps", name: "Frugal roots", baseCost: 2, max: 8, desc: "Roots, dew, friends, and lanterns cost 6% less per level." },
+    { id: "long-boost", name: "Long Spore Shower", baseCost: 2, max: 5, desc: "Spore Shower lasts 2 more minutes per level." },
+    { id: "starter-cap", name: "Starter friend", baseCost: 3, max: 1, desc: "Each Great Bloom starts with one Root thread." }
   ];
 
   const state = loadState();
@@ -71,6 +73,7 @@
   let leaderboardEntries = [];
   let leaderboardStatus = "";
   let leaderboardSubmitting = false;
+  let audioContext = null;
 
   const els = {};
   [
@@ -83,7 +86,7 @@
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue",
     "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
-    "bottomTabs", "friendScene", "companionRow", "rushOrbit",
+    "bottomTabs", "friendScene", "companionRow", "rushOrbit", "rootRing", "soundButton",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "dewSkillButton", "boostSkillButton", "bloomSkillButton"
   ].forEach(id => { els[id] = document.getElementById(id); });
@@ -111,8 +114,13 @@
       rushCharge: 0,
       rushUntil: 0,
       rushes: 0,
+      bloomCount: 0,
       meadowLevel: 1,
       meadowBloom: 0,
+      firstTapAt: 0,
+      firstBloomSeconds: 0,
+      bestFirstBloomSeconds: 0,
+      soundOn: true,
       lastDaily: "",
       streak: 0,
       questDay: "",
@@ -243,7 +251,10 @@
   }
 
   function bloomRequirement(target = state) {
-    return bloomThreshold * Math.pow(1.72, Number(target.rootstock || 0));
+    const count = Math.max(0, Number(target.bloomCount || 0));
+    if (count < greatBloomRequirements.length) return greatBloomRequirements[count];
+    const last = greatBloomRequirements[greatBloomRequirements.length - 1];
+    return Math.round(last * Math.pow(7.5, count - greatBloomRequirements.length + 1));
   }
 
   function meadowRequirement(target = state) {
@@ -257,11 +268,26 @@
   }
 
   function meadowMood(target = state) {
+    const tutorial = tutorialStage(target);
+    if (tutorial.id === "sleeping") return "sleeping";
+    if (tutorial.id === "awake") return "awake";
+    if (tutorial.id === "friend") return "Dew Beetle";
     if (rushActive(target)) return "glowing";
     const progress = Math.max(0, Math.min(1, Number(target.meadowBloom || 0) / meadowRequirement(target)));
     if (progress >= 0.82) return "nearly blooming";
     if (progress >= 0.45) return "wiggly";
-    return "sleepy";
+    if (Number(target.meadowLevel || 1) >= 4) return "happy";
+    return "soft glow";
+  }
+
+  function tutorialStage(target = state) {
+    const clicks = Number(target.clicks || 0);
+    if (clicks <= 0) return { id: "sleeping", next: "tap to wake" };
+    if (clicks < 5) return { id: "awake", next: `${5 - clicks} taps to baby cap` };
+    if (clicks < 15) return { id: "baby", next: `${15 - clicks} taps to root glow` };
+    if (clicks < 25) return { id: "root", next: `${25 - clicks} taps to Dew Beetle` };
+    if (Number(target.meadowLevel || 1) < 2) return { id: "friend", next: "care ring is waking" };
+    return { id: "forest", next: `next: ${meadowTitle(target, 1)}` };
   }
 
   function rootBonus(target = state) {
@@ -315,6 +341,12 @@
       blooms += 1;
     }
     if (blooms > 0) {
+      if (!target.firstBloomSeconds && target.firstTapAt) {
+        target.firstBloomSeconds = Math.max(1, Math.round((Date.now() - target.firstTapAt) / 1000));
+        target.bestFirstBloomSeconds = target.bestFirstBloomSeconds
+          ? Math.min(Number(target.bestFirstBloomSeconds), target.firstBloomSeconds)
+          : target.firstBloomSeconds;
+      }
       recordSporeBurst(reward);
       addRushCharge(12 + blooms * 3, target);
     }
@@ -419,7 +451,9 @@
     const keep = defaultState();
     const keptPerks = { ...keep.perks, ...(state.perks || {}) };
     const keptAchievements = Array.isArray(state.achievements) ? [...state.achievements] : [];
+    const bestFirstBloomSeconds = Number(state.bestFirstBloomSeconds || 0);
     state.rootstock += gain;
+    state.bloomCount = Number(state.bloomCount || 0) + 1;
     state.loops = 0;
     state.totalLoops = 0;
     state.clicks = 0;
@@ -428,6 +462,9 @@
     state.rushUntil = 0;
     state.meadowLevel = 1;
     state.meadowBloom = 0;
+    state.firstTapAt = 0;
+    state.firstBloomSeconds = 0;
+    state.bestFirstBloomSeconds = bestFirstBloomSeconds;
     state.machines = keep.machines;
     state.perks = keptPerks;
     state.upgrades = [];
@@ -437,6 +474,8 @@
       displayedRate = incomePerSecond();
     }
     clickRateBurst = 0;
+    playTone("great");
+    if (navigator.vibrate) navigator.vibrate([18, 22, 18, 36]);
     markDirty();
     checkAchievements();
     save();
@@ -474,22 +513,22 @@
   function questDefinitions() {
     ensureDailyQuestState();
     const base = state.questBaselines || { clicks: 0, spores: 0, pieces: 0 };
-    const boopTarget = 65 + Math.min(135, Number(state.rootstock || 0) * 10);
+    const tapTarget = 65 + Math.min(135, Number(state.rootstock || 0) * 10);
     const pieceTarget = Math.max(3, Math.min(18, 5 + Number(state.rootstock || 0)));
     const sporeTarget = Math.max(900, bloomRequirement() * 0.1);
     return [
       {
         id: "boops",
-        name: "Boop burst",
-        desc: `Boop ${format(boopTarget)} times today.`,
+        name: "Tap chorus",
+        desc: `Tap ${format(tapTarget)} times today.`,
         current: Math.max(0, Number(state.clicks || 0) - Number(base.clicks || 0)),
-        target: boopTarget,
-        reward: Math.max(180, tapPower() * boopTarget * 2.5)
+        target: tapTarget,
+        reward: Math.max(180, tapPower() * tapTarget * 2.5)
       },
       {
         id: "pieces",
         name: "Grow the grove",
-        desc: `Buy ${format(pieceTarget)} colony pieces today.`,
+        desc: `Buy ${format(pieceTarget)} meadow pieces today.`,
         current: Math.max(0, ownedTotal(state) - Number(base.pieces || 0)),
         target: pieceTarget,
         reward: Math.max(450, incomePerSecond() * 240 + tapPower() * 80)
@@ -531,10 +570,10 @@
     const now = Date.now();
     if (now < Number(state.focusUntil || 0)) return;
     els.focusButton.disabled = true;
-    els.focusButton.textContent = "loading ad";
+    els.focusButton.textContent = "calling shower";
     const result = await requestRewardedBoost().catch(() => ({ rewarded: false }));
     if (!result.rewarded) {
-      els.boostHint.textContent = "Reward ad was not completed. Boost stayed inactive.";
+      els.boostHint.textContent = "Reward ad was not completed. Spore Shower stayed inactive.";
       renderFocus();
       return;
     }
@@ -543,11 +582,60 @@
     addRushCharge(35);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     els.boostHint.textContent = result.demo
-      ? "Demo boost active. Configure rewarded AdMob IDs before App Store release."
-      : "Reward boost active.";
+      ? "Demo Spore Shower active. Configure rewarded AdMob IDs before App Store release."
+      : "Spore Shower active.";
+    playTone("shower");
     markDirty();
     checkAchievements();
     render();
+  }
+
+  function ensureAudio() {
+    if (!state.soundOn) return null;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!audioContext) audioContext = new AudioCtx();
+    if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+    return audioContext;
+  }
+
+  function playTone(kind = "tap") {
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const notes = {
+      tap: [520 + Math.random() * 80, 0.045, 0.035],
+      bloom: [740, 0.18, 0.07],
+      shower: [610, 0.24, 0.055],
+      great: [440, 0.5, 0.08]
+    }[kind] || [520, 0.05, 0.04];
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    oscillator.type = kind === "great" ? "triangle" : "sine";
+    oscillator.frequency.setValueAtTime(notes[0], now);
+    if (kind === "tap") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 1.35, now + notes[1]);
+    if (kind === "bloom" || kind === "shower") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 1.5, now + notes[1]);
+    if (kind === "great") oscillator.frequency.exponentialRampToValueAtTime(notes[0] * 2.25, now + notes[1]);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(notes[2], now + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + notes[1]);
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.start(now);
+    oscillator.stop(now + notes[1] + 0.04);
+  }
+
+  function toggleSound() {
+    state.soundOn = !state.soundOn;
+    markDirty();
+    if (state.soundOn) playTone("tap");
+    renderSound();
+  }
+
+  function renderSound() {
+    if (!els.soundButton) return;
+    els.soundButton.classList.toggle("off", !state.soundOn);
+    els.soundButton.setAttribute("aria-label", state.soundOn ? "sound on" : "sound off");
   }
 
   function checkAchievements() {
@@ -564,6 +652,7 @@
     const x = event?.clientX || rect.left + rect.width / 2;
     const y = event?.clientY || rect.top + rect.height / 2;
     const now = Date.now();
+    if (!state.firstTapAt) state.firstTapAt = now;
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
     addLoops(state, gained);
@@ -576,12 +665,15 @@
     showPop(x, y, `+${format(gained)}`, comboCount);
     if (meadow.blooms > 0) {
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
+      playTone("bloom");
+    } else {
+      playTone("tap");
     }
     showSporeBurst(x, y);
     showTapImpact(x, y, rect, comboCount);
     pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
     renderCombo();
-    if (navigator.vibrate) navigator.vibrate(10);
+    if (navigator.vibrate) navigator.vibrate(meadow.blooms > 0 ? [12, 18, 18] : 10);
     els.seedButton.classList.add("is-pressed");
     window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
     render();
@@ -747,8 +839,10 @@
       lifetimeSpores: Math.floor(state.lifetimeLoops),
       spores: Math.floor(state.loops),
       mycelium: Math.floor(state.rootstock),
+      greatBlooms: Math.floor(state.bloomCount || 0),
       boops: Math.floor(state.clicks),
       sporesPerSecond: Number(incomePerSecond().toFixed(3)),
+      fastestFirstBloomSeconds: Math.floor(state.bestFirstBloomSeconds || state.firstBloomSeconds || 0),
       updatedAt: new Date().toISOString()
     };
   }
@@ -757,6 +851,8 @@
     return entries
       .filter(entry => entry && typeof entry === "object")
       .sort((a, b) => {
+        const bloomDiff = Number(b.greatBlooms || b.mycelium || 0) - Number(a.greatBlooms || a.mycelium || 0);
+        if (bloomDiff) return bloomDiff;
         const myceliumDiff = Number(b.mycelium || 0) - Number(a.mycelium || 0);
         if (myceliumDiff) return myceliumDiff;
         return Number(b.lifetimeSpores || 0) - Number(a.lifetimeSpores || 0);
@@ -852,7 +948,7 @@
   function renderUpgrades() {
     const available = upgrades.filter(upgrade => !hasUpgrade(upgrade.id) && upgrade.req(state));
     if (!available.length) {
-      els.upgradeList.innerHTML = `<article class="store-item"><div><h3>No charm ready</h3><p>Spend spores and grow colony pieces to reveal the next charm.</p></div></article>`;
+      els.upgradeList.innerHTML = `<article class="store-item"><div><h3>No charm ready</h3><p>Spend spores and grow meadow pieces to reveal the next charm.</p></div></article>`;
       return;
     }
     els.upgradeList.innerHTML = available.map(upgrade => {
@@ -871,7 +967,7 @@
 
   function renderPerks() {
     const active = perks.reduce((sum, perk) => sum + perkLevel(perk.id), 0);
-    els.perkCount.textContent = `${active} active`;
+    els.perkCount.textContent = `${format(state.rootstock)} mycelium / ${active} perks`;
     els.perkList.innerHTML = perks.map(perk => {
       const level = perkLevel(perk.id);
       const cost = perkCost(perk);
@@ -903,7 +999,7 @@
       <article class="leaderboard-row">
         <strong>${index + 1}</strong>
         <span>${escapeHtml(entry.name || "local cap")}</span>
-        <em>${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores / ${format(entry.sporesPerSecond || 0)}/s</em>
+        <em>${format(entry.greatBlooms || 0)} blooms / ${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores</em>
       </article>
     `).join("");
   }
@@ -964,25 +1060,25 @@
     els.rootstockValue.textContent = format(state.rootstock);
     els.prestigeProgress.style.width = `${Math.round(progress * 100)}%`;
     els.prestigeButton.disabled = gain <= 0;
-    els.prestigeButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
+    els.prestigeButton.textContent = gain > 0 ? `Great Bloom +${format(gain)}` : "Great Bloom";
     if (els.bloomSkillButton) {
       els.bloomSkillButton.disabled = gain <= 0;
-      els.bloomSkillButton.textContent = gain > 0 ? `bloom +${format(gain)}` : "bloom";
+      els.bloomSkillButton.textContent = gain > 0 ? `Bloom +${format(gain)}` : "Great Bloom";
       els.bloomSkillButton.dataset.ready = gain > 0 ? "true" : "false";
     }
     els.prestigeHint.textContent = gain > 0
-      ? `Reset for ${format(gain)} mycelium. Spend mycelium on permanent perks below.`
-      : `Reach ${format(required)} spores this run to bloom the colony.`;
+      ? `Release this season for ${format(gain)} mycelium. Permanent perks stay.`
+      : `Reach ${format(required)} run spores for Great Bloom ${format(Number(state.bloomCount || 0) + 1)}.`;
   }
 
   function renderFocus() {
     const remaining = Math.max(0, Number(state.focusUntil || 0) - Date.now());
     els.focusValue.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m left` : "inactive";
     els.focusButton.disabled = remaining > 0;
-    els.focusButton.textContent = remaining > 0 ? "boost active" : "watch ad for boost";
+    els.focusButton.textContent = remaining > 0 ? "shower active" : "call shower";
     if (els.boostSkillButton) {
       els.boostSkillButton.disabled = remaining > 0;
-      els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "glow";
+      els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "shower";
       els.boostSkillButton.dataset.ready = remaining > 0 ? "active" : "true";
     }
   }
@@ -992,7 +1088,7 @@
     const charge = Math.max(0, Math.min(rushMax, Number(state.rushCharge || 0)));
     if (remaining > 0) {
       els.rushValue.textContent = `${Math.ceil(remaining / 1000)}s`;
-      els.rushHint.textContent = "Cap rush active: x3 spores/sec and x2 boops.";
+      els.rushHint.textContent = "Spore Rush active: x3 spores/sec and x2 taps.";
       els.rushProgress.style.width = "100%";
       els.rushProgress.classList.add("rush-active");
       if (els.rushOrbit) {
@@ -1002,7 +1098,7 @@
       return;
     }
     els.rushValue.textContent = `${Math.floor(charge)}%`;
-    els.rushHint.textContent = "Tap, buy, claim, and boost to fill the meter.";
+    els.rushHint.textContent = "Tap, grow, claim, and call showers to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
     if (els.rushOrbit) {
@@ -1015,15 +1111,21 @@
     const required = meadowRequirement();
     const bloom = Math.max(0, Number(state.meadowBloom || 0));
     const progress = Math.max(0, Math.min(1, bloom / required));
+    const tutorial = tutorialStage();
     els.meadowValue.textContent = `meadow ${format(state.meadowLevel || 1)}`;
     els.sessionMeadowValue.textContent = format(state.meadowLevel || 1);
     els.meadowName.textContent = meadowTitle();
     els.meadowMood.textContent = meadowMood();
     els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
     els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care`;
-    if (els.nextBloomName) els.nextBloomName.textContent = `next: ${meadowTitle(state, 1)}`;
+    if (els.nextBloomName) els.nextBloomName.textContent = tutorial.next || `next: ${meadowTitle(state, 1)}`;
+    if (els.rootRing) {
+      els.rootRing.style.setProperty("--bloom", `${Math.round(progress * 100)}%`);
+      els.rootRing.classList.toggle("ready", progress >= 0.98);
+    }
     const mood = meadowMood();
     document.body.dataset.meadowMood = mood.replace(/\s+/g, "-");
+    document.body.dataset.tutorial = tutorial.id;
     if (els.friendScene) {
       els.friendScene.dataset.mood = mood;
       els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood}`);
@@ -1077,6 +1179,7 @@
     renderRush();
     renderQuests();
     renderLeaderboard();
+    renderSound();
   }
 
   function tick() {
@@ -1117,6 +1220,7 @@
   els.dewSkillButton.addEventListener("click", claimDaily);
   els.boostSkillButton.addEventListener("click", useFocus);
   els.bloomSkillButton.addEventListener("click", graft);
+  if (els.soundButton) els.soundButton.addEventListener("click", toggleSound);
   els.shareButton.addEventListener("click", shareScore);
   els.exportButton.addEventListener("click", exportSave);
   els.importButton.addEventListener("click", importSave);
