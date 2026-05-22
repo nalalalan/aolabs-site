@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Idle Shroom / cute mushroom idle clicker game</title>
   <meta name="description" content="Idle Shroom is a cute idle game about tapping a tiny fly agaric, waking a living meadow, Great Blooming into stronger seasons, and climbing the global board.">
-  <link rel="canonical" href="https://idleshroom.aolabs.io/">
+  <link rel="canonical" href="https://aolabs.io/idleshroom/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
   <meta property="og:title" content="Idle Shroom">
   <meta property="og:description" content="Tap a tiny mushroom. Wake a forest. Bloom forever.">
-  <meta property="og:url" content="https://idleshroom.aolabs.io/">
-  <meta property="og:image" content="https://idleshroom.aolabs.io/icon.svg">
+  <meta property="og:url" content="https://aolabs.io/idleshroom/">
+  <meta property="og:image" content="https://aolabs.io/idleshroom/icon.svg">
   <meta name="twitter:card" content="summary">
   <meta name="application-name" content="Idle Shroom">
   <meta name="mobile-web-app-capable" content="yes">
@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260521-premium-7">
+  <link rel="stylesheet" href="./styles.css?v=20260522-retention-1">
   <script src="./ads-config.js"></script>
   <script src="./online-config.js?v=20260520-forest-heart-1"></script>
 </head>
@@ -78,11 +78,12 @@
           <div>
             <span class="metric-label">spores/sec</span>
             <strong id="rateValue">0</strong>
-            <small id="baseRateValue">buy roots</small>
+            <button type="button" class="next-goal-button" id="nextGoalButton">grow roots</button>
           </div>
           <div>
             <span class="metric-label">taps</span>
             <strong id="tapValue">1</strong>
+            <small id="seasonValue">season 1</small>
           </div>
         </div>
 
@@ -157,7 +158,7 @@
         <div class="state-card">
           <span class="metric-label">Spore Shower</span>
           <strong id="focusValue">inactive</strong>
-          <p id="boostHint">Watch a reward ad to call a 10 minute Spore Shower. Demo shower runs while ad IDs are not configured.</p>
+          <p id="boostHint">Call a 10 minute Spore Shower for a short growth burst.</p>
           <button type="button" id="focusButton">call shower</button>
         </div>
 
@@ -271,7 +272,7 @@
     </dialog>
   </div>
 
-  <script src="./ads.js?v=20260521-premium-7"></script>
-  <script src="./game.js?v=20260521-premium-7"></script>
+  <script src="./ads.js?v=20260522-retention-1"></script>
+  <script src="./game.js?v=20260522-retention-1"></script>
 </body>
 </html>

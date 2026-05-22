@@ -2,13 +2,277 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Idle Shroom</title>
-  <link rel="canonical" href="https://idleshroom.aolabs.io/">
-  <meta http-equiv="refresh" content="0; url=../mushroom-boop/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Idle Shroom / cute mushroom idle clicker game</title>
+  <meta name="description" content="Idle Shroom is a cute idle game about tapping a tiny fly agaric, waking a living meadow, Great Blooming into stronger seasons, and climbing the global board.">
+  <link rel="canonical" href="https://aolabs.io/idleshroom/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AO Labs">
+  <meta property="og:title" content="Idle Shroom">
+  <meta property="og:description" content="Tap a tiny mushroom. Wake a forest. Bloom forever.">
+  <meta property="og:url" content="https://aolabs.io/idleshroom/">
+  <meta property="og:image" content="https://aolabs.io/idleshroom/icon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="application-name" content="Idle Shroom">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Idle Shroom">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#f2e9cf">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
+  <link rel="stylesheet" href="./styles.css?v=20260522-retention-1">
+  <script src="./ads-config.js"></script>
+  <script src="./online-config.js?v=20260520-forest-heart-1"></script>
 </head>
-<body>
-  <p><a href="../mushroom-boop/">Idle Shroom</a></p>
-  <script>location.replace("../mushroom-boop/" + location.search + location.hash);</script>
+<body class="game-page" data-tab="play">
+  <div class="phone-frame" aria-label="Idle Shroom phone preview">
+    <header class="suite-topbar">
+      <div class="suite-brand-cluster">
+        <a class="suite-ao-home" href="https://aolabs.io/" aria-label="aolabs.io">
+          <img src="/marks/ao-ink.svg?v=20260516-suite-bloom" alt="">
+        </a>
+        <a class="suite-app-brand" href="./" aria-label="Idle Shroom home">
+          <img class="suite-app-mark" src="./icon.svg" alt="">
+          <span class="suite-app-name">Idle Shroom</span>
+        </a>
+      </div>
+      <nav class="suite-topbar-actions" aria-label="Idle Shroom">
+        <a href="./about.html">about</a>
+        <a href="./privacy.html">privacy</a>
+      </nav>
+    </header>
+
+    <main class="game-shell">
+    <aside class="ad-slot ad-slot-top" data-ad-unit="top" aria-label="advertising"></aside>
+
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">cute idle clicker</p>
+        <h1>Idle Shroom</h1>
+        <p class="summary">Tap a tiny mushroom. Wake a forest. Bloom forever.</p>
+        <div class="hero-pills" aria-label="game loops">
+          <span>global board</span>
+          <span>daily dew</span>
+          <span>Spore Shower</span>
+          <span>bloom perks</span>
+        </div>
+      </div>
+      <div class="daily-card" id="dailyCard">
+        <span>daily dew</span>
+        <strong id="dailyReward">ready</strong>
+        <button type="button" id="dailyButton">claim</button>
+      </div>
+    </section>
+
+    <section class="play-grid screen-panel" data-screen="play">
+      <section class="tap-panel" aria-label="mushroom meadow">
+        <div class="resource-row">
+          <div>
+            <span class="metric-label">spores</span>
+            <strong id="loopsValue">0</strong>
+          </div>
+          <div>
+            <span class="metric-label">spores/sec</span>
+            <strong id="rateValue">0</strong>
+            <button type="button" class="next-goal-button" id="nextGoalButton">grow roots</button>
+          </div>
+          <div>
+            <span class="metric-label">taps</span>
+            <strong id="tapValue">1</strong>
+            <small id="seasonValue">season 1</small>
+          </div>
+        </div>
+
+        <div class="glade-stage">
+          <div class="glade-head">
+          <div>
+            <span id="meadowValue">meadow 1</span>
+            <strong id="meadowName">Sleeping Cap</strong>
+          </div>
+            <div class="glade-actions">
+              <em id="meadowMood">sleepy</em>
+              <button type="button" class="sound-button" id="soundButton" aria-label="sound on"><span aria-hidden="true"></span></button>
+            </div>
+          </div>
+          <div class="bloom-track" aria-label="meadow bloom progress">
+            <span id="bloomProgress"></span>
+          </div>
+          <div class="bloom-copy">
+            <small id="bloomNeed">care to bloom</small>
+            <small id="nextBloomName">next: Dewdrop Nook</small>
+          </div>
+
+          <div class="friend-scene" id="friendScene">
+            <span class="sky-glow" aria-hidden="true"></span>
+            <span class="sunbeam" aria-hidden="true"></span>
+            <span class="cloud cloud-a" aria-hidden="true"></span>
+            <span class="cloud cloud-b" aria-hidden="true"></span>
+            <span class="meadow-hill hill-a" aria-hidden="true"></span>
+            <span class="meadow-hill hill-b" aria-hidden="true"></span>
+            <span class="canopy-shadow" aria-hidden="true"></span>
+            <span class="scene-mist mist-a" aria-hidden="true"></span>
+            <span class="scene-mist mist-b" aria-hidden="true"></span>
+            <span class="scene-sparkle sparkle-a" aria-hidden="true"></span>
+            <span class="scene-sparkle sparkle-b" aria-hidden="true"></span>
+            <span class="scene-sparkle sparkle-c" aria-hidden="true"></span>
+            <span class="scene-decor decor-a" aria-hidden="true"></span>
+            <span class="scene-decor decor-b" aria-hidden="true"></span>
+            <span class="scene-decor decor-c" aria-hidden="true"></span>
+            <span class="scene-decor decor-d" aria-hidden="true"></span>
+            <span class="root-ring" id="rootRing" aria-hidden="true"></span>
+            <span class="rush-orbit" id="rushOrbit" aria-hidden="true"></span>
+            <button type="button" class="seed-button" id="seedButton" aria-label="tap the mushroom cap">
+              <span class="seed-core" aria-hidden="true"></span>
+              <span class="seed-mouth" aria-hidden="true"></span>
+              <span class="seed-cheeks" aria-hidden="true"></span>
+              <span class="seed-text">tap</span>
+            </button>
+            <div class="companion-row" id="companionRow" aria-hidden="true"></div>
+            <div class="orchard-visual" id="orchardVisual"></div>
+          </div>
+        </div>
+        <span class="combo-badge" id="comboBadge" aria-live="polite"></span>
+
+        <div class="skill-row" aria-label="meadow skills">
+          <button type="button" id="dewSkillButton">dew</button>
+          <button type="button" id="boostSkillButton">shower</button>
+          <button type="button" id="bloomSkillButton">Great Bloom</button>
+        </div>
+      </section>
+
+      <section class="side-panel">
+        <div class="state-card prestige-card">
+          <span class="metric-label">Great Bloom</span>
+          <strong id="rootstockValue">0</strong>
+          <p id="prestigeHint">Reach 100,000 run spores for the first Great Bloom.</p>
+          <div class="progress-track" aria-label="bloom progress">
+            <span id="prestigeProgress"></span>
+          </div>
+          <button type="button" id="prestigeButton" disabled>Great Bloom</button>
+        </div>
+
+        <div class="state-card">
+          <span class="metric-label">Spore Shower</span>
+          <strong id="focusValue">inactive</strong>
+          <p id="boostHint">Call a 10 minute Spore Shower for a short growth burst.</p>
+          <button type="button" id="focusButton">call shower</button>
+        </div>
+
+        <div class="state-card rush-card">
+          <span class="metric-label">cap rush</span>
+          <strong id="rushValue">0%</strong>
+          <p id="rushHint">Tap, grow, claim, and call showers to fill the meter.</p>
+          <div class="progress-track rush-track" aria-label="cap rush progress">
+            <span id="rushProgress"></span>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="store-grid screen-panel" data-screen="store">
+      <section class="store-panel colony-panel">
+        <div class="section-head">
+          <h2>garden</h2>
+          <span id="machineCount">spend spores</span>
+        </div>
+        <div class="store-list" id="machineList"></div>
+      </section>
+
+      <section class="store-panel charms-panel">
+        <div class="section-head">
+          <h2>charms</h2>
+          <span id="upgradeCount">0 active</span>
+        </div>
+        <div class="store-list" id="upgradeList"></div>
+      </section>
+
+      <section class="store-panel perks-panel">
+        <div class="section-head">
+          <h2>great bloom</h2>
+          <span id="perkCount">0 active</span>
+        </div>
+        <div class="store-list" id="perkList"></div>
+      </section>
+    </section>
+
+    <aside class="ad-slot ad-slot-mid" data-ad-unit="mid" aria-label="advertising"></aside>
+
+    <section class="log-grid screen-panel" data-screen="quests">
+      <section class="store-panel quest-panel">
+        <div class="section-head">
+          <h2>friends</h2>
+          <span id="questState">0/3 claimed</span>
+        </div>
+        <div class="quest-list" id="questList"></div>
+      </section>
+      <section class="store-panel badges-panel">
+        <div class="section-head">
+          <h2>badges</h2>
+          <span id="achievementCount">0 unlocked</span>
+        </div>
+        <div class="achievement-list" id="achievementList"></div>
+      </section>
+      <section class="store-panel session-panel">
+        <div class="section-head">
+          <h2>session</h2>
+          <span id="saveState">saved</span>
+        </div>
+        <div class="stat-list">
+          <p><span>tap rhythm</span><strong id="clicksValue">0</strong></p>
+          <p><span>run spores</span><strong id="runValue">0</strong></p>
+          <p><span>lifetime spores</span><strong id="lifetimeValue">0</strong></p>
+          <p><span>meadow</span><strong id="sessionMeadowValue">1</strong></p>
+          <p><span>care multiplier</span><strong id="multiplierValue">1x</strong></p>
+          <p><span>offline cap</span><strong>8h</strong></p>
+        </div>
+        <div class="save-tools">
+          <button type="button" id="shareButton">share score</button>
+          <button type="button" id="exportButton">export save</button>
+          <button type="button" id="importButton">import</button>
+        </div>
+      </section>
+      <section class="store-panel leaderboard-panel" id="leaderboard">
+        <div class="section-head">
+          <h2>atlas</h2>
+          <span id="leaderboardState">global board</span>
+        </div>
+        <div class="leaderboard-tools">
+          <input id="playerName" maxlength="18" placeholder="name" aria-label="leaderboard name">
+          <button type="button" id="submitScoreButton">submit score</button>
+        </div>
+        <div class="leaderboard-list" id="leaderboardList"></div>
+      </section>
+    </section>
+
+    <nav class="bottom-tabs" id="bottomTabs" aria-label="Idle Shroom screens">
+      <button type="button" data-tab-target="play" aria-pressed="true">Grow</button>
+      <button type="button" data-tab-target="store" aria-pressed="false">Bloom</button>
+      <button type="button" data-tab-target="quests" aria-pressed="false">Friends</button>
+      <button type="button" data-tab-target="board" aria-pressed="false">Atlas</button>
+    </nav>
+
+    <aside class="ad-slot ad-slot-bottom" data-ad-unit="bottom" aria-label="advertising"></aside>
+    </main>
+
+    <dialog class="save-dialog" id="saveDialog">
+      <form method="dialog">
+        <h2 id="dialogTitle">save</h2>
+        <p id="dialogHelp">Copy this save code somewhere safe.</p>
+        <textarea id="saveText" spellcheck="false"></textarea>
+        <div class="dialog-actions">
+          <button type="button" id="copySaveButton">copy</button>
+          <button type="button" id="loadSaveButton">load</button>
+          <button type="submit">close</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <script src="./ads.js?v=20260522-retention-1"></script>
+  <script src="./game.js?v=20260522-retention-1"></script>
 </body>
 </html>
