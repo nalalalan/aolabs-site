@@ -1,30 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="meowtronome icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Meowtronome icon">
   <defs>
-    <linearGradient id="bg" x1="74" y1="52" x2="424" y2="456">
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".15"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".52"/>
+    </filter>
+    <linearGradient id="cream" x1="25" y1="18" x2="103" y2="111" gradientUnits="userSpaceOnUse">
       <stop stop-color="#fff8ef"/>
-      <stop offset=".58" stop-color="#f4d8cd"/>
-      <stop offset="1" stop-color="#cdd9cc"/>
+      <stop offset="1" stop-color="#e8dac8"/>
     </linearGradient>
-    <linearGradient id="fur" x1="143" y1="136" x2="375" y2="391">
-      <stop stop-color="#f6c7ad"/>
-      <stop offset=".58" stop-color="#e9977f"/>
-      <stop offset="1" stop-color="#b86d61"/>
+    <linearGradient id="clay" x1="22" y1="20" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e7a091"/>
+      <stop offset=".56" stop-color="#c17660"/>
+      <stop offset="1" stop-color="#865443"/>
     </linearGradient>
-    <linearGradient id="wood" x1="182" y1="158" x2="333" y2="431">
-      <stop stop-color="#8f6a58"/>
-      <stop offset="1" stop-color="#533d35"/>
+    <linearGradient id="gold" x1="28" y1="18" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0cf78"/>
+      <stop offset=".58" stop-color="#c58f43"/>
+      <stop offset="1" stop-color="#82572c"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="22" y1="24" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8db4a8"/>
+      <stop offset=".56" stop-color="#5f8b83"/>
+      <stop offset="1" stop-color="#3d6460"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="26" y1="24" x2="104" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6a5c4c"/>
+      <stop offset="1" stop-color="#3d352e"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <path d="M155 415h202l-30-242c-5-38-31-64-71-64s-66 26-71 64l-30 242Z" fill="url(#wood)"/>
-  <path d="M190 395h132l-22-211c-3-25-20-42-44-42s-41 17-44 42l-22 211Z" fill="#f6e3cc"/>
-  <path d="M186 197l-41-68 77 28c11-8 22-12 34-12s23 4 34 12l77-28-41 68c10 17 15 37 15 58 0 62-38 107-85 107s-85-45-85-107c0-21 5-41 15-58Z" fill="url(#fur)"/>
-  <path d="M160 148l47 49M352 148l-47 49" fill="none" stroke="#fff1dd" stroke-width="18" stroke-linecap="round" opacity=".72"/>
-  <path d="M256 246V156" fill="none" stroke="#2e2824" stroke-width="14" stroke-linecap="round"/>
-  <circle cx="256" cy="246" r="22" fill="#2e2824"/>
-  <path d="M228 243c-7-7-18-7-25 0M284 243c7-7 18-7 25 0" fill="none" stroke="#2e2824" stroke-width="10" stroke-linecap="round"/>
-  <path d="M247 275h18l-9 10Z" fill="#2e2824"/>
-  <path d="M234 305c13 12 31 12 44 0" fill="none" stroke="#2e2824" stroke-width="10" stroke-linecap="round"/>
-  <path d="M128 271h72M312 271h72M133 305h72M307 305h72" fill="none" stroke="#69453f" stroke-width="9" stroke-linecap="round" opacity=".68"/>
-  <path d="M165 417h182" fill="none" stroke="#2e2824" stroke-width="22" stroke-linecap="round"/>
+  <g filter="url(#d)">
+    <path d="M32 103 43 42 36 22l23 9c4-2 8-3 13-3s9 1 13 3l23-9-7 20 11 61Z" fill="url(#cream)"/>
+    <path d="M43 42 36 22l22 9M85 31l23-9-7 20" fill="url(#clay)" opacity=".9"/>
+    <path d="M38 99h68" fill="none" stroke="url(#ink)" stroke-width="6" stroke-linecap="round" opacity=".68"/>
+    <path d="M50 92h46L89 49c-1-9-8-15-17-15s-16 6-17 15Z" fill="url(#clay)" opacity=".18"/>
+    <path d="M64 39v35" fill="none" stroke="url(#ink)" stroke-width="4.8" stroke-linecap="round"/>
+    <circle cx="64" cy="74" r="7.5" fill="url(#gold)"/>
+    <path d="M53 61c3-3 8-3 11 0M75 61c3-3 8-3 11 0" fill="none" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M62 70h4l-2 3Z" fill="#463b32"/>
+    <path d="M56 80c5 5 12 5 17 0" fill="none" stroke="url(#ink)" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M39 71h17M72 71h17M40 80h17M71 80h17" fill="none" stroke="url(#teal)" stroke-width="3.2" stroke-linecap="round" opacity=".68"/>
+    <path d="M50 99c7-5 15-7 24-7s17 2 24 7" fill="none" stroke="url(#gold)" stroke-width="4.5" stroke-linecap="round" opacity=".72"/>
+  </g>
 </svg>

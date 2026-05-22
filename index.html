@@ -55,9 +55,10 @@
       --progress: #5d72ad;
       --a3: #7b8aa6;
       --league: #8a738d;
-      --mushroom-boop: #e97888;
-      --meowtronome: #d8897c;
-      --sleep: #b96f5f;
+      --idleshroom: #c17660;
+      --mushroom-boop: #c17660;
+      --meowtronome: #b87966;
+      --sleep: #6d86aa;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -167,29 +168,29 @@
     }
 
     .palette-strip span:nth-child(1) { background: var(--imagineer); }
-    .palette-strip span:nth-child(2) { background: var(--sandia); }
-    .palette-strip span:nth-child(3) { background: var(--cv); }
-    .palette-strip span:nth-child(4) { background: var(--sarrus); }
-    .palette-strip span:nth-child(5) { background: var(--fluxcell); }
+    .palette-strip span:nth-child(2) { background: var(--cv); }
+    .palette-strip span:nth-child(3) { background: var(--sarrus); }
+    .palette-strip span:nth-child(4) { background: var(--fluxcell); }
+    .palette-strip span:nth-child(5) { background: var(--sandia); }
     .palette-strip span:nth-child(6) { background: var(--ocean); }
     .palette-strip span:nth-child(7) { background: var(--progress); }
     .palette-strip span:nth-child(8) { background: var(--spec); }
-    .palette-strip span:nth-child(9) { background: var(--curtis); }
-    .palette-strip span:nth-child(10) { background: var(--relay); }
-    .palette-strip span:nth-child(11) { background: var(--wallguard); }
-    .palette-strip span:nth-child(12) { background: var(--talk); }
-    .palette-strip span:nth-child(13) { background: var(--yum); }
-    .palette-strip span:nth-child(14) { background: var(--lily); }
-    .palette-strip span:nth-child(15) { background: var(--nerve); }
-    .palette-strip span:nth-child(16) { background: var(--duet); }
-    .palette-strip span:nth-child(17) { background: var(--violin); }
-    .palette-strip span:nth-child(18) { background: var(--spotify); }
-    .palette-strip span:nth-child(19) { background: var(--bus); }
-    .palette-strip span:nth-child(20) { background: var(--a3); }
-    .palette-strip span:nth-child(21) { background: var(--league); }
-    .palette-strip span:nth-child(22) { background: var(--mushroom-boop); }
-    .palette-strip span:nth-child(23) { background: var(--meowtronome); }
-    .palette-strip span:nth-child(24) { background: var(--sleep); }
+    .palette-strip span:nth-child(9) { background: var(--talk); }
+    .palette-strip span:nth-child(10) { background: var(--curtis); }
+    .palette-strip span:nth-child(11) { background: var(--relay); }
+    .palette-strip span:nth-child(12) { background: var(--nerve); }
+    .palette-strip span:nth-child(13) { background: var(--violin); }
+    .palette-strip span:nth-child(14) { background: var(--bus); }
+    .palette-strip span:nth-child(15) { background: var(--league); }
+    .palette-strip span:nth-child(16) { background: var(--spotify); }
+    .palette-strip span:nth-child(17) { background: var(--a3); }
+    .palette-strip span:nth-child(18) { background: var(--sleep); }
+    .palette-strip span:nth-child(19) { background: var(--idleshroom); }
+    .palette-strip span:nth-child(20) { background: var(--meowtronome); }
+    .palette-strip span:nth-child(21) { background: var(--lily); }
+    .palette-strip span:nth-child(22) { background: var(--yum); }
+    .palette-strip span:nth-child(23) { background: var(--wallguard); }
+    .palette-strip span:nth-child(24) { background: var(--duet); }
 
     .grid {
       display: grid;
@@ -331,30 +332,31 @@
       overflow-wrap: anywhere;
     }
 
-    .relay { --accent: var(--relay); }
-    .fluxcell { --accent: var(--fluxcell); }
-    .talk { --accent: var(--talk); }
-    .duet { --accent: var(--duet); }
-    .nerve { --accent: var(--nerve); }
-    .ocean { --accent: var(--ocean); }
-    .violin { --accent: var(--violin); }
-    .yum { --accent: var(--yum); }
-    .lily { --accent: var(--lily); }
-    .cv { --accent: var(--cv); }
-    .sandia { --accent: var(--sandia); }
-    .sarrus { --accent: var(--sarrus); }
-    .imagineer { --accent: var(--imagineer); }
-    .wallguard { --accent: var(--wallguard); }
-    .curtis { --accent: var(--curtis); }
-    .spec { --accent: var(--spec); }
-    .spotify { --accent: var(--spotify); }
-    .bus { --accent: var(--bus); }
-    .progress { --accent: var(--progress); }
-    .a3 { --accent: var(--a3); }
-    .league { --accent: var(--league); }
-    .mushroom-boop { --accent: var(--mushroom-boop); }
-    .meowtronome { --accent: var(--meowtronome); }
-    .sleep { --accent: var(--sleep); }
+    .imagineer { --accent: var(--imagineer); order: 1; }
+    .cv { --accent: var(--cv); order: 2; }
+    .sarrus { --accent: var(--sarrus); order: 3; }
+    .fluxcell { --accent: var(--fluxcell); order: 4; }
+    .sandia { --accent: var(--sandia); order: 5; }
+    .ocean { --accent: var(--ocean); order: 6; }
+    .progress { --accent: var(--progress); order: 7; }
+    .spec { --accent: var(--spec); order: 8; }
+    .talk { --accent: var(--talk); order: 9; }
+    .curtis { --accent: var(--curtis); order: 10; }
+    .relay { --accent: var(--relay); order: 11; }
+    .nerve { --accent: var(--nerve); order: 12; }
+    .violin { --accent: var(--violin); order: 13; }
+    .bus { --accent: var(--bus); order: 14; }
+    .league { --accent: var(--league); order: 15; }
+    .spotify { --accent: var(--spotify); order: 16; }
+    .a3 { --accent: var(--a3); order: 17; }
+    .sleep { --accent: var(--sleep); order: 18; }
+    .idleshroom,
+    .mushroom-boop { --accent: var(--idleshroom); order: 19; }
+    .meowtronome { --accent: var(--meowtronome); order: 20; }
+    .lily { --accent: var(--lily); order: 21; }
+    .yum { --accent: var(--yum); order: 22; }
+    .wallguard { --accent: var(--wallguard); order: 23; }
+    .duet { --accent: var(--duet); order: 24; }
 
     footer {
       display: flex;
@@ -494,58 +496,6 @@
         <div class="card-foot"><span class="url">imagineer.aolabs.io</span></div>
       </a>
 
-      <a class="app sandia" href="https://aolabs.io/sandia/" aria-label="sandia">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>sandia</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/sandia.png?v=20260519-sandia-raster-pink" alt=""></span>
-          </div>
-          <p class="desc">research at sandia national labs with the nonlinear mechanics and dynamics research institute.</p>
-        </div>
-        <div class="card-foot"><span class="url">sandia.aolabs.io</span></div>
-      </a>
-
-      <a class="app mushroom-boop" href="https://aolabs.io/idleshroom/" aria-label="idleshroom">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>idleshroom</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/mushroom-boop.svg?v=20260520-mushroom-boop" alt=""></span>
-          </div>
-          <p class="desc">cute mushroom idle clicker with spores, boosts, blooms, perks, and a global board.</p>
-        </div>
-        <div class="card-foot"><span class="url">aolabs.io/idleshroom</span></div>
-      </a>
-
-      <a class="app meowtronome" href="https://aolabs.io/meowtronome/" aria-label="meowtronome">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>meowtronome</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/meowtronome.svg?v=20260520-meowtronome" alt=""></span>
-          </div>
-          <p class="desc">metronome with generated meow ticks, beat grouping, and tap tempo.</p>
-        </div>
-        <div class="card-foot"><span class="url">aolabs.io/meowtronome</span></div>
-      </a>
-
-      <a class="app sleep" href="https://aolabs.io/sleep/" aria-label="sleep">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>sleep</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/sleep.svg?v=20260521-sleep" alt=""></span>
-          </div>
-          <p class="desc">warm low-stimulation shutdown surface and sleep-transition paper.</p>
-        </div>
-        <div class="card-foot"><span class="url">aolabs.io/sleep</span></div>
-      </a>
-
       <a class="app cv" href="https://cv.aolabs.io" aria-label="cv">
         <div>
           <div class="app-top">
@@ -583,6 +533,19 @@
           <p class="desc">electropermanent cells for modular motion and soft robotic systems.</p>
         </div>
         <div class="card-foot"><span class="url">fluxcell.aolabs.io</span></div>
+      </a>
+
+      <a class="app sandia" href="https://aolabs.io/sandia/" aria-label="sandia">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>sandia</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sandia.png?v=20260519-sandia-raster-pink" alt=""></span>
+          </div>
+          <p class="desc">research at sandia national labs with the nonlinear mechanics and dynamics research institute.</p>
+        </div>
+        <div class="card-foot"><span class="url">sandia.aolabs.io</span></div>
       </a>
 
       <a class="app ocean" href="https://ocean.aolabs.io" aria-label="ocean">
@@ -624,6 +587,32 @@
         <div class="card-foot"><span class="url">spec.aolabs.io</span></div>
       </a>
 
+      <a class="app talk" href="https://talk.aolabs.io" aria-label="talk">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>talk</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260508-icon-pass2" alt=""></span>
+          </div>
+          <p class="desc">direct ai mirror shaped by alan's current context.</p>
+        </div>
+        <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
+      </a>
+
+      <a class="app curtis" href="https://curtis.aolabs.io" aria-label="curtis">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>curtis</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/curtis.svg?v=20260508-icon-pass2" alt=""></span>
+          </div>
+          <p class="desc">audition media review, repertoire, evidence, and paper record.</p>
+        </div>
+        <div class="card-foot"><span class="url">curtis.aolabs.io</span></div>
+      </a>
+
       <a class="app relay" href="https://relay.aolabs.io" aria-label="relay">
         <div>
           <div class="app-top">
@@ -650,19 +639,6 @@
         <div class="card-foot"><span class="url">nerve.aolabs.io</span></div>
       </a>
 
-      <a class="app curtis" href="https://curtis.aolabs.io" aria-label="curtis">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>curtis</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/curtis.svg?v=20260508-icon-pass2" alt=""></span>
-          </div>
-          <p class="desc">audition media review, repertoire, evidence, and paper record.</p>
-        </div>
-        <div class="card-foot"><span class="url">curtis.aolabs.io</span></div>
-      </a>
-
       <a class="app violin" href="https://violin.aolabs.io" aria-label="violin">
         <div>
           <div class="app-top">
@@ -676,56 +652,30 @@
         <div class="card-foot"><span class="url">violin.aolabs.io</span></div>
       </a>
 
-      <a class="app talk" href="https://talk.aolabs.io" aria-label="talk">
+      <a class="app bus" href="https://bus.aolabs.io" aria-label="bus">
         <div>
           <div class="app-top">
             <div>
-              <h2>talk</h2>
+              <h2>bus</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/talk.svg?v=20260508-icon-pass2" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/bus.svg?v=20260516-bus-polish2" alt=""></span>
           </div>
-          <p class="desc">direct ai mirror shaped by alan's current context.</p>
+          <p class="desc">wrta live route timing, stop choice, bus position, and pull-cord sequence.</p>
         </div>
-        <div class="card-foot"><span class="url">talk.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">bus.aolabs.io</span></div>
       </a>
 
-      <a class="app wallguard" href="https://wallguard.aolabs.io" aria-label="wallguard">
+      <a class="app league" href="https://league.aolabs.io/" aria-label="league">
         <div>
           <div class="app-top">
             <div>
-              <h2>wallguard</h2>
+              <h2>league</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260508-icon-pass2" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/league.svg?v=20260517-league-mark2" alt=""></span>
           </div>
-          <p class="desc">messenger group-state guard for wallpaper, name, and picture restore.</p>
+          <p class="desc">public review room for League rules, reps, and mindset.</p>
         </div>
-        <div class="card-foot"><span class="url">wallguard.aolabs.io</span></div>
-      </a>
-
-      <a class="app lily" href="https://lily.aolabs.io" aria-label="lily">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>lily</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260507-suite3" alt=""></span>
-          </div>
-          <p class="desc">memory bank of lily.</p>
-        </div>
-        <div class="card-foot"><span class="url">lily.aolabs.io</span></div>
-      </a>
-
-      <a class="app yum" href="https://yum.aolabs.io" aria-label="yum">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>yum</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260508-icon-pass2" alt=""></span>
-          </div>
-          <p class="desc">media wall for cars, food, alcohol, and k-pop girls.</p>
-        </div>
-        <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">league.aolabs.io</span></div>
       </a>
 
       <a class="app spotify" href="https://spotify.aolabs.io" aria-label="spotify">
@@ -754,30 +704,82 @@
         <div class="card-foot"><span class="url">a3.aolabs.io</span></div>
       </a>
 
-      <a class="app bus" href="https://bus.aolabs.io" aria-label="bus">
+      <a class="app sleep" href="https://aolabs.io/sleep/" aria-label="sleep">
         <div>
           <div class="app-top">
             <div>
-              <h2>bus</h2>
+              <h2>sleep</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/bus.svg?v=20260516-bus-polish2" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/sleep.svg?v=20260522-suite-icons" alt=""></span>
           </div>
-          <p class="desc">wrta live route timing, stop choice, bus position, and pull-cord sequence.</p>
+          <p class="desc">warm low-stimulation shutdown surface and sleep-transition paper.</p>
         </div>
-        <div class="card-foot"><span class="url">bus.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">aolabs.io/sleep</span></div>
       </a>
 
-      <a class="app league" href="https://league.aolabs.io/" aria-label="league">
+      <a class="app idleshroom" href="https://aolabs.io/idleshroom/" aria-label="idleshroom">
         <div>
           <div class="app-top">
             <div>
-              <h2>league</h2>
+              <h2>idleshroom</h2>
             </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/league.svg?v=20260517-league-mark2" alt=""></span>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/idleshroom.svg?v=20260522-suite-icons" alt=""></span>
           </div>
-          <p class="desc">public review room for League rules, reps, and mindset.</p>
+          <p class="desc">cute mushroom idle clicker with spores, boosts, blooms, perks, and a global board.</p>
         </div>
-        <div class="card-foot"><span class="url">league.aolabs.io</span></div>
+        <div class="card-foot"><span class="url">aolabs.io/idleshroom</span></div>
+      </a>
+
+      <a class="app meowtronome" href="https://aolabs.io/meowtronome/" aria-label="meowtronome">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>meowtronome</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/meowtronome.svg?v=20260522-suite-icons" alt=""></span>
+          </div>
+          <p class="desc">metronome with generated meow ticks, beat grouping, and tap tempo.</p>
+        </div>
+        <div class="card-foot"><span class="url">aolabs.io/meowtronome</span></div>
+      </a>
+
+      <a class="app lily" href="https://lily.aolabs.io" aria-label="lily">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>lily</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/lily.svg?v=20260507-suite3" alt=""></span>
+          </div>
+          <p class="desc">memory bank of lily.</p>
+        </div>
+        <div class="card-foot"><span class="url">lily.aolabs.io</span></div>
+      </a>
+
+      <a class="app yum" href="https://yum.aolabs.io" aria-label="yum">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>yum</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/yum.svg?v=20260508-icon-pass2" alt=""></span>
+          </div>
+          <p class="desc">media wall for cars, food, alcohol, and k-pop girls.</p>
+        </div>
+        <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
+      </a>
+
+      <a class="app wallguard" href="https://wallguard.aolabs.io" aria-label="wallguard">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>wallguard</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/wallguard.svg?v=20260508-icon-pass2" alt=""></span>
+          </div>
+          <p class="desc">messenger group-state guard for wallpaper, name, and picture restore.</p>
+        </div>
+        <div class="card-foot"><span class="url">wallguard.aolabs.io</span></div>
       </a>
 
       <a class="app duet" href="https://duet.aolabs.io/hello" aria-label="duet">

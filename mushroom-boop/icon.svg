@@ -1,15 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Idle Shroom icon">
-  <rect width="512" height="512" rx="112" fill="#f8efe6"/>
-  <path d="M74 373c42-45 95-68 158-68 80 0 143 25 206 71-22 39-79 62-170 62-92 0-157-22-194-65Z" fill="#96bd7d"/>
-  <path d="M140 267c9-91 57-153 121-153 65 0 112 61 122 153-37 14-75 9-112-16-11-7-24-7-36 0-36 25-69 30-95 16Z" fill="#e97888"/>
-  <path d="M169 271c22-85 62-127 120-127 37 0 67 16 91 48-20-61-64-96-121-96-70 0-123 56-137 156 11 9 27 15 47 19Z" fill="#f49aa4" opacity=".8"/>
-  <circle cx="213" cy="186" r="28" fill="#fff6d7"/>
-  <circle cx="291" cy="164" r="23" fill="#fff6d7"/>
-  <circle cx="330" cy="230" r="18" fill="#fff6d7"/>
-  <circle cx="173" cy="232" r="16" fill="#fff6d7"/>
-  <path d="M206 260c8-18 25-28 51-28 28 0 46 10 54 30 10 26 12 73 5 139H198c-7-69-4-116 8-141Z" fill="#f6d7a8"/>
-  <path d="M220 349c25 16 56 16 78 0" fill="none" stroke="#b6745c" stroke-width="12" stroke-linecap="round"/>
-  <circle cx="231" cy="314" r="8" fill="#5c3e38"/>
-  <circle cx="282" cy="314" r="8" fill="#5c3e38"/>
-  <path d="M116 382c24-33 51-44 80-33M333 357c33-27 64-26 92 4" fill="none" stroke="#5d8d64" stroke-width="18" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="idleshroom icon">
+  <defs>
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".15"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".52"/>
+    </filter>
+    <linearGradient id="cap" x1="23" y1="20" x2="108" y2="93" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#efa69a"/>
+      <stop offset=".55" stop-color="#c77661"/>
+      <stop offset="1" stop-color="#875344"/>
+    </linearGradient>
+    <linearGradient id="stem" x1="39" y1="44" x2="91" y2="111" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff8ef"/>
+      <stop offset="1" stop-color="#e1cfb7"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="16" y1="60" x2="112" y2="111" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8db4a8"/>
+      <stop offset=".56" stop-color="#5f8b83"/>
+      <stop offset="1" stop-color="#3d6460"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="22" y1="18" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0cf78"/>
+      <stop offset=".58" stop-color="#c58f43"/>
+      <stop offset="1" stop-color="#82572c"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="26" y1="24" x2="104" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6a5c4c"/>
+      <stop offset="1" stop-color="#3d352e"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#d)">
+    <path d="M24 94c19-10 43-13 70-9 7 1 13 3 18 6" fill="none" stroke="url(#teal)" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+    <path d="M28 66c6-25 22-42 44-42s39 17 44 42c-10 9-23 12-38 5-5-3-9-4-14-4s-9 1-14 4c-9 5-17 5-22-5Z" fill="url(#cap)"/>
+    <path d="M35 64c8-22 21-33 39-33 13 0 24 5 32 16-8-15-20-23-35-23-21 0-37 17-43 42 2 3 4 5 7 6Z" fill="#f3b2a6" opacity=".66"/>
+    <circle cx="54" cy="44" r="7" fill="#fff4d3" opacity=".95"/>
+    <circle cx="80" cy="39" r="5.5" fill="#fff4d3" opacity=".95"/>
+    <circle cx="96" cy="58" r="4.8" fill="#fff4d3" opacity=".9"/>
+    <path d="M51 64c4-8 11-12 21-12s17 4 21 12c5 11 6 25 3 42H48c-3-17-2-31 3-42Z" fill="url(#stem)"/>
+    <path d="M51 66c13 8 28 8 43 0" fill="none" stroke="url(#ink)" stroke-width="3.8" stroke-linecap="round" opacity=".3"/>
+    <path d="M59 91c8 5 17 5 25 0" fill="none" stroke="url(#gold)" stroke-width="4.5" stroke-linecap="round" opacity=".84"/>
+    <circle cx="34" cy="84" r="4.3" fill="url(#gold)"/>
+    <circle cx="104" cy="82" r="3.8" fill="url(#teal)"/>
+  </g>
 </svg>
