@@ -390,7 +390,18 @@
     target.rushUntil = Date.now() + rushSeconds * 1000;
     target.rushes = Number(target.rushes || 0) + 1;
     displayedRate = Math.max(displayedRate, incomePerSecond(target));
-    if (navigator.vibrate) navigator.vibrate([16, 20, 16]);
+    haptic([16, 20, 16]);
+  }
+
+  function haptic(pattern) {
+    if (testPlayMode || !navigator.vibrate) return;
+    const activation = navigator.userActivation;
+    if (activation && !activation.isActive && !activation.hasBeenActive) return;
+    try {
+      navigator.vibrate(pattern);
+    } catch {
+      // Haptics are optional feedback; never let browser/device policy affect play.
+    }
   }
 
   function addRushCharge(amount, target = state) {
@@ -861,7 +872,7 @@
     clickRateBurst = 0;
     playTone("great");
     showMoment("Great Bloom", `+${format(gain)} mycelium / season ${format(state.bloomCount + 1)}`, "great");
-    if (navigator.vibrate) navigator.vibrate([18, 22, 18, 36]);
+    haptic([18, 22, 18, 36]);
     markDirty();
     checkAchievements();
     save();
@@ -1431,7 +1442,7 @@
     }
     pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
     renderCombo();
-    if (navigator.vibrate) navigator.vibrate(meadow.blooms > 0 ? [12, 18, 18] : 10);
+    haptic(meadow.blooms > 0 ? [12, 18, 18] : 10);
     els.seedButton.classList.add("is-pressed");
     window.clearTimeout(pressTimer);
     pressTimer = window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
