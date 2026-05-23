@@ -27,7 +27,7 @@ const fallbackOps = {
   },
   reviewer: {
     mode: "autonomous_ai",
-    model: "gpt-5.5",
+    model: "gpt-5-mini",
     scope: "whole_public_ao_labs_graph",
     status: "not_run",
     review_count: 0,
