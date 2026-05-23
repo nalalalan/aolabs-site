@@ -59,7 +59,6 @@
       --mushroom-boop: #c17660;
       --meowtronome: #b87966;
       --dbalarm: #c96155;
-      --sleep: #6d86aa;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -185,14 +184,13 @@
     .palette-strip span:nth-child(15) { background: var(--league); }
     .palette-strip span:nth-child(16) { background: var(--spotify); }
     .palette-strip span:nth-child(17) { background: var(--a3); }
-    .palette-strip span:nth-child(18) { background: var(--sleep); }
-    .palette-strip span:nth-child(19) { background: var(--idleshroom); }
-    .palette-strip span:nth-child(20) { background: var(--meowtronome); }
-    .palette-strip span:nth-child(21) { background: var(--dbalarm); }
-    .palette-strip span:nth-child(22) { background: var(--lily); }
-    .palette-strip span:nth-child(23) { background: var(--yum); }
-    .palette-strip span:nth-child(24) { background: var(--wallguard); }
-    .palette-strip span:nth-child(25) { background: var(--duet); }
+    .palette-strip span:nth-child(18) { background: var(--idleshroom); }
+    .palette-strip span:nth-child(19) { background: var(--meowtronome); }
+    .palette-strip span:nth-child(20) { background: var(--dbalarm); }
+    .palette-strip span:nth-child(21) { background: var(--lily); }
+    .palette-strip span:nth-child(22) { background: var(--yum); }
+    .palette-strip span:nth-child(23) { background: var(--wallguard); }
+    .palette-strip span:nth-child(24) { background: var(--duet); }
 
     .grid {
       display: grid;
@@ -351,15 +349,14 @@
     .league { --accent: var(--league); order: 15; }
     .spotify { --accent: var(--spotify); order: 16; }
     .a3 { --accent: var(--a3); order: 17; }
-    .sleep { --accent: var(--sleep); order: 18; }
     .idleshroom,
-    .mushroom-boop { --accent: var(--idleshroom); order: 19; }
-    .meowtronome { --accent: var(--meowtronome); order: 20; }
-    .dbalarm { --accent: var(--dbalarm); order: 21; }
-    .lily { --accent: var(--lily); order: 22; }
-    .yum { --accent: var(--yum); order: 23; }
-    .wallguard { --accent: var(--wallguard); order: 24; }
-    .duet { --accent: var(--duet); order: 25; }
+    .mushroom-boop { --accent: var(--idleshroom); order: 18; }
+    .meowtronome { --accent: var(--meowtronome); order: 19; }
+    .dbalarm { --accent: var(--dbalarm); order: 20; }
+    .lily { --accent: var(--lily); order: 21; }
+    .yum { --accent: var(--yum); order: 22; }
+    .wallguard { --accent: var(--wallguard); order: 23; }
+    .duet { --accent: var(--duet); order: 24; }
 
     footer {
       display: flex;
@@ -481,7 +478,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -705,19 +702,6 @@
           <p class="desc">audi a3 readiness, spending memory, and advisor state.</p>
         </div>
         <div class="card-foot"><span class="url">a3.aolabs.io</span></div>
-      </a>
-
-      <a class="app sleep" href="https://aolabs.io/sleep/" aria-label="sleep">
-        <div>
-          <div class="app-top">
-            <div>
-              <h2>sleep</h2>
-            </div>
-            <span class="app-icon" aria-hidden="true"><img src="/icons/sleep.svg?v=20260522-suite-icons" alt=""></span>
-          </div>
-          <p class="desc">warm low-stimulation shutdown surface and sleep-transition paper.</p>
-        </div>
-        <div class="card-foot"><span class="url">aolabs.io/sleep</span></div>
       </a>
 
       <a class="app idleshroom" href="https://aolabs.io/idleshroom/" aria-label="idleshroom">
