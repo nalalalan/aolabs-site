@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>research.aolabs.io</title>
+  <meta name="description" content="Working fallback route for the password-gated AO Labs research ledger.">
+  <link rel="canonical" href="https://research.aolabs.io/">
+  <meta http-equiv="refresh" content="0; url=https://research-app-production-c64e.up.railway.app/">
+  <link rel="icon" href="/icons/research.svg?v=20260524-research-logbook" type="image/svg+xml">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4efe8;
+      --panel: #fffdf8;
+      --ink: #252421;
+      --muted: #6a6860;
+      --line: rgba(62, 61, 55, .16);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 24px;
+    }
+    main {
+      width: min(100%, 420px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 22px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-weight: 680;
+    }
+    a {
+      color: inherit;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>research</h1>
+    <p>Opening the working Railway route while research.aolabs.io DNS is pending.</p>
+    <a href="https://research-app-production-c64e.up.railway.app/">Open research ledger</a>
+  </main>
+  <script>window.location.replace("https://research-app-production-c64e.up.railway.app/");</script>
+</body>
+</html>
