@@ -12660,6 +12660,7 @@ body[data-tab="board"] .log-grid {
 }
 
 .game-page .moment-banner strong {
+  color: #fff8df !important;
   font-size: 14px !important;
 }
 
@@ -12837,6 +12838,12 @@ body.game-page .phone-frame .game-shell .skill-row button#bloomSkillButton {
 }
 
 .game-page .moment-banner {
+  top: auto !important;
+  left: 20px !important;
+  right: 20px !important;
+  bottom: calc(166px + env(safe-area-inset-bottom)) !important;
+  width: auto !important;
+  z-index: 90 !important;
   animation: prodToastIn .22s ease-out both !important;
 }
 
@@ -12982,5 +12989,13 @@ body[data-tab="quests"] .achievement:nth-child(3) {
   body[data-tab="board"] .leaderboard-row {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-page .moment-banner {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: calc(166px + env(safe-area-inset-bottom)) !important;
   }
 }
