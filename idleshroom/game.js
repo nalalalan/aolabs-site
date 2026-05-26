@@ -1749,7 +1749,7 @@
     const strongestOwned = [...machines].reverse().find(machine => Number(state.machines[machine.id] || 0) > 0);
     const visibleMachines = [];
     [strongestAffordable, nextLocked, nextPreview, strongestOwned, machines[0], machines[1]].forEach(machine => {
-      if (machine && !visibleMachines.some(item => item.id === machine.id) && visibleMachines.length < 2) {
+      if (machine && !visibleMachines.some(item => item.id === machine.id) && visibleMachines.length < 3) {
         visibleMachines.push(machine);
       }
     });
