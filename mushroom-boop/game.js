@@ -1784,8 +1784,8 @@
         <article class="store-item charm-card waiting">
           <span class="store-visual charm-seed" aria-hidden="true"><i></i></span>
           <div class="store-copy">
-            <h3>Next charm sleeping</h3>
-            <p>Grow roots and meadow pieces to wake the next rhythm.</p>
+            <h3>Next charm</h3>
+            <p>Grow more meadow pieces to unlock a charm.</p>
             <span class="owned">no spend needed yet</span>
           </div>
         </article>
@@ -1816,7 +1816,7 @@
           <span class="store-visual mycelium-knot" aria-hidden="true"><i></i></span>
           <div class="store-copy">
             <h3>First Great Bloom</h3>
-            <p>Reach ${format(bloomRequirement())} run spores, reset the season, and keep permanent mycelium.</p>
+            <p>Reach ${format(bloomRequirement())} run spores. Reset into a stronger season.</p>
             <span class="owned">${format(Math.min(state.totalLoops, bloomRequirement()))}/${format(bloomRequirement())} run spores</span>
           </div>
         </article>
