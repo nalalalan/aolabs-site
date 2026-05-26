@@ -10257,3 +10257,295 @@ body[data-tab="board"] .log-grid::-webkit-scrollbar {
   45% { transform: translateX(-50%) translateY(5px) scale(.985); }
   100% { transform: translateX(-50%) translateY(0) scale(1); }
 }
+
+/* Studio art pass: replace the flat prototype scene with one finished game playfield. */
+body.game-page {
+  --studio-ink: #172a20;
+  --studio-soft: rgba(255, 252, 232, .94);
+  --studio-soft-strong: rgba(255, 253, 241, .98);
+  --studio-line: rgba(255, 240, 185, .5);
+  --studio-green: #22c96b;
+  --studio-gold: #f2bd50;
+  --studio-rose: #e75d79;
+  color: var(--studio-ink);
+  background:
+    linear-gradient(180deg, rgba(5, 17, 11, .4), rgba(4, 11, 8, .72)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #07140e !important;
+}
+
+.game-page .phone-frame {
+  background:
+    linear-gradient(180deg, rgba(8, 24, 15, .18), rgba(3, 11, 7, .56)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #07140e !important;
+}
+
+.game-page .game-shell {
+  gap: 7px !important;
+  padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+}
+
+.game-page .tap-panel {
+  grid-template-rows: 56px minmax(0, 1fr) 15px 50px !important;
+  gap: 6px !important;
+}
+
+.game-page .resource-row {
+  min-height: 56px !important;
+  padding: 4px !important;
+  gap: 5px !important;
+  border-color: rgba(255, 249, 211, .68) !important;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 236, .97), rgba(236, 248, 220, .92)) !important;
+  box-shadow:
+    0 8px 18px rgba(2, 14, 7, .28),
+    inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+
+.game-page .resource-row > div,
+.game-page .resource-row .goal-stat {
+  min-height: 47px !important;
+  padding: 4px !important;
+  border-radius: 13px !important;
+  background: rgba(255, 255, 247, .64) !important;
+}
+
+.game-page .resource-row .metric-label {
+  font-size: 6px !important;
+}
+
+.game-page .resource-row strong {
+  font-size: clamp(16px, 5.2vw, 23px) !important;
+  font-weight: 920 !important;
+}
+
+.game-page .next-goal-button {
+  min-height: 29px !important;
+  background:
+    radial-gradient(circle at 35% 4%, rgba(255,255,255,.64), transparent 36%),
+    linear-gradient(180deg, #98eba0, #2fd170 62%, #14a85d) !important;
+  box-shadow:
+    0 4px 0 rgba(4, 76, 36, .3),
+    0 8px 14px rgba(12, 81, 42, .18),
+    inset 0 1px 0 rgba(255,255,255,.58) !important;
+}
+
+.game-page .glade-stage {
+  border-radius: 24px !important;
+  border-color: rgba(255, 247, 205, .34) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 239, 166, .04), rgba(0, 16, 8, .08) 54%, rgba(0, 12, 6, .24)),
+    url("./sprites/studio-playfield-20260526.webp") center bottom / cover no-repeat,
+    #143322 !important;
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -60px 76px rgba(0, 26, 12, .28) !important;
+}
+
+.game-page .glade-stage::before {
+  display: block !important;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 217, .08), transparent 30%, rgba(5, 32, 17, .18) 100%) !important;
+}
+
+.game-page .glade-stage::after {
+  height: 20% !important;
+  background:
+    linear-gradient(180deg, transparent, rgba(0, 14, 7, .32)) !important;
+  clip-path: none !important;
+}
+
+.game-page .sky-glow,
+.game-page .sunbeam,
+.game-page .cloud,
+.game-page .meadow-hill,
+.game-page .canopy-shadow,
+.game-page .scene-mist,
+.game-page .scene-decor,
+.game-page .orchard-visual,
+.game-page .companion-row {
+  display: none !important;
+}
+
+.game-page .glade-head {
+  top: 9px !important;
+  min-height: 45px !important;
+  border-color: rgba(255, 255, 255, .5) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 237, .9), rgba(232, 249, 220, .76)) !important;
+  box-shadow:
+    0 8px 18px rgba(3, 24, 11, .16),
+    inset 0 1px 0 rgba(255,255,255,.76) !important;
+}
+
+.game-page .glade-head strong {
+  color: #182b21 !important;
+}
+
+.game-page .glade-head em {
+  color: #164328 !important;
+  background: rgba(34, 201, 107, .18) !important;
+}
+
+.game-page .bloom-track {
+  top: 60px !important;
+  left: 18px !important;
+  right: 18px !important;
+  background: rgba(8, 38, 19, .18) !important;
+}
+
+.game-page .bloom-copy {
+  top: 68px !important;
+}
+
+.game-page .bloom-copy small {
+  color: rgba(255, 252, 232, .94) !important;
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.38),
+    0 0 2px rgba(0,0,0,.26) !important;
+}
+
+.game-page .friend-scene .seed-button {
+  bottom: 1% !important;
+  width: min(72%, 292px) !important;
+  height: min(42%, 310px) !important;
+  max-height: 42% !important;
+  background: transparent !important;
+  filter: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.game-page .friend-scene .seed-button::before,
+.game-page .friend-scene .seed-button::after {
+  content: "" !important;
+  display: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  transform: translateX(-50%) scale(.99) !important;
+}
+
+.game-page .root-ring {
+  display: block !important;
+  bottom: 10% !important;
+  opacity: .28 !important;
+}
+
+.game-page .rush-orbit {
+  display: block !important;
+  bottom: 9% !important;
+  opacity: .38 !important;
+}
+
+.game-page .skill-row {
+  min-height: 50px !important;
+  padding: 4px !important;
+  border-color: rgba(255, 249, 211, .66) !important;
+  background: rgba(255, 253, 237, .94) !important;
+  box-shadow:
+    0 8px 18px rgba(2, 14, 7, .28),
+    inset 0 1px 0 rgba(255,255,255,.84) !important;
+}
+
+.game-page .skill-row button {
+  min-height: 40px !important;
+  border-radius: 14px !important;
+}
+
+.game-page .bottom-tabs {
+  min-height: 52px !important;
+  padding: 5px !important;
+  border-color: rgba(255, 249, 211, .66) !important;
+  background: rgba(255, 253, 237, .94) !important;
+}
+
+body[data-tab="store"] .store-grid,
+body[data-tab="quests"] .log-grid,
+body[data-tab="board"] .log-grid {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 237, .72), rgba(16, 72, 36, .46)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #183923 !important;
+}
+
+.game-page .store-panel,
+.game-page .quest-panel,
+.game-page .badges-panel,
+.game-page .session-panel,
+.game-page .leaderboard-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 239, .94), rgba(235, 248, 219, .86)) !important;
+  border-color: rgba(255, 247, 205, .52) !important;
+  box-shadow:
+    0 10px 24px rgba(3, 26, 12, .18),
+    inset 0 1px 0 rgba(255,255,255,.82) !important;
+}
+
+.game-page .store-item,
+.game-page .store-item.garden-card,
+.game-page .store-item.recommended,
+.game-page .store-item.waiting,
+.game-page .quest-item,
+.game-page .achievement,
+.game-page .leaderboard-row,
+.game-page .leaderboard-empty {
+  background:
+    linear-gradient(180deg, rgba(255, 254, 246, .96), rgba(244, 250, 230, .92)) !important;
+  border-color: rgba(38, 91, 58, .11) !important;
+}
+
+.game-page .store-visual,
+.game-page .friend-token {
+  border-color: rgba(255,255,255,.82) !important;
+  box-shadow:
+    0 7px 14px rgba(34, 88, 55, .18),
+    inset 0 1px 0 rgba(255,255,255,.68) !important;
+}
+
+.game-page .leaderboard-empty {
+  min-height: 300px !important;
+}
+
+@media (max-height: 720px) {
+  .game-page .tap-panel {
+    grid-template-rows: 52px minmax(0, 1fr) 14px 46px !important;
+  }
+
+  .game-page .resource-row {
+    min-height: 52px !important;
+  }
+
+  .game-page .resource-row > div,
+  .game-page .resource-row .goal-stat {
+    min-height: 43px !important;
+  }
+
+  .game-page .friend-scene .seed-button {
+    width: min(68%, 260px) !important;
+    height: min(42%, 286px) !important;
+  }
+
+  .game-page .skill-row,
+  .game-page .bottom-tabs {
+    min-height: 46px !important;
+  }
+}
+
+@keyframes studioTapAura {
+  from { opacity: .68; transform: scale(.96); }
+  to { opacity: .96; transform: scale(1.05); }
+}
+
+@keyframes studioTapRing {
+  from { opacity: .85; transform: scale(.92); }
+  to { opacity: 0; transform: scale(1.2); }
+}
