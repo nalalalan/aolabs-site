@@ -1,4 +1,4 @@
-const CACHE_NAME = "idleshroom-v54";
+const CACHE_NAME = "idleshroom-v55";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,7 +8,7 @@ const ASSETS = [
   "./ads-config.js",
   "./online-config.js",
   "./ads.js",
-  "./icon.svg",
+  "./icons/icon-20260526.png",
   "./marks/ao-ink.svg",
   "./icons/apple-touch-icon.png",
   "./icons/icon-192.png",
@@ -16,6 +16,8 @@ const ASSETS = [
   "./icons/maskable-512.png",
   "./sprites/glade-premium.svg",
   "./sprites/shroom-premium.svg",
+  "./sprites/meadow-premium-20260526.webp",
+  "./sprites/shroom-premium-20260526.webp",
   "./manifest.webmanifest",
   "./about.html",
   "./privacy.html"
