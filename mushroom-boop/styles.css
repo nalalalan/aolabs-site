@@ -12999,3 +12999,582 @@ body[data-tab="quests"] .achievement:nth-child(3) {
     bottom: calc(166px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+/* Motion pass 2: split finger-down weight from release reward. */
+.game-page .friend-scene .seed-button {
+  transform: translateX(-50%) translateY(0) scale(1) !important;
+  transform-origin: 50% 88% !important;
+  transition: transform .08s ease-out, filter .1s ease-out !important;
+  animation: prod2IdleFloat 3.4s ease-in-out infinite alternate !important;
+}
+
+.game-page .seed-button.is-pressing {
+  transform: translateX(-50%) translateY(12px) scaleX(1.075) scaleY(.88) !important;
+  animation: none !important;
+  filter:
+    drop-shadow(0 4px 0 rgba(57, 10, 20, .22))
+    drop-shadow(0 15px 16px rgba(0, 0, 0, .34))
+    brightness(1.07)
+    saturate(1.06) !important;
+}
+
+.game-page .seed-button.is-tapped {
+  animation: prod3TapRelease .54s cubic-bezier(.13, .82, .14, 1) both !important;
+}
+
+.game-page .seed-button.is-lifting {
+  transform: translateX(-50%) translateY(-16px) scaleX(.955) scaleY(1.105) !important;
+  filter:
+    drop-shadow(0 12px 0 rgba(57, 10, 20, .17))
+    drop-shadow(0 30px 28px rgba(0, 0, 0, .34))
+    brightness(1.14)
+    saturate(1.12) !important;
+  transition: transform .12s cubic-bezier(.15, .82, .13, 1), filter .12s ease-out !important;
+}
+
+.game-page .seed-button.is-settling {
+  transform: translateX(-50%) translateY(4px) scaleX(1.025) scaleY(.972) !important;
+  filter:
+    drop-shadow(0 7px 0 rgba(57, 10, 20, .2))
+    drop-shadow(0 22px 21px rgba(0, 0, 0, .32))
+    brightness(1.04)
+    saturate(1.04) !important;
+  transition: transform .14s cubic-bezier(.16, .72, .18, 1), filter .14s ease-out !important;
+}
+
+.game-page .friend-scene.scene-impact,
+.game-page .friend-scene.scene-bloomed {
+  animation: prod2SceneLift .34s ease-out both !important;
+}
+
+.game-page .tap-ring {
+  width: 34px !important;
+  height: 34px !important;
+  border-width: 3px !important;
+  border-color: rgba(255, 250, 194, .86) !important;
+  box-shadow:
+    0 0 0 9px rgba(255, 135, 165, .18),
+    0 0 30px rgba(255, 226, 118, .5) !important;
+  animation: prod2TapRing .5s cubic-bezier(.14, .76, .18, 1) forwards !important;
+}
+
+.game-page .tap-flash {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 248, 190, .46), transparent 21%),
+    radial-gradient(circle at 50% 55%, rgba(255, 109, 148, .2), transparent 42%) !important;
+  animation: prod2TapFlash .34s ease-out forwards !important;
+}
+
+.game-page .tap-petal {
+  width: 7px !important;
+  height: 11px !important;
+  opacity: .96 !important;
+  animation: prod2Petal .64s cubic-bezier(.12, .72, .13, 1) forwards !important;
+}
+
+.game-page .scene-pulse {
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid rgba(255, 244, 171, .5) !important;
+  box-shadow:
+    0 0 0 12px rgba(255, 202, 102, .09),
+    0 0 28px rgba(255, 220, 106, .26) !important;
+  animation: prod2ScenePulse .54s ease-out forwards !important;
+}
+
+.game-page .spore-pop,
+.game-page .spore-spark {
+  animation: prod2Spore .72s cubic-bezier(.12, .72, .13, 1) forwards !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .24)) !important;
+}
+
+.game-page .pop {
+  font-size: 18px !important;
+  color: #fff5b8 !important;
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, .5),
+    0 0 16px rgba(255, 218, 92, .45) !important;
+  animation: prod2RewardNumber .72s cubic-bezier(.13, .72, .14, 1) forwards !important;
+}
+
+body[data-tab="store"] .store-panel,
+body[data-tab="quests"] .store-panel,
+body[data-tab="board"] .store-panel {
+  animation: prod2PanelIn .28s cubic-bezier(.16, .82, .2, 1) both !important;
+}
+
+body[data-tab="store"] .store-item,
+body[data-tab="quests"] .quest-item,
+body[data-tab="quests"] .achievement,
+body[data-tab="board"] .leaderboard-row {
+  animation: prod2ItemIn .25s cubic-bezier(.16, .82, .2, 1) both !important;
+}
+
+@keyframes prod2IdleFloat {
+  from { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1) saturate(1); }
+  to { transform: translateX(-50%) translateY(-5px) scale(1.008); filter: brightness(1.025) saturate(1.025); }
+}
+
+@keyframes prod2TapRelease {
+  0% {
+    transform: translateX(-50%) translateY(12px) scaleX(1.075) scaleY(.88);
+    filter: brightness(1.08) saturate(1.08);
+  }
+  46% {
+    transform: translateX(-50%) translateY(-12px) scaleX(.965) scaleY(1.09);
+    filter: brightness(1.15) saturate(1.12);
+  }
+  72% {
+    transform: translateX(-50%) translateY(3px) scaleX(1.018) scaleY(.982);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes prod2SceneLift {
+  0% { filter: brightness(1) saturate(1); }
+  48% { filter: brightness(1.08) saturate(1.08); }
+  100% { filter: brightness(1) saturate(1); }
+}
+
+@keyframes prod2TapRing {
+  0% { opacity: .95; transform: translate(-50%, -50%) scale(.2); }
+  62% { opacity: .54; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4.1); }
+}
+
+@keyframes prod2TapFlash {
+  0% { opacity: .58; transform: scale(.82); }
+  100% { opacity: 0; transform: scale(1.18); }
+}
+
+@keyframes prod2Petal {
+  0% { opacity: .96; transform: translate(-50%, -50%) scale(.74) rotate(0); }
+  28% { opacity: .98; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(.24) rotate(var(--turn)); }
+}
+
+@keyframes prod2ScenePulse {
+  0% { opacity: .62; transform: translate(-50%, -50%) scale(.45); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(8.5); }
+}
+
+@keyframes prod2Spore {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.46) rotate(0); }
+  16% { opacity: .98; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.36) rotate(var(--spin)); }
+}
+
+@keyframes prod2RewardNumber {
+  0% { opacity: 0; transform: translate(-50%, 4px) scale(.74); }
+  18% { opacity: 1; transform: translate(-50%, -8px) scale(1.08); }
+  100% { opacity: 0; transform: translate(-50%, -94px) scale(.95); }
+}
+
+@keyframes prod2PanelIn {
+  from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes prod2ItemIn {
+  from { opacity: 0; transform: translateY(9px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-page .friend-scene .seed-button,
+  .game-page .seed-button.is-pressing,
+  .game-page .seed-button.is-tapped,
+  .game-page .seed-button.is-lifting,
+  .game-page .seed-button.is-settling,
+  .game-page .friend-scene.scene-impact,
+  .game-page .friend-scene.scene-bloomed,
+  .game-page .tap-ring,
+  .game-page .tap-flash,
+  .game-page .tap-petal,
+  .game-page .scene-pulse,
+  .game-page .spore-pop,
+  .game-page .spore-spark,
+  .game-page .pop {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Motion pass 3: make touch feedback read like a finished mobile game interaction. */
+.game-page .glade-stage::before {
+  animation: prod3LightBreath 6.2s ease-in-out infinite alternate !important;
+}
+
+.game-page .friend-scene {
+  --impact-x: 0px;
+  --impact-y: 0px;
+  transform-origin: 50% 66% !important;
+  will-change: transform, filter !important;
+}
+
+.game-page .friend-scene.scene-impact,
+.game-page .friend-scene.scene-bloomed {
+  animation: prod3SceneImpact .46s cubic-bezier(.12, .8, .16, 1) both !important;
+}
+
+.game-page .friend-scene.scene-impact .root-ring,
+.game-page .friend-scene.scene-bloomed .root-ring {
+  animation: prod3RootImpact .58s ease-out both !important;
+}
+
+.game-page .scene-sparkle {
+  animation: prod3Sparkle 3.4s ease-in-out infinite alternate !important;
+}
+
+.game-page .friend-scene .seed-button {
+  transform: translateX(-50%) translateY(0) scale(1) !important;
+  transform-origin: 50% 90% !important;
+  transition: transform .08s ease-out, filter .1s ease-out !important;
+  animation: prod3IdleFloat 3.1s ease-in-out infinite alternate !important;
+  will-change: transform, filter !important;
+}
+
+.game-page .seed-button.is-pressing {
+  transform: translateX(-50%) translateY(15px) scaleX(1.09) scaleY(.855) !important;
+  animation: none !important;
+  filter:
+    drop-shadow(0 3px 0 rgba(60, 13, 20, .24))
+    drop-shadow(0 12px 16px rgba(0, 0, 0, .38))
+    brightness(1.08)
+    saturate(1.08) !important;
+}
+
+.game-page .seed-button.is-tapped {
+  animation: prod3TapRelease .54s cubic-bezier(.13, .82, .14, 1) both !important;
+}
+
+.game-page .seed-button.is-lifting {
+  transform: translateX(-50%) translateY(-18px) scaleX(.945) scaleY(1.12) !important;
+  filter:
+    drop-shadow(0 14px 0 rgba(60, 13, 20, .14))
+    drop-shadow(0 34px 30px rgba(0, 0, 0, .34))
+    brightness(1.16)
+    saturate(1.14) !important;
+  transition: transform .15s cubic-bezier(.13, .84, .11, 1), filter .15s ease-out !important;
+}
+
+.game-page .seed-button.is-settling {
+  transform: translateX(-50%) translateY(5px) scaleX(1.032) scaleY(.968) !important;
+  filter:
+    drop-shadow(0 7px 0 rgba(60, 13, 20, .2))
+    drop-shadow(0 21px 22px rgba(0, 0, 0, .34))
+    brightness(1.05)
+    saturate(1.05) !important;
+  transition: transform .18s cubic-bezier(.16, .74, .17, 1), filter .18s ease-out !important;
+}
+
+.game-page .seed-button.is-lifting,
+.game-page .seed-button.is-settling {
+  animation: none !important;
+}
+
+.game-page .tap-ring {
+  width: 40px !important;
+  height: 40px !important;
+  border-width: 3px !important;
+  border-color: rgba(255, 251, 202, .88) !important;
+  background: radial-gradient(circle, rgba(255, 252, 212, .18), transparent 55%) !important;
+  box-shadow:
+    0 0 0 10px rgba(255, 122, 154, .16),
+    0 0 34px rgba(255, 225, 112, .48) !important;
+  animation: prod3TapRing .58s cubic-bezier(.12, .72, .13, 1) forwards !important;
+}
+
+.game-page .tap-flash {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 250, 200, .5), transparent 20%),
+    radial-gradient(circle at 50% 56%, rgba(255, 104, 144, .22), transparent 43%) !important;
+  animation: prod3TapFlash .38s ease-out forwards !important;
+}
+
+.game-page .cap-glint,
+.game-page .tap-streak {
+  position: absolute !important;
+  z-index: 10 !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+.game-page .cap-glint {
+  left: 17% !important;
+  right: 14% !important;
+  top: 6% !important;
+  height: 38% !important;
+  border-radius: 999px 999px 48% 48% !important;
+  opacity: 0 !important;
+  background: linear-gradient(105deg, transparent 10%, rgba(255, 255, 236, .72) 37%, rgba(255, 255, 236, .14) 54%, transparent 72%) !important;
+  mix-blend-mode: screen !important;
+  transform: translateX(-48%) rotate(-10deg) !important;
+  animation: prod3CapGlint .56s ease-out forwards !important;
+}
+
+.game-page .tap-streak {
+  width: 5px !important;
+  height: 28px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, rgba(255, 252, 198, .95), rgba(255, 252, 198, 0)) !important;
+  box-shadow: 0 0 12px rgba(255, 227, 111, .42) !important;
+  transform-origin: 50% 100% !important;
+  animation: prod3TapStreak .48s cubic-bezier(.12, .72, .13, 1) forwards !important;
+}
+
+.game-page .tap-petal {
+  width: 8px !important;
+  height: 12px !important;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .2)) !important;
+  animation: prod3Petal .7s cubic-bezier(.12, .72, .13, 1) forwards !important;
+}
+
+.game-page .scene-pulse {
+  width: 20px !important;
+  height: 20px !important;
+  border: 2px solid rgba(255, 246, 178, .54) !important;
+  background: radial-gradient(circle, rgba(255, 247, 176, .22), transparent 60%) !important;
+  box-shadow:
+    0 0 0 14px rgba(255, 196, 95, .09),
+    0 0 34px rgba(255, 220, 104, .28) !important;
+  animation: prod3ScenePulse .62s ease-out forwards !important;
+}
+
+.game-page .spore-pop,
+.game-page .spore-spark {
+  animation: prod3Spore .78s cubic-bezier(.12, .72, .13, 1) forwards !important;
+}
+
+.game-page .spore-fly {
+  position: fixed !important;
+  z-index: 120 !important;
+  display: block !important;
+  width: 13px !important;
+  height: 13px !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle at 35% 28%, #fff8cf 0 18%, transparent 19%),
+    linear-gradient(180deg, #ffd76b, #ef6a88) !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, .22),
+    0 0 14px rgba(255, 221, 99, .32) !important;
+  pointer-events: none !important;
+  animation: prod3SporeFly .78s cubic-bezier(.18, .82, .2, 1) var(--delay, 0ms) forwards !important;
+}
+
+.game-page .pop {
+  animation: prod3RewardNumber .76s cubic-bezier(.13, .72, .14, 1) forwards !important;
+}
+
+.game-page .value-kick {
+  animation: prod3ValueKick .42s cubic-bezier(.12, .72, .13, 1) both !important;
+}
+
+.game-page .goal-kick {
+  animation: prod3GoalKick .5s cubic-bezier(.12, .72, .13, 1) both !important;
+}
+
+.game-page .goal-progress span,
+.game-page .bloom-track span,
+.game-page .progress-track span,
+.game-page .mini-progress i,
+.game-page .quest-progress span {
+  transition: width .34s cubic-bezier(.18, .82, .2, 1) !important;
+}
+
+body[data-tab="store"] .store-panel,
+body[data-tab="quests"] .store-panel,
+body[data-tab="board"] .store-panel {
+  animation: prod3PanelIn .32s cubic-bezier(.16, .82, .2, 1) both !important;
+}
+
+body[data-tab="store"] .store-item,
+body[data-tab="quests"] .quest-item,
+body[data-tab="quests"] .achievement,
+body[data-tab="board"] .leaderboard-row {
+  animation: prod3ItemIn .26s cubic-bezier(.16, .82, .2, 1) both !important;
+}
+
+.game-page .bottom-tabs button,
+.game-page .skill-row button,
+.game-page .store-item button,
+.game-page .quest-item button,
+.game-page .next-goal-button {
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none !important;
+  transition:
+    transform .11s ease-out,
+    filter .11s ease-out,
+    opacity .12s ease-out,
+    box-shadow .12s ease-out !important;
+}
+
+.game-page .seed-button,
+.game-page .seed-button:focus,
+.game-page .seed-button:active {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: 0 !important;
+  user-select: none !important;
+}
+
+.game-page .seed-button:focus-visible {
+  outline: 2px solid rgba(255, 246, 178, .72) !important;
+  outline-offset: 4px !important;
+}
+
+.game-page .bottom-tabs button:active,
+.game-page .skill-row button:active,
+.game-page .store-item button:active,
+.game-page .quest-item button:active,
+.game-page .next-goal-button:active {
+  transform: translateY(2px) scale(.975) !important;
+  filter: brightness(1.06) saturate(1.04) !important;
+}
+
+@keyframes prod3LightBreath {
+  from { opacity: .82; filter: brightness(1); }
+  to { opacity: 1; filter: brightness(1.06) saturate(1.03); }
+}
+
+@keyframes prod3IdleFloat {
+  from { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1) saturate(1); }
+  to { transform: translateX(-50%) translateY(-6px) scale(1.009); filter: brightness(1.025) saturate(1.025); }
+}
+
+@keyframes prod3SceneImpact {
+  0% { transform: translate(0, 0) scale(1); filter: brightness(1) saturate(1); }
+  40% { transform: translate(var(--impact-x), var(--impact-y)) scale(1.008); filter: brightness(1.1) saturate(1.08); }
+  100% { transform: translate(0, 0) scale(1); filter: brightness(1) saturate(1); }
+}
+
+@keyframes prod3TapRelease {
+  0% {
+    transform: translateX(-50%) translateY(13px) scaleX(1.08) scaleY(.87);
+    filter: brightness(1.08) saturate(1.08);
+  }
+  42% {
+    transform: translateX(-50%) translateY(-17px) scaleX(.95) scaleY(1.11);
+    filter: brightness(1.16) saturate(1.13);
+  }
+  72% {
+    transform: translateX(-50%) translateY(5px) scaleX(1.03) scaleY(.97);
+    filter: brightness(1.05) saturate(1.05);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes prod3RootImpact {
+  0% { opacity: .3; transform: translateX(-50%) scale(.97); }
+  48% { opacity: .52; transform: translateX(-50%) scale(1.055); }
+  100% { opacity: .3; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes prod3Sparkle {
+  from { opacity: .48; filter: brightness(1); transform: translateY(0) scale(.88); }
+  to { opacity: .9; filter: brightness(1.12); transform: translateY(-3px) scale(1.02); }
+}
+
+@keyframes prod3TapRing {
+  0% { opacity: .96; transform: translate(-50%, -50%) scale(.16); }
+  54% { opacity: .62; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4.5); }
+}
+
+@keyframes prod3TapFlash {
+  0% { opacity: .6; transform: scale(.8); }
+  100% { opacity: 0; transform: scale(1.22); }
+}
+
+@keyframes prod3CapGlint {
+  0% { opacity: 0; transform: translateX(-48%) rotate(-10deg); }
+  26% { opacity: .74; }
+  100% { opacity: 0; transform: translateX(62%) rotate(-10deg); }
+}
+
+@keyframes prod3TapStreak {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--rot)) translateY(12px) scaleY(.45); }
+  18% { opacity: .9; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) rotate(var(--rot)) translateY(-16px) scaleY(.2); }
+}
+
+@keyframes prod3Petal {
+  0% { opacity: .98; transform: translate(-50%, -50%) scale(.72) rotate(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(.22) rotate(var(--turn)); }
+}
+
+@keyframes prod3ScenePulse {
+  0% { opacity: .66; transform: translate(-50%, -50%) scale(.42); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(9.4); }
+}
+
+@keyframes prod3Spore {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.46) rotate(0); }
+  15% { opacity: .98; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.34) rotate(var(--spin)); }
+}
+
+@keyframes prod3SporeFly {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.5); }
+  18% { opacity: 1; transform: translate(-50%, -72%) scale(1.08); }
+  78% { opacity: .9; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(.34); }
+}
+
+@keyframes prod3RewardNumber {
+  0% { opacity: 0; transform: translate(-50%, 4px) scale(.74); }
+  16% { opacity: 1; transform: translate(-50%, -12px) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -100px) scale(.94); }
+}
+
+@keyframes prod3ValueKick {
+  0% { transform: translateY(0) scale(1); color: inherit; }
+  38% { transform: translateY(-3px) scale(1.12); color: #fff5a8; }
+  100% { transform: translateY(0) scale(1); color: inherit; }
+}
+
+@keyframes prod3GoalKick {
+  0% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(-2px) scale(1.035); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes prod3PanelIn {
+  from { opacity: 0; transform: translateY(20px) scale(.985); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes prod3ItemIn {
+  from { opacity: 0; transform: translateY(11px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-page .glade-stage::before,
+  .game-page .friend-scene,
+  .game-page .friend-scene.scene-impact,
+  .game-page .friend-scene.scene-bloomed,
+  .game-page .scene-sparkle,
+  .game-page .cap-glint,
+  .game-page .tap-streak,
+  .game-page .spore-fly,
+  .game-page .value-kick,
+  .game-page .goal-kick,
+  body[data-tab="store"] .store-panel,
+  body[data-tab="quests"] .store-panel,
+  body[data-tab="board"] .store-panel,
+  body[data-tab="store"] .store-item,
+  body[data-tab="quests"] .quest-item,
+  body[data-tab="quests"] .achievement,
+  body[data-tab="board"] .leaderboard-row {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -206,6 +206,8 @@
   let ambientStep = 0;
   let coreRenderQueued = false;
   let pressTimer = 0;
+  let releaseLiftTimer = 0;
+  let releaseSettleTimer = 0;
   let lastScenePulseAt = 0;
   let momentTimer = 0;
   let lastPointerTapAt = 0;
@@ -1430,12 +1432,56 @@
     }
   }
 
-  function pressSeedButton(duration = 420) {
-    els.seedButton.classList.remove("is-pressed");
-    void els.seedButton.offsetWidth;
-    els.seedButton.classList.add("is-pressed");
+  function clearSeedPress() {
     window.clearTimeout(pressTimer);
-    pressTimer = window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), duration);
+    window.clearTimeout(releaseLiftTimer);
+    window.clearTimeout(releaseSettleTimer);
+    els.seedButton.classList.remove("is-pressed", "is-pressing", "is-tapped", "is-lifting", "is-settling");
+  }
+
+  function cancelActivePress() {
+    if (els.seedButton.classList.contains("is-pressing")) clearSeedPress();
+  }
+
+  function pressSeedButton(duration = 420, mode = "tap") {
+    clearSeedPress();
+    void els.seedButton.offsetWidth;
+    if (mode === "press") {
+      els.seedButton.classList.add("is-pressed", "is-pressing");
+    } else {
+      els.seedButton.classList.add("is-tapped", "is-lifting");
+      releaseLiftTimer = window.setTimeout(() => {
+        els.seedButton.classList.remove("is-lifting");
+        els.seedButton.classList.add("is-settling");
+      }, 160);
+    }
+    window.clearTimeout(pressTimer);
+    pressTimer = window.setTimeout(clearSeedPress, duration);
+  }
+
+  function restartMotion(element, className, duration = 520) {
+    if (!element) return;
+    element.classList.remove(className);
+    void element.offsetWidth;
+    element.classList.add(className);
+    window.setTimeout(() => element.classList.remove(className), duration);
+  }
+
+  function setSceneImpactVector(x, y) {
+    if (!els.friendScene) return;
+    const rect = els.friendScene.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height * 0.68;
+    const nudgeX = Math.max(-4, Math.min(4, ((centerX - x) / Math.max(1, rect.width)) * 7));
+    const nudgeY = Math.max(-4, Math.min(3, ((centerY - y) / Math.max(1, rect.height)) * 5 - 1));
+    els.friendScene.style.setProperty("--impact-x", `${nudgeX.toFixed(2)}px`);
+    els.friendScene.style.setProperty("--impact-y", `${nudgeY.toFixed(2)}px`);
+  }
+
+  function kickHud() {
+    restartMotion(els.loopsValue, "value-kick", 720);
+    restartMotion(els.tapValue, "value-kick", 720);
+    restartMotion(els.nextGoalButton, "goal-kick", 760);
   }
 
   function holdPointer(event) {
@@ -1460,7 +1506,8 @@
     const rect = els.seedButton.getBoundingClientRect();
     const x = event?.clientX || rect.left + rect.width / 2;
     const y = event?.clientY || rect.top + rect.height / 2;
-    pressSeedButton();
+    pressSeedButton(620, "tap");
+    setSceneImpactVector(x, y);
     const now = Date.now();
     if (!state.firstTapAt) state.firstTapAt = now;
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
@@ -1490,11 +1537,13 @@
       playTone("tap", comboCount);
     }
     if (showFullImpact) {
+      showCounterFly(x, y);
       showSporeBurst(x, y);
       showTapImpact(x, y, rect, comboCount);
     }
-    pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
+    pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-impact");
     renderCombo();
+    kickHud();
     haptic(meadow.blooms > 0 ? [12, 18, 18] : 10);
     requestRenderCore();
   }
@@ -1522,10 +1571,29 @@
     flash.className = "tap-flash";
     els.seedButton.appendChild(flash);
 
-    const petalCount = combo >= 8 ? 7 : 4;
+    const glint = document.createElement("span");
+    glint.className = "cap-glint";
+    els.seedButton.appendChild(glint);
+
+    const streakCount = combo >= 8 ? 5 : 3;
+    for (let i = 0; i < streakCount; i += 1) {
+      const angle = -Math.PI / 2 + (i - (streakCount - 1) / 2) * 0.38 + (Math.random() - 0.5) * 0.14;
+      const distance = 42 + Math.random() * 32 + Math.min(18, combo);
+      const streak = document.createElement("span");
+      streak.className = "tap-streak";
+      streak.style.left = `${localX}px`;
+      streak.style.top = `${localY}px`;
+      streak.style.setProperty("--sx", `${Math.cos(angle) * distance}px`);
+      streak.style.setProperty("--sy", `${Math.sin(angle) * distance - 18}px`);
+      streak.style.setProperty("--rot", `${angle + Math.PI / 2}rad`);
+      els.seedButton.appendChild(streak);
+      window.setTimeout(() => streak.remove(), 720);
+    }
+
+    const petalCount = combo >= 8 ? 8 : 5;
     for (let i = 0; i < petalCount; i += 1) {
       const angle = (Math.PI * 2 * i) / petalCount + Math.random() * 0.28;
-      const distance = 20 + Math.random() * 28 + Math.min(16, combo);
+      const distance = 34 + Math.random() * 42 + Math.min(22, combo * 1.2);
       const petal = document.createElement("span");
       petal.className = `tap-petal petal-${i % 4}`;
       petal.style.left = `${localX}px`;
@@ -1534,7 +1602,7 @@
       petal.style.setProperty("--py", `${Math.sin(angle) * distance - 18}px`);
       petal.style.setProperty("--turn", `${Math.random() * 220 - 110}deg`);
       els.seedButton.appendChild(petal);
-      window.setTimeout(() => petal.remove(), 620);
+      window.setTimeout(() => petal.remove(), 740);
     }
 
     if (els.friendScene) {
@@ -1544,19 +1612,40 @@
       pulse.style.left = `${Math.max(0, Math.min(sceneRect.width, x - sceneRect.left))}px`;
       pulse.style.top = `${Math.max(0, Math.min(sceneRect.height, y - sceneRect.top))}px`;
       els.friendScene.appendChild(pulse);
-      window.setTimeout(() => pulse.remove(), 560);
+      window.setTimeout(() => pulse.remove(), 660);
     }
 
-    window.setTimeout(() => ring.remove(), 520);
-    window.setTimeout(() => flash.remove(), 360);
+    window.setTimeout(() => ring.remove(), 700);
+    window.setTimeout(() => flash.remove(), 420);
+    window.setTimeout(() => glint.remove(), 720);
+  }
+
+  function showCounterFly(x, y) {
+    if (!els.loopsValue) return;
+    const target = els.loopsValue.getBoundingClientRect();
+    const targetX = target.left + target.width / 2;
+    const targetY = target.top + target.height / 2;
+    const count = comboCount >= 8 ? 4 : 3;
+    for (let i = 0; i < count; i += 1) {
+      const mote = document.createElement("span");
+      const spread = (i - (count - 1) / 2) * 10;
+      mote.className = "spore-fly";
+      mote.style.left = `${x + spread}px`;
+      mote.style.top = `${y + (Math.random() * 8 - 4)}px`;
+      mote.style.setProperty("--tx", `${targetX - x - spread}px`);
+      mote.style.setProperty("--ty", `${targetY - y}px`);
+      mote.style.setProperty("--delay", `${i * 34}ms`);
+      document.body.appendChild(mote);
+      window.setTimeout(() => mote.remove(), 820 + i * 34);
+    }
   }
 
   function pulseScene(className) {
     if (!els.friendScene) return;
     const now = Date.now();
-    if (className === "scene-tapped" && now - lastScenePulseAt < 70) return;
+    if (className === "scene-impact" && now - lastScenePulseAt < 70) return;
     lastScenePulseAt = now;
-    els.friendScene.classList.remove("scene-tapped", "scene-bloomed");
+    els.friendScene.classList.remove("scene-tapped", "scene-impact", "scene-bloomed");
     void els.friendScene.offsetWidth;
     els.friendScene.classList.add(className);
     window.setTimeout(() => els.friendScene.classList.remove(className), className === "scene-bloomed" ? 680 : 300);
@@ -1564,21 +1653,21 @@
 
   function showSporeBurst(x, y) {
     const mobile = window.matchMedia("(max-width: 620px)").matches;
-    const count = mobile ? 10 : 8;
+    const count = mobile ? 8 : 6;
     for (let i = 0; i < count; i += 1) {
       const angle = (Math.PI * 2 * i) / count + Math.random() * 0.45;
-      const distance = 32 + Math.random() * (mobile ? 58 : 50);
+      const distance = 44 + Math.random() * (mobile ? 76 : 64);
       const spore = document.createElement("span");
       const sparkle = i % 3 === 0;
       spore.className = `${sparkle ? "spore-spark" : "spore-pop"}${comboCount >= 8 && !sparkle ? " big" : ""}`;
       spore.style.left = `${x}px`;
       spore.style.top = `${y}px`;
       spore.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
-      spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 28}px`);
+      spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 38}px`);
       spore.style.setProperty("--spin", `${Math.random() * 220 - 110}deg`);
-      spore.style.setProperty("--size", `${sparkle ? 5 + Math.random() * 7 : 6 + Math.random() * 8}px`);
+      spore.style.setProperty("--size", `${sparkle ? 8 + Math.random() * 8 : 9 + Math.random() * 10}px`);
       document.body.appendChild(spore);
-      window.setTimeout(() => spore.remove(), 680);
+      window.setTimeout(() => spore.remove(), 820);
     }
   }
 
@@ -2146,7 +2235,7 @@
 
   els.seedButton.addEventListener("pointerdown", event => {
     holdPointer(event);
-    pressSeedButton();
+    pressSeedButton(900, "press");
   }, { passive: true });
   els.seedButton.addEventListener("pointerup", event => {
     releasePointer(event);
@@ -2155,9 +2244,9 @@
   }, { passive: true });
   els.seedButton.addEventListener("pointercancel", event => {
     releasePointer(event);
-    els.seedButton.classList.remove("is-pressed");
+    clearSeedPress();
   }, { passive: true });
-  els.seedButton.addEventListener("pointerleave", () => els.seedButton.classList.remove("is-pressed"), { passive: true });
+  els.seedButton.addEventListener("pointerleave", cancelActivePress, { passive: true });
   els.seedButton.addEventListener("click", event => {
     if (Date.now() - lastPointerTapAt < 420) return;
     tap(event);
