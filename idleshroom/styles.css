@@ -6544,3 +6544,185 @@ body.game-page {
     width: min(86%, 330px);
   }
 }
+
+/* First-session retention pass: make the next action the center of the HUD. */
+.game-page .resource-row {
+  grid-template-columns: 1.08fr 1.28fr .92fr;
+  align-items: stretch;
+  gap: 7px;
+  min-height: 92px;
+  padding: 10px 9px 9px;
+}
+
+.game-page .resource-row > div {
+  min-height: 68px;
+  padding: 8px 6px;
+  border-radius: 19px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 247, 203, .1), transparent 38%),
+    linear-gradient(180deg, rgba(10, 24, 15, .5), rgba(3, 12, 8, .22));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.1),
+    inset 0 -1px 0 rgba(0,0,0,.14);
+}
+
+.game-page .resource-row > div + div {
+  border-left: 0;
+}
+
+.game-page .resource-row .goal-stat {
+  display: grid;
+  align-content: center;
+  justify-items: stretch;
+  gap: 5px;
+  padding: 8px 7px 7px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(170, 255, 181, .2), transparent 42%),
+    linear-gradient(180deg, rgba(16, 42, 25, .82), rgba(4, 19, 12, .62));
+  box-shadow:
+    0 10px 20px rgba(1, 7, 4, .2),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.18);
+}
+
+.game-page .resource-row .metric-label {
+  font-size: 8.5px;
+}
+
+.game-page .resource-row strong {
+  margin-top: 2px;
+  font-size: clamp(30px, 10.5vw, 44px);
+}
+
+.game-page .rate-inline {
+  margin-top: 3px;
+  color: rgba(255, 241, 203, .72);
+  font-family: var(--drawn-font);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.game-page .next-goal-button {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  width: 100%;
+  margin: 0;
+  padding: 4px 8px 5px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  font-size: clamp(11px, 3.5vw, 15px);
+  line-height: 1.05;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+  box-shadow:
+    0 9px 0 rgba(7, 43, 18, .28),
+    0 15px 23px rgba(0, 0, 0, .22),
+    inset 0 1px 0 rgba(255,255,255,.38);
+}
+
+.game-page .next-goal-button:disabled {
+  color: rgba(246, 238, 207, .82);
+  background:
+    radial-gradient(circle at 42% 0%, rgba(255,255,255,.18), transparent 30%),
+    linear-gradient(180deg, rgba(87, 125, 84, .74), rgba(31, 79, 48, .74));
+  box-shadow:
+    0 7px 0 rgba(3, 24, 12, .28),
+    0 12px 18px rgba(0, 0, 0, .18),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.game-page .next-goal-button[data-ready="true"] {
+  color: #08170e;
+  background:
+    radial-gradient(circle at 38% 7%, rgba(255,255,255,.82), transparent 30%),
+    linear-gradient(180deg, #d7ffd8, #66dd7e 56%, #2aa85d);
+}
+
+.game-page .goal-progress {
+  position: relative;
+  display: block;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(2, 10, 6, .55);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.36);
+}
+
+.game-page .goal-progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, #68db74, #ffe07a 70%, #ff7489);
+  box-shadow: 0 0 13px rgba(255, 222, 122, .34);
+  transition: width .2s ease;
+}
+
+.game-page .glade-stage {
+  margin-top: 9px;
+}
+
+@media (max-width: 390px) {
+  .game-page .resource-row {
+    grid-template-columns: 1fr 1.18fr .88fr;
+    gap: 5px;
+  }
+
+  .game-page .resource-row strong {
+    font-size: clamp(27px, 10vw, 40px);
+  }
+
+  .game-page .next-goal-button {
+    font-size: 11px;
+  }
+}
+
+.game-page .moment-banner {
+  left: 24px;
+  right: 24px;
+  top: auto;
+  bottom: calc(190px + env(safe-area-inset-bottom));
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 9px;
+  min-height: 48px;
+  padding: 7px 11px 8px 8px;
+  border: 1px solid rgba(255, 233, 166, .18);
+  border-radius: 17px;
+  color: #fff8df;
+  background:
+    radial-gradient(circle at 18px 50%, rgba(255, 226, 119, .22) 0 24px, transparent 25px),
+    linear-gradient(180deg, rgba(21, 42, 27, .92), rgba(5, 18, 12, .86));
+  box-shadow:
+    0 14px 26px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255,255,255,.16);
+  backdrop-filter: blur(14px) saturate(1.12);
+}
+
+.game-page .moment-banner::before {
+  width: 31px;
+  border: 1px solid rgba(255, 242, 196, .2);
+  box-shadow:
+    0 0 20px rgba(255, 218, 101, .18),
+    inset 0 -5px 9px rgba(96, 29, 40, .14);
+}
+
+.game-page .moment-banner strong {
+  color: #fff8df;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.game-page .moment-banner span {
+  color: rgba(255, 241, 202, .72);
+  font-size: 10px;
+}
+
+@media (min-width: 760px) {
+  .game-page .moment-banner {
+    left: calc(50% - 184px);
+    right: calc(50% - 184px);
+  }
+}

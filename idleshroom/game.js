@@ -211,7 +211,7 @@
 
   const els = {};
   [
-    "loopsValue", "rateValue", "tapValue", "nextGoalButton", "seedButton", "orchardVisual", "machineList",
+    "loopsValue", "rateValue", "tapValue", "nextGoalButton", "goalProgress", "seedButton", "orchardVisual", "machineList",
     "comboBadge",
     "upgradeList", "rootstockValue", "prestigeHint", "prestigeProgress", "prestigeButton", "dailyReward",
     "dailyButton", "focusValue", "focusButton", "boostHint", "machineCount", "upgradeCount",
@@ -627,6 +627,28 @@
 
     const action = nextAction(target);
     return { label: action.detail, detail: action.detail, kind: action.kind, ready: action.ready };
+  }
+
+  function goalProgress(goal = primaryGoal(), target = state) {
+    if (goal.ready) return 1;
+    if (goal.kind === "piece" && goal.id) {
+      const machine = machines.find(item => item.id === goal.id);
+      return machine ? Number(target.loops || 0) / machineCost(machine, target) : 0;
+    }
+    if (goal.kind === "charm" && goal.id) {
+      const upgrade = upgrades.find(item => item.id === goal.id);
+      return upgrade ? Number(target.loops || 0) / upgrade.cost : 0;
+    }
+    if (goal.kind === "bloom") {
+      return Number(target.totalLoops || 0) / bloomRequirement(target);
+    }
+    const tutorial = tutorialStage(target);
+    const clicks = Number(target.clicks || 0);
+    const tutorialTargets = { sleeping: 1, awake: 5, baby: 15, root: 25 };
+    if (tutorialTargets[tutorial.id]) return clicks / tutorialTargets[tutorial.id];
+    const milestone = nextClickMilestone(target);
+    if (milestone?.clicks) return clicks / milestone.clicks;
+    return 0;
   }
 
   function usePrimaryGoal() {
@@ -2027,6 +2049,9 @@
       els.nextGoalButton.dataset.goalKind = goal.kind;
       els.nextGoalButton.dataset.ready = goal.ready ? "true" : "false";
       els.nextGoalButton.dataset.rate = passiveRate > 0 && tapBurst > 0.1 ? "burst" : passiveRate > 0 ? "idle" : "none";
+    }
+    if (els.goalProgress) {
+      els.goalProgress.style.width = `${Math.round(Math.max(0, Math.min(1, goalProgress(goal))) * 100)}%`;
     }
     els.tapValue.textContent = format(state.clicks);
     if (els.seasonValue) {
