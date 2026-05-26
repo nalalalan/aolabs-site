@@ -1,4 +1,4 @@
-const CACHE_NAME = "idleshroom-v56";
+const CACHE_NAME = "idleshroom-v57";
 const ASSETS = [
   "./",
   "./index.html",
