@@ -229,6 +229,9 @@
     const screens = new Set(["play", "store", "quests", "board"]);
     const next = screens.has(tab) ? tab : "play";
     document.body.dataset.tab = next;
+    if (next !== "play") {
+      document.querySelector(".moment-banner")?.remove();
+    }
     if (!els.bottomTabs) return;
     els.bottomTabs.querySelectorAll("[data-tab-target]").forEach(button => {
       button.setAttribute("aria-pressed", button.dataset.tabTarget === next ? "true" : "false");
