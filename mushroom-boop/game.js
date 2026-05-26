@@ -208,6 +208,7 @@
   let pressTimer = 0;
   let lastScenePulseAt = 0;
   let momentTimer = 0;
+  let lastPointerTapAt = 0;
 
   const els = {};
   [
@@ -1429,10 +1430,37 @@
     }
   }
 
+  function pressSeedButton(duration = 420) {
+    els.seedButton.classList.remove("is-pressed");
+    void els.seedButton.offsetWidth;
+    els.seedButton.classList.add("is-pressed");
+    window.clearTimeout(pressTimer);
+    pressTimer = window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), duration);
+  }
+
+  function holdPointer(event) {
+    if (event?.pointerId == null || !els.seedButton.setPointerCapture) return;
+    try {
+      els.seedButton.setPointerCapture(event.pointerId);
+    } catch (_error) {
+      // Some browsers reject capture if the pointer has already ended.
+    }
+  }
+
+  function releasePointer(event) {
+    if (event?.pointerId == null || !els.seedButton.releasePointerCapture) return;
+    try {
+      if (els.seedButton.hasPointerCapture?.(event.pointerId)) els.seedButton.releasePointerCapture(event.pointerId);
+    } catch (_error) {
+      // Pointer capture can already be cleared by the browser.
+    }
+  }
+
   function tap(event) {
     const rect = els.seedButton.getBoundingClientRect();
     const x = event?.clientX || rect.left + rect.width / 2;
     const y = event?.clientY || rect.top + rect.height / 2;
+    pressSeedButton();
     const now = Date.now();
     if (!state.firstTapAt) state.firstTapAt = now;
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
@@ -1468,9 +1496,6 @@
     pulseScene(meadow.blooms > 0 ? "scene-bloomed" : "scene-tapped");
     renderCombo();
     haptic(meadow.blooms > 0 ? [12, 18, 18] : 10);
-    els.seedButton.classList.add("is-pressed");
-    window.clearTimeout(pressTimer);
-    pressTimer = window.setTimeout(() => els.seedButton.classList.remove("is-pressed"), 320);
     requestRenderCore();
   }
 
@@ -1497,10 +1522,10 @@
     flash.className = "tap-flash";
     els.seedButton.appendChild(flash);
 
-    const petalCount = combo >= 8 ? 10 : 6;
+    const petalCount = combo >= 8 ? 7 : 4;
     for (let i = 0; i < petalCount; i += 1) {
       const angle = (Math.PI * 2 * i) / petalCount + Math.random() * 0.28;
-      const distance = 28 + Math.random() * 36 + Math.min(22, combo * 1.5);
+      const distance = 20 + Math.random() * 28 + Math.min(16, combo);
       const petal = document.createElement("span");
       petal.className = `tap-petal petal-${i % 4}`;
       petal.style.left = `${localX}px`;
@@ -1509,7 +1534,7 @@
       petal.style.setProperty("--py", `${Math.sin(angle) * distance - 18}px`);
       petal.style.setProperty("--turn", `${Math.random() * 220 - 110}deg`);
       els.seedButton.appendChild(petal);
-      window.setTimeout(() => petal.remove(), 720);
+      window.setTimeout(() => petal.remove(), 620);
     }
 
     if (els.friendScene) {
@@ -1519,11 +1544,11 @@
       pulse.style.left = `${Math.max(0, Math.min(sceneRect.width, x - sceneRect.left))}px`;
       pulse.style.top = `${Math.max(0, Math.min(sceneRect.height, y - sceneRect.top))}px`;
       els.friendScene.appendChild(pulse);
-      window.setTimeout(() => pulse.remove(), 720);
+      window.setTimeout(() => pulse.remove(), 560);
     }
 
-    window.setTimeout(() => ring.remove(), 620);
-    window.setTimeout(() => flash.remove(), 440);
+    window.setTimeout(() => ring.remove(), 520);
+    window.setTimeout(() => flash.remove(), 360);
   }
 
   function pulseScene(className) {
@@ -1534,15 +1559,15 @@
     els.friendScene.classList.remove("scene-tapped", "scene-bloomed");
     void els.friendScene.offsetWidth;
     els.friendScene.classList.add(className);
-    window.setTimeout(() => els.friendScene.classList.remove(className), className === "scene-bloomed" ? 920 : 360);
+    window.setTimeout(() => els.friendScene.classList.remove(className), className === "scene-bloomed" ? 680 : 300);
   }
 
   function showSporeBurst(x, y) {
     const mobile = window.matchMedia("(max-width: 620px)").matches;
-    const count = mobile ? 16 : 12;
+    const count = mobile ? 10 : 8;
     for (let i = 0; i < count; i += 1) {
       const angle = (Math.PI * 2 * i) / count + Math.random() * 0.45;
-      const distance = 44 + Math.random() * (mobile ? 86 : 74);
+      const distance = 32 + Math.random() * (mobile ? 58 : 50);
       const spore = document.createElement("span");
       const sparkle = i % 3 === 0;
       spore.className = `${sparkle ? "spore-spark" : "spore-pop"}${comboCount >= 8 && !sparkle ? " big" : ""}`;
@@ -1551,9 +1576,9 @@
       spore.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
       spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 28}px`);
       spore.style.setProperty("--spin", `${Math.random() * 220 - 110}deg`);
-      spore.style.setProperty("--size", `${sparkle ? 7 + Math.random() * 9 : 7 + Math.random() * 11}px`);
+      spore.style.setProperty("--size", `${sparkle ? 5 + Math.random() * 7 : 6 + Math.random() * 8}px`);
       document.body.appendChild(spore);
-      window.setTimeout(() => spore.remove(), 900);
+      window.setTimeout(() => spore.remove(), 680);
     }
   }
 
@@ -2119,7 +2144,24 @@
     else render();
   }
 
-  els.seedButton.addEventListener("click", tap);
+  els.seedButton.addEventListener("pointerdown", event => {
+    holdPointer(event);
+    pressSeedButton();
+  }, { passive: true });
+  els.seedButton.addEventListener("pointerup", event => {
+    releasePointer(event);
+    lastPointerTapAt = Date.now();
+    tap(event);
+  }, { passive: true });
+  els.seedButton.addEventListener("pointercancel", event => {
+    releasePointer(event);
+    els.seedButton.classList.remove("is-pressed");
+  }, { passive: true });
+  els.seedButton.addEventListener("pointerleave", () => els.seedButton.classList.remove("is-pressed"), { passive: true });
+  els.seedButton.addEventListener("click", event => {
+    if (Date.now() - lastPointerTapAt < 420) return;
+    tap(event);
+  });
   els.machineList.addEventListener("click", event => {
     const id = event.target.closest("button")?.dataset.buyMachine;
     if (id) buyMachine(id);

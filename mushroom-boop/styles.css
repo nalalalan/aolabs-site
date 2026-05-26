@@ -12714,3 +12714,273 @@ body.game-page .phone-frame .game-shell .skill-row button#bloomSkillButton {
   border: 0 !important;
   box-shadow: none !important;
 }
+
+/* Motion pass: restrained game-feel animation instead of scattered CSS toy motion. */
+.game-page .friend-scene {
+  transition: filter .18s ease-out !important;
+}
+
+.game-page .friend-scene .seed-button {
+  transform-origin: 50% 92% !important;
+  will-change: transform, filter !important;
+  animation: prodIdleFloat 3.1s ease-in-out infinite alternate !important;
+}
+
+.game-page .friend-scene.scene-tapped .seed-button,
+.game-page .seed-button.is-pressed {
+  animation: prodTapPress .26s cubic-bezier(.18, 1.28, .28, 1) both !important;
+}
+
+.game-page .seed-button::before {
+  transform-origin: 50% 82% !important;
+  animation: prodCapBreath 3.2s ease-in-out infinite alternate !important;
+}
+
+.game-page .seed-button.is-pressed::before,
+.game-page .friend-scene.scene-tapped .seed-button::before {
+  animation: prodCapPress .26s cubic-bezier(.18, 1.28, .28, 1) both !important;
+}
+
+.game-page .seed-button::after,
+.game-page .seed-core,
+.game-page .seed-cheeks {
+  transition: transform .14s ease-out, filter .14s ease-out, opacity .14s ease-out !important;
+}
+
+.game-page .seed-button.is-pressed .seed-core,
+.game-page .friend-scene.scene-tapped .seed-core {
+  transform: translateY(3px) scaleX(1.03) scaleY(.96) !important;
+}
+
+.game-page .seed-button.is-pressed .seed-cheeks,
+.game-page .friend-scene.scene-tapped .seed-cheeks {
+  transform: translateY(2px) scale(1.05) !important;
+  filter: saturate(1.12) brightness(1.05) !important;
+}
+
+.game-page .tap-ring,
+.game-page .scene-pulse {
+  border-style: solid !important;
+}
+
+.game-page .tap-ring {
+  z-index: 7 !important;
+  width: 16px !important;
+  height: 16px !important;
+  border: 2px solid rgba(255, 244, 177, .74) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: 0 0 12px rgba(255, 223, 112, .2) !important;
+  animation: prodTapRing .42s ease-out forwards !important;
+}
+
+.game-page .tap-ring.hot {
+  border-color: rgba(255, 245, 155, .9) !important;
+  box-shadow: 0 0 18px rgba(255, 222, 105, .34) !important;
+}
+
+.game-page .tap-flash {
+  z-index: 6 !important;
+  inset: -10% !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 242, 172, .3), transparent 22%),
+    radial-gradient(circle at 50% 55%, rgba(255, 137, 165, .12), transparent 38%) !important;
+  animation: prodTapFlash .28s ease-out forwards !important;
+}
+
+.game-page .tap-petal {
+  z-index: 8 !important;
+  width: 5px !important;
+  height: 8px !important;
+  border-radius: 999px 999px 999px 3px !important;
+  opacity: .92 !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .18) !important;
+  animation: prodPetal .56s cubic-bezier(.13, .72, .17, 1) forwards !important;
+}
+
+.game-page .scene-pulse {
+  width: 12px !important;
+  height: 12px !important;
+  border: 1px solid rgba(255, 238, 151, .38) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, rgba(255, 236, 142, .2), transparent 58%) !important;
+  box-shadow: 0 0 16px rgba(255, 230, 129, .18) !important;
+  animation: prodScenePulse .46s ease-out forwards !important;
+}
+
+.game-page .spore-pop,
+.game-page .spore-spark {
+  animation: prodSpore .58s cubic-bezier(.13, .72, .17, 1) forwards !important;
+  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, .2)) !important;
+}
+
+.game-page .spore-pop {
+  background:
+    radial-gradient(circle at 34% 28%, #fff7cd 0 22%, transparent 23%),
+    linear-gradient(180deg, #ffd878, #ed6685) !important;
+}
+
+.game-page .spore-spark {
+  background: #fff0a8 !important;
+  filter: drop-shadow(0 0 7px rgba(255, 225, 105, .48)) !important;
+}
+
+.game-page .pop {
+  animation: prodRewardNumber .62s cubic-bezier(.14, .7, .16, 1) forwards !important;
+  font-size: 13px !important;
+  letter-spacing: 0 !important;
+}
+
+.game-page .pop-hot {
+  animation-duration: .7s !important;
+}
+
+.game-page .moment-banner {
+  animation: prodToastIn .22s ease-out both !important;
+}
+
+.game-page .moment-banner.leaving {
+  animation: prodToastOut .22s ease-in forwards !important;
+}
+
+body[data-tab="store"] .store-panel,
+body[data-tab="quests"] .store-panel,
+body[data-tab="board"] .store-panel {
+  animation: prodPanelIn .2s ease-out both !important;
+}
+
+body[data-tab="store"] .store-item,
+body[data-tab="quests"] .quest-item,
+body[data-tab="quests"] .achievement,
+body[data-tab="board"] .leaderboard-row {
+  animation: prodItemIn .18s ease-out both !important;
+}
+
+body[data-tab="store"] .store-item:nth-child(2),
+body[data-tab="quests"] .quest-item:nth-child(2),
+body[data-tab="quests"] .achievement:nth-child(2) {
+  animation-delay: .025s !important;
+}
+
+body[data-tab="store"] .store-item:nth-child(3),
+body[data-tab="quests"] .quest-item:nth-child(3),
+body[data-tab="quests"] .achievement:nth-child(3) {
+  animation-delay: .05s !important;
+}
+
+.game-page .bottom-tabs button,
+.game-page .store-item button,
+.game-page .skill-row button {
+  transition:
+    transform .1s ease-out,
+    opacity .12s ease-out,
+    color .12s ease-out,
+    background .12s ease-out,
+    box-shadow .12s ease-out !important;
+}
+
+.game-page .bottom-tabs button:active,
+.game-page .store-item button:active,
+.game-page .skill-row button:active {
+  transform: translateY(1px) scale(.98) !important;
+}
+
+@keyframes prodIdleFloat {
+  from { transform: translateY(0) scale(1); filter: brightness(1) saturate(1); }
+  to { transform: translateY(-4px) scale(1.006); filter: brightness(1.025) saturate(1.025); }
+}
+
+@keyframes prodTapPress {
+  0% { transform: translateY(-2px) scale(1.006); filter: brightness(1.02) saturate(1.02); }
+  42% { transform: translateY(5px) scaleX(1.045) scaleY(.94); filter: brightness(1.08) saturate(1.08); }
+  78% { transform: translateY(-2px) scaleX(.99) scaleY(1.018); }
+  100% { transform: translateY(0) scale(1); filter: brightness(1) saturate(1); }
+}
+
+@keyframes prodCapBreath {
+  from { transform: translateY(0) scale(1); filter: brightness(1); }
+  to { transform: translateY(-2px) scale(1.006); filter: brightness(1.025); }
+}
+
+@keyframes prodCapPress {
+  0% { transform: translateY(0) scale(1); }
+  44% { transform: translateY(6px) scaleX(1.045) scaleY(.92); }
+  78% { transform: translateY(-2px) scaleX(.99) scaleY(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes prodTapRing {
+  0% { opacity: .9; transform: translate(-50%, -50%) scale(.45); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.2); }
+}
+
+@keyframes prodTapFlash {
+  0% { opacity: .55; transform: scale(.86); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+@keyframes prodPetal {
+  0% { opacity: .92; transform: translate(-50%, -50%) scale(.7) rotate(0); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(.35) rotate(var(--turn)); }
+}
+
+@keyframes prodScenePulse {
+  0% { opacity: .55; transform: translate(-50%, -50%) scale(.45); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(6); }
+}
+
+@keyframes prodSpore {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.5) rotate(0); }
+  14% { opacity: .92; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.28) rotate(var(--spin)); }
+}
+
+@keyframes prodRewardNumber {
+  0% { opacity: 0; transform: translate(-50%, -12%) scale(.86); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -88%) scale(1.04); }
+}
+
+@keyframes prodToastIn {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes prodToastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(6px) scale(.98); }
+}
+
+@keyframes prodPanelIn {
+  from { opacity: 0; transform: translateY(10px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes prodItemIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-page .friend-scene .seed-button,
+  .game-page .seed-button::before,
+  .game-page .tap-ring,
+  .game-page .tap-flash,
+  .game-page .tap-petal,
+  .game-page .scene-pulse,
+  .game-page .spore-pop,
+  .game-page .spore-spark,
+  .game-page .pop,
+  .game-page .moment-banner,
+  body[data-tab="store"] .store-panel,
+  body[data-tab="quests"] .store-panel,
+  body[data-tab="board"] .store-panel,
+  body[data-tab="store"] .store-item,
+  body[data-tab="quests"] .quest-item,
+  body[data-tab="quests"] .achievement,
+  body[data-tab="board"] .leaderboard-row {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
