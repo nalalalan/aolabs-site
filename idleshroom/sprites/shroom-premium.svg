@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 620" role="img" aria-label="Idle Shroom character">
+  <defs>
+    <radialGradient id="capGlow" cx="43%" cy="23%" r="76%">
+      <stop offset="0" stop-color="#ffb7a6"/>
+      <stop offset=".36" stop-color="#ff6576"/>
+      <stop offset=".78" stop-color="#d91f42"/>
+      <stop offset="1" stop-color="#8a1530"/>
+    </radialGradient>
+    <linearGradient id="capShade" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff0d0" stop-opacity=".36"/>
+      <stop offset=".45" stop-color="#ffffff" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#38000d" stop-opacity=".42"/>
+    </linearGradient>
+    <linearGradient id="gill" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7db"/>
+      <stop offset=".55" stop-color="#f0c78b"/>
+      <stop offset="1" stop-color="#b97042"/>
+    </linearGradient>
+    <radialGradient id="stem" cx="45%" cy="15%" r="72%">
+      <stop offset="0" stop-color="#fff1cd"/>
+      <stop offset=".56" stop-color="#e7a764"/>
+      <stop offset="1" stop-color="#b86c36"/>
+    </radialGradient>
+    <radialGradient id="spot" cx="42%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#fffef2"/>
+      <stop offset=".72" stop-color="#fff2bd"/>
+      <stop offset="1" stop-color="#e8c77a"/>
+    </radialGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#21050a" flood-opacity=".42"/>
+      <feDropShadow dx="0" dy="7" stdDeviation="2" flood-color="#5c1620" flood-opacity=".36"/>
+    </filter>
+    <filter id="innerNoise" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .08"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="soft-light"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="320" cy="535" rx="190" ry="42" fill="#06120b" opacity=".36"/>
+  <g filter="url(#softShadow)">
+    <path d="M98 310C116 172 211 84 330 84c124 0 217 90 235 226 12 88-54 149-158 157H255C151 458 86 398 98 310Z" fill="url(#capGlow)"/>
+    <path d="M98 310C116 172 211 84 330 84c124 0 217 90 235 226 12 88-54 149-158 157H255C151 458 86 398 98 310Z" fill="url(#capShade)" filter="url(#innerNoise)" opacity=".9"/>
+    <path d="M119 350c45 39 115 60 204 60 92 0 166-22 219-63-13 70-70 113-155 120H255c-80-7-128-49-136-117Z" fill="#7d1628" opacity=".46"/>
+    <path d="M139 350c47 42 110 62 190 62 81 0 147-21 197-64-12 45-55 76-125 86H255c-58-9-98-38-116-84Z" fill="url(#gill)"/>
+    <g opacity=".42" stroke="#a76a3d" stroke-width="4" stroke-linecap="round">
+      <path d="M190 366v51"/>
+      <path d="M225 377v50"/>
+      <path d="M260 384v47"/>
+      <path d="M294 389v43"/>
+      <path d="M328 390v42"/>
+      <path d="M362 387v44"/>
+      <path d="M397 381v47"/>
+      <path d="M433 369v49"/>
+      <path d="M468 354v46"/>
+    </g>
+    <g>
+      <ellipse cx="189" cy="301" rx="58" ry="53" fill="url(#spot)"/>
+      <ellipse cx="299" cy="232" rx="53" ry="49" fill="url(#spot)"/>
+      <ellipse cx="421" cy="286" rx="46" ry="43" fill="url(#spot)"/>
+      <ellipse cx="367" cy="184" rx="39" ry="36" fill="url(#spot)" opacity=".95"/>
+      <ellipse cx="237" cy="210" rx="31" ry="29" fill="url(#spot)" opacity=".93"/>
+      <ellipse cx="489" cy="331" rx="29" ry="26" fill="url(#spot)" opacity=".9"/>
+      <ellipse cx="152" cy="361" rx="25" ry="22" fill="url(#spot)" opacity=".86"/>
+    </g>
+    <path d="M172 250c25-78 86-129 166-139 88-10 156 30 191 108" fill="none" stroke="#ffd7ca" stroke-width="12" stroke-linecap="round" opacity=".18"/>
+    <path d="M124 313c42-112 126-179 229-182" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity=".14"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M254 391c4-33 31-54 66-54s62 22 66 54l21 125c8 48-31 87-87 87s-95-39-87-87l21-125Z" fill="url(#stem)"/>
+    <path d="M257 407c19 19 39 28 63 28 25 0 45-9 63-28l12 99c7 43-27 77-75 77s-82-34-75-77l12-99Z" fill="#e39b55" opacity=".2"/>
+    <path d="M286 377c12-17 29-25 50-22" fill="none" stroke="#fff5d4" stroke-width="11" stroke-linecap="round" opacity=".38"/>
+    <ellipse cx="271" cy="461" rx="24" ry="20" fill="#f48c78" opacity=".68"/>
+    <ellipse cx="369" cy="461" rx="24" ry="20" fill="#f48c78" opacity=".68"/>
+    <circle cx="294" cy="438" r="8" fill="#2d1d19"/>
+    <circle cx="346" cy="438" r="8" fill="#2d1d19"/>
+    <path d="M298 478c13 17 31 25 52 0" fill="none" stroke="#2d1d19" stroke-width="6" stroke-linecap="round"/>
+    <path d="M270 401c10 49 9 98-1 148" stroke="#b96d35" stroke-width="4" stroke-linecap="round" opacity=".2"/>
+    <path d="M375 400c-9 52-8 101 3 147" stroke="#fff0c9" stroke-width="4" stroke-linecap="round" opacity=".2"/>
+  </g>
+</svg>

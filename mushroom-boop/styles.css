@@ -6372,3 +6372,175 @@ body.game-page {
 .game-page .quest-item button {
   min-width: 86px;
 }
+
+/* Real-game art pass: remove web chrome and replace CSS mascot with production sprite assets. */
+.game-page .phone-frame {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.game-page .suite-topbar {
+  display: none;
+}
+
+.game-page .game-shell {
+  padding: max(12px, env(safe-area-inset-top)) 10px max(9px, env(safe-area-inset-bottom));
+}
+
+.game-page .resource-row {
+  min-height: 78px;
+  border-radius: 25px;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 209, .09), rgba(255, 248, 209, 0) 42%),
+    linear-gradient(180deg, rgba(10, 22, 15, .94), rgba(2, 12, 8, .88));
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 0 0 1px rgba(255, 234, 171, .1);
+}
+
+.game-page .resource-row::before {
+  content: "Idle Shroom";
+  position: absolute;
+  inset: auto;
+  left: 50%;
+  top: -10px;
+  right: auto;
+  bottom: auto;
+  z-index: 4;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  padding: 4px 12px 5px;
+  border: 1px solid rgba(255, 233, 166, .22);
+  border-radius: 999px;
+  color: #fff8df;
+  background: linear-gradient(180deg, rgba(48, 85, 54, .95), rgba(8, 27, 16, .94));
+  box-shadow: 0 8px 18px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.18);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  text-shadow: 0 1px 8px rgba(0,0,0,.36);
+}
+
+.game-page .glade-stage {
+  margin-top: 12px;
+  padding: 0;
+  border: 1px solid rgba(255, 234, 171, .17);
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(8, 25, 18, .22), rgba(8, 25, 18, .5)),
+    url("./sprites/glade-premium.svg") center / cover no-repeat;
+  box-shadow:
+    0 26px 46px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -24px 44px rgba(0,0,0,.22);
+}
+
+.game-page .glade-stage::before {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 238, 143, .22), transparent 33%),
+    linear-gradient(180deg, rgba(0,0,0,.1), transparent 35%, rgba(0,0,0,.18));
+  mix-blend-mode: screen;
+  opacity: .8;
+}
+
+.game-page .glade-head {
+  margin: 10px 10px 0;
+  min-height: 58px;
+  background:
+    linear-gradient(180deg, rgba(6, 19, 13, .74), rgba(6, 19, 13, .34));
+}
+
+.game-page .bloom-track {
+  margin: 8px 10px 0;
+}
+
+.game-page .bloom-copy {
+  margin: 2px 10px 0;
+}
+
+.game-page .friend-scene {
+  height: min(58vh, 522px);
+  margin: 0;
+  background: transparent;
+}
+
+.game-page .friend-scene::before,
+.game-page .friend-scene::after,
+.game-page .cloud,
+.game-page .sunbeam,
+.game-page .meadow-hill {
+  display: none;
+}
+
+.game-page .sky-glow {
+  height: 78%;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 238, 150, .72), transparent 36%),
+    radial-gradient(ellipse at 50% 66%, rgba(92, 214, 118, .22), transparent 52%);
+}
+
+.game-page .friend-scene .seed-button {
+  width: min(91%, 390px);
+  aspect-ratio: 1 / .92;
+  margin-top: 4%;
+  background: url("./sprites/shroom-premium.svg") center bottom / contain no-repeat;
+  border-radius: 0;
+  filter:
+    drop-shadow(0 12px 0 rgba(52, 10, 19, .22))
+    drop-shadow(0 34px 28px rgba(0, 0, 0, .44));
+}
+
+.game-page .seed-button::before,
+.game-page .seed-button::after,
+.game-page .seed-core,
+.game-page .seed-mouth,
+.game-page .seed-cheeks,
+.game-page .seed-text {
+  display: none;
+}
+
+.game-page .root-ring {
+  width: min(92%, 360px);
+  opacity: .72;
+  mix-blend-mode: screen;
+}
+
+.game-page .rush-orbit {
+  width: min(80%, 310px);
+}
+
+.game-page .companion-row {
+  bottom: 8%;
+}
+
+.game-page .orchard-visual {
+  bottom: 5%;
+}
+
+.game-page .combo-badge {
+  min-height: 23px;
+  margin-top: 3px;
+  font-size: 16px;
+}
+
+@media (min-width: 560px) and (min-height: 760px) {
+  .game-page .phone-frame {
+    grid-template-rows: minmax(0, 1fr);
+  }
+}
+
+@media (max-height: 700px) {
+  .game-page .resource-row {
+    min-height: 64px;
+  }
+
+  .game-page .friend-scene {
+    height: min(57vh, 440px);
+  }
+
+  .game-page .friend-scene .seed-button {
+    width: min(86%, 330px);
+  }
+}
