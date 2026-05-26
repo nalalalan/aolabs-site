@@ -10549,3 +10549,534 @@ body[data-tab="board"] .log-grid {
   from { opacity: .85; transform: scale(.92); }
   to { opacity: 0; transform: scale(1.2); }
 }
+
+/* Console pass: the playfield art is now the product; the UI must read as a game HUD, not a web card stack. */
+body.game-page {
+  --console-ink: #f8ffe9;
+  --console-muted: rgba(226, 241, 213, .78);
+  --console-panel: rgba(8, 21, 16, .76);
+  --console-panel-strong: rgba(5, 16, 12, .88);
+  --console-line: rgba(238, 255, 213, .2);
+  --console-hot: #f25f87;
+  --console-gold: #f2be55;
+  --console-mint: #36dd78;
+  --console-cyan: #62dfdc;
+  color: var(--console-ink) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 233, 141, .22), transparent 36%),
+    linear-gradient(180deg, rgba(5, 14, 10, .34), rgba(2, 8, 6, .9)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #07110d !important;
+}
+
+.game-page .phone-frame {
+  background:
+    linear-gradient(180deg, rgba(10, 24, 18, .26), rgba(2, 8, 6, .72)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #07110d !important;
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, .58),
+    inset 0 0 0 1px rgba(255, 255, 255, .12) !important;
+}
+
+.game-page .game-shell {
+  gap: 7px !important;
+  padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+}
+
+.game-page .tap-panel {
+  grid-template-rows: 48px minmax(0, 1fr) 50px !important;
+  gap: 7px !important;
+}
+
+.game-page .resource-row {
+  min-height: 48px !important;
+  padding: 4px !important;
+  gap: 4px !important;
+  border: 1px solid var(--console-line) !important;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(180deg, rgba(21, 42, 30, .82), rgba(7, 20, 15, .8)) !important;
+  box-shadow:
+    0 12px 22px rgba(0, 0, 0, .26),
+    inset 0 1px 0 rgba(255, 255, 255, .13) !important;
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+.game-page .resource-row::before,
+.game-page .resource-row::after {
+  display: none !important;
+}
+
+.game-page .resource-row > div,
+.game-page .resource-row .goal-stat {
+  min-height: 38px !important;
+  padding: 4px 5px !important;
+  border-radius: 13px !important;
+  border: 1px solid rgba(255, 255, 255, .08) !important;
+  background: rgba(255, 255, 255, .07) !important;
+  box-shadow: none !important;
+}
+
+.game-page .resource-row .metric-label {
+  color: var(--console-muted) !important;
+  font-size: 7px !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+}
+
+.game-page .resource-row strong {
+  color: #fff7d7 !important;
+  font-size: clamp(15px, 4.8vw, 21px) !important;
+  line-height: .92 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .38) !important;
+}
+
+.game-page .resource-row small {
+  color: rgba(234, 251, 220, .78) !important;
+  font-size: 8px !important;
+}
+
+.game-page .next-goal-button {
+  min-height: 30px !important;
+  border-radius: 11px !important;
+  color: #092016 !important;
+  font-size: clamp(12px, 3.4vw, 16px) !important;
+  font-weight: 950 !important;
+  background:
+    radial-gradient(circle at 40% 0%, rgba(255, 255, 255, .7), transparent 32%),
+    linear-gradient(180deg, #73f095, #20cb62 62%, #07944c) !important;
+  border: 1px solid rgba(218, 255, 201, .7) !important;
+  box-shadow:
+    0 5px 0 rgba(0, 78, 42, .42),
+    0 10px 16px rgba(0, 0, 0, .18) !important;
+}
+
+.game-page .goal-progress {
+  height: 4px !important;
+  border-radius: 99px !important;
+  background: rgba(240, 255, 220, .18) !important;
+}
+
+.game-page .goal-progress span {
+  background: linear-gradient(90deg, var(--console-cyan), var(--console-gold), var(--console-hot)) !important;
+}
+
+.game-page .glade-stage {
+  border-radius: 22px !important;
+  border: 1px solid rgba(244, 255, 217, .2) !important;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, .42),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -80px 100px rgba(0, 15, 8, .36) !important;
+}
+
+.game-page .glade-stage::before {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 204, .08), rgba(255, 250, 204, 0) 24%, rgba(0, 0, 0, .22) 100%) !important;
+}
+
+.game-page .glade-head {
+  top: 9px !important;
+  left: 9px !important;
+  right: 9px !important;
+  min-height: 50px !important;
+  padding: 8px 9px !important;
+  border-radius: 17px !important;
+  border: 1px solid rgba(244, 255, 217, .18) !important;
+  color: var(--console-ink) !important;
+  background:
+    linear-gradient(180deg, rgba(13, 30, 22, .78), rgba(6, 18, 13, .66)) !important;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .14) !important;
+  backdrop-filter: blur(16px) saturate(1.18);
+}
+
+.game-page .glade-head span,
+.game-page .glade-head em {
+  color: var(--console-muted) !important;
+  font-size: 8px !important;
+  letter-spacing: .1em !important;
+}
+
+.game-page .glade-head strong {
+  color: #fff7dc !important;
+  font-size: clamp(23px, 7vw, 32px) !important;
+  line-height: .9 !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, .44) !important;
+}
+
+.game-page .glade-head em {
+  padding: 5px 10px !important;
+  border-radius: 999px !important;
+  background: rgba(54, 221, 120, .18) !important;
+  border: 1px solid rgba(122, 255, 166, .24) !important;
+}
+
+.game-page .sound-button {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 15px !important;
+  background: rgba(255, 255, 255, .12) !important;
+  border: 1px solid rgba(255, 255, 255, .16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18) !important;
+}
+
+.game-page .bloom-track {
+  top: 68px !important;
+  left: 20px !important;
+  right: 20px !important;
+  height: 5px !important;
+  background: rgba(244, 255, 217, .16) !important;
+  box-shadow: none !important;
+}
+
+.game-page .bloom-copy {
+  top: 78px !important;
+  left: 24px !important;
+  right: 24px !important;
+}
+
+.game-page .bloom-copy small {
+  color: rgba(255, 250, 220, .88) !important;
+  font-size: 10px !important;
+  letter-spacing: .06em !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .5) !important;
+}
+
+.game-page #nextBloomName {
+  display: none !important;
+}
+
+.game-page .skill-row {
+  min-height: 50px !important;
+  padding: 4px !important;
+  gap: 5px !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(244, 255, 217, .18) !important;
+  background:
+    linear-gradient(180deg, rgba(12, 30, 22, .82), rgba(5, 16, 12, .82)) !important;
+  box-shadow:
+    0 14px 24px rgba(0, 0, 0, .28),
+    inset 0 1px 0 rgba(255, 255, 255, .12) !important;
+  backdrop-filter: blur(16px) saturate(1.18);
+}
+
+.game-page .skill-row button,
+.game-page .bottom-tabs button,
+.game-page .store-item button {
+  letter-spacing: 0 !important;
+}
+
+.game-page .skill-row button {
+  min-height: 40px !important;
+  border-radius: 14px !important;
+  color: #071711 !important;
+  font-size: 13px !important;
+  font-weight: 950 !important;
+  border: 1px solid rgba(255, 255, 255, .22) !important;
+  box-shadow:
+    0 5px 0 rgba(0, 0, 0, .28),
+    inset 0 1px 0 rgba(255, 255, 255, .45) !important;
+}
+
+.game-page .skill-row #dewSkillButton {
+  background: linear-gradient(180deg, #9bf5ee, #39d3c8) !important;
+}
+
+.game-page .skill-row #boostSkillButton {
+  background: linear-gradient(180deg, #ffe28e, #edae36) !important;
+}
+
+.game-page .skill-row #bloomSkillButton {
+  background: linear-gradient(180deg, #ff8fac, #e85078) !important;
+}
+
+.game-page .bottom-tabs {
+  min-height: 54px !important;
+  padding: 5px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(244, 255, 217, .18) !important;
+  background:
+    linear-gradient(180deg, rgba(13, 30, 22, .86), rgba(4, 14, 10, .88)) !important;
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, .36),
+    inset 0 1px 0 rgba(255, 255, 255, .13) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+}
+
+.game-page .bottom-tabs::before,
+.game-page .bottom-tabs::after {
+  display: none !important;
+}
+
+.game-page .bottom-tabs button {
+  min-height: 44px !important;
+  border-radius: 15px !important;
+  color: rgba(229, 243, 216, .72) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+}
+
+.game-page .bottom-tabs button::before {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 9px !important;
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, .26),
+    inset 0 1px 0 rgba(255, 255, 255, .5) !important;
+}
+
+.game-page .bottom-tabs button[aria-pressed="true"] {
+  color: #fff9d8 !important;
+  background: rgba(255, 255, 255, .11) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .11),
+    0 8px 16px rgba(0, 0, 0, .18) !important;
+}
+
+body[data-tab="store"] .store-grid,
+body[data-tab="quests"] .log-grid,
+body[data-tab="board"] .log-grid {
+  padding: 9px !important;
+  gap: 9px !important;
+  align-content: start !important;
+  background:
+    linear-gradient(180deg, rgba(3, 10, 7, .42), rgba(3, 10, 7, .82)),
+    url("./sprites/studio-menu-20260526.webp") center / cover no-repeat,
+    #07110d !important;
+}
+
+.game-page .store-panel,
+.game-page .quest-panel,
+.game-page .badges-panel,
+.game-page .session-panel,
+.game-page .leaderboard-panel {
+  padding: 12px !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(244, 255, 217, .18) !important;
+  color: var(--console-ink) !important;
+  background:
+    linear-gradient(180deg, rgba(12, 28, 21, .84), rgba(5, 17, 12, .78)) !important;
+  box-shadow:
+    0 18px 32px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255, 255, 255, .12) !important;
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.game-page .section-head {
+  margin-bottom: 9px !important;
+}
+
+.game-page .section-head h2 {
+  color: #fff7dc !important;
+  font-size: clamp(24px, 7vw, 34px) !important;
+  line-height: .9 !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, .38) !important;
+}
+
+.game-page .section-head span {
+  color: var(--console-muted) !important;
+  font-size: 10px !important;
+  letter-spacing: .1em !important;
+}
+
+.game-page .store-list,
+.game-page .quest-list,
+.game-page .achievement-list,
+.game-page .leaderboard-list {
+  gap: 8px !important;
+}
+
+.game-page .store-item,
+.game-page .store-item.garden-card,
+.game-page .store-item.recommended,
+.game-page .store-item.waiting,
+.game-page .quest-item,
+.game-page .achievement,
+.game-page .leaderboard-row,
+.game-page .leaderboard-empty,
+.game-page .stat-list p {
+  min-height: 74px !important;
+  padding: 10px !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(244, 255, 217, .14) !important;
+  color: var(--console-ink) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .055)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .11),
+    0 10px 18px rgba(0, 0, 0, .2) !important;
+}
+
+.game-page .store-item,
+.game-page .store-item.garden-card,
+.game-page .charms-panel .store-item,
+.game-page .perks-panel .store-item {
+  display: grid !important;
+  grid-template-columns: 52px minmax(0, 1fr) minmax(92px, auto) !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  overflow: hidden !important;
+}
+
+.game-page .store-copy {
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.game-page .store-item.recommended {
+  border-color: rgba(86, 232, 129, .42) !important;
+  background:
+    linear-gradient(180deg, rgba(54, 221, 120, .18), rgba(255, 255, 255, .075)) !important;
+}
+
+.game-page .store-item.waiting {
+  opacity: .86 !important;
+}
+
+.game-page .store-visual,
+.game-page .friend-token,
+.game-page .store-visual.charm-seed,
+.game-page .store-visual.mycelium-knot {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  border-radius: 17px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .28) !important;
+}
+
+.game-page .store-visual *,
+.game-page .store-visual::before,
+.game-page .store-visual::after {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+.game-page .store-item h3,
+.game-page .quest-item strong,
+.game-page .achievement strong {
+  color: #fff7dc !important;
+  font-size: clamp(18px, 5.1vw, 24px) !important;
+  line-height: .96 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .32) !important;
+}
+
+.game-page .store-item p,
+.game-page .quest-item p,
+.game-page .achievement p,
+.game-page .leaderboard-empty p,
+.game-page .stat-list span {
+  color: rgba(225, 241, 213, .78) !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+}
+
+.game-page .store-item .owned,
+.game-page .quest-item .owned {
+  color: #ff8fac !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+
+.game-page .store-item button {
+  min-width: 104px !important;
+  min-height: 40px !important;
+  border-radius: 14px !important;
+  color: #06150f !important;
+  font-size: 14px !important;
+  font-weight: 950 !important;
+  border: 1px solid rgba(255, 255, 255, .28) !important;
+  background:
+    linear-gradient(180deg, #75f094, #18c160) !important;
+  box-shadow:
+    0 5px 0 rgba(0, 76, 39, .42),
+    inset 0 1px 0 rgba(255, 255, 255, .45) !important;
+  white-space: nowrap !important;
+}
+
+.game-page .store-item button:disabled {
+  color: rgba(44, 28, 4, .92) !important;
+  background: linear-gradient(180deg, #ffe59a, #efb645) !important;
+  box-shadow:
+    0 5px 0 rgba(99, 63, 2, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .36) !important;
+}
+
+.game-page .leaderboard-tools input {
+  color: var(--console-ink) !important;
+  background: rgba(255, 255, 255, .1) !important;
+  border: 1px solid rgba(244, 255, 217, .16) !important;
+}
+
+.game-page .leaderboard-tools input::placeholder {
+  color: rgba(226, 241, 213, .55) !important;
+}
+
+@media (max-width: 520px) {
+  .game-page .tap-panel {
+    grid-template-rows: 48px minmax(0, 1fr) 49px !important;
+  }
+
+  .game-page .glade-head strong {
+    font-size: clamp(22px, 7vw, 30px) !important;
+  }
+
+  .game-page .store-item,
+  .game-page .store-item.garden-card,
+  .game-page .charms-panel .store-item,
+  .game-page .perks-panel .store-item {
+    grid-template-columns: 50px minmax(0, 1fr) 98px !important;
+    column-gap: 8px !important;
+  }
+
+  .game-page .store-visual,
+  .game-page .store-visual.charm-seed,
+  .game-page .store-visual.mycelium-knot {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+  }
+
+  .game-page .store-item button {
+    min-width: 92px !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (max-height: 740px) {
+  .game-page .tap-panel {
+    grid-template-rows: 44px minmax(0, 1fr) 46px !important;
+  }
+
+  .game-page .resource-row {
+    min-height: 44px !important;
+  }
+
+  .game-page .resource-row > div,
+  .game-page .resource-row .goal-stat {
+    min-height: 34px !important;
+  }
+
+  .game-page .skill-row {
+    min-height: 46px !important;
+  }
+
+  .game-page .bottom-tabs {
+    min-height: 50px !important;
+  }
+
+  .game-page .skill-row button {
+    font-size: 12px !important;
+  }
+
+  .game-page .skill-row #bloomSkillButton {
+    font-size: 11px !important;
+  }
+}
