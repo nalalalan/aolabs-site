@@ -348,7 +348,7 @@ body[data-shroom-form="fungal-god"] .seed-button::before {
 .game-page .system-item,
 .game-page .network-node {
   display: grid !important;
-  grid-template-columns: 34px minmax(0, 1fr) !important;
+  grid-template-columns: 34px minmax(0, 1fr) auto !important;
   gap: 9px !important;
   align-items: center !important;
   min-height: 62px !important;
@@ -359,6 +359,15 @@ body[data-shroom-form="fungal-god"] .seed-button::before {
     radial-gradient(circle at 11% 20%, rgba(255, 235, 142, .16), transparent 38%),
     linear-gradient(180deg, rgba(255, 252, 233, .88), rgba(231, 238, 201, .78)) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.58), 0 9px 16px rgba(44, 32, 20, .08) !important;
+}
+
+.game-page .system-item.active {
+  border-color: rgba(90, 172, 62, .34) !important;
+  background: radial-gradient(circle at 14% 20%, rgba(150, 255, 112, .22), transparent 42%), linear-gradient(180deg, rgba(255, 253, 232, .96), rgba(218, 239, 186, .86)) !important;
+}
+
+.game-page .network-node {
+  grid-template-columns: 34px minmax(0, 1fr) !important;
 }
 
 .game-page .system-item.locked {
@@ -406,6 +415,27 @@ body[data-shroom-form="fungal-god"] .seed-button::before {
 .game-page .network-node em {
   color: #5b7e3d !important;
   font-weight: 800 !important;
+}
+
+.game-page .system-item button {
+  min-width: 58px !important;
+  max-width: 78px !important;
+  padding: 8px 7px !important;
+  border: 1px solid rgba(66, 50, 27, .2) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, #f7d276, #a96f31) !important;
+  color: #2e2114 !important;
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-transform: lowercase !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.48), 0 5px 10px rgba(83, 50, 18, .18) !important;
+}
+
+.game-page .system-item button:disabled {
+  background: linear-gradient(180deg, rgba(226, 213, 170, .75), rgba(145, 127, 91, .62)) !important;
+  color: rgba(59, 48, 31, .58) !important;
+  box-shadow: none !important;
 }
 
 .game-page .network-node.next {
@@ -15517,7 +15547,7 @@ body[data-tab="systems"] .systems-grid {
 .game-page .system-item,
 .game-page .network-node {
   display: grid !important;
-  grid-template-columns: 34px minmax(0, 1fr) !important;
+  grid-template-columns: 34px minmax(0, 1fr) auto !important;
   gap: 9px !important;
   align-items: center !important;
   min-height: 62px !important;
@@ -15525,6 +15555,15 @@ body[data-tab="systems"] .systems-grid {
   border: 1px solid rgba(83, 62, 34, .16) !important;
   border-radius: 12px !important;
   background: radial-gradient(circle at 11% 20%, rgba(255, 235, 142, .16), transparent 38%), linear-gradient(180deg, rgba(255, 252, 233, .88), rgba(231, 238, 201, .78)) !important;
+}
+
+.game-page .system-item.active {
+  border-color: rgba(90, 172, 62, .34) !important;
+  background: radial-gradient(circle at 14% 20%, rgba(150, 255, 112, .22), transparent 42%), linear-gradient(180deg, rgba(255, 253, 232, .96), rgba(218, 239, 186, .86)) !important;
+}
+
+.game-page .network-node {
+  grid-template-columns: 34px minmax(0, 1fr) !important;
 }
 
 .game-page .system-glyph,
@@ -15558,6 +15597,36 @@ body[data-tab="systems"] .systems-grid {
 .game-page .network-node em {
   color: #5b7e3d !important;
   font-weight: 800 !important;
+}
+
+.game-page .system-item button {
+  min-width: 58px !important;
+  max-width: 78px !important;
+  padding: 8px 7px !important;
+  border: 1px solid rgba(66, 50, 27, .2) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, #f7d276, #a96f31) !important;
+  color: #2e2114 !important;
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-transform: lowercase !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.48), 0 5px 10px rgba(83, 50, 18, .18) !important;
+}
+
+.game-page .system-item button:disabled {
+  background: linear-gradient(180deg, rgba(226, 213, 170, .75), rgba(145, 127, 91, .62)) !important;
+  color: rgba(59, 48, 31, .58) !important;
+  box-shadow: none !important;
+}
+
+body[data-tab="systems"] .systems-grid .section-head span {
+  max-width: 185px !important;
+  color: rgba(255, 230, 142, .84) !important;
+  font-size: 10.5px !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0 !important;
+  text-align: right !important;
 }
 
 .game-page .bottom-tabs {

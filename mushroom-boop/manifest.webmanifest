@@ -1,7 +1,7 @@
 {
   "name": "Idle Shroom",
   "short_name": "Idle Shroom",
-  "description": "A polished mushroom idle game about tapping, upgrading a living meadow, claiming friend quests, and Great Blooming into stronger seasons.",
+  "description": "A cozy-dark idle clicker RPG about tapping enemies, growing shroom allies, mutating a colony, and using Spore Bloom to restart stronger.",
   "id": "./",
   "start_url": "./?source=pwa",
   "scope": "./",

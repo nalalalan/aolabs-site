@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const config = window.MUSHROOM_BOOP_ADS || {};
+  const config = window.IDLE_SHROOM_ADS || window.MUSHROOM_BOOP_ADS || {};
   const params = new URLSearchParams(window.location.search);
   const debug = config.debugPlaceholders || params.has("debugAds");
   const client = String(config.adsenseClient || "").trim();

@@ -13,3 +13,4 @@ window.MUSHROOM_BOOP_ADS = {
     rewardedUnitId: ""
   }
 };
+window.IDLE_SHROOM_ADS = window.MUSHROOM_BOOP_ADS;

@@ -8,7 +8,7 @@
   const greatBloomRequirements = [100000, 750000, 5000000, 40000000];
   const rushMax = 100;
   const rushSeconds = 20;
-  const onlineConfig = window.MUSHROOM_BOOP_ONLINE || {};
+  const onlineConfig = window.IDLE_SHROOM_ONLINE || window.MUSHROOM_BOOP_ONLINE || {};
   const testPlayMode = new URLSearchParams(window.location.search).has("testplay");
   const publicGameUrl = window.location.hostname === "idleshroom.aolabs.io"
     ? "https://idleshroom.aolabs.io/"
@@ -195,8 +195,8 @@
     { id: "clicker", name: "Tap rhythm", desc: "Tap 250 times.", req: state => state.clicks >= 250 },
     { id: "million", name: "Million-nutrient colony", desc: "Earn 1,000,000 lifetime nutrients.", req: state => state.lifetimeLoops >= 1000000 },
     { id: "rooted", name: "Spore Bloom", desc: "Release the colony into a stronger run.", req: state => Number(state.bloomCount || 0) >= 1 },
-    { id: "return", name: "Daily drip", desc: "Claim a daily drip reward.", req: state => state.dailyClaims >= 1 },
-    { id: "rush", name: "Spore Rush", desc: "Trigger a Spore Rush.", req: state => state.rushes >= 1 },
+    { id: "return", name: "Daily goals", desc: "Claim a daily goal reward.", req: state => state.dailyClaims >= 1 },
+    { id: "rush", name: "Spore Pressure", desc: "Trigger Spore Pressure.", req: state => state.rushes >= 1 },
     { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 },
     { id: "click-1000", name: "Thousand taps", desc: "Tap 1,000 times.", req: state => state.clicks >= 1000 },
     { id: "click-5000", name: "Five-thousand rhythm", desc: "Tap 5,000 times.", req: state => state.clicks >= 5000 },
@@ -214,9 +214,9 @@
     { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 idle damage/sec.", req: state => incomePerSecond(state) >= 10000 },
     { id: "bloom-3", name: "Third Bloom", desc: "Spore Bloom 3 times.", req: state => Number(state.bloomCount || 0) >= 3 },
     { id: "bloom-10", name: "Ancient blooms", desc: "Spore Bloom 10 times.", req: state => Number(state.bloomCount || 0) >= 10 },
-    { id: "streak-3", name: "Drip habit", desc: "Keep a 3 day drip streak.", req: state => Number(state.streak || 0) >= 3 },
-    { id: "quest-day", name: "Friend day", desc: "Claim all 3 friend quests in a day.", req: state => Number(state.claimedQuests?.length || 0) >= 3 },
-    { id: "rush-10", name: "Rush colony", desc: "Trigger 10 Spore Rushes.", req: state => Number(state.rushes || 0) >= 10 },
+    { id: "streak-3", name: "Daily goal streak", desc: "Keep a 3 day goal streak.", req: state => Number(state.streak || 0) >= 3 },
+    { id: "quest-day", name: "Colony day", desc: "Claim all 3 daily goals in a day.", req: state => Number(state.claimedQuests?.length || 0) >= 3 },
+    { id: "rush-10", name: "Pressure colony", desc: "Trigger Spore Pressure 10 times.", req: state => Number(state.rushes || 0) >= 10 },
     { id: "env-64", name: "Full empire", desc: "Reach depth 64.", req: state => Number(state.meadowLevel || 1) >= 64 }
   ];
 
@@ -224,7 +224,7 @@
     { id: "spore-memory", name: "Ancient Memory", baseCost: 1, max: 10, desc: "Baseline idle damage +18% per level." },
     { id: "soft-hands", name: "Stronger Cap", baseCost: 1, max: 10, desc: "Tap power +25% per level." },
     { id: "cheap-caps", name: "Root Economy", baseCost: 2, max: 8, desc: "Shroom allies and charms cost 6% less per level." },
-    { id: "long-boost", name: "Long Surge", baseCost: 2, max: 5, desc: "Colony Surge lasts 2 more minutes per level." },
+    { id: "long-boost", name: "Long Frenzy", baseCost: 2, max: 5, desc: "Nutrient Frenzy lasts 2 more minutes per level." },
     { id: "starter-cap", name: "Starting Buddies", baseCost: 3, max: 1, desc: "Each Spore Bloom starts with three Button Buddies." }
   ];
 
@@ -349,6 +349,10 @@
       bossFails: 0,
       defeatedBossIds: [],
       foundRelicIds: [],
+      relicLevels: Object.fromEntries(relics.map(relic => [relic.id, 0])),
+      spentRelicCaps: 0,
+      activeMutations: [],
+      spentMutationGoo: 0,
       bestCombatDepth: 1,
       meadowLevel: 1,
       meadowBloom: 0,
@@ -394,12 +398,16 @@
       merged.perks = { ...fallback.perks, ...(parsed.perks || {}) };
       merged.questBaselines = { ...fallback.questBaselines, ...(parsed.questBaselines || {}) };
       merged.skillCooldowns = { ...fallback.skillCooldowns, ...(parsed.skillCooldowns || {}) };
+      merged.relicLevels = { ...fallback.relicLevels, ...(parsed.relicLevels || {}) };
       merged.upgrades = Array.isArray(parsed.upgrades) ? parsed.upgrades : [];
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
       merged.claimedClickMilestones = Array.isArray(parsed.claimedClickMilestones) ? parsed.claimedClickMilestones : [];
       merged.defeatedBossIds = Array.isArray(parsed.defeatedBossIds) ? parsed.defeatedBossIds : [];
       merged.foundRelicIds = Array.isArray(parsed.foundRelicIds) ? parsed.foundRelicIds : [];
+      merged.activeMutations = Array.isArray(parsed.activeMutations) ? parsed.activeMutations : [];
+      merged.spentRelicCaps = Math.max(0, Number(parsed.spentRelicCaps || 0));
+      merged.spentMutationGoo = Math.max(0, Number(parsed.spentMutationGoo || 0));
       merged.lifetimeRootstock = Math.max(
         Number(parsed.lifetimeRootstock || 0),
         Number(parsed.rootstock || 0),
@@ -420,7 +428,8 @@
     const now = Date.now();
     const elapsed = Math.max(0, Math.min(maxOfflineSeconds, (now - Number(target.lastSaved || now)) / 1000));
     if (elapsed < 30) return;
-    const earned = incomePerSecond(target) * elapsed * 0.55;
+    const offlineMult = 1 + relicLevel("lantern-mold", target) * 0.08;
+    const earned = incomePerSecond(target) * elapsed * 0.55 * offlineMult;
     if (earned > 0) {
       addLoops(target, earned);
       target.offlineReward = earned;
@@ -515,12 +524,24 @@
     return Math.max(0, Math.floor(Number(target.bloomCount || 0) * 7 + bestCombatDepth(target) / 14 + ownedTotal(target) / 32));
   }
 
+  function relicCapsEarned(target = state) {
+    const base = Number(target.bossDefeats || 0) * 3 + bestCombatDepth(target) / 20 + Number(target.bloomCount || 0);
+    const minerMult = mutationActive("truffle-deepminers", target) ? 1.25 : 1;
+    return Math.max(0, Math.floor(base * minerMult));
+  }
+
   function relicCaps(target = state) {
-    return Math.max(0, Math.floor(Number(target.bossDefeats || 0) * 3 + bestCombatDepth(target) / 20 + Number(target.bloomCount || 0)));
+    return Math.max(0, relicCapsEarned(target) - Math.floor(Number(target.spentRelicCaps || 0)));
+  }
+
+  function mutationGooEarned(target = state) {
+    const base = Number(target.enemyDefeats || 0) / 16 + ownedTotal(target) / 18 + Number(target.bloomCount || 0) * 4;
+    const minerMult = mutationActive("truffle-deepminers", target) ? 1.2 : 1;
+    return Math.max(0, Math.floor(base * minerMult));
   }
 
   function mutationGoo(target = state) {
-    return Math.max(0, Math.floor(Number(target.enemyDefeats || 0) / 16 + ownedTotal(target) / 18 + Number(target.bloomCount || 0) * 4));
+    return Math.max(0, mutationGooEarned(target) - Math.floor(Number(target.spentMutationGoo || 0)));
   }
 
   function currentShroomForm(target = state) {
@@ -570,6 +591,37 @@
 
   function mutationUnlocked(mutation, target = state) {
     return Number(target.machines?.[mutation.machine] || 0) >= mutation.level;
+  }
+
+  function relicLevel(id, target = state) {
+    const levels = target?.relicLevels || {};
+    return Math.max(0, Math.floor(Number(levels[id] || 0)));
+  }
+
+  function relicUpgradeCost(relic, target = state) {
+    const index = Math.max(0, relics.findIndex(item => item.id === relic.id));
+    return Math.max(1, Math.ceil((relicLevel(relic.id, target) + 1) * (2 + Math.min(6, index))));
+  }
+
+  function mutationActive(id, target = state) {
+    return Array.isArray(target?.activeMutations) && target.activeMutations.includes(id);
+  }
+
+  function activeMutationsForMachine(machineId, target = state) {
+    return mutations.filter(mutation => mutation.machine === machineId && mutationActive(mutation.id, target));
+  }
+
+  function mutationCost(mutation) {
+    const index = Math.max(0, mutations.findIndex(item => item.id === mutation.id));
+    return 3 + index * 2 + Math.floor(Number(mutation.level || 0) / 25);
+  }
+
+  function bossDamageMultiplier(target = state) {
+    let mult = 1 + relicLevel("ancient-capstone", target) * 0.1 + relicLevel("salt-cracked-shell", target) * 0.08;
+    if (mutationActive("ironcap-knights", target)) mult *= 1.35;
+    if (mutationActive("moon-mage", target)) mult *= 1.25;
+    if (mutationActive("rootbeast-alpha", target)) mult *= 1.22;
+    return mult;
   }
 
   function combatStage(target = state) {
@@ -630,7 +682,8 @@
     const maxHp = Math.max(1, Number(target.enemyMaxHp || enemyMaxHealth(target)));
     const boss = isBossWave(target);
     const depthBonus = 1 + combatDepth(target) * 0.045;
-    return Math.max(boss ? 45 : 10, Math.round(maxHp * (boss ? 1.45 : 1.7) * depthBonus * rootBonus(target)));
+    const chalice = 1 + relicLevel("compost-chalice", target) * (boss ? 0.1 : 0.045);
+    return Math.max(boss ? 45 : 10, Math.round(maxHp * (boss ? 1.45 : 1.7) * depthBonus * rootBonus(target) * chalice));
   }
 
   function ensureCombatState(target = state) {
@@ -670,7 +723,10 @@
     const idleRate = incomePerSecond(target);
     const helperPressure = idleRate * 0.62;
     const capPulse = tapPower(target) * Math.max(0, ownedTotal(target)) * 0.025;
-    return (helperPressure + capPulse) * (rushActive(target) ? 1.25 : 1);
+    let mult = rushActive(target) ? 1.25 : 1;
+    if (isBossWave(target)) mult *= bossDamageMultiplier(target);
+    if (mutationActive("poison-puffball", target)) mult *= 1.16;
+    return (helperPressure + capPulse) * mult;
   }
 
   function showEnemyReward(reward, defeatedName, boss = false) {
@@ -947,6 +1003,16 @@
       return { detail: `Spore Bloom ready +${format(bloomGain)}`, kind: "bloom", ready: true };
     }
 
+    const affordableRelic = relics.find(relic => relicUnlocked(relic, target) && relicCaps(target) >= relicUpgradeCost(relic, target));
+    if (affordableRelic) {
+      return { detail: `upgrade ${affordableRelic.name}`, kind: "relic", id: affordableRelic.id, ready: true };
+    }
+
+    const affordableMutation = mutations.find(mutation => mutationUnlocked(mutation, target) && !mutationActive(mutation.id, target) && mutationGoo(target) >= mutationCost(mutation));
+    if (affordableMutation) {
+      return { detail: `mutate ${affordableMutation.name}`, kind: "mutation", id: affordableMutation.id, ready: true };
+    }
+
     const affordablePerk = earlyPerk || perks.find(perk => perkLevel(perk.id, target) < perk.max && Number(target.rootstock || 0) >= perkCost(perk, target));
     if (affordablePerk) {
       return { detail: `unlock ${affordablePerk.name}`, kind: "perk", ready: true };
@@ -970,7 +1036,7 @@
     }
 
     if (target.lastDaily !== todayKey() && ownedTotal(target) > 0) {
-      return { detail: "daily drip ready", kind: "dew", ready: true };
+      return { detail: "daily goal ready", kind: "dew", ready: true };
     }
 
     const fight = combatGoal(target);
@@ -1014,6 +1080,28 @@
         label: `Bloom +${format(bloomGain)}`,
         detail: `Spore Bloom for ${format(bloomGain)} Ancient Spores`,
         kind: "bloom",
+        ready: true
+      };
+    }
+
+    const affordableRelic = relics.find(relic => relicUnlocked(relic, target) && relicCaps(target) >= relicUpgradeCost(relic, target));
+    if (affordableRelic) {
+      return {
+        label: affordableRelic.name,
+        detail: `Relic level ${format(relicLevel(affordableRelic.id, target) + 1)}`,
+        kind: "relic",
+        id: affordableRelic.id,
+        ready: true
+      };
+    }
+
+    const affordableMutation = mutations.find(mutation => mutationUnlocked(mutation, target) && !mutationActive(mutation.id, target) && mutationGoo(target) >= mutationCost(mutation));
+    if (affordableMutation) {
+      return {
+        label: affordableMutation.name,
+        detail: affordableMutation.desc,
+        kind: "mutation",
+        id: affordableMutation.id,
         ready: true
       };
     }
@@ -1065,7 +1153,7 @@
     }
 
     if (target.lastDaily !== todayKey() && ownedTotal(target) > 0) {
-      return { label: "Claim daily drip", detail: "Daily reward ready", kind: "dew", ready: true };
+      return { label: "Claim daily goal", detail: "Daily reward ready", kind: "dew", ready: true };
     }
 
     const fight = combatGoal(target);
@@ -1121,16 +1209,20 @@
     if (goal.kind === "perk" && goal.id) buyPerk(goal.id);
     if (goal.kind === "charm" && goal.id) buyUpgrade(goal.id);
     if (goal.kind === "piece" && goal.id) buyMachine(goal.id);
+    if (goal.kind === "relic" && goal.id) upgradeRelic(goal.id);
+    if (goal.kind === "mutation" && goal.id) activateMutation(goal.id);
     if (goal.kind === "dew") claimDaily();
     render();
   }
 
   function actionMomentTitle(action) {
     const labels = {
-      dew: "drip ready",
+      dew: "daily goal ready",
       bloom: "Spore Bloom ready",
       charm: "new charm ready",
       piece: "shroom ally ready",
+      relic: "relic upgrade ready",
+      mutation: "mutation ready",
       combat: "fight"
     };
     return labels[action.kind] || "new goal ready";
@@ -1153,12 +1245,15 @@
 
   function rootBonus(target = state) {
     const base = hasUpgrade("prestige-soft", target) ? 0.23 : 0.15;
-    return 1 + ancientSporePower(target) * base;
+    return 1 + ancientSporePower(target) * base + relicLevel("elder-spore-crown", target) * 0.035;
   }
 
   function rateMultiplier(target = state) {
     let mult = rootBonus(target);
     mult *= 1 + perkLevel("spore-memory", target) * 0.18;
+    mult *= 1 + relicLevel("rotwood-idol", target) * 0.08 + relicLevel("moonlit-mycelium", target) * 0.07;
+    if (mutationActive("volcanic-puffball", target)) mult *= 1.18;
+    if (mutationActive("rootbeast-alpha", target)) mult *= 1.22;
     upgrades.forEach(upgrade => {
       if (upgrade.kind === "rate" && hasUpgrade(upgrade.id, target)) mult *= upgrade.value;
     });
@@ -1180,6 +1275,8 @@
       tap *= 1 + Number(target.machines.clock || 0) * 0.08;
     }
     tap *= 1 + perkLevel("soft-hands", target) * 0.25;
+    tap *= 1 + relicLevel("sporeglass-lens", target) * 0.055;
+    if (mutationActive("ghostcap-knight", target)) tap *= 1.18;
     if (rushActive(target)) tap *= 2;
     if (postBloomSurgeActive(target)) tap *= 3;
     return tap * rootBonus(target);
@@ -1332,6 +1429,44 @@
     render();
   }
 
+  function upgradeRelic(id) {
+    const relic = relics.find(item => item.id === id);
+    if (!relic || !relicUnlocked(relic)) return;
+    const cost = relicUpgradeCost(relic);
+    if (relicCaps() < cost) return;
+    if (!state.relicLevels || typeof state.relicLevels !== "object") {
+      state.relicLevels = Object.fromEntries(relics.map(item => [item.id, 0]));
+    }
+    state.spentRelicCaps = Math.max(0, Number(state.spentRelicCaps || 0)) + cost;
+    state.relicLevels[id] = relicLevel(id) + 1;
+    pushBattleEvent("relic", { relic: id, duration: 1300 });
+    addRushCharge(9);
+    displayedRate = Math.max(displayedRate, incomePerSecond());
+    playTone("unlock", 5);
+    showMoment(relic.name, `level ${format(state.relicLevels[id])}`, "unlock");
+    pulseScene("scene-bloomed");
+    markDirty();
+    render();
+  }
+
+  function activateMutation(id) {
+    const mutation = mutations.find(item => item.id === id);
+    if (!mutation || !mutationUnlocked(mutation) || mutationActive(id)) return;
+    const cost = mutationCost(mutation);
+    if (mutationGoo() < cost) return;
+    if (!Array.isArray(state.activeMutations)) state.activeMutations = [];
+    state.spentMutationGoo = Math.max(0, Number(state.spentMutationGoo || 0)) + cost;
+    state.activeMutations.push(id);
+    pushBattleEvent("mutation", { mutation: id, duration: 1500 });
+    addRushCharge(14);
+    displayedRate = Math.max(displayedRate, incomePerSecond());
+    playTone("great", 5);
+    showMoment(mutation.name, mutation.desc, "great");
+    pulseScene("scene-bloomed");
+    markDirty();
+    render();
+  }
+
   function graftGain() {
     return bloomGainFor();
   }
@@ -1404,7 +1539,7 @@
     recordSporeBurst(reward);
     addRushCharge(18);
     playTone("dew", 4);
-    showMoment("daily drip", `+${format(reward)} nutrients`, "dew");
+    showMoment("daily goal", `+${format(reward)} nutrients`, "dew");
     markDirty();
     checkAchievements();
     render();
@@ -1474,9 +1609,9 @@
   }
 
   async function requestRewardedBoost() {
-    const ads = window.MUSHROOM_BOOP_ADS || {};
+    const ads = window.IDLE_SHROOM_ADS || window.MUSHROOM_BOOP_ADS || {};
     const rewardId = String(ads.admob?.rewardedUnitId || "").trim();
-    const nativeRewardedAd = window.MushroomBoopRewardedAd || window.Capacitor?.Plugins?.MushroomBoopRewardedAd;
+    const nativeRewardedAd = window.IdleShroomRewardedAd || window.MushroomBoopRewardedAd || window.Capacitor?.Plugins?.IdleShroomRewardedAd || window.Capacitor?.Plugins?.MushroomBoopRewardedAd;
     if (nativeRewardedAd?.show && rewardId) {
       return nativeRewardedAd.show({ adUnitId: rewardId });
     }
@@ -1490,7 +1625,7 @@
     els.focusButton.textContent = "calling storm";
     const result = await requestRewardedBoost().catch(() => ({ rewarded: false }));
     if (!result.rewarded) {
-      els.boostHint.textContent = "Reward ad was not completed. Colony Surge stayed inactive.";
+      els.boostHint.textContent = "Reward ad was not completed. Nutrient Frenzy stayed inactive.";
       renderFocus();
       return;
     }
@@ -1498,17 +1633,16 @@
     state.focusUntil = now + boostMinutes * 60 * 1000;
     addRushCharge(35);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    els.boostHint.textContent = "Colony Surge active.";
+    els.boostHint.textContent = "Nutrient Frenzy active.";
     playTone("shower");
-    showMoment("Colony Surge", `${Math.round(boostMinutes)} minute boost`, "shower");
+    showMoment("Nutrient Frenzy", `${Math.round(boostMinutes)} minute boost`, "shower");
     markDirty();
     checkAchievements();
     render();
   }
 
   function skillCooldown(skill, target = state) {
-    const rootboneRelic = relics.find(relic => relic.id === "rootbone-drum");
-    const rootbone = rootboneRelic && relicUnlocked(rootboneRelic, target) ? 0.9 : 1;
+    const rootbone = 1 - Math.min(0.38, relicLevel("rootbone-drum", target) * 0.045);
     return Math.max(10, skill.cooldown * rootbone);
   }
 
@@ -2642,6 +2776,7 @@
 
   function drawAlly(ctx, x, y, size, type, now, index, active) {
     const attack = active ? Math.max(0, Math.sin(now / (520 + index * 40) + index) * 1.4) : 0;
+    const mutationGlow = activeMutationsForMachine(type).length > 0;
     ctx.save();
     ctx.translate(x, y - attack * 8);
     ctx.scale(size, size * (1 + attack * .04));
@@ -2649,6 +2784,14 @@
     ctx.beginPath();
     ctx.ellipse(0, 19, 18, 5, 0, 0, Math.PI * 2);
     ctx.fill();
+    if (mutationGlow) {
+      fillGlow(ctx, 0, -8, 34 + attack * 7, type === "clock" ? "rgb(255, 170, 80)" : type === "collector" ? "rgb(139, 226, 255)" : "rgb(155, 255, 116)", .18);
+      ctx.strokeStyle = type === "clock" ? "rgba(255, 204, 106, .66)" : "rgba(153, 255, 119, .58)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(0, -8, 25 + Math.sin(now / 280 + index) * 3, 0, Math.PI * 2);
+      ctx.stroke();
+    }
 
     const allySpriteKey = spriteKeyForAlly(type);
     if (allySpriteKey) {
@@ -2664,6 +2807,11 @@
         }
         if (type === "clock" || type === "collector" || type === "bell" || type === "relay" || type === "aurora") {
           fillGlow(ctx, 24 + attack * 10, -18 - attack * 12, 10 + attack * 5, type === "collector" || type === "aurora" ? "rgb(142, 234, 255)" : "rgb(255, 238, 146)", .42);
+        }
+        if (mutationGlow) {
+          ctx.globalCompositeOperation = "screen";
+          fillGlow(ctx, 0, -10, 28 + attack * 8, "rgb(186, 255, 122)", .2);
+          ctx.globalCompositeOperation = "source-over";
         }
         ctx.restore();
         return;
@@ -3012,6 +3160,27 @@
           ctx.fillStyle = i % 2 ? "#fff0a6" : "#9cff80";
           ctx.beginPath();
           ctx.arc(relicX + Math.cos(angle) * (48 + ease * 46), relicY + Math.sin(angle) * (28 + ease * 24), 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (event.kind === "mutation") {
+        ctx.globalAlpha = .92 * (1 - t);
+        const pulseX = width * .5;
+        const pulseY = height * (.72 - ease * .12);
+        fillGlow(ctx, pulseX, pulseY, 120 + ease * 90, "rgb(141, 255, 106)", .28 * (1 - t));
+        ctx.strokeStyle = "rgba(198, 255, 137, .84)";
+        ctx.lineWidth = 5;
+        for (let i = -4; i <= 4; i += 1) {
+          ctx.beginPath();
+          ctx.moveTo(width * (.5 + i * .045), height);
+          ctx.quadraticCurveTo(width * (.5 + i * .02), height * (.82 - ease * .18), pulseX + i * 13, pulseY);
+          ctx.stroke();
+        }
+        for (let i = 0; i < 16; i += 1) {
+          const angle = i / 16 * Math.PI * 2 + ease * 3;
+          ctx.fillStyle = i % 2 ? "#fff5ad" : "#8eff7b";
+          ctx.beginPath();
+          ctx.arc(pulseX + Math.cos(angle) * (32 + ease * 70), pulseY + Math.sin(angle) * (18 + ease * 38), 3 + (i % 3), 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -3430,38 +3599,49 @@
   function renderRelicSystems() {
     const caps = relicCaps();
     const unlocked = relics.filter(relic => relicUnlocked(relic));
-    if (els.relicState) els.relicState.textContent = `${unlocked.length}/${relics.length} found / ${format(caps)} caps`;
+    if (els.relicState) els.relicState.textContent = `${unlocked.length}/${relics.length} relics / ${format(caps)} caps`;
     if (els.relicList) {
       els.relicList.innerHTML = relics.map((relic, index) => {
         const found = relicUnlocked(relic);
-        const level = found ? Math.max(1, Math.floor(caps / Math.max(3, index + 4))) : 0;
+        const level = relicLevel(relic.id);
+        const cost = relicUpgradeCost(relic);
+        const canUpgrade = found && caps >= cost;
         return `
           <article class="system-item relic-item ${found ? "unlocked" : "locked"}">
             <span class="system-glyph relic-glyph relic-${index % 5}" aria-hidden="true"></span>
             <div>
               <h3>${found ? relic.name : "Unfound relic"}</h3>
               <p>${found ? relic.desc : "Defeat bosses and push deeper to uncover this artifact."}</p>
-              <span>${found ? `level ${format(level)} / upgrade with Relic Caps` : "locked"}</span>
+              <span>${found ? `level ${format(level)} / next ${format(cost)} caps` : "locked"}</span>
             </div>
+            <button type="button" data-upgrade-relic="${relic.id}" ${canUpgrade ? "" : "disabled"}>
+              ${found ? (canUpgrade ? "upgrade" : `need ${format(cost)}`) : "locked"}
+            </button>
           </article>
         `;
       }).join("");
     }
 
-    const readyMutations = mutations.filter(mutation => mutationUnlocked(mutation));
-    if (els.mutationState) els.mutationState.textContent = `${readyMutations.length}/${mutations.length} ready / ${format(mutationGoo())} goo`;
+    const activeMutationList = mutations.filter(mutation => mutationActive(mutation.id));
+    if (els.mutationState) els.mutationState.textContent = `${activeMutationList.length}/${mutations.length} active / ${format(mutationGoo())} goo`;
     if (els.mutationList) {
       els.mutationList.innerHTML = mutations.map((mutation, index) => {
         const ready = mutationUnlocked(mutation);
+        const active = mutationActive(mutation.id);
         const count = Number(state.machines?.[mutation.machine] || 0);
+        const cost = mutationCost(mutation);
+        const canMutate = ready && !active && mutationGoo() >= cost;
         return `
-          <article class="system-item mutation-item ${ready ? "unlocked" : "locked"}">
+          <article class="system-item mutation-item ${ready ? "unlocked" : "locked"} ${active ? "active" : ""}">
             <span class="system-glyph mutation-glyph mutation-${index % 4}" aria-hidden="true"></span>
             <div>
               <h3>${ready ? mutation.name : mutation.family}</h3>
               <p>${ready ? mutation.desc : `Grow ${mutation.family} to level ${format(mutation.level)}.`}</p>
-              <span>${ready ? "mutation active" : `${format(count)}/${format(mutation.level)} levels`}</span>
+              <span>${active ? "mutation active" : ready ? `${format(cost)} Mutation Goo` : `${format(count)}/${format(mutation.level)} levels`}</span>
             </div>
+            <button type="button" data-activate-mutation="${mutation.id}" ${canMutate ? "" : "disabled"}>
+              ${active ? "active" : ready ? (canMutate ? "mutate" : `need ${format(cost)}`) : "locked"}
+            </button>
           </article>
         `;
       }).join("");
@@ -3471,7 +3651,7 @@
     const nextRegion = nextWorldRegion();
     if (els.mapState) {
       els.mapState.textContent = nextRegion
-        ? `${region.name} / next ${nextRegion.name}`
+        ? `${region.name} -> ${nextRegion.name}`
         : "Spore Moon claimed";
     }
     if (els.networkList) {
@@ -3593,7 +3773,7 @@
     els.dailyButton.disabled = !ready;
     if (els.dewSkillButton) {
       els.dewSkillButton.disabled = !ready;
-      els.dewSkillButton.textContent = ready ? "drip" : "drip done";
+      els.dewSkillButton.textContent = ready ? "daily" : "done";
       els.dewSkillButton.dataset.ready = ready ? "true" : "false";
     }
   }
@@ -3639,7 +3819,7 @@
     const charge = Math.max(0, Math.min(rushMax, Number(state.rushCharge || 0)));
     if (remaining > 0) {
       els.rushValue.textContent = `${Math.ceil(remaining / 1000)}s`;
-      els.rushHint.textContent = "Spore Rush active: x3 idle damage and x2 taps.";
+      els.rushHint.textContent = "Spore Pressure active: x3 idle damage and x2 taps.";
       els.rushProgress.style.width = "100%";
       els.rushProgress.classList.add("rush-active");
       if (els.rushOrbit) {
@@ -3649,7 +3829,7 @@
       return;
     }
     els.rushValue.textContent = `${Math.floor(charge)}%`;
-    els.rushHint.textContent = "Tap, grow allies, claim drips, and fire skills to fill the meter.";
+    els.rushHint.textContent = "Tap, grow allies, claim goals, and fire skills to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
     if (els.rushOrbit) {
@@ -3891,6 +4071,18 @@
     const id = event.target.closest("button")?.dataset.claimQuest;
     if (id) claimQuest(id);
   });
+  if (els.relicList) {
+    els.relicList.addEventListener("click", event => {
+      const id = event.target.closest("button")?.dataset.upgradeRelic;
+      if (id) upgradeRelic(id);
+    });
+  }
+  if (els.mutationList) {
+    els.mutationList.addEventListener("click", event => {
+      const id = event.target.closest("button")?.dataset.activateMutation;
+      if (id) activateMutation(id);
+    });
+  }
   els.prestigeButton.addEventListener("click", graft);
   if (els.bloomCallout) els.bloomCallout.addEventListener("click", graft);
   if (els.nextGoalButton) els.nextGoalButton.addEventListener("click", usePrimaryGoal);
@@ -3964,10 +4156,16 @@
           postBloomSurgeActive: postBloomSurgeActive(),
           myceliumEssence: myceliumEssence(),
           relicCaps: relicCaps(),
+          relicCapsEarned: relicCapsEarned(),
+          spentRelicCaps: Number(state.spentRelicCaps || 0),
+          relicLevelsTotal: Object.values(state.relicLevels || {}).reduce((sum, value) => sum + Math.max(0, Number(value) || 0), 0),
           mutationGoo: mutationGoo(),
+          mutationGooEarned: mutationGooEarned(),
+          spentMutationGoo: Number(state.spentMutationGoo || 0),
           unlockedRelics: relics.filter(relic => relicUnlocked(relic)).length,
           foundRelics: Array.isArray(state.foundRelicIds) ? state.foundRelicIds.length : 0,
           readyMutations: mutations.filter(mutation => mutationUnlocked(mutation)).length,
+          activeMutations: Array.isArray(state.activeMutations) ? state.activeMutations.length : 0,
           worldRegion: currentWorldRegion().name,
           achievements: state.achievements.length,
           maxCombo: Number(state.maxCombo || 0),
@@ -3975,6 +4173,25 @@
           scrollable: document.documentElement.scrollHeight > window.innerHeight + 1,
           overflowX: document.documentElement.scrollWidth > window.innerWidth + 1
         };
+      },
+      seedSystems() {
+        state.soundOn = false;
+        state.machines.press = Math.max(Number(state.machines.press || 0), 55);
+        state.machines.clock = Math.max(Number(state.machines.clock || 0), 55);
+        state.machines.collector = Math.max(Number(state.machines.collector || 0), 35);
+        state.machines.spring = Math.max(Number(state.machines.spring || 0), 30);
+        state.machines.observatory = Math.max(Number(state.machines.observatory || 0), 12);
+        state.bossDefeats = Math.max(Number(state.bossDefeats || 0), 12);
+        state.enemyDefeats = Math.max(Number(state.enemyDefeats || 0), 900);
+        state.bestCombatDepth = Math.max(bestCombatDepth(), 140);
+        state.bloomCount = Math.max(Number(state.bloomCount || 0), 2);
+        state.rootstock = Math.max(Number(state.rootstock || 0), 8);
+        state.lifetimeRootstock = Math.max(Number(state.lifetimeRootstock || 0), Number(state.rootstock || 0));
+        recordNewRelics(state);
+        ensureCombatState(state);
+        markDirty();
+        render();
+        return this.metrics();
       }
     };
     const testParams = new URLSearchParams(window.location.search);
