@@ -1,6 +1,13 @@
 (function () {
   "use strict";
 
+  const runningNativeApp = Boolean(
+    window.Capacitor?.isNativePlatform?.() || window.Capacitor?.getPlatform?.() === "android"
+  );
+  if (runningNativeApp && document.body) {
+    document.body.classList.add("native-app");
+  }
+
   const saveKey = "mushroom-boop-save-v1";
   const leaderboardKey = "mushroom-boop-leaderboard-v1";
   const playerIdKey = "mushroom-boop-player-id-v1";

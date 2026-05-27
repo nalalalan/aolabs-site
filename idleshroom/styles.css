@@ -16150,3 +16150,461 @@ body[data-bloom-ready="true"] .bloom-callout {
   background: linear-gradient(90deg, #fff27a, #87ff7e 68%, #ff9f5e) !important;
   box-shadow: 0 0 16px rgba(255, 232, 111, .5) !important;
 }
+
+/* Clean mobile game HUD: keep the fantasy visible and stop the first screen from stacking panels. */
+.game-page .tap-panel {
+  display: grid !important;
+  grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+  gap: 6px !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.game-page .resource-row {
+  grid-template-columns: .82fr 1.36fr .82fr !important;
+  min-height: 48px !important;
+  padding: 3px !important;
+  gap: 5px !important;
+  border-radius: 18px !important;
+  transform: none !important;
+}
+
+.game-page .resource-row > div,
+.game-page .resource-row .goal-stat {
+  min-height: 42px !important;
+  padding: 4px 5px !important;
+  border-radius: 14px !important;
+  transform: none !important;
+}
+
+.game-page .resource-row .metric-label {
+  font-size: 7px !important;
+  letter-spacing: .02em !important;
+}
+
+.game-page .resource-row strong {
+  margin-top: 1px !important;
+  font-size: clamp(16px, 4.5vw, 21px) !important;
+  line-height: .95 !important;
+}
+
+.game-page .resource-row small {
+  margin-top: 1px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+.game-page .next-goal-button {
+  min-height: 32px !important;
+  padding: 0 10px !important;
+  border-radius: 15px !important;
+  font-size: clamp(13px, 3.8vw, 18px) !important;
+  line-height: 1 !important;
+}
+
+.game-page .goal-progress {
+  height: 3px !important;
+  margin-top: 3px !important;
+}
+
+.game-page .currency-ribbon {
+  min-height: 27px !important;
+  margin-top: 0 !important;
+  gap: 4px !important;
+}
+
+.game-page .currency-ribbon > div {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  min-height: 27px !important;
+  padding: 4px 6px !important;
+  border-radius: 9px !important;
+}
+
+.game-page .currency-ribbon > div::before {
+  display: none !important;
+}
+
+.game-page .currency-ribbon span {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: clamp(6.5px, 1.75vw, 8px) !important;
+  line-height: 1 !important;
+}
+
+.game-page .currency-ribbon strong {
+  margin-top: 0 !important;
+  font-size: clamp(11px, 3vw, 14px) !important;
+  line-height: 1 !important;
+}
+
+.game-page .glade-stage {
+  position: relative !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.game-page .glade-head {
+  position: absolute !important;
+  z-index: 34 !important;
+  top: 8px !important;
+  left: 9px !important;
+  right: 9px !important;
+  min-height: 33px !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+}
+
+.game-page .glade-head > div:first-child,
+.game-page .glade-actions {
+  min-height: 33px !important;
+  pointer-events: auto !important;
+}
+
+.game-page .glade-head > div:first-child {
+  width: auto !important;
+  max-width: calc(100% - 98px) !important;
+  padding: 4px 10px !important;
+  border-radius: 13px !important;
+}
+
+.game-page .glade-head span {
+  font-size: 7px !important;
+  line-height: 1 !important;
+}
+
+.game-page .glade-head strong {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: clamp(14px, 4.3vw, 19px) !important;
+  line-height: 1.02 !important;
+}
+
+.game-page .glade-actions {
+  gap: 5px !important;
+}
+
+.game-page .glade-actions em {
+  min-height: 27px !important;
+  padding: 0 9px !important;
+  border-radius: 13px !important;
+  font-size: 8px !important;
+}
+
+.game-page .sound-button {
+  width: 29px !important;
+  height: 29px !important;
+  border-radius: 13px !important;
+}
+
+.game-page .bloom-track {
+  position: absolute !important;
+  z-index: 35 !important;
+  top: 43px !important;
+  left: 14px !important;
+  right: 14px !important;
+  height: 3px !important;
+  margin: 0 !important;
+  opacity: .72 !important;
+}
+
+.game-page .friend-scene {
+  min-height: clamp(468px, calc(100dvh - 246px), 620px) !important;
+  border-radius: 18px !important;
+}
+
+.game-page .combat-strip {
+  top: 55px !important;
+  left: 10px !important;
+  right: 10px !important;
+  min-height: 58px !important;
+  padding: 7px 9px 6px !important;
+  gap: 4px !important;
+  border-radius: 14px !important;
+}
+
+.game-page .combat-line {
+  min-width: 0 !important;
+  gap: 4px !important;
+}
+
+.game-page .combat-line span,
+.game-page .combat-line em,
+.game-page .combat-strip small {
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+.game-page .combat-line strong {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: clamp(17px, 5.2vw, 24px) !important;
+  line-height: 1 !important;
+}
+
+.game-page .enemy-health {
+  height: 7px !important;
+}
+
+.game-page .skill-row {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  min-height: 56px !important;
+  margin-top: 0 !important;
+  padding: 6px !important;
+  border-radius: 18px !important;
+  transform: none !important;
+}
+
+.game-page .skill-row button {
+  min-height: 43px !important;
+  padding: 18px 2px 4px !important;
+  border-radius: 13px !important;
+  transform: none !important;
+  font-size: clamp(8.5px, 2.55vw, 11px) !important;
+  line-height: 1 !important;
+}
+
+.game-page .skill-row button::before {
+  top: 5px !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.bottom-tabs {
+  min-height: 62px !important;
+  padding: 7px 9px !important;
+  border-radius: 20px !important;
+  transform: none !important;
+}
+
+.bottom-tabs button {
+  min-height: 48px !important;
+  padding: 4px 2px 5px !important;
+  border-radius: 14px !important;
+  transform: none !important;
+  font-size: clamp(8.5px, 2.55vw, 11px) !important;
+  line-height: 1 !important;
+}
+
+.bottom-tabs button::before {
+  width: 21px !important;
+  height: 21px !important;
+  margin-bottom: 3px !important;
+}
+
+@media (max-width: 380px), (max-height: 760px) {
+  .game-page .resource-row {
+    min-height: 42px !important;
+  }
+
+  .game-page .resource-row > div,
+  .game-page .resource-row .goal-stat {
+    min-height: 36px !important;
+    padding: 3px 4px !important;
+  }
+
+  .game-page .resource-row small {
+    display: none !important;
+  }
+
+  .game-page .currency-ribbon {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    min-height: 54px !important;
+  }
+
+  .game-page .friend-scene {
+    min-height: min(470px, calc(100dvh - 238px)) !important;
+  }
+
+  .game-page .combat-strip {
+    top: 51px !important;
+    min-height: 52px !important;
+  }
+
+  .game-page .skill-row {
+    min-height: 50px !important;
+    padding: 5px !important;
+  }
+
+  .game-page .skill-row button {
+    min-height: 39px !important;
+    font-size: 8px !important;
+  }
+
+  .bottom-tabs {
+    min-height: 56px !important;
+  }
+
+  .bottom-tabs button {
+    min-height: 43px !important;
+  }
+}
+
+/* Native Android shell: no browser phone mockup inside the installed app. */
+body.game-page.native-app {
+  display: block !important;
+  place-items: initial !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  overflow: hidden !important;
+  background: #06110a !important;
+}
+
+body.native-app .phone-frame {
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  background: #06110a !important;
+}
+
+body.native-app .phone-frame::before,
+body.native-app .phone-frame::after {
+  display: none !important;
+}
+
+body.native-app .suite-topbar {
+  display: none !important;
+}
+
+body.native-app .game-shell {
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  max-width: none !important;
+  padding:
+    max(6px, env(safe-area-inset-top))
+    max(6px, env(safe-area-inset-right))
+    max(6px, env(safe-area-inset-bottom))
+    max(6px, env(safe-area-inset-left)) !important;
+  gap: 6px !important;
+}
+
+/* Final HUD cleanup: compact controls, no oversized decorative stat cards. */
+.game-page .phone-frame > .game-shell {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.game-page .resource-row {
+  min-height: 43px !important;
+  padding: 4px !important;
+  background: linear-gradient(180deg, rgba(8, 24, 15, .86), rgba(3, 13, 8, .88)) !important;
+  border: 1px solid rgba(158, 211, 134, .2) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 220, .12), 0 8px 20px rgba(0, 0, 0, .18) !important;
+}
+
+.game-page .resource-row > div,
+.game-page .resource-row .goal-stat {
+  min-height: 35px !important;
+  padding: 3px 6px !important;
+  background: rgba(9, 25, 16, .62) !important;
+  border: 1px solid rgba(183, 235, 144, .12) !important;
+  box-shadow: none !important;
+}
+
+.game-page .resource-row > div::before,
+.game-page .resource-row > div::after,
+.game-page .resource-row .goal-stat::before,
+.game-page .resource-row .goal-stat::after {
+  display: none !important;
+}
+
+.game-page .resource-row > div:first-child::before,
+.game-page .resource-row > div:first-child::after,
+.game-page .resource-row > div:last-child::before,
+.game-page .resource-row > div:last-child::after,
+.game-page .resource-row::before,
+.game-page .resource-row::after {
+  content: none !important;
+  display: none !important;
+}
+
+.game-page .resource-row .metric-label {
+  color: rgba(235, 244, 206, .7) !important;
+  font-size: 6.8px !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+.game-page .resource-row strong {
+  color: #fff7b5 !important;
+  font-size: clamp(14px, 3.9vw, 18px) !important;
+  line-height: .98 !important;
+  text-shadow: 0 1px 7px rgba(0, 0, 0, .45) !important;
+}
+
+.game-page .resource-row small {
+  color: rgba(230, 240, 204, .68) !important;
+  font-size: 7.4px !important;
+  text-shadow: none !important;
+}
+
+.game-page .goal-stat .metric-label {
+  display: none !important;
+}
+
+.game-page .next-goal-button {
+  min-height: 30px !important;
+  padding: 0 8px !important;
+  color: #062313 !important;
+  background: linear-gradient(180deg, #9af08f, #19bd72) !important;
+  border: 1px solid rgba(206, 255, 185, .55) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 214, .38), 0 5px 0 rgba(0, 82, 45, .34) !important;
+}
+
+.game-page .currency-ribbon {
+  background: transparent !important;
+}
+
+.game-page .currency-ribbon > div {
+  background: linear-gradient(180deg, rgba(47, 70, 38, .78), rgba(22, 40, 25, .82)) !important;
+  border-color: rgba(174, 225, 125, .18) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 220, .12) !important;
+}
+
+.game-page .glade-head > div:first-child {
+  max-width: calc(100% - 76px) !important;
+  background: rgba(10, 22, 12, .78) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 220, .12) !important;
+}
+
+.game-page .glade-actions em {
+  display: none !important;
+}
+
+.game-page .combat-strip {
+  background: linear-gradient(180deg, rgba(12, 26, 11, .9), rgba(2, 13, 8, .88)) !important;
+  border-color: rgba(192, 235, 137, .22) !important;
+}
+
+@media (max-width: 380px), (max-height: 760px) {
+  .game-page .currency-ribbon {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    min-height: 25px !important;
+  }
+
+  .game-page .currency-ribbon > div {
+    min-height: 25px !important;
+    padding: 3px 4px !important;
+  }
+
+  .game-page .currency-ribbon span {
+    font-size: 0 !important;
+  }
+
+  .game-page .currency-ribbon span::first-letter {
+    font-size: 7px !important;
+  }
+}

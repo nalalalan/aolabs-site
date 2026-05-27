@@ -24,11 +24,16 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260527-rare-spawns-1">
-  <script src="./ads-config.js?v=20260527-rare-spawns-1"></script>
-  <script src="./online-config.js?v=20260527-rare-spawns-1"></script>
+  <link rel="stylesheet" href="./styles.css?v=20260527-android-1">
+  <script src="./ads-config.js?v=20260527-android-1"></script>
+  <script src="./online-config.js?v=20260527-android-1"></script>
 </head>
 <body class="game-page" data-tab="play">
+  <script>
+    if (window.Capacitor?.isNativePlatform?.() || window.Capacitor?.getPlatform?.() === "android") {
+      document.body.classList.add("native-app");
+    }
+  </script>
   <div class="phone-frame" aria-label="Idle Shroom phone preview">
     <header class="suite-topbar">
       <div class="suite-brand-cluster">
@@ -349,7 +354,7 @@
     </dialog>
   </div>
 
-    <script src="./ads.js?v=20260527-rare-spawns-1"></script>
-    <script src="./game.js?v=20260527-rare-spawns-1"></script>
+    <script src="./ads.js?v=20260527-android-1"></script>
+    <script src="./game.js?v=20260527-android-1"></script>
 </body>
 </html>
