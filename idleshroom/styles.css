@@ -15517,3 +15517,431 @@ body[data-tab="systems"] .systems-grid {
 .game-page .skill-row button[data-locked="true"] {
   color: rgba(255, 247, 208, .62) !important;
 }
+
+/* Commercial playfield pass: one animated canvas owns the battle fantasy. */
+.game-page .glade-stage {
+  position: relative !important;
+}
+
+.game-page .friend-scene {
+  overflow: hidden !important;
+  isolation: isolate !important;
+  min-height: clamp(430px, 62vh, 590px) !important;
+  touch-action: manipulation !important;
+  background-position: center 38% !important;
+}
+
+.game-page .battle-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 12 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+
+.game-page .enemy-target,
+.game-page .companion-row,
+.game-page .colony-layer,
+.game-page .orchard-visual {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.game-page .seed-button {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 32 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
+  opacity: .01 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.game-page .seed-button::before,
+.game-page .seed-button::after,
+.game-page .seed-core,
+.game-page .seed-mouth,
+.game-page .seed-cheeks,
+.game-page .seed-text {
+  display: none !important;
+}
+
+.game-page .combat-strip {
+  position: absolute !important;
+  z-index: 28 !important;
+  left: 12px !important;
+  right: 12px !important;
+  top: 12px !important;
+  min-height: 0 !important;
+  padding: 8px 10px 9px !important;
+  border-radius: 15px !important;
+  border: 1px solid rgba(219, 255, 167, .22) !important;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 239, 149, .16), transparent 35%),
+    linear-gradient(180deg, rgba(8, 22, 12, .83), rgba(4, 12, 8, .76)) !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .26), inset 0 1px 0 rgba(255, 255, 210, .16) !important;
+  backdrop-filter: blur(10px) saturate(1.2) !important;
+}
+
+.game-page .combat-line {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  gap: 7px !important;
+  align-items: baseline !important;
+  margin: 0 0 5px !important;
+}
+
+.game-page .combat-line span,
+.game-page .combat-line em,
+.game-page #enemyHpLabel {
+  color: rgba(255, 247, 203, .72) !important;
+  font-size: clamp(8px, 2.1vw, 10px) !important;
+  line-height: 1 !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  text-transform: none !important;
+}
+
+.game-page .combat-line strong {
+  color: #fff5b0 !important;
+  font-size: clamp(15px, 4.4vw, 20px) !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.game-page .enemy-health {
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: rgba(4, 9, 5, .54) !important;
+  border: 1px solid rgba(255, 250, 180, .2) !important;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, .35) !important;
+}
+
+.game-page .enemy-health span {
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, #7fff83, #fff06a 68%, #ff7a69) !important;
+  box-shadow: 0 0 12px rgba(163, 255, 112, .38) !important;
+}
+
+.game-page #enemyHpLabel {
+  display: block !important;
+  margin-top: 5px !important;
+}
+
+.game-page .glade-head {
+  position: relative !important;
+  z-index: 18 !important;
+  margin-bottom: 5px !important;
+}
+
+.game-page .bloom-track,
+.game-page .bloom-copy {
+  position: relative !important;
+  z-index: 18 !important;
+}
+
+.game-page .friend-scene .sky-glow,
+.game-page .friend-scene .sunbeam,
+.game-page .friend-scene .cloud,
+.game-page .friend-scene .meadow-hill,
+.game-page .friend-scene .scene-decor,
+.game-page .friend-scene .root-ring,
+.game-page .friend-scene .rush-orbit {
+  opacity: .18 !important;
+}
+
+.game-page .friend-scene::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 4 !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 245, 177, .28), transparent 26%),
+    linear-gradient(180deg, rgba(6, 16, 9, .06) 0 34%, rgba(3, 9, 6, .46) 66%, rgba(2, 5, 4, .74) 100%) !important;
+}
+
+.game-page .scene-pulse {
+  z-index: 35 !important;
+}
+
+.game-page .damage-slash {
+  z-index: 34 !important;
+}
+
+@media (max-width: 620px) {
+  .game-page .friend-scene {
+    min-height: min(528px, calc(100vh - 318px)) !important;
+  }
+
+  .game-page .combat-strip {
+    left: 10px !important;
+    right: 10px !important;
+    top: 10px !important;
+  }
+
+  .game-page .resource-row {
+    grid-template-columns: .82fr 1.4fr .82fr !important;
+    gap: 6px !important;
+  }
+
+  .game-page .resource-row > div {
+    padding: 8px 5px !important;
+    min-height: 56px !important;
+  }
+
+  .game-page .next-goal-button {
+    min-height: 42px !important;
+    font-size: clamp(13px, 5vw, 20px) !important;
+  }
+
+  .game-page .currency-ribbon > div {
+    padding: 6px 5px 5px !important;
+  }
+}
+
+/* Keep zone state out of the battle art; the canvas carries combat now. */
+.game-page .glade-stage {
+  display: grid !important;
+  grid-template-rows: auto auto auto minmax(0, 1fr) !important;
+  gap: 5px !important;
+  overflow: visible !important;
+}
+
+.game-page .glade-stage > * {
+  grid-row: auto !important;
+  grid-column: auto !important;
+}
+
+.game-page .friend-scene {
+  grid-row: auto !important;
+  grid-column: auto !important;
+  height: auto !important;
+  min-height: clamp(410px, 55vh, 540px) !important;
+}
+
+.game-page .glade-head {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 38px !important;
+  margin: 5px 0 5px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: auto !important;
+  z-index: 18 !important;
+}
+
+.game-page .glade-head > div:first-child,
+.game-page .glade-actions {
+  min-height: 36px !important;
+  border: 1px solid rgba(248, 255, 222, .16) !important;
+  background: linear-gradient(180deg, rgba(8, 23, 15, .74), rgba(6, 18, 12, .48)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 220, .11) !important;
+  backdrop-filter: blur(10px) saturate(1.08) !important;
+}
+
+.game-page .glade-head > div:first-child {
+  display: grid !important;
+  align-content: center !important;
+  max-width: calc(100% - 96px) !important;
+  padding: 5px 9px !important;
+  border-radius: 13px !important;
+}
+
+.game-page .glade-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 3px !important;
+  border-radius: 14px !important;
+}
+
+.game-page .glade-head span {
+  margin: 0 0 1px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+.game-page .glade-head strong {
+  font-size: clamp(13px, 3.7vw, 17px) !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.game-page .glade-actions em {
+  min-height: 28px !important;
+  padding: 0 9px !important;
+  border-radius: 11px !important;
+}
+
+.game-page .sound-button {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 11px !important;
+}
+
+.game-page .bloom-copy {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr) !important;
+  gap: 5px !important;
+  margin: 0 0 5px !important;
+  z-index: 18 !important;
+}
+
+.game-page .bloom-copy small {
+  min-height: 20px !important;
+  justify-content: center !important;
+}
+
+/* Mobile game HUD pass: more playfield, less accounting chrome. */
+.game-page .tap-panel {
+  grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+}
+
+.game-page .resource-row {
+  min-height: 44px !important;
+  padding: 3px !important;
+  gap: 5px !important;
+}
+
+.game-page .resource-row > div,
+.game-page .resource-row .goal-stat {
+  min-height: 38px !important;
+  padding: 5px 5px !important;
+  border-radius: 14px !important;
+}
+
+.game-page .resource-row .metric-label {
+  font-size: 7px !important;
+  line-height: 1 !important;
+}
+
+.game-page .resource-row strong {
+  font-size: clamp(15px, 4.2vw, 18px) !important;
+  line-height: .95 !important;
+}
+
+.game-page .rate-inline,
+.game-page #seasonValue {
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+.game-page .next-goal-button {
+  min-height: 32px !important;
+  padding: 3px 8px !important;
+  border-radius: 13px !important;
+  font-size: clamp(11px, 3.4vw, 15px) !important;
+  line-height: 1.02 !important;
+}
+
+.game-page .currency-ribbon {
+  gap: 5px !important;
+  margin-top: 5px !important;
+}
+
+.game-page .currency-ribbon > div {
+  min-height: 34px !important;
+  padding: 5px 5px 4px !important;
+  border-radius: 9px !important;
+}
+
+.game-page .currency-ribbon span {
+  font-size: clamp(6.8px, 1.75vw, 8px) !important;
+}
+
+.game-page .currency-ribbon strong {
+  font-size: clamp(12px, 3vw, 15px) !important;
+}
+
+.game-page .glade-head {
+  min-height: 32px !important;
+  margin: 4px 0 4px !important;
+}
+
+.game-page .glade-head > div:first-child,
+.game-page .glade-actions {
+  min-height: 32px !important;
+}
+
+.game-page .glade-head > div:first-child {
+  padding: 4px 8px !important;
+}
+
+.game-page .glade-head strong {
+  font-size: clamp(12px, 3.2vw, 15px) !important;
+}
+
+.game-page .glade-actions em {
+  min-height: 25px !important;
+  padding: 0 8px !important;
+  font-size: 7.5px !important;
+}
+
+.game-page .sound-button {
+  width: 27px !important;
+  height: 27px !important;
+}
+
+.game-page .bloom-copy {
+  display: none !important;
+}
+
+.game-page .bloom-track {
+  height: 4px !important;
+  margin: 0 2px 4px !important;
+  opacity: .72 !important;
+}
+
+.game-page .friend-scene {
+  min-height: clamp(458px, 61vh, 575px) !important;
+}
+
+.game-page .combat-strip {
+  top: 10px !important;
+  left: 10px !important;
+  right: 10px !important;
+  padding: 7px 9px !important;
+  border-radius: 14px !important;
+}
+
+.game-page .combat-line strong {
+  font-size: clamp(14px, 4vw, 18px) !important;
+}
+
+.game-page .enemy-health {
+  height: 7px !important;
+}
+
+@media (max-width: 620px) {
+  .game-page .friend-scene {
+    min-height: min(500px, calc(100vh - 294px)) !important;
+  }
+}

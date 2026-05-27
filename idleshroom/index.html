@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260527-fungal-empire-17">
+  <link rel="stylesheet" href="./styles.css?v=20260527-battle-canvas-2">
   <script src="./ads-config.js"></script>
   <script src="./online-config.js?v=20260520-forest-heart-1"></script>
 </head>
@@ -124,16 +124,6 @@
             <small id="bloomNeed">growth to zone</small>
             <small id="nextBloomName">next: Mossy Log</small>
           </div>
-          <div class="combat-strip" id="combatStrip" aria-label="stage enemy">
-            <div class="combat-line">
-              <span id="stageLabel">stage 1-1</span>
-              <strong id="enemyName">Sap Beetle</strong>
-              <em id="bossTimer"></em>
-            </div>
-            <div class="enemy-health" aria-hidden="true"><span id="enemyHpBar"></span></div>
-            <small id="enemyHpLabel">0/0 hp</small>
-          </div>
-
           <div class="friend-scene" id="friendScene">
             <span class="sky-glow" aria-hidden="true"></span>
             <span class="sunbeam" aria-hidden="true"></span>
@@ -153,6 +143,16 @@
             <span class="scene-decor decor-d" aria-hidden="true"></span>
             <span class="root-ring" id="rootRing" aria-hidden="true"></span>
             <span class="rush-orbit" id="rushOrbit" aria-hidden="true"></span>
+            <canvas class="battle-canvas" id="battleCanvas" aria-hidden="true"></canvas>
+            <div class="combat-strip" id="combatStrip" aria-label="stage enemy">
+              <div class="combat-line">
+                <span id="stageLabel">stage 1-1</span>
+                <strong id="enemyName">Sap Beetle</strong>
+                <em id="bossTimer"></em>
+              </div>
+              <div class="enemy-health" aria-hidden="true"><span id="enemyHpBar"></span></div>
+              <small id="enemyHpLabel">0/0 hp</small>
+            </div>
             <span class="enemy-target" id="enemyTarget" aria-hidden="true"><i></i></span>
             <div class="colony-layer" id="colonyLayer" aria-hidden="true">
               <span class="cap-house house-a"></span>
@@ -346,6 +346,6 @@
   </div>
 
     <script src="./ads.js?v=20260526-gamepass-1"></script>
-    <script src="./game.js?v=20260527-fungal-empire-17"></script>
+    <script src="./game.js?v=20260527-battle-canvas-2"></script>
 </body>
 </html>

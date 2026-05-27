@@ -251,6 +251,9 @@
   let lastScenePulseAt = 0;
   let momentTimer = 0;
   let lastPointerTapAt = 0;
+  let battleAnimationFrame = 0;
+  let battleLastFrame = 0;
+  const battleEvents = [];
 
   const els = {};
   [
@@ -264,6 +267,7 @@
     "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
     "bottomTabs", "friendScene", "companionRow", "colonyLayer", "rushOrbit", "rootRing", "soundButton",
+    "battleCanvas",
     "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "ancientSporesValue", "essenceValue", "relicCapsValue", "mutationGooValue",
@@ -645,6 +649,7 @@
     advanceCombat(target);
     target.bestCombatDepth = Math.max(bestCombatDepth(target), combatDepth(target));
     if (visual) {
+      pushBattleEvent("defeat", { boss, duration: boss ? 1400 : 900 });
       restartMotion(els.enemyTarget, "enemy-defeated", boss ? 760 : 520);
       showEnemyReward(reward, defeated.name, boss);
       playTone(boss ? "great" : "buy", boss ? 6 : 3);
@@ -659,6 +664,7 @@
     if (damage <= 0) return { changed: false, defeated: 0, reward: 0 };
     const visual = options.visual !== false;
     if (visual) {
+      pushBattleEvent("hit", { hot: options.hot || comboCount >= 8 || isBossWave(state), duration: 520 });
       restartMotion(els.enemyTarget, "enemy-hit", 260);
       showDamageNumber(damage, damage >= Math.max(5, Number(state.enemyMaxHp || 1) * 0.18));
       showDamageSlash(options.hot || comboCount >= 8 || isBossWave(state));
@@ -771,13 +777,14 @@
 
   function meadowRequirement(target = state) {
     const level = Math.max(1, Number(target.meadowLevel || 1));
-    return Math.round((18 + level * 7) * Math.pow(1.14, level - 1) * rootBonus(target));
+    return Math.round((420 + level * 180) * Math.pow(1.34, level - 1) * rootBonus(target));
   }
 
   function environmentForLevel(target = state, offset = 0) {
     const level = Math.max(1, Number(target.meadowLevel || 1) + offset);
-    const index = (level - 1) % environments.length;
-    const cycle = Math.floor((level - 1) / environments.length);
+    const zoneDepth = Math.floor((level - 1) / 4);
+    const index = zoneDepth % environments.length;
+    const cycle = Math.floor(zoneDepth / environments.length);
     const environment = environments[index];
     return {
       ...environment,
@@ -873,6 +880,13 @@
       return { detail: `unlock ${affordablePerk.name}`, kind: "perk", ready: true };
     }
 
+    const firstSessionAlly = machines.slice(0, 3).find(machine => {
+      return Number(target.machines?.[machine.id] || 0) <= 0 && Number(target.loops || 0) >= machineCost(machine, target);
+    });
+    if (firstSessionAlly) {
+      return { detail: `recruit ${firstSessionAlly.name}`, kind: "piece", ready: true };
+    }
+
     const affordableCharm = earlyCharm || upgrades.find(upgrade => !hasUpgrade(upgrade.id, target) && upgrade.req(target) && Number(target.loops || 0) >= upgrade.cost);
     if (affordableCharm) {
       return { detail: `wake ${affordableCharm.name}`, kind: "charm", ready: true };
@@ -939,6 +953,19 @@
         detail: affordablePerk.desc,
         kind: "perk",
         id: affordablePerk.id,
+        ready: true
+      };
+    }
+
+    const firstSessionAlly = machines.slice(0, 3).find(machine => {
+      return Number(target.machines?.[machine.id] || 0) <= 0 && Number(target.loops || 0) >= machineCost(machine, target);
+    });
+    if (firstSessionAlly) {
+      return {
+        label: `Recruit ${firstSessionAlly.name}`,
+        detail: `Adds +${format(firstSessionAlly.rate * rateMultiplier(target))} idle damage/sec`,
+        kind: "piece",
+        id: firstSessionAlly.id,
         ready: true
       };
     }
@@ -1184,6 +1211,7 @@
     state.machines[id] += 1;
     const count = Number(state.machines[id] || 0);
     const milestone = allyMilestones.includes(count);
+    pushBattleEvent("upgrade", { machine: id, milestone, duration: milestone ? 1200 : 760 });
     addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     playTone(milestone ? "unlock" : "buy", milestone ? 6 : 4);
@@ -1273,6 +1301,7 @@
     }
     ensureCombatState(state);
     clickRateBurst = 0;
+    pushBattleEvent("bloom", { duration: 1900 });
     playTone("great");
     showMoment("Spore Bloom", `+${format(gain)} Ancient Spores / bloom ${format(state.bloomCount)}`, "great");
     haptic([18, 22, 18, 36]);
@@ -1446,6 +1475,7 @@
     }
     state.skillCooldowns[skill.id] = Date.now() + skillCooldown(skill) * 1000;
     state.lastSkillCast = skill.id;
+    pushBattleEvent("skill", { skill: skill.id, duration: skill.id === "ancient-bloom" ? 1500 : 980 });
     addRushCharge(skill.id === "ancient-bloom" ? 30 : 15);
     pulseScene(skill.id === "ancient-bloom" ? "scene-bloomed" : "scene-impact");
     showMoment(skill.name, detail, skill.id === "ancient-bloom" ? "great" : "unlock");
@@ -1952,6 +1982,7 @@
     const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
     const gained = tapPower() * comboTapMultiplier(comboCount);
     const combat = damageEnemy(gained, { hot: comboCount >= 8, visual: showFullImpact });
+    if (showFullImpact) pushBattleEvent("tap", { hot: comboCount >= 8, duration: comboCount >= 8 ? 720 : 560 });
     addLoops(state, gained);
     const meadow = addMeadowCare(gained);
     recordSporeBurst(gained);
@@ -2108,6 +2139,571 @@
       document.body.appendChild(spore);
       window.setTimeout(() => spore.remove(), 820);
     }
+  }
+
+  function pushBattleEvent(kind, detail = {}) {
+    if (testPlayMode) return;
+    battleEvents.push({
+      kind,
+      createdAt: performance.now(),
+      duration: detail.duration || (kind === "bloom" ? 1900 : kind === "defeat" ? 1100 : 760),
+      ...detail
+    });
+    while (battleEvents.length > 70) battleEvents.shift();
+  }
+
+  function startBattleRenderer() {
+    if (!els.battleCanvas || battleAnimationFrame) return;
+    const step = now => {
+      drawBattleFrame(now);
+      battleAnimationFrame = window.requestAnimationFrame(step);
+    };
+    battleAnimationFrame = window.requestAnimationFrame(step);
+  }
+
+  function fitBattleCanvas(canvas, rect) {
+    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const width = Math.max(1, Math.round(rect.width * dpr));
+    const height = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return ctx;
+  }
+
+  function roundedRect(ctx, x, y, width, height, radius) {
+    const r = Math.min(radius, width / 2, height / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + width, y, x + width, y + height, r);
+    ctx.arcTo(x + width, y + height, x, y + height, r);
+    ctx.arcTo(x, y + height, x, y, r);
+    ctx.arcTo(x, y, x + width, y, r);
+    ctx.closePath();
+  }
+
+  function fillGlow(ctx, x, y, radius, color, alpha = 1) {
+    if (!Number.isFinite(radius) || radius <= 0) return;
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    gradient.addColorStop(0, color.replace(")", `, ${alpha})`).replace("rgb", "rgba"));
+    gradient.addColorStop(1, color.replace(")", ", 0)").replace("rgb", "rgba"));
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function colorForEnemy(enemy, boss) {
+    const colors = [
+      ["#79d95f", "#2f7138", "#ffe680"],
+      ["#a6d87a", "#5b7c45", "#eaffb3"],
+      ["#caa06a", "#6f4432", "#ffe09a"],
+      ["#8b76ff", "#352b82", "#dec8ff"],
+      ["#d98573", "#70382f", "#ffe09a"],
+      ["#9aa093", "#303a34", "#f3f1c4"],
+      ["#7ed2c8", "#244f55", "#d2fff8"],
+      ["#c4cc75", "#4e5a25", "#fff08d"],
+      ["#b6e07a", "#4f7438", "#ffd961"],
+      ["#7f7ad9", "#273064", "#e2dbff"],
+      ["#c47d5a", "#563020", "#fff0ac"],
+      ["#efb77e", "#6d4130", "#ffe0a3"],
+      ["#87694f", "#2e2721", "#fff2bd"],
+      ["#b74c3c", "#3e3e36", "#ffe064"],
+      ["#b4c48b", "#536d52", "#f8ffc6"],
+      ["#cdb179", "#51442e", "#ffe39d"],
+      ["#83bb69", "#243b25", "#cfff8c"],
+      ["#a7a0a0", "#3a3a40", "#f5e6c6"]
+    ];
+    const base = colors[enemy.variant % colors.length] || colors[0];
+    return boss ? [base[0], base[1], "#fff0a6"] : base;
+  }
+
+  function drawEnemyShape(ctx, enemy, x, y, size, now, boss, hitPulse) {
+    const [a, b, c] = colorForEnemy(enemy, boss);
+    const wobble = Math.sin(now / 260) * (boss ? 3 : 2);
+    const stomp = boss ? Math.sin(now / 180) * 2 : 0;
+    ctx.save();
+    ctx.translate(x, y + stomp);
+    ctx.scale(1 + hitPulse * 0.08, 1 - hitPulse * 0.06);
+    ctx.rotate((Math.sin(now / 470) * 0.025) + wobble * 0.002);
+    fillGlow(ctx, 0, 8, size * 1.25, "rgb(180, 255, 128)", boss ? .22 : .13);
+    ctx.fillStyle = "rgba(0,0,0,.28)";
+    ctx.beginPath();
+    ctx.ellipse(0, size * .55, size * .72, size * .18, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (enemy.id.includes("slug") || enemy.id.includes("snail") || enemy.id.includes("sluggo")) {
+      const body = ctx.createLinearGradient(-size, -size * .15, size, size * .45);
+      body.addColorStop(0, a);
+      body.addColorStop(1, b);
+      ctx.fillStyle = body;
+      ctx.beginPath();
+      ctx.ellipse(0, size * .15, size * .72, size * .42, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = c;
+      [-.3, .28].forEach(side => {
+        ctx.beginPath();
+        ctx.moveTo(size * side, -size * .22);
+        ctx.quadraticCurveTo(size * (side - .08), -size * .68, size * (side + .03), -size * .78);
+        ctx.lineWidth = Math.max(2, size * .035);
+        ctx.strokeStyle = a;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(size * (side + .03), -size * .8, size * .06, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      if (boss) drawTinyCrown(ctx, -size * .05, -size * .6, size * .28);
+    } else if (enemy.id.includes("boot")) {
+      ctx.fillStyle = b;
+      roundedRect(ctx, -size * .42, -size * .58, size * .5, size * .88, size * .12);
+      ctx.fill();
+      ctx.fillStyle = a;
+      roundedRect(ctx, -size * .38, size * .02, size * .94, size * .34, size * .12);
+      ctx.fill();
+      ctx.fillStyle = c;
+      ctx.fillRect(-size * .3, -size * .42, size * .28, size * .05);
+      ctx.fillRect(-size * .3, -size * .24, size * .28, size * .05);
+    } else if (enemy.id.includes("mower")) {
+      ctx.fillStyle = b;
+      roundedRect(ctx, -size * .68, -size * .25, size * 1.2, size * .48, size * .14);
+      ctx.fill();
+      ctx.fillStyle = a;
+      roundedRect(ctx, -size * .5, -size * .5, size * .8, size * .38, size * .12);
+      ctx.fill();
+      ctx.strokeStyle = c;
+      ctx.lineWidth = size * .045;
+      ctx.beginPath();
+      ctx.moveTo(size * .2, -size * .46);
+      ctx.lineTo(size * .7, -size * .82);
+      ctx.stroke();
+      [-.35, .35].forEach(side => {
+        ctx.fillStyle = "#1b211d";
+        ctx.beginPath();
+        ctx.arc(size * side, size * .27, size * .16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = c;
+        ctx.stroke();
+      });
+    } else {
+      const body = ctx.createLinearGradient(0, -size * .55, 0, size * .5);
+      body.addColorStop(0, a);
+      body.addColorStop(1, b);
+      ctx.fillStyle = body;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, size * .58, size * .46, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,210,.36)";
+      ctx.lineWidth = Math.max(2, size * .035);
+      for (let i = -2; i <= 2; i += 1) {
+        ctx.beginPath();
+        ctx.moveTo(i * size * .17, -size * .42);
+        ctx.quadraticCurveTo(i * size * .11, 0, i * size * .17, size * .43);
+        ctx.stroke();
+      }
+      for (let side of [-1, 1]) {
+        for (let i = 0; i < 3; i += 1) {
+          ctx.strokeStyle = b;
+          ctx.beginPath();
+          ctx.moveTo(side * size * .38, -size * .18 + i * size * .18);
+          ctx.lineTo(side * size * (.58 + i * .04), -size * .28 + i * size * .24);
+          ctx.stroke();
+        }
+      }
+      ctx.fillStyle = c;
+      [-.18, .18].forEach(ex => {
+        ctx.beginPath();
+        ctx.arc(size * ex, -size * .12, size * .055, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    if (hitPulse > 0) {
+      ctx.globalAlpha = hitPulse;
+      ctx.strokeStyle = "#fff6b9";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, size * .68, size * .52, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawTinyCrown(ctx, x, y, size) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.fillStyle = "#ffd95e";
+    ctx.beginPath();
+    ctx.moveTo(-size * .5, size * .18);
+    ctx.lineTo(-size * .38, -size * .25);
+    ctx.lineTo(-size * .14, size * .02);
+    ctx.lineTo(0, -size * .35);
+    ctx.lineTo(size * .14, size * .02);
+    ctx.lineTo(size * .38, -size * .25);
+    ctx.lineTo(size * .5, size * .18);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawFirstShroom(ctx, x, y, scale, now, form, tapPulse) {
+    const breath = Math.sin(now / 520) * 0.035;
+    const lift = Math.sin(now / 640) * 3 - tapPulse * 10;
+    const god = form.id === "fungal-god";
+    const lord = form.id === "mycelium-lord" || form.id === "bloom-king" || god;
+    ctx.save();
+    ctx.translate(x, y + lift);
+    ctx.scale(scale * (1 + tapPulse * .05), scale * (1 + breath - tapPulse * .06));
+    fillGlow(ctx, 0, -24, god ? 92 : 58, god ? "rgb(163, 125, 255)" : "rgb(255, 214, 92)", god ? .26 : .18);
+    ctx.fillStyle = "rgba(0,0,0,.34)";
+    ctx.beginPath();
+    ctx.ellipse(0, 46, 42, 9, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = "#5e3924";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(21, 4);
+    ctx.lineTo(43, -32 - tapPulse * 8);
+    ctx.stroke();
+    ctx.strokeStyle = "#e8c47a";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(39, -31 - tapPulse * 8);
+    ctx.lineTo(55, -41 - tapPulse * 12);
+    ctx.stroke();
+
+    const stem = ctx.createLinearGradient(0, -12, 0, 46);
+    stem.addColorStop(0, "#fff2bc");
+    stem.addColorStop(1, "#d2ab72");
+    ctx.fillStyle = stem;
+    roundedRect(ctx, -22, -8, 44, 58, 22);
+    ctx.fill();
+
+    const cap = ctx.createLinearGradient(0, -60, 0, -10);
+    cap.addColorStop(0, form.id === "sporeheart" ? "#ff6969" : form.id === "bloom-king" ? "#e7aa45" : "#ef4f55");
+    cap.addColorStop(1, form.id === "fungal-god" ? "#8d67e7" : "#b83236");
+    ctx.fillStyle = cap;
+    ctx.beginPath();
+    ctx.ellipse(0, -28, 48, 31, 0, Math.PI, 0);
+    ctx.quadraticCurveTo(44, -18, 28, -7);
+    ctx.quadraticCurveTo(0, 3, -28, -7);
+    ctx.quadraticCurveTo(-44, -18, -48, -28);
+    ctx.fill();
+    ctx.fillStyle = "#fff6bf";
+    [-20, 4, 25].forEach((spot, index) => {
+      ctx.globalAlpha = .9 - index * .12;
+      ctx.beginPath();
+      ctx.arc(spot, -31 - index * 3, 5 + index * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "#171510";
+    ctx.beginPath();
+    ctx.ellipse(-9, 12, 4, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(11, 11, 4, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#171510";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-15, 4);
+    ctx.lineTo(-6, 7);
+    ctx.moveTo(5, 7);
+    ctx.lineTo(16, 3);
+    ctx.stroke();
+    if (lord) {
+      ctx.strokeStyle = "rgba(126, 255, 117, .76)";
+      ctx.lineWidth = 3;
+      for (let i = -2; i <= 2; i += 1) {
+        ctx.beginPath();
+        ctx.moveTo(i * 9, 42);
+        ctx.quadraticCurveTo(i * 18, 58, i * 36, 70 + Math.sin(now / 300 + i) * 5);
+        ctx.stroke();
+      }
+    }
+    if (form.id === "bloom-king" || god) drawTinyCrown(ctx, 0, -58, 28);
+    ctx.restore();
+  }
+
+  function drawAlly(ctx, x, y, size, type, now, index, active) {
+    const attack = active ? Math.max(0, Math.sin(now / (520 + index * 40) + index) * 1.4) : 0;
+    ctx.save();
+    ctx.translate(x, y - attack * 8);
+    ctx.scale(size, size * (1 + attack * .04));
+    ctx.fillStyle = "rgba(0,0,0,.25)";
+    ctx.beginPath();
+    ctx.ellipse(0, 19, 18, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    const palette = {
+      plot: ["#e85052", "#fff0ba"],
+      press: ["#d84b42", "#e7c87f"],
+      clock: ["#e8efe2", "#fff6cc"],
+      collector: ["#8378ff", "#bff2ff"],
+      greenhouse: ["#3a2027", "#d0524a"],
+      rail: ["#a56f3f", "#edcf88"],
+      relay: ["#a68561", "#e8d6a5"],
+      bell: ["#f1bf4a", "#ffe3a6"],
+      spring: ["#7b5944", "#d8bb84"],
+      observatory: ["#6fbd73", "#684a34"],
+      aurora: ["#a47bff", "#fff0a6"],
+      heartwood: ["#78d67c", "#d9b073"]
+    };
+    const [cap, stem] = palette[type] || palette.plot;
+    ctx.fillStyle = stem;
+    roundedRect(ctx, -8, -2, 16, 24, 8);
+    ctx.fill();
+    ctx.fillStyle = cap;
+    ctx.beginPath();
+    ctx.ellipse(0, -5, 18, 13, 0, Math.PI, 0);
+    ctx.quadraticCurveTo(15, 2, 8, 7);
+    ctx.quadraticCurveTo(0, 11, -8, 7);
+    ctx.quadraticCurveTo(-15, 2, -18, -5);
+    ctx.fill();
+    ctx.fillStyle = "#fff6c4";
+    ctx.beginPath();
+    ctx.arc(-5, -7, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#172015";
+    ctx.beginPath();
+    ctx.arc(-4, 8, 2, 0, Math.PI * 2);
+    ctx.arc(5, 8, 2, 0, Math.PI * 2);
+    ctx.fill();
+    if (type === "press" || type === "greenhouse") {
+      ctx.strokeStyle = type === "greenhouse" ? "#1d1620" : "#5f3922";
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(10, 4);
+      ctx.lineTo(23 + attack * 8, -10 - attack * 8);
+      ctx.stroke();
+    }
+    if (type === "clock" || type === "collector" || type === "bell") {
+      ctx.strokeStyle = type === "collector" ? "#93f1ff" : "#fff2a4";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(4, -6);
+      ctx.quadraticCurveTo(20 + attack * 8, -18 - attack * 12, 32 + attack * 14, -24 - attack * 16);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawBattleEvents(ctx, width, height, now) {
+    for (let index = battleEvents.length - 1; index >= 0; index -= 1) {
+      const event = battleEvents[index];
+      const t = (now - event.createdAt) / event.duration;
+      if (t >= 1) {
+        battleEvents.splice(index, 1);
+        continue;
+      }
+      const ease = 1 - Math.pow(1 - t, 3);
+      const enemyX = width * .5;
+      const enemyY = height * .27;
+      const heroX = width * .5;
+      const heroY = height * .75;
+      ctx.save();
+      if (event.kind === "tap" || event.kind === "hit") {
+        ctx.globalAlpha = 1 - t;
+        ctx.strokeStyle = event.hot ? "#fff1a0" : "#b9ff99";
+        ctx.lineWidth = event.hot ? 6 : 4;
+        ctx.beginPath();
+        ctx.moveTo(heroX + 24, heroY - 70);
+        ctx.quadraticCurveTo(width * .58, height * .48, enemyX + Math.sin(t * 18) * 20, enemyY);
+        ctx.stroke();
+        for (let i = 0; i < 10; i += 1) {
+          const angle = (i / 10) * Math.PI * 2 + event.createdAt * .001;
+          const radius = 12 + ease * (event.hot ? 92 : 58) + (i % 3) * 5;
+          ctx.fillStyle = i % 3 === 0 ? "#fff6bd" : "#aaff89";
+          ctx.beginPath();
+          ctx.arc(enemyX + Math.cos(angle) * radius, enemyY + Math.sin(angle) * radius * .7, Math.max(1, 4 - t * 3), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (event.kind === "skill") {
+        ctx.globalAlpha = .85 * (1 - t);
+        const skill = event.skill || "";
+        if (skill === "root-grasp") {
+          ctx.strokeStyle = "#8fff84";
+          ctx.lineWidth = 5;
+          for (let i = -3; i <= 3; i += 1) {
+            ctx.beginPath();
+            ctx.moveTo(width * (.5 + i * .06), height);
+            ctx.quadraticCurveTo(width * (.5 + i * .03), height * .56, enemyX + i * 8, enemyY + 18);
+            ctx.stroke();
+          }
+        } else if (skill === "puffball-barrage") {
+          for (let i = 0; i < 7; i += 1) {
+            fillGlow(ctx, width * (.16 + i * .12), height * (.2 + Math.sin(i + t * 4) * .06), 42 + ease * 34, "rgb(255, 244, 181)", .42);
+          }
+        } else if (skill === "fairy-ring") {
+          ctx.strokeStyle = "#caff89";
+          ctx.lineWidth = 7;
+          ctx.beginPath();
+          ctx.ellipse(enemyX, enemyY + 24, 96 + ease * 20, 32 + ease * 8, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        } else if (skill === "ancient-bloom") {
+          fillGlow(ctx, width / 2, height / 2, Math.max(width, height) * (1.1 + ease * .4), "rgb(210, 179, 255)", .32 * (1 - t));
+          ctx.strokeStyle = "#fff1a6";
+          ctx.lineWidth = 4;
+          for (let i = 0; i < 18; i += 1) {
+            const angle = (Math.PI * 2 * i) / 18 + ease * 4;
+            ctx.beginPath();
+            ctx.moveTo(width / 2, height * .73);
+            ctx.lineTo(width / 2 + Math.cos(angle) * width * ease, height * .73 + Math.sin(angle) * height * ease);
+            ctx.stroke();
+          }
+        } else {
+          fillGlow(ctx, enemyX, enemyY, 100 + ease * 70, "rgb(168, 255, 132)", .32 * (1 - t));
+        }
+      }
+      if (event.kind === "defeat") {
+        ctx.globalAlpha = 1 - t;
+        fillGlow(ctx, enemyX, enemyY, (event.boss ? 170 : 110) * ease, "rgb(255, 219, 103)", event.boss ? .46 : .3);
+        for (let i = 0; i < (event.boss ? 26 : 14); i += 1) {
+          const angle = (i / (event.boss ? 26 : 14)) * Math.PI * 2;
+          const r = ease * (event.boss ? 180 : 110);
+          ctx.fillStyle = i % 2 ? "#fff0a4" : "#83e56e";
+          ctx.beginPath();
+          ctx.arc(enemyX + Math.cos(angle) * r, enemyY + Math.sin(angle) * r * .72 + ease * 42, 3 + (i % 4), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (event.kind === "upgrade") {
+        ctx.globalAlpha = 1 - t;
+        fillGlow(ctx, heroX, heroY, 130 * ease, "rgb(152, 255, 130)", .24);
+        for (let i = 0; i < 12; i += 1) {
+          ctx.fillStyle = i % 2 ? "#ffe77a" : "#baff83";
+          ctx.beginPath();
+          ctx.arc(width * (.18 + (i % 6) * .13), height * (.92 - ease * .2 - Math.floor(i / 6) * .08), 3 + (i % 3), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (event.kind === "bloom") {
+        ctx.globalAlpha = 1 - t;
+        fillGlow(ctx, width / 2, height / 2, Math.max(width, height) * (1.2 + ease), "rgb(210, 178, 255)", .52);
+        for (let i = 0; i < 44; i += 1) {
+          const angle = i * 1.618 + ease * 6;
+          const r = ease * Math.max(width, height) * (.08 + (i % 9) * .055);
+          ctx.fillStyle = i % 3 ? "#fff0a6" : "#a8ff97";
+          ctx.beginPath();
+          ctx.arc(width / 2 + Math.cos(angle) * r, height * .72 + Math.sin(angle) * r, 2 + (i % 4), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+  }
+
+  function drawBattleFrame(now) {
+    if (!els.battleCanvas || !els.friendScene) return;
+    const rect = els.friendScene.getBoundingClientRect();
+    if (rect.width <= 1 || rect.height <= 1) return;
+    const ctx = fitBattleCanvas(els.battleCanvas, rect);
+    const width = rect.width;
+    const height = rect.height;
+    const dt = Math.min(64, battleLastFrame ? now - battleLastFrame : 16);
+    battleLastFrame = now;
+    ctx.clearRect(0, 0, width, height);
+
+    const tier = colonyTier();
+    const owned = ownedTotal();
+    const boss = isBossWave();
+    const enemy = enemyForCombat();
+    const hp = Math.max(0, Number(state.enemyHp || 0));
+    const maxHp = Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
+    const hitPulse = Math.max(0, 1 - (now - (battleEvents.filter(event => event.kind === "tap" || event.kind === "hit").at(-1)?.createdAt || -1000)) / 260);
+
+    const lowerMask = ctx.createLinearGradient(0, height * .44, 0, height);
+    lowerMask.addColorStop(0, "rgba(7, 16, 10, .04)");
+    lowerMask.addColorStop(.4, "rgba(8, 16, 10, .55)");
+    lowerMask.addColorStop(1, "rgba(3, 7, 5, .88)");
+    ctx.fillStyle = lowerMask;
+    ctx.fillRect(0, height * .42, width, height * .58);
+
+    for (let i = 0; i < 26; i += 1) {
+      const drift = ((now * (.006 + (i % 5) * .001) + i * 47) % (height + 80)) - 40;
+      const x = (Math.sin(i * 12.989) * 43758.5453 % 1 + 1) % 1 * width;
+      const y = height - drift;
+      ctx.fillStyle = i % 4 === 0 ? "rgba(142, 228, 255, .42)" : "rgba(255, 239, 158, .38)";
+      ctx.beginPath();
+      ctx.arc(x, y, 1.3 + (i % 3) * .7, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.strokeStyle = `rgba(139, 255, 120, ${.18 + Math.min(.28, tier * .035 + owned * .002)})`;
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 9 + tier; i += 1) {
+      const startX = width * (.1 + (i % 5) * .2);
+      const startY = height * (.88 - (i % 3) * .08);
+      ctx.beginPath();
+      ctx.moveTo(startX, height);
+      ctx.bezierCurveTo(startX - 70, startY, width * (.2 + (i % 4) * .18), height * (.7 - (i % 2) * .08), width * (.5 + Math.sin(i) * .34), height * (.55 - tier * .015));
+      ctx.stroke();
+    }
+
+    const enemyX = width * .5;
+    const enemyY = height * (boss ? .3 : .28);
+    drawEnemyShape(ctx, enemy, enemyX, enemyY, boss ? Math.min(88, width * .2) : Math.min(62, width * .16), now, boss, hitPulse);
+
+    const idleShots = Math.min(8, Math.floor(owned / 3));
+    for (let i = 0; i < idleShots; i += 1) {
+      const phase = ((now / (900 + i * 71)) + i * .19) % 1;
+      if (phase < .54) {
+        const sx = width * (.18 + (i % 6) * .13);
+        const sy = height * (.76 + (i % 2) * .06);
+        const tx = sx + (enemyX - sx) * phase / .54;
+        const ty = sy + (enemyY - sy) * phase / .54 - Math.sin(phase * Math.PI) * 60;
+        fillGlow(ctx, tx, ty, 10, i % 3 ? "rgb(178, 255, 133)" : "rgb(151, 224, 255)", .45);
+      }
+    }
+
+    const machineOrder = machines.map(machine => machine.id);
+    const visibleAllies = machineOrder.filter(id => Number(state.machines[id] || 0) > 0).slice(0, 10);
+    visibleAllies.forEach((id, index) => {
+      const row = index % 2;
+      const count = visibleAllies.length;
+      const x = width * (.12 + ((index % 5) / 4) * .76) + (row ? width * .05 : 0);
+      const y = height * (.8 + row * .075);
+      const size = id === "observatory" || id === "aurora" ? 1.18 : .88 + Math.min(.28, Number(state.machines[id] || 0) / 60);
+      drawAlly(ctx, x, y, size, id, now, index, true);
+    });
+
+    const heroScale = Math.max(.76, Math.min(1.05, width / 430)) * (1 + Math.min(.12, Number(state.rootstock || 0) * .008));
+    drawFirstShroom(ctx, width * .5, height * .77, heroScale, now, currentShroomForm(), hitPulse);
+
+    const empire = Math.min(1, (tier + owned / 80 + Number(state.rootstock || 0) / 18) / 8);
+    if (empire > .06) {
+      ctx.save();
+      ctx.globalAlpha = empire;
+      for (let i = 0; i < 2 + tier; i += 1) {
+        const houseX = width * (.18 + (i % 4) * .2);
+        const houseY = height * (.92 - Math.floor(i / 4) * .08);
+        ctx.fillStyle = "#ffedaa";
+        roundedRect(ctx, houseX - 13, houseY - 24, 26, 29, 10);
+        ctx.fill();
+        ctx.fillStyle = i % 2 ? "#d94c47" : "#7b71dd";
+        ctx.beginPath();
+        ctx.ellipse(houseX, houseY - 24, 22, 13, 0, Math.PI, 0);
+        ctx.fill();
+        fillGlow(ctx, houseX, houseY - 8, 20, "rgb(255, 219, 101)", .18);
+      }
+      ctx.restore();
+    }
+
+    drawBattleEvents(ctx, width, height, now);
+
+    if (boss) {
+      ctx.save();
+      ctx.globalAlpha = .16 + Math.sin(now / 160) * .05;
+      ctx.fillStyle = "#ffd35c";
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
+    }
+    if (dt > 1000) battleLastFrame = now;
   }
 
   function exportSave() {
@@ -2826,6 +3422,17 @@
     if (Date.now() - lastPointerTapAt < 420) return;
     tap(event);
   });
+  if (els.friendScene) {
+    els.friendScene.addEventListener("pointerup", event => {
+      if (event.target.closest?.("#seedButton")) return;
+      lastPointerTapAt = Date.now();
+      tap(event);
+    }, { passive: true });
+    els.friendScene.addEventListener("click", event => {
+      if (event.target.closest?.("#seedButton") || Date.now() - lastPointerTapAt < 420) return;
+      tap(event);
+    });
+  }
   els.machineList.addEventListener("click", event => {
     const id = event.target.closest("button")?.dataset.buyMachine;
     if (id) buyMachine(id);
@@ -2954,6 +3561,7 @@
   setScreen(document.body.dataset.tab);
   loadLeaderboard();
   render();
+  startBattleRenderer();
   showOfflineReturn();
   window.setInterval(tick, 1000);
   window.setInterval(() => { if (dirty) save(); }, 5000);
