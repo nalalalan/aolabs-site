@@ -254,6 +254,37 @@
   let battleAnimationFrame = 0;
   let battleLastFrame = 0;
   const battleEvents = [];
+  const battleSpriteAtlasPath = "./sprites/idle-shroom-sprite-atlas-20260527.png";
+  const battleSpriteAtlasBase = 1254;
+  const battleSpriteAtlas = new Image();
+  let battleSpriteReady = false;
+  const battleSprites = {
+    firstShroom: { source: [37, 117, 277, 268] },
+    capblade: { source: [314, 88, 271, 297] },
+    buttonBuddy: { source: [664, 208, 228, 174] },
+    capKnight: { source: [940, 131, 282, 264] },
+    puffball: { source: [21, 568, 293, 268] },
+    mage: { source: [341, 496, 286, 340] },
+    sapBeetle: { source: [667, 598, 242, 169] },
+    mossSlug: { source: [965, 529, 265, 240] },
+    gardenBoot: { source: [24, 836, 246, 307] },
+    kingSluggo: { source: [314, 836, 313, 308] },
+    mowerTitan: { source: [627, 852, 297, 297] },
+    bloomBurst: { source: [956, 887, 279, 255] }
+  };
+
+  battleSpriteAtlas.decoding = "async";
+  battleSpriteAtlas.addEventListener("load", () => {
+    battleSpriteReady = true;
+  });
+  battleSpriteAtlas.src = battleSpriteAtlasPath;
+  window.__idleShroomSpriteStatus = () => ({
+    ready: battleSpriteReady,
+    complete: battleSpriteAtlas.complete,
+    width: battleSpriteAtlas.naturalWidth || 0,
+    height: battleSpriteAtlas.naturalHeight || 0,
+    path: battleSpriteAtlasPath
+  });
 
   const els = {};
   [
@@ -2196,6 +2227,68 @@
     ctx.fill();
   }
 
+  function drawAtlasSprite(ctx, key, x, y, width, height, options = {}) {
+    const sprite = battleSprites[key];
+    if (!sprite || !battleSpriteReady || !battleSpriteAtlas.naturalWidth) return false;
+    const scaleX = battleSpriteAtlas.naturalWidth / battleSpriteAtlasBase;
+    const scaleY = battleSpriteAtlas.naturalHeight / battleSpriteAtlasBase;
+    const [sx, sy, sw, sh] = sprite.source;
+    const sourceRatio = sw / Math.max(1, sh);
+    const targetRatio = width / Math.max(1, height);
+    let drawWidth = width;
+    let drawHeight = height;
+    if (sourceRatio > targetRatio) {
+      drawHeight = width / sourceRatio;
+    } else {
+      drawWidth = height * sourceRatio;
+    }
+    const offsetX = Number(options.offsetX || 0);
+    const offsetY = Number(options.offsetY || 0);
+    ctx.save();
+    ctx.globalAlpha *= options.alpha === undefined ? 1 : options.alpha;
+    ctx.translate(x + offsetX, y + offsetY);
+    if (options.rotation) ctx.rotate(options.rotation);
+    if (options.flip) ctx.scale(-1, 1);
+    ctx.drawImage(
+      battleSpriteAtlas,
+      sx * scaleX,
+      sy * scaleY,
+      sw * scaleX,
+      sh * scaleY,
+      -drawWidth / 2,
+      -drawHeight / 2,
+      drawWidth,
+      drawHeight
+    );
+    ctx.restore();
+    return true;
+  }
+
+  function spriteKeyForEnemy(enemy, boss) {
+    const id = enemy?.id || "";
+    if (id.includes("mower")) return "mowerTitan";
+    if (id.includes("boot") || id.includes("gardener")) return "gardenBoot";
+    if (id.includes("sluggo")) return "kingSluggo";
+    if (id.includes("slug") || id.includes("snail")) return boss ? "kingSluggo" : "mossSlug";
+    if (id.includes("beetle") || id.includes("mite")) return "sapBeetle";
+    return "";
+  }
+
+  function spriteKeyForAlly(type) {
+    return {
+      plot: "buttonBuddy",
+      spring: "buttonBuddy",
+      press: "capKnight",
+      greenhouse: "capKnight",
+      rail: "capKnight",
+      clock: "puffball",
+      collector: "mage",
+      relay: "mage",
+      bell: "mage",
+      aurora: "mage"
+    }[type] || "";
+  }
+
   function colorForEnemy(enemy, boss) {
     const colors = [
       ["#79d95f", "#2f7138", "#ffe680"],
@@ -2234,6 +2327,28 @@
     ctx.beginPath();
     ctx.ellipse(0, size * .55, size * .72, size * .18, 0, 0, Math.PI * 2);
     ctx.fill();
+
+    const spriteKey = spriteKeyForEnemy(enemy, boss);
+    if (spriteKey) {
+      const tall = spriteKey === "gardenBoot";
+      const mower = spriteKey === "mowerTitan";
+      const slugBoss = spriteKey === "kingSluggo";
+      const width = size * (mower ? 2.65 : tall ? 2 : slugBoss ? 2.65 : 2.25);
+      const height = size * (mower ? 2.25 : tall ? 2.75 : slugBoss ? 2.35 : 1.85);
+      const offsetY = tall ? -size * .12 : mower ? -size * .02 : spriteKey === "sapBeetle" ? -size * .03 : 0;
+      if (drawAtlasSprite(ctx, spriteKey, 0, -size * .04, width, height, { offsetY })) {
+        if (hitPulse > 0) {
+          ctx.globalAlpha = hitPulse;
+          ctx.strokeStyle = "#fff6b9";
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, size * .86, size * .62, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+        return;
+      }
+    }
 
     if (enemy.id.includes("slug") || enemy.id.includes("snail") || enemy.id.includes("sluggo")) {
       const body = ctx.createLinearGradient(-size, -size * .15, size, size * .45);
@@ -2362,6 +2477,41 @@
     ctx.ellipse(0, 46, 42, 9, 0, 0, Math.PI * 2);
     ctx.fill();
 
+    const heroSpriteKey = form.id === "sprout" ? "firstShroom" : "capblade";
+    if (drawAtlasSprite(ctx, heroSpriteKey, 0, 0, god ? 132 : 118, god ? 145 : 132, { offsetY: god ? -2 : 0 })) {
+      if (tapPulse > 0) {
+        ctx.strokeStyle = "rgba(255, 241, 159, .9)";
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(24, -35 - tapPulse * 18);
+        ctx.quadraticCurveTo(54, -50 - tapPulse * 26, 71, -18 - tapPulse * 12);
+        ctx.stroke();
+        for (let i = 0; i < 9; i += 1) {
+          ctx.fillStyle = i % 2 ? "#baff86" : "#fff1a4";
+          ctx.beginPath();
+          ctx.arc(-34 + i * 9, -44 - Math.sin(i + tapPulse * 8) * 7, 2.5 + (i % 3), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (form.id === "sporeheart" || form.id === "bloom-king" || god) {
+        fillGlow(ctx, 0, -24, god ? 104 : 72, god ? "rgb(166, 125, 255)" : "rgb(132, 255, 118)", god ? .16 : .12);
+      }
+      if (lord) {
+        ctx.strokeStyle = "rgba(126, 255, 117, .76)";
+        ctx.lineWidth = 3;
+        for (let i = -2; i <= 2; i += 1) {
+          ctx.beginPath();
+          ctx.moveTo(i * 9, 42);
+          ctx.quadraticCurveTo(i * 18, 58, i * 36, 70 + Math.sin(now / 300 + i) * 5);
+          ctx.stroke();
+        }
+      }
+      if (form.id === "bloom-king" || god) drawTinyCrown(ctx, 0, -62, 26);
+      ctx.restore();
+      return;
+    }
+
     ctx.strokeStyle = "#5e3924";
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
@@ -2439,6 +2589,27 @@
     ctx.beginPath();
     ctx.ellipse(0, 19, 18, 5, 0, 0, Math.PI * 2);
     ctx.fill();
+
+    const allySpriteKey = spriteKeyForAlly(type);
+    if (allySpriteKey) {
+      const targetSize = allySpriteKey === "mage" ? [56, 67] : allySpriteKey === "capKnight" ? [58, 58] : allySpriteKey === "puffball" ? [54, 50] : [48, 45];
+      if (drawAtlasSprite(ctx, allySpriteKey, 0, 0, targetSize[0], targetSize[1], { offsetY: allySpriteKey === "mage" ? -3 : 0, flip: index % 2 === 1 })) {
+        if (type === "press" || type === "greenhouse" || type === "rail") {
+          ctx.strokeStyle = "rgba(255, 235, 143, .86)";
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          ctx.moveTo(9, 2);
+          ctx.lineTo(24 + attack * 9, -12 - attack * 9);
+          ctx.stroke();
+        }
+        if (type === "clock" || type === "collector" || type === "bell" || type === "relay" || type === "aurora") {
+          fillGlow(ctx, 24 + attack * 10, -18 - attack * 12, 10 + attack * 5, type === "collector" || type === "aurora" ? "rgb(142, 234, 255)" : "rgb(255, 238, 146)", .42);
+        }
+        ctx.restore();
+        return;
+      }
+    }
+
     const palette = {
       plot: ["#e85052", "#fff0ba"],
       press: ["#d84b42", "#e7c87f"],
@@ -2563,6 +2734,7 @@
       if (event.kind === "defeat") {
         ctx.globalAlpha = 1 - t;
         fillGlow(ctx, enemyX, enemyY, (event.boss ? 170 : 110) * ease, "rgb(255, 219, 103)", event.boss ? .46 : .3);
+        drawAtlasSprite(ctx, "bloomBurst", enemyX, enemyY + 18, (event.boss ? 210 : 140) * (0.55 + ease * .45), (event.boss ? 150 : 104) * (0.55 + ease * .45), { alpha: .72 * (1 - t), rotation: ease * .5 });
         for (let i = 0; i < (event.boss ? 26 : 14); i += 1) {
           const angle = (i / (event.boss ? 26 : 14)) * Math.PI * 2;
           const r = ease * (event.boss ? 180 : 110);
@@ -2585,6 +2757,7 @@
       if (event.kind === "bloom") {
         ctx.globalAlpha = 1 - t;
         fillGlow(ctx, width / 2, height / 2, Math.max(width, height) * (1.2 + ease), "rgb(210, 178, 255)", .52);
+        drawAtlasSprite(ctx, "bloomBurst", width / 2, height * .55, width * (.56 + ease * .3), height * (.34 + ease * .2), { alpha: .78 * (1 - t), rotation: ease * .8 });
         for (let i = 0; i < 44; i += 1) {
           const angle = i * 1.618 + ease * 6;
           const r = ease * Math.max(width, height) * (.08 + (i % 9) * .055);

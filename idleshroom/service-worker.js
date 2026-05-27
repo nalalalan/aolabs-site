@@ -1,4 +1,4 @@
-const CACHE_NAME = "idleshroom-v73";
+const CACHE_NAME = "idleshroom-v74";
 const ASSETS = [
   "./",
   "./index.html",
@@ -22,6 +22,8 @@ const ASSETS = [
   "./sprites/shroom-premium-3d-20260526.webp",
   "./sprites/studio-playfield-20260526.webp",
   "./sprites/studio-menu-20260526.webp",
+  "./sprites/idle-shroom-empire-playfield-20260527.png",
+  "./sprites/idle-shroom-sprite-atlas-20260527.png",
   "./manifest.webmanifest",
   "./about.html",
   "./privacy.html"
