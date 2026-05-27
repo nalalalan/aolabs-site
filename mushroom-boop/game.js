@@ -119,12 +119,12 @@
   };
 
   const shroomForms = [
-    { id: "sprout", name: "Sprout Shroom", req: target => bestCombatDepth(target) < 12 && Number(target.rootstock || 0) < 1 },
+    { id: "sprout", name: "Sprout Shroom", req: target => bestCombatDepth(target) < 12 && ancientSporePower(target) < 1 },
     { id: "capblade", name: "Capblade Shroom", req: target => bestCombatDepth(target) >= 12 || Number(target.clicks || 0) >= 140 },
     { id: "sporeheart", name: "Sporeheart Shroom", req: target => bestCombatDepth(target) >= 35 || Number(target.bloomCount || 0) >= 1 },
-    { id: "mycelium-lord", name: "Mycelium Lord", req: target => bestCombatDepth(target) >= 80 || Number(target.rootstock || 0) >= 8 },
+    { id: "mycelium-lord", name: "Mycelium Lord", req: target => bestCombatDepth(target) >= 80 || ancientSporePower(target) >= 8 },
     { id: "bloom-king", name: "Bloom King", req: target => bestCombatDepth(target) >= 160 || Number(target.bloomCount || 0) >= 5 },
-    { id: "fungal-god", name: "Ancient Fungal God", req: target => bestCombatDepth(target) >= 320 || Number(target.rootstock || 0) >= 40 }
+    { id: "fungal-god", name: "Ancient Fungal God", req: target => bestCombatDepth(target) >= 320 || ancientSporePower(target) >= 40 }
   ];
 
   const relics = [
@@ -169,7 +169,7 @@
     { id: "nutrient-frenzy", button: "frenzySkillButton", short: "Frenzy", name: "Nutrient Frenzy", cooldown: 44, unlock: target => ownedTotal(target) >= 18, desc: "A short rain of glowing nutrients.", reward: target => Math.max(enemyReward(target) * 1.7, incomePerSecond(target) * 30 + tapPower(target) * 40) },
     { id: "puffball-barrage", button: "barrageSkillButton", short: "Barrage", name: "Puffball Barrage", cooldown: 52, unlock: target => Number(target.machines.clock || 0) > 0 || bestCombatDepth(target) >= 16, desc: "Puffball bombs burst across the boss lane.", damage: target => tapPower(target) * 36 + Number(target.machines.clock || 0) * 18 * rootBonus(target) + combatDps(target) * 3.5 },
     { id: "fairy-ring", button: "ringSkillButton", short: "Ring", name: "Fairy Ring", cooldown: 58, unlock: target => bestCombatDepth(target) >= 28 || Number(target.bloomCount || 0) >= 1, desc: "A glowing crit ring opens under the enemy.", damage: target => tapPower(target) * 44 + combatDps(target) * 4.2 },
-    { id: "ancient-bloom", button: "ancientSkillButton", short: "Ancient", name: "Ancient Bloom", cooldown: 80, unlock: target => Number(target.rootstock || 0) > 0 || bestCombatDepth(target) >= 45, desc: "The whole colony exhales a huge fungal blast.", damage: target => tapPower(target) * 92 + combatDps(target) * 8 + Math.max(0, Number(target.rootstock || 0)) * 120 }
+    { id: "ancient-bloom", button: "ancientSkillButton", short: "Ancient", name: "Ancient Bloom", cooldown: 80, unlock: target => ancientSporePower(target) > 0 || bestCombatDepth(target) >= 45, desc: "The whole colony exhales a huge fungal blast.", damage: target => tapPower(target) * 92 + combatDps(target) * 8 + ancientSporePower(target) * 120 }
   ];
 
   const upgrades = [
@@ -299,7 +299,7 @@
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
     "bottomTabs", "friendScene", "companionRow", "colonyLayer", "rushOrbit", "rootRing", "soundButton",
     "battleCanvas",
-    "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget",
+    "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget", "bloomCallout",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "ancientSporesValue", "essenceValue", "relicCapsValue", "mutationGooValue",
     "stormSkillButton", "rootSkillButton", "frenzySkillButton", "barrageSkillButton", "ringSkillButton", "ancientSkillButton",
@@ -329,6 +329,9 @@
       clicks: 0,
       maxCombo: 0,
       rootstock: 0,
+      lifetimeRootstock: 0,
+      lastBloomGain: 0,
+      postBloomBoostUntil: 0,
       dailyClaims: 0,
       focusUntil: 0,
       rushCharge: 0,
@@ -345,6 +348,7 @@
       bossDefeats: 0,
       bossFails: 0,
       defeatedBossIds: [],
+      foundRelicIds: [],
       bestCombatDepth: 1,
       meadowLevel: 1,
       meadowBloom: 0,
@@ -395,6 +399,14 @@
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
       merged.claimedClickMilestones = Array.isArray(parsed.claimedClickMilestones) ? parsed.claimedClickMilestones : [];
       merged.defeatedBossIds = Array.isArray(parsed.defeatedBossIds) ? parsed.defeatedBossIds : [];
+      merged.foundRelicIds = Array.isArray(parsed.foundRelicIds) ? parsed.foundRelicIds : [];
+      merged.lifetimeRootstock = Math.max(
+        Number(parsed.lifetimeRootstock || 0),
+        Number(parsed.rootstock || 0),
+        Number(parsed.bloomCount || 0)
+      );
+      merged.lastBloomGain = Number(parsed.lastBloomGain || 0);
+      merged.postBloomBoostUntil = Number(parsed.postBloomBoostUntil || 0);
       ensureCombatState(merged);
       applyOffline(merged);
       return merged;
@@ -488,6 +500,17 @@
     return Math.max(0, Number(target.rootstock || 0));
   }
 
+  function ancientSporePower(target = state) {
+    return Math.max(
+      Math.max(0, Number(target.lifetimeRootstock || 0)),
+      Math.max(0, Number(target.rootstock || 0))
+    );
+  }
+
+  function postBloomSurgeActive(target = state) {
+    return Date.now() < Number(target.postBloomBoostUntil || 0);
+  }
+
   function myceliumEssence(target = state) {
     return Math.max(0, Math.floor(Number(target.bloomCount || 0) * 7 + bestCombatDepth(target) / 14 + ownedTotal(target) / 32));
   }
@@ -530,7 +553,19 @@
   }
 
   function relicUnlocked(relic, target = state) {
-    return Boolean(relic.req(target));
+    return (Array.isArray(target.foundRelicIds) && target.foundRelicIds.includes(relic.id)) || Boolean(relic.req(target));
+  }
+
+  function recordNewRelics(target = state) {
+    if (!Array.isArray(target.foundRelicIds)) target.foundRelicIds = [];
+    const newlyFound = [];
+    relics.forEach(relic => {
+      if (relic.req(target) && !target.foundRelicIds.includes(relic.id)) {
+        target.foundRelicIds.push(relic.id);
+        newlyFound.push(relic);
+      }
+    });
+    return newlyFound;
   }
 
   function mutationUnlocked(mutation, target = state) {
@@ -1118,7 +1153,7 @@
 
   function rootBonus(target = state) {
     const base = hasUpgrade("prestige-soft", target) ? 0.23 : 0.15;
-    return 1 + Number(target.rootstock || 0) * base;
+    return 1 + ancientSporePower(target) * base;
   }
 
   function rateMultiplier(target = state) {
@@ -1128,6 +1163,7 @@
       if (upgrade.kind === "rate" && hasUpgrade(upgrade.id, target)) mult *= upgrade.value;
     });
     if (Date.now() < Number(target.focusUntil || 0)) mult *= 2;
+    if (postBloomSurgeActive(target)) mult *= 2.5;
     mult *= rushMultiplier(target);
     return mult;
   }
@@ -1145,6 +1181,7 @@
     }
     tap *= 1 + perkLevel("soft-hands", target) * 0.25;
     if (rushActive(target)) tap *= 2;
+    if (postBloomSurgeActive(target)) tap *= 3;
     return tap * rootBonus(target);
   }
 
@@ -1306,8 +1343,13 @@
     const keptPerks = { ...keep.perks, ...(state.perks || {}) };
     const keptAchievements = Array.isArray(state.achievements) ? [...state.achievements] : [];
     const keptBossIds = Array.isArray(state.defeatedBossIds) ? [...state.defeatedBossIds] : [];
+    const keptRelicIds = Array.isArray(state.foundRelicIds) ? [...state.foundRelicIds] : [];
     const bestFirstBloomSeconds = Number(state.bestFirstBloomSeconds || 0);
+    const totalAncientPower = ancientSporePower(state) + gain;
     state.rootstock += gain;
+    state.lifetimeRootstock = totalAncientPower;
+    state.lastBloomGain = gain;
+    state.postBloomBoostUntil = Date.now() + 22000;
     state.bloomCount = Number(state.bloomCount || 0) + 1;
     state.loops = 0;
     state.totalLoops = 0;
@@ -1334,6 +1376,7 @@
     state.upgrades = [];
     state.achievements = keptAchievements;
     state.defeatedBossIds = keptBossIds;
+    state.foundRelicIds = keptRelicIds;
     if (perkLevel("starter-cap", state) > 0) {
       state.machines.plot = 3;
       displayedRate = incomePerSecond();
@@ -1383,8 +1426,9 @@
   function questDefinitions() {
     ensureDailyQuestState();
     const base = state.questBaselines || { clicks: 0, spores: 0, pieces: 0 };
-    const tapTarget = 65 + Math.min(135, Number(state.rootstock || 0) * 10);
-    const pieceTarget = Math.max(3, Math.min(18, 5 + Number(state.rootstock || 0)));
+    const ancientPower = ancientSporePower();
+    const tapTarget = 65 + Math.min(135, ancientPower * 10);
+    const pieceTarget = Math.max(3, Math.min(18, 5 + ancientPower));
     const sporeTarget = Math.max(900, bloomRequirement() * 0.1);
     return [
       {
@@ -1930,10 +1974,18 @@
         unlockedNow.push(achievement);
       }
     });
+    const foundRelics = recordNewRelics(state);
     if (unlockedNow.length) {
       const latest = unlockedNow[unlockedNow.length - 1];
       showMoment(latest.name, "badge unlocked", "badge");
       playTone("unlock", 3 + unlockedNow.length);
+    }
+    if (foundRelics.length) {
+      const latestRelic = foundRelics[foundRelics.length - 1];
+      pushBattleEvent("relic", { relic: latestRelic.id, duration: 1400 });
+      showMoment(latestRelic.name, "relic found", "unlock");
+      playTone("unlock", 5 + foundRelics.length);
+      markDirty();
     }
   }
 
@@ -2938,6 +2990,31 @@
           ctx.fill();
         }
       }
+      if (event.kind === "relic") {
+        ctx.globalAlpha = 1 - t;
+        const relicX = width * .5;
+        const relicY = height * (.55 - ease * .08);
+        fillGlow(ctx, relicX, relicY, 86 + ease * 60, "rgb(255, 219, 103)", .36 * (1 - t));
+        ctx.fillStyle = "#f6d46f";
+        ctx.strokeStyle = "rgba(255, 253, 224, .86)";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(relicX, relicY - 30);
+        ctx.lineTo(relicX + 28, relicY - 2);
+        ctx.lineTo(relicX + 18, relicY + 32);
+        ctx.lineTo(relicX - 18, relicY + 32);
+        ctx.lineTo(relicX - 28, relicY - 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        for (let i = 0; i < 12; i += 1) {
+          const angle = i / 12 * Math.PI * 2 + ease * 2;
+          ctx.fillStyle = i % 2 ? "#fff0a6" : "#9cff80";
+          ctx.beginPath();
+          ctx.arc(relicX + Math.cos(angle) * (48 + ease * 46), relicY + Math.sin(angle) * (28 + ease * 24), 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
       if (event.kind === "bloom") {
         ctx.globalAlpha = 1 - t;
         fillGlow(ctx, width / 2, height / 2, Math.max(width, height) * (1.2 + ease), "rgb(210, 178, 255)", .52);
@@ -3039,7 +3116,7 @@
       }
     });
 
-    const heroScale = Math.max(.76, Math.min(1.05, width / 430)) * (1 + Math.min(.12, Number(state.rootstock || 0) * .008));
+    const heroScale = Math.max(.76, Math.min(1.05, width / 430)) * (1 + Math.min(.12, ancientSporePower() * .008));
     drawFirstShroom(ctx, width * .5, height * .77, heroScale, now, currentShroomForm(), hitPulse);
 
     drawColonyFront(ctx, width, height, now, tier, owned);
@@ -3089,6 +3166,14 @@
       state.claimedQuests = Array.isArray(imported.claimedQuests) ? imported.claimedQuests : [];
       state.claimedClickMilestones = Array.isArray(imported.claimedClickMilestones) ? imported.claimedClickMilestones : [];
       state.defeatedBossIds = Array.isArray(imported.defeatedBossIds) ? imported.defeatedBossIds : [];
+      state.foundRelicIds = Array.isArray(imported.foundRelicIds) ? imported.foundRelicIds : [];
+      state.lifetimeRootstock = Math.max(
+        Number(imported.lifetimeRootstock || 0),
+        Number(imported.rootstock || 0),
+        Number(imported.bloomCount || 0)
+      );
+      state.lastBloomGain = Number(imported.lastBloomGain || 0);
+      state.postBloomBoostUntil = Number(imported.postBloomBoostUntil || 0);
       save();
       render();
       els.saveDialog.close();
@@ -3152,7 +3237,7 @@
       name: playerName(),
       lifetimeSpores: Math.floor(state.lifetimeLoops),
       spores: Math.floor(state.loops),
-      mycelium: Math.floor(state.rootstock),
+      mycelium: Math.floor(ancientSporePower()),
       greatBlooms: Math.floor(state.bloomCount || 0),
       boops: Math.floor(state.clicks),
       sporesPerSecond: Number(incomePerSecond().toFixed(3)),
@@ -3309,7 +3394,7 @@
 
   function renderPerks() {
     const active = perks.reduce((sum, perk) => sum + perkLevel(perk.id), 0);
-    els.perkCount.textContent = `${format(state.rootstock)} ancient spores / ${active} perks`;
+    els.perkCount.textContent = `${format(state.rootstock)} spendable / ${format(ancientSporePower())} earned / ${active} perks`;
     if (Number(state.rootstock || 0) <= 0 && active <= 0) {
       els.perkList.innerHTML = `
         <article class="store-item mycelium-card waiting">
@@ -3418,7 +3503,7 @@
       els.leaderboardList.innerHTML = `
         <article class="leaderboard-empty atlas-card">
           <strong>Current run</strong>
-          <span>${format(state.bloomCount || 0)} blooms / ${format(state.rootstock || 0)} ancient spores / ${format(state.lifetimeLoops || 0)} lifetime nutrients</span>
+          <span>${format(state.bloomCount || 0)} blooms / ${format(ancientSporePower())} ancient power / ${format(state.lifetimeLoops || 0)} lifetime nutrients</span>
           <div class="atlas-stats" aria-hidden="true">
             <b>${format(state.clicks || 0)} taps</b>
             <b>${format(state.meadowLevel || 1)} depth</b>
@@ -3433,7 +3518,7 @@
       <article class="leaderboard-row">
         <strong>${index + 1}</strong>
         <span>${escapeHtml(entry.name || "local cap")}</span>
-        <em>${format(entry.greatBlooms || 0)} blooms / ${format(entry.mycelium || 0)} ancient spores / ${format(entry.lifetimeSpores || 0)} nutrients</em>
+        <em>${format(entry.greatBlooms || 0)} blooms / ${format(entry.mycelium || 0)} ancient power / ${format(entry.lifetimeSpores || 0)} nutrients</em>
       </article>
     `).join("");
   }
@@ -3517,6 +3602,7 @@
     const gain = graftGain();
     const required = bloomRequirement();
     const progress = Math.max(0, Math.min(1, state.totalLoops / required));
+    const surgeSeconds = Math.max(0, Math.ceil((Number(state.postBloomBoostUntil || 0) - Date.now()) / 1000));
     els.rootstockValue.textContent = format(state.rootstock);
     els.prestigeProgress.style.width = `${Math.round(progress * 100)}%`;
     els.prestigeButton.disabled = gain <= 0;
@@ -3526,9 +3612,11 @@
       els.bloomSkillButton.textContent = gain > 0 ? `Bloom +${format(gain)}` : "Spore Bloom";
       els.bloomSkillButton.dataset.ready = gain > 0 ? "true" : "false";
     }
-    els.prestigeHint.textContent = gain > 0
-      ? `Release this colony for ${format(gain)} Ancient Spores. Permanent perks stay.`
-      : `Reach ${format(required)} run nutrients for Spore Bloom ${format(Number(state.bloomCount || 0) + 1)}.`;
+    els.prestigeHint.textContent = surgeSeconds > 0
+      ? `Reborn surge ${surgeSeconds}s. Old walls should melt now.`
+      : gain > 0
+        ? `Release this colony for ${format(gain)} Ancient Spores. Lifetime power stays even after spending.`
+        : `Reach ${format(required)} run nutrients for Spore Bloom ${format(Number(state.bloomCount || 0) + 1)}. Permanent power ${format(ancientSporePower())}.`;
   }
 
   function renderFocus() {
@@ -3669,6 +3757,9 @@
     const passiveRate = incomePerSecond();
     const tapBurst = visibleTapBurst();
     const goal = primaryGoal();
+    const bloomReady = graftGain() > 0;
+    document.body.dataset.bloomReady = bloomReady ? "true" : "false";
+    document.body.dataset.bloomSurge = postBloomSurgeActive() ? "true" : "false";
     renderCurrencies();
     els.loopsValue.textContent = format(state.loops);
     els.rateValue.textContent = format(passiveRate);
@@ -3685,8 +3776,8 @@
     }
     els.tapValue.textContent = combatLabel();
     if (els.seasonValue) {
-      els.seasonValue.textContent = Number(state.rootstock || 0) > 0
-        ? `${format(state.rootstock)} ancient spores`
+      els.seasonValue.textContent = ancientSporePower() > 0
+        ? `${format(ancientSporePower())} ancient power`
         : `bloom ${format(Number(state.bloomCount || 0) + 1)}`;
     }
     els.clicksValue.textContent = format(state.clicks);
@@ -3775,12 +3866,12 @@
   });
   if (els.friendScene) {
     els.friendScene.addEventListener("pointerup", event => {
-      if (event.target.closest?.("#seedButton")) return;
+      if (event.target.closest?.("#seedButton, #bloomCallout")) return;
       lastPointerTapAt = Date.now();
       tap(event);
     }, { passive: true });
     els.friendScene.addEventListener("click", event => {
-      if (event.target.closest?.("#seedButton") || Date.now() - lastPointerTapAt < 420) return;
+      if (event.target.closest?.("#seedButton, #bloomCallout") || Date.now() - lastPointerTapAt < 420) return;
       tap(event);
     });
   }
@@ -3801,6 +3892,7 @@
     if (id) claimQuest(id);
   });
   els.prestigeButton.addEventListener("click", graft);
+  if (els.bloomCallout) els.bloomCallout.addEventListener("click", graft);
   if (els.nextGoalButton) els.nextGoalButton.addEventListener("click", usePrimaryGoal);
   els.dailyButton.addEventListener("click", claimDaily);
   els.focusButton.addEventListener("click", useFocus);
@@ -3846,6 +3938,7 @@
           taps: Number(state.clicks || 0),
           spores: Number(state.loops || 0),
           totalSpores: Number(state.totalLoops || 0),
+          bloomCount: Number(state.bloomCount || 0),
           offlineReward: Number(state.offlineReward || 0),
           offlineSeconds: Number(state.offlineSeconds || 0),
           nextAction: nextAction().detail,
@@ -3866,10 +3959,14 @@
           colonyTier: colonyTier(),
           shroomForm: currentShroomForm().name,
           ancientSpores: ancientSpores(),
+          ancientPower: ancientSporePower(),
+          lastBloomGain: Number(state.lastBloomGain || 0),
+          postBloomSurgeActive: postBloomSurgeActive(),
           myceliumEssence: myceliumEssence(),
           relicCaps: relicCaps(),
           mutationGoo: mutationGoo(),
           unlockedRelics: relics.filter(relic => relicUnlocked(relic)).length,
+          foundRelics: Array.isArray(state.foundRelicIds) ? state.foundRelicIds.length : 0,
           readyMutations: mutations.filter(mutation => mutationUnlocked(mutation)).length,
           worldRegion: currentWorldRegion().name,
           achievements: state.achievements.length,
