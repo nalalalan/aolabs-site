@@ -14,70 +14,16 @@
     ? "https://idleshroom.aolabs.io/"
     : "https://aolabs.io/idleshroom/";
   const environments = [
-    { id: "sleeping-cap", name: "Sleeping Cap", biome: "morning" },
-    { id: "dew-cap", name: "Dew Cap", biome: "morning" },
-    { id: "tiny-grove", name: "Tiny Grove", biome: "grove" },
-    { id: "lantern-ring", name: "Lantern Ring", biome: "lantern" },
-    { id: "puff-meadow", name: "Puff Meadow", biome: "grove" },
-    { id: "mooncap-hollow", name: "Mooncap Hollow", biome: "moon" },
-    { id: "sporefall-garden", name: "Sporefall Garden", biome: "rain" },
-    { id: "glowroot-village", name: "Glowroot Village", biome: "glow" },
-    { id: "starcap-forest", name: "Starcap Forest", biome: "star" },
-    { id: "rainwhisper-vale", name: "Rainwhisper Vale", biome: "rain" },
-    { id: "honeycap-field", name: "Honeycap Field", biome: "honey" },
-    { id: "mossbell-steps", name: "Mossbell Steps", biome: "grove" },
-    { id: "velvet-hollow", name: "Velvet Hollow", biome: "velvet" },
-    { id: "firefly-fen", name: "Firefly Fen", biome: "lantern" },
-    { id: "bluecap-brook", name: "Bluecap Brook", biome: "brook" },
-    { id: "sunspore-terrace", name: "Sunspore Terrace", biome: "honey" },
-    { id: "cloudcap-ridge", name: "Cloudcap Ridge", biome: "cloud" },
-    { id: "crystal-root", name: "Crystal Root", biome: "crystal" },
-    { id: "ambercap-glade", name: "Ambercap Glade", biome: "honey" },
-    { id: "dreamcap-pond", name: "Dreamcap Pond", biome: "brook" },
-    { id: "aurora-mycelium", name: "Aurora Mycelium", biome: "aurora" },
-    { id: "sugarcap-orchard", name: "Sugarcap Orchard", biome: "velvet" },
-    { id: "bellcap-basin", name: "Bellcap Basin", biome: "brook" },
-    { id: "wishroot-wood", name: "Wishroot Wood", biome: "star" },
-    { id: "silver-spore-coast", name: "Silver Spore Coast", biome: "moon" },
-    { id: "comet-cap-camp", name: "Comet Cap Camp", biome: "star" },
-    { id: "prismcap-garden", name: "Prismcap Garden", biome: "crystal" },
-    { id: "velvet-rainforest", name: "Velvet Rainforest", biome: "rain" },
-    { id: "starlit-burrow", name: "Starlit Burrow", biome: "moon" },
-    { id: "golden-spore-sea", name: "Golden Spore Sea", biome: "honey" },
-    { id: "buttercap-crossing", name: "Buttercap Crossing", biome: "honey" },
-    { id: "misty-morel-marsh", name: "Misty Morel Marsh", biome: "rain" },
-    { id: "pebblecap-path", name: "Pebblecap Path", biome: "grove" },
-    { id: "lullaby-log", name: "Lullaby Log", biome: "morning" },
-    { id: "ribbonroot-ravine", name: "Ribbonroot Ravine", biome: "aurora" },
-    { id: "cherrycap-grove", name: "Cherrycap Grove", biome: "velvet" },
-    { id: "fiddlehead-fen", name: "Fiddlehead Fen", biome: "brook" },
-    { id: "softlight-steppe", name: "Softlight Steppe", biome: "cloud" },
-    { id: "bubblecap-bay", name: "Bubblecap Bay", biome: "brook" },
-    { id: "embermoss-hollow", name: "Embermoss Hollow", biome: "lantern" },
-    { id: "lumenleaf-loop", name: "Lumenleaf Loop", biome: "glow" },
-    { id: "cocoa-cap-copse", name: "Cocoa Cap Copse", biome: "ancient" },
-    { id: "snowdrop-sporefield", name: "Snowdrop Sporefield", biome: "cloud" },
-    { id: "violetcap-vale", name: "Violetcap Vale", biome: "velvet" },
-    { id: "taffycap-terrace", name: "Taffycap Terrace", biome: "honey" },
-    { id: "willowspore-woods", name: "Willowspore Woods", biome: "grove" },
-    { id: "teacup-hollow", name: "Teacup Hollow", biome: "morning" },
-    { id: "marmalade-moss", name: "Marmalade Moss", biome: "honey" },
-    { id: "raindrop-rootworks", name: "Raindrop Rootworks", biome: "rain" },
-    { id: "pearlcap-pier", name: "Pearlcap Pier", biome: "brook" },
-    { id: "satin-spore-glade", name: "Satin Spore Glade", biome: "velvet" },
-    { id: "echo-cap-canyon", name: "Echo Cap Canyon", biome: "star" },
-    { id: "honeydew-heights", name: "Honeydew Heights", biome: "honey" },
-    { id: "lacecap-lagoon", name: "Lacecap Lagoon", biome: "brook" },
-    { id: "cottoncap-cloudbank", name: "Cottoncap Cloudbank", biome: "cloud" },
-    { id: "opal-root-grove", name: "Opal Root Grove", biome: "crystal" },
-    { id: "firefly-orchard", name: "Firefly Orchard", biome: "lantern" },
-    { id: "wishcap-waterfall", name: "Wishcap Waterfall", biome: "rain" },
-    { id: "moonmilk-meadow", name: "Moonmilk Meadow", biome: "moon" },
-    { id: "crystalcake-cavern", name: "Crystalcake Cavern", biome: "crystal" },
-    { id: "sunbeam-sporehouse", name: "Sunbeam Sporehouse", biome: "honey" },
-    { id: "velvet-star-nursery", name: "Velvet Star Nursery", biome: "aurora" },
-    { id: "ancient-mycelium", name: "Ancient Mycelium", biome: "ancient" },
-    { id: "forever-bloom", name: "Forever Bloom", biome: "aurora" }
+    { id: "dewdrop-meadow", name: "Dewdrop Meadow", biome: "morning" },
+    { id: "mossy-log", name: "Mossy Log", biome: "grove" },
+    { id: "hollow-stump", name: "Hollow Stump", biome: "ancient" },
+    { id: "fairy-ring-grove", name: "Fairy Ring Grove", biome: "lantern" },
+    { id: "root-maze", name: "Root Maze", biome: "rain" },
+    { id: "glowcap-cavern", name: "Glowcap Cavern", biome: "glow" },
+    { id: "rotwood-cathedral", name: "Rotwood Cathedral", biome: "moon" },
+    { id: "compost-abyss", name: "Compost Abyss", biome: "ancient" },
+    { id: "mooncap-marsh", name: "Mooncap Marsh", biome: "velvet" },
+    { id: "mycelial-core", name: "Mycelial Core", biome: "aurora" }
   ];
   const meadowNames = environments.map(environment => environment.name);
   const clickMilestones = [
@@ -93,99 +39,121 @@
     { id: "aurora-path", clicks: 6500, name: "Aurora path", reward: 4600000 },
     { id: "prism-rain", clicks: 10000, name: "Prism rain", reward: 18000000 },
     { id: "forever-garden", clicks: 15000, name: "Forever garden", reward: 72000000 },
-    { id: "silver-season", clicks: 25000, name: "Silver season", reward: 290000000 },
-    { id: "golden-season", clicks: 40000, name: "Golden season", reward: 1200000000 },
-    { id: "ancient-season", clicks: 65000, name: "Ancient season", reward: 5200000000 },
-    { id: "endless-season", clicks: 100000, name: "Endless season", reward: 24000000000 }
+    { id: "silver-season", clicks: 25000, name: "Silver Bloom", reward: 290000000 },
+    { id: "golden-season", clicks: 40000, name: "Golden Bloom", reward: 1200000000 },
+    { id: "ancient-season", clicks: 65000, name: "Ancient Bloom", reward: 5200000000 },
+    { id: "endless-season", clicks: 100000, name: "Endless Bloom", reward: 24000000000 }
   ];
 
   const machines = [
-    { id: "plot", name: "Root thread", base: 15, scale: 1.16, rate: 0.1, desc: "A soft root line that releases a slow spore pulse." },
-    { id: "press", name: "Dew cup", base: 90, scale: 1.17, rate: 0.75, desc: "A leaf cup that feeds the cap with morning dew." },
-    { id: "clock", name: "Lantern cap", base: 520, scale: 1.18, rate: 4.4, desc: "A glowing cap that keeps spores drifting at night." },
-    { id: "collector", name: "Friend burrow", base: 3200, scale: 1.19, rate: 23, desc: "A tiny home where meadow helpers gather and nudge spores along." },
-    { id: "greenhouse", name: "Rainleaf canopy", base: 18000, scale: 1.2, rate: 130, desc: "A broad leaf canopy that turns rain into spore showers." },
-    { id: "rail", name: "Glowroot web", base: 112000, scale: 1.21, rate: 820, desc: "Bright mycelium paths that carry nutrients through the meadow." },
-    { id: "relay", name: "Moonspore hollow", base: 720000, scale: 1.22, rate: 5200, desc: "A moonlit hollow that releases huge sleepy spore clouds." },
-    { id: "bell", name: "Bellcap choir", base: 4800000, scale: 1.23, rate: 33000, desc: "A circle of tiny bells that chimes spores through the roots." },
-    { id: "spring", name: "Dreamspring pool", base: 32000000, scale: 1.24, rate: 210000, desc: "A glowing pool that turns quiet idle time into drifting spores." },
-    { id: "observatory", name: "Starcap observatory", base: 230000000, scale: 1.25, rate: 1400000, desc: "A little hilltop lens that catches constellations for the meadow." },
-    { id: "aurora", name: "Aurora rootway", base: 1900000000, scale: 1.26, rate: 9500000, desc: "A ribbon of roots that keeps the whole forest shimmering." },
-    { id: "heartwood", name: "Heartwood grove", base: 15000000000, scale: 1.27, rate: 65000000, desc: "An ancient warm grove that grows spores even through long breaks." }
+    { id: "plot", name: "Cap Knight", base: 15, scale: 1.16, rate: 0.18, desc: "A tiny sword shroom that hops forward and pokes beetles." },
+    { id: "press", name: "Puffball Bomber", base: 90, scale: 1.17, rate: 0.9, desc: "Sneezes soft spore bombs that pop into nutrients." },
+    { id: "clock", name: "Glowshroom Mage", base: 520, scale: 1.18, rate: 5, desc: "Fires damp purple magic through the roots." },
+    { id: "collector", name: "Death-Cap Assassin", base: 3200, scale: 1.19, rate: 28, desc: "Darts from the dark and lands quick cap strikes." },
+    { id: "greenhouse", name: "Shelf-Fungus Tank", base: 18000, scale: 1.2, rate: 150, desc: "A chunky shield shroom that absorbs boss stomps." },
+    { id: "rail", name: "Mycelium Beast", base: 112000, scale: 1.21, rate: 940, desc: "A root-backed giant that shakes nutrients loose." },
+    { id: "relay", name: "Lantern Sporecaster", base: 720000, scale: 1.22, rate: 5900, desc: "Casts warm bioluminescent bursts from the back line." },
+    { id: "bell", name: "Barkplate Guardian", base: 4800000, scale: 1.23, rate: 36000, desc: "Marches in bark armor and shoves threats away." },
+    { id: "spring", name: "Rotwood Warlock", base: 32000000, scale: 1.24, rate: 230000, desc: "Turns deep rot into echoing cave damage." },
+    { id: "observatory", name: "Mooncap Oracle", base: 230000000, scale: 1.25, rate: 1500000, desc: "Calls moonlit spores from far below the stump." },
+    { id: "aurora", name: "Abyssal Bloom", base: 1900000000, scale: 1.26, rate: 9800000, desc: "A huge glowing colony that pulses through the whole screen." },
+    { id: "heartwood", name: "Ancient Spore Engine", base: 15000000000, scale: 1.27, rate: 68000000, desc: "The buried fungal heart that keeps fighting while you are gone." }
   ];
 
   const machineArt = {
-    plot: { className: "root-thread", label: "tiny root" },
-    press: { className: "dew-cup", label: "dew cup" },
-    clock: { className: "lantern-cap", label: "lantern cap" },
-    collector: { className: "friend-burrow", label: "friend burrow" },
-    greenhouse: { className: "rainleaf-canopy", label: "rainleaf" },
-    rail: { className: "glowroot-web", label: "glowroot" },
-    relay: { className: "moonspore-hollow", label: "moon hollow" },
-    bell: { className: "bellcap-choir", label: "bellcap choir" },
-    spring: { className: "dreamspring-pool", label: "dreamspring" },
-    observatory: { className: "starcap-observatory", label: "starcap observatory" },
-    aurora: { className: "aurora-rootway", label: "aurora rootway" },
-    heartwood: { className: "heartwood-grove", label: "heartwood grove" }
+    plot: { className: "root-thread cap-knight", label: "cap knight" },
+    press: { className: "dew-cup puffball-bomber", label: "puffball bomber" },
+    clock: { className: "lantern-cap glowshroom-mage", label: "glowshroom mage" },
+    collector: { className: "friend-burrow deathcap-assassin", label: "death-cap assassin" },
+    greenhouse: { className: "rainleaf-canopy shelf-tank", label: "shelf-fungus tank" },
+    rail: { className: "glowroot-web mycelium-beast", label: "mycelium beast" },
+    relay: { className: "moonspore-hollow lantern-sporecaster", label: "lantern sporecaster" },
+    bell: { className: "bellcap-choir barkplate-guardian", label: "barkplate guardian" },
+    spring: { className: "dreamspring-pool rotwood-warlock", label: "rotwood warlock" },
+    observatory: { className: "starcap-observatory mooncap-oracle", label: "mooncap oracle" },
+    aurora: { className: "aurora-rootway abyssal-bloom", label: "abyssal bloom" },
+    heartwood: { className: "heartwood-grove ancient-spore-engine", label: "ancient spore engine" }
   };
 
   const friendArt = {
-    boops: { name: "Dew Beetle", className: "dew-beetle", promise: "Keeps the tap chorus bright." },
-    pieces: { name: "Lantern Moth", className: "lantern-moth", promise: "Guides new meadow pieces home." },
-    spores: { name: "Puff Sprite", className: "puff-sprite", promise: "Carries big spore clouds." }
+    boops: { name: "Cap Knight", className: "dew-beetle", promise: "Keeps the front line hopping." },
+    pieces: { name: "Glowshroom Mage", className: "lantern-moth", promise: "Turns upgrades into visible magic." },
+    spores: { name: "Puffball Bomber", className: "puff-sprite", promise: "Carries big nutrient bursts." }
   };
 
+  const combatWavesPerStage = 5;
+  const bossSeconds = 30;
+  const enemyRoster = [
+    { id: "sap-beetle", name: "Sap Beetle", variant: 0 },
+    { id: "moss-slug", name: "Moss Slug", variant: 1 },
+    { id: "root-mite", name: "Root Mite", variant: 2 },
+    { id: "mold-wisp", name: "Mold Wisp", variant: 3 },
+    { id: "hungry-shrew", name: "Hungry Shrew", variant: 4 },
+    { id: "garden-boot", name: "Garden Boot", variant: 5 },
+    { id: "dry-spirit", name: "Drought Spirit", variant: 6 },
+    { id: "lawnmower-spark", name: "Lawnmower Spark", variant: 7 }
+  ];
+  const bossRoster = [
+    { id: "boot-titan", name: "The Boot", variant: 8 },
+    { id: "mower-jaw", name: "Mower Jaw", variant: 9 },
+    { id: "gardener-hand", name: "Gardener Hand", variant: 10 },
+    { id: "drought-crown", name: "Drought Crown", variant: 11 }
+  ];
+
   const upgrades = [
-    { id: "tap-2", name: "Dew touch", cost: 120, req: state => state.totalLoops >= 80, desc: "Each tap sends twice as many spores through the roots.", kind: "tap", value: 2 },
-    { id: "rate-1", name: "Root chorus", cost: 850, req: state => ownedTotal(state) >= 12, desc: "Roots hum together for 1.5x spores/sec.", kind: "rate", value: 1.5 },
-    { id: "tap-5", name: "Soft cap rhythm", cost: 5200, req: state => state.clicks >= 180, desc: "Tap power x2.5 when the cap is awake.", kind: "tap", value: 2.5 },
-    { id: "rate-2", name: "Lantern pollen", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Lantern caps double passive spores/sec.", kind: "rate", value: 2 },
-    { id: "tap-rate", name: "Dewline trail", cost: 160000, req: state => state.machines.press >= 12, desc: "Tap power grows with every Dew cup.", kind: "tapRoute", value: 0.08 },
-    { id: "rate-3", name: "Moonroot glow", cost: 880000, req: state => state.totalLoops >= 420000, desc: "Moonlit roots boost spores/sec x2.25.", kind: "rate", value: 2.25 },
-    { id: "prestige-soft", name: "Ancient mycelium", cost: 4200000, req: state => state.rootstock >= 3, desc: "Great Bloom mycelium perks become stronger.", kind: "root", value: 0.08 },
-    { id: "tap-echo", name: "Cap echo", cost: 12000000, req: state => state.clicks >= 1500, desc: "Every tap lands with a brighter echo. Tap power x2.2.", kind: "tap", value: 2.2 },
-    { id: "rate-4", name: "Bellcap rhythm", cost: 42000000, req: state => Number(state.machines.bell || 0) >= 1, desc: "Bellcap choirs keep spores/sec x2.6.", kind: "rate", value: 2.6 },
-    { id: "tap-route-2", name: "Dreamline trail", cost: 180000000, req: state => state.clicks >= 4000, desc: "Tap power grows with every Dreamspring pool.", kind: "tapMachine", machine: "spring", value: 0.12 },
-    { id: "rate-5", name: "Aurora canopy", cost: 900000000, req: state => Number(state.meadowLevel || 1) >= 20, desc: "Aurora environments multiply spores/sec x3.", kind: "rate", value: 3 },
-    { id: "tap-aurora", name: "Prism touch", cost: 5200000000, req: state => state.clicks >= 10000, desc: "Late-game taps glow harder. Tap power x3.", kind: "tap", value: 3 },
-    { id: "rate-6", name: "Heartwood memory", cost: 22000000000, req: state => Number(state.machines.heartwood || 0) >= 1, desc: "Heartwood groves multiply spores/sec x3.5.", kind: "rate", value: 3.5 }
+    { id: "tap-2", name: "Cap Slash", cost: 120, req: state => state.totalLoops >= 80, desc: "Taps hit twice as hard and puff more nutrients loose.", kind: "tap", value: 2 },
+    { id: "rate-1", name: "Marching Caps", cost: 850, req: state => ownedTotal(state) >= 12, desc: "All shroom allies deal 1.5x idle damage.", kind: "rate", value: 1.5 },
+    { id: "tap-5", name: "Spore Knuckles", cost: 5200, req: state => state.clicks >= 180, desc: "Tap power x2.5 when the First Shroom is awake.", kind: "tap", value: 2.5 },
+    { id: "rate-2", name: "Glowcap Volley", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Glowshroom magic doubles passive damage.", kind: "rate", value: 2 },
+    { id: "tap-rate", name: "Puffball Recoil", cost: 160000, req: state => state.machines.press >= 12, desc: "Tap power grows with every Puffball Bomber.", kind: "tapRoute", value: 0.08 },
+    { id: "rate-3", name: "Root War Drum", cost: 880000, req: state => state.totalLoops >= 420000, desc: "The colony's march boosts idle damage x2.25.", kind: "rate", value: 2.25 },
+    { id: "prestige-soft", name: "Ancient Spores", cost: 4200000, req: state => state.rootstock >= 3, desc: "Spore Bloom perks become stronger.", kind: "root", value: 0.08 },
+    { id: "tap-echo", name: "Boing Combo", cost: 12000000, req: state => state.clicks >= 1500, desc: "Every tap lands with a wetter bounce. Tap power x2.2.", kind: "tap", value: 2.2 },
+    { id: "rate-4", name: "Barkplate Line", cost: 42000000, req: state => Number(state.machines.bell || 0) >= 1, desc: "Barkplate Guardians boost idle damage x2.6.", kind: "rate", value: 2.6 },
+    { id: "tap-route-2", name: "Warlock Spores", cost: 180000000, req: state => state.clicks >= 4000, desc: "Tap power grows with every Rotwood Warlock.", kind: "tapMachine", machine: "spring", value: 0.12 },
+    { id: "rate-5", name: "Cavern Army", cost: 900000000, req: state => Number(state.meadowLevel || 1) >= 20, desc: "Deep zones multiply idle damage x3.", kind: "rate", value: 3 },
+    { id: "tap-aurora", name: "Core Pulse", cost: 5200000000, req: state => state.clicks >= 10000, desc: "Late-game taps glow harder. Tap power x3.", kind: "tap", value: 3 },
+    { id: "rate-6", name: "Empire Heart", cost: 22000000000, req: state => Number(state.machines.heartwood || 0) >= 1, desc: "Ancient Spore Engines multiply idle damage x3.5.", kind: "rate", value: 3.5 }
   ];
 
   const achievements = [
-    { id: "first-tap", name: "First spore", desc: "Tap once.", req: state => state.clicks >= 1 },
-    { id: "hundred", name: "Hundred spores", desc: "Earn 100 lifetime spores.", req: state => state.lifetimeLoops >= 100 },
-    { id: "machine-ten", name: "Tiny meadow", desc: "Own 10 meadow pieces.", req: state => ownedTotal(state) >= 10 },
+    { id: "first-tap", name: "First Puff", desc: "Tap once.", req: state => state.clicks >= 1 },
+    { id: "hundred", name: "Hundred nutrients", desc: "Earn 100 lifetime nutrients.", req: state => state.lifetimeLoops >= 100 },
+    { id: "machine-ten", name: "Tiny squad", desc: "Own 10 shroom allies.", req: state => ownedTotal(state) >= 10 },
     { id: "clicker", name: "Tap rhythm", desc: "Tap 250 times.", req: state => state.clicks >= 250 },
-    { id: "million", name: "Million-spore meadow", desc: "Earn 1,000,000 lifetime spores.", req: state => state.lifetimeLoops >= 1000000 },
-    { id: "rooted", name: "Great Bloom", desc: "Release the meadow into a stronger season.", req: state => Number(state.bloomCount || 0) >= 1 },
-    { id: "return", name: "Daily dew", desc: "Claim a daily dew reward.", req: state => state.dailyClaims >= 1 },
+    { id: "million", name: "Million-nutrient colony", desc: "Earn 1,000,000 lifetime nutrients.", req: state => state.lifetimeLoops >= 1000000 },
+    { id: "rooted", name: "Spore Bloom", desc: "Release the colony into a stronger run.", req: state => Number(state.bloomCount || 0) >= 1 },
+    { id: "return", name: "Daily drip", desc: "Claim a daily drip reward.", req: state => state.dailyClaims >= 1 },
     { id: "rush", name: "Spore Rush", desc: "Trigger a Spore Rush.", req: state => state.rushes >= 1 },
     { id: "quest", name: "Quest sprout", desc: "Claim a daily quest.", req: state => state.questsClaimed >= 1 },
     { id: "click-1000", name: "Thousand taps", desc: "Tap 1,000 times.", req: state => state.clicks >= 1000 },
     { id: "click-5000", name: "Five-thousand rhythm", desc: "Tap 5,000 times.", req: state => state.clicks >= 5000 },
     { id: "click-10000", name: "Ten-thousand shimmer", desc: "Tap 10,000 times.", req: state => state.clicks >= 10000 },
-    { id: "env-16", name: "Far meadow", desc: "Reach environment 16.", req: state => Number(state.meadowLevel || 1) >= 16 },
-    { id: "env-32", name: "Forever map", desc: "Reach environment 32.", req: state => Number(state.meadowLevel || 1) >= 32 },
+    { id: "env-16", name: "Deep zone", desc: "Reach depth 16.", req: state => Number(state.meadowLevel || 1) >= 16 },
+    { id: "env-32", name: "Buried map", desc: "Reach depth 32.", req: state => Number(state.meadowLevel || 1) >= 32 },
     { id: "combo-25", name: "Cap rhythm", desc: "Reach a 25 tap combo.", req: state => Number(state.maxCombo || 0) >= 25 },
     { id: "combo-75", name: "Spore drummer", desc: "Reach a 75 tap combo.", req: state => Number(state.maxCombo || 0) >= 75 },
-    { id: "machine-50", name: "Busy meadow", desc: "Own 50 meadow pieces.", req: state => ownedTotal(state) >= 50 },
-    { id: "machine-150", name: "Tiny city", desc: "Own 150 meadow pieces.", req: state => ownedTotal(state) >= 150 },
-    { id: "rate-100", name: "Soft engine", desc: "Reach 100 spores/sec.", req: state => incomePerSecond(state) >= 100 },
-    { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 spores/sec.", req: state => incomePerSecond(state) >= 10000 },
-    { id: "bloom-3", name: "Third season", desc: "Great Bloom 3 times.", req: state => Number(state.bloomCount || 0) >= 3 },
-    { id: "bloom-10", name: "Ancient seasons", desc: "Great Bloom 10 times.", req: state => Number(state.bloomCount || 0) >= 10 },
-    { id: "streak-3", name: "Dew habit", desc: "Keep a 3 day dew streak.", req: state => Number(state.streak || 0) >= 3 },
+    { id: "machine-50", name: "Busy colony", desc: "Own 50 shroom allies.", req: state => ownedTotal(state) >= 50 },
+    { id: "machine-150", name: "Tiny empire", desc: "Own 150 shroom allies.", req: state => ownedTotal(state) >= 150 },
+    { id: "combat-stage-5", name: "First boss cap", desc: "Reach stage 1-5.", req: state => bestCombatDepth(state) >= 5 },
+    { id: "combat-stage-25", name: "Deep trail", desc: "Reach stage 5-5.", req: state => bestCombatDepth(state) >= 25 },
+    { id: "combat-boss-10", name: "Boss breaker", desc: "Beat 10 boss caps.", req: state => Number(state.bossDefeats || 0) >= 10 },
+    { id: "rate-100", name: "Soft engine", desc: "Reach 100 idle damage/sec.", req: state => incomePerSecond(state) >= 100 },
+    { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 idle damage/sec.", req: state => incomePerSecond(state) >= 10000 },
+    { id: "bloom-3", name: "Third Bloom", desc: "Spore Bloom 3 times.", req: state => Number(state.bloomCount || 0) >= 3 },
+    { id: "bloom-10", name: "Ancient blooms", desc: "Spore Bloom 10 times.", req: state => Number(state.bloomCount || 0) >= 10 },
+    { id: "streak-3", name: "Drip habit", desc: "Keep a 3 day drip streak.", req: state => Number(state.streak || 0) >= 3 },
     { id: "quest-day", name: "Friend day", desc: "Claim all 3 friend quests in a day.", req: state => Number(state.claimedQuests?.length || 0) >= 3 },
-    { id: "rush-10", name: "Rush garden", desc: "Trigger 10 Spore Rushes.", req: state => Number(state.rushes || 0) >= 10 },
-    { id: "env-64", name: "Full atlas", desc: "Reach environment 64.", req: state => Number(state.meadowLevel || 1) >= 64 }
+    { id: "rush-10", name: "Rush colony", desc: "Trigger 10 Spore Rushes.", req: state => Number(state.rushes || 0) >= 10 },
+    { id: "env-64", name: "Full empire", desc: "Reach depth 64.", req: state => Number(state.meadowLevel || 1) >= 64 }
   ];
 
   const perks = [
-    { id: "spore-memory", name: "Season memory", baseCost: 1, max: 10, desc: "Baseline spores/sec +18% per level." },
-    { id: "soft-hands", name: "Soft touch", baseCost: 1, max: 10, desc: "Tap power +25% per level." },
-    { id: "cheap-caps", name: "Frugal roots", baseCost: 2, max: 8, desc: "Roots, dew, friends, and lanterns cost 6% less per level." },
-    { id: "long-boost", name: "Long Spore Shower", baseCost: 2, max: 5, desc: "Spore Shower lasts 2 more minutes per level." },
-    { id: "starter-cap", name: "Starter friend", baseCost: 3, max: 1, desc: "Each Great Bloom starts with one Root thread." }
+    { id: "spore-memory", name: "Ancient Memory", baseCost: 1, max: 10, desc: "Baseline idle damage +18% per level." },
+    { id: "soft-hands", name: "Stronger Cap", baseCost: 1, max: 10, desc: "Tap power +25% per level." },
+    { id: "cheap-caps", name: "Root Economy", baseCost: 2, max: 8, desc: "Shroom allies and charms cost 6% less per level." },
+    { id: "long-boost", name: "Long Spore Storm", baseCost: 2, max: 5, desc: "Spore Storm lasts 2 more minutes per level." },
+    { id: "starter-cap", name: "Starting Knight", baseCost: 3, max: 1, desc: "Each Spore Bloom starts with one Cap Knight." }
   ];
 
   const state = loadState();
@@ -224,6 +192,7 @@
     "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
     "bottomTabs", "friendScene", "companionRow", "rushOrbit", "rootRing", "soundButton",
+    "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "dewSkillButton", "boostSkillButton", "bloomSkillButton"
   ].forEach(id => { els[id] = document.getElementById(id); });
@@ -256,6 +225,16 @@
       rushUntil: 0,
       rushes: 0,
       bloomCount: 0,
+      combatStage: 1,
+      combatWave: 1,
+      enemyHp: 0,
+      enemyMaxHp: 0,
+      enemyKey: "",
+      bossDeadline: 0,
+      enemyDefeats: 0,
+      bossDefeats: 0,
+      bossFails: 0,
+      bestCombatDepth: 1,
       meadowLevel: 1,
       meadowBloom: 0,
       firstTapAt: 0,
@@ -288,7 +267,10 @@
         localStorage.removeItem(leaderboardKey);
       }
       const raw = localStorage.getItem(saveKey);
-      if (!raw) return fallback;
+      if (!raw) {
+        ensureCombatState(fallback);
+        return fallback;
+      }
       const parsed = JSON.parse(raw);
       const merged = { ...fallback, ...parsed };
       merged.machines = { ...fallback.machines, ...(parsed.machines || {}) };
@@ -298,9 +280,11 @@
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
       merged.claimedClickMilestones = Array.isArray(parsed.claimedClickMilestones) ? parsed.claimedClickMilestones : [];
+      ensureCombatState(merged);
       applyOffline(merged);
       return merged;
     } catch {
+      ensureCombatState(fallback);
       return fallback;
     }
   }
@@ -377,6 +361,227 @@
 
   function perkCost(perk, target = state) {
     return perk.baseCost + perkLevel(perk.id, target);
+  }
+
+  function combatStage(target = state) {
+    return Math.max(1, Math.floor(Number(target.combatStage || target.stage || 1)));
+  }
+
+  function combatWave(target = state) {
+    return Math.max(1, Math.min(combatWavesPerStage, Math.floor(Number(target.combatWave || target.wave || 1))));
+  }
+
+  function combatDepth(target = state) {
+    return (combatStage(target) - 1) * combatWavesPerStage + combatWave(target);
+  }
+
+  function bestCombatDepth(target = state) {
+    return Math.max(combatDepth(target), Math.floor(Number(target.bestCombatDepth || 1)));
+  }
+
+  function combatDepthLabel(depth = 1) {
+    const value = Math.max(1, Math.floor(Number(depth) || 1));
+    const stage = Math.floor((value - 1) / combatWavesPerStage) + 1;
+    const wave = ((value - 1) % combatWavesPerStage) + 1;
+    return `${format(stage)}-${wave}`;
+  }
+
+  function combatLabel(target = state) {
+    return `${format(combatStage(target))}-${combatWave(target)}`;
+  }
+
+  function isBossWave(target = state) {
+    return combatWave(target) >= combatWavesPerStage;
+  }
+
+  function enemyForCombat(target = state) {
+    const roster = isBossWave(target) ? bossRoster : enemyRoster;
+    const index = (combatStage(target) + combatWave(target) - 2) % roster.length;
+    return roster[index];
+  }
+
+  function combatEnemyKey(target = state) {
+    return `${combatStage(target)}:${combatWave(target)}`;
+  }
+
+  function enemyMaxHealth(target = state) {
+    const stage = combatStage(target);
+    const wave = combatWave(target);
+    const depth = combatDepth(target);
+    const depthScale = Math.pow(1.27, Math.max(0, depth - 1));
+    const waveScale = 1 + (wave - 1) * 0.18;
+    const seasonScale = Math.pow(1.035, Math.max(0, Number(target.bloomCount || 0)));
+    const bossScale = isBossWave(target) ? 5.6 : 1;
+    return Math.max(4, Math.round((5 + stage * 1.5) * depthScale * waveScale * seasonScale * bossScale));
+  }
+
+  function enemyReward(target = state) {
+    const maxHp = Math.max(1, Number(target.enemyMaxHp || enemyMaxHealth(target)));
+    const boss = isBossWave(target);
+    const depthBonus = 1 + combatDepth(target) * 0.045;
+    return Math.max(boss ? 45 : 10, Math.round(maxHp * (boss ? 1.45 : 1.7) * depthBonus * rootBonus(target)));
+  }
+
+  function ensureCombatState(target = state) {
+    target.combatStage = combatStage(target);
+    target.combatWave = combatWave(target);
+    target.bestCombatDepth = Math.max(bestCombatDepth(target), combatDepth(target));
+    const key = combatEnemyKey(target);
+    const expectedMax = enemyMaxHealth(target);
+    if (target.enemyKey !== key || !Number.isFinite(Number(target.enemyHp)) || !Number.isFinite(Number(target.enemyMaxHp)) || Number(target.enemyMaxHp || 0) <= 0) {
+      target.enemyKey = key;
+      target.enemyMaxHp = expectedMax;
+      target.enemyHp = expectedMax;
+    } else {
+      target.enemyMaxHp = Math.max(1, Number(target.enemyMaxHp || expectedMax));
+      target.enemyHp = Math.max(0, Math.min(Number(target.enemyHp || target.enemyMaxHp), target.enemyMaxHp));
+    }
+    if (isBossWave(target)) {
+      if (!Number(target.bossDeadline || 0)) target.bossDeadline = Date.now() + bossSeconds * 1000;
+    } else {
+      target.bossDeadline = 0;
+    }
+  }
+
+  function advanceCombat(target = state) {
+    if (combatWave(target) >= combatWavesPerStage) {
+      target.combatStage = combatStage(target) + 1;
+      target.combatWave = 1;
+    } else {
+      target.combatWave = combatWave(target) + 1;
+    }
+    target.enemyKey = "";
+    target.bossDeadline = 0;
+    ensureCombatState(target);
+  }
+
+  function combatDps(target = state) {
+    const idleRate = incomePerSecond(target);
+    const helperPressure = idleRate * 0.62;
+    const capPulse = tapPower(target) * Math.max(0, ownedTotal(target)) * 0.025;
+    return (helperPressure + capPulse) * (rushActive(target) ? 1.25 : 1);
+  }
+
+  function showEnemyReward(reward, defeatedName, boss = false) {
+    if (!els.enemyTarget) return;
+    const rect = els.enemyTarget.getBoundingClientRect();
+    showPop(rect.left + rect.width / 2, rect.top + rect.height * 0.34, `+${format(reward)}`, boss ? 14 : 7);
+    showMoment(boss ? `${defeatedName} down` : defeatedName, `+${format(reward)} nutrients`, boss ? "great" : "buy");
+  }
+
+  function showDamageNumber(amount, hot = false) {
+    if (!els.enemyTarget || testPlayMode) return;
+    const rect = els.enemyTarget.getBoundingClientRect();
+    const pop = document.createElement("span");
+    pop.className = `damage-number${hot ? " hot" : ""}`;
+    pop.textContent = `-${format(amount)}`;
+    pop.style.left = `${rect.left + rect.width * (0.44 + Math.random() * 0.18)}px`;
+    pop.style.top = `${rect.top + rect.height * (0.22 + Math.random() * 0.18)}px`;
+    document.body.appendChild(pop);
+    window.setTimeout(() => pop.remove(), 680);
+  }
+
+  function showDamageSlash(hot = false) {
+    if (!els.friendScene || !els.enemyTarget || testPlayMode) return;
+    const sceneRect = els.friendScene.getBoundingClientRect();
+    const enemyRect = els.enemyTarget.getBoundingClientRect();
+    const slash = document.createElement("span");
+    slash.className = `damage-slash${hot ? " hot" : ""}`;
+    slash.style.left = `${enemyRect.left - sceneRect.left + enemyRect.width / 2}px`;
+    slash.style.top = `${enemyRect.top - sceneRect.top + enemyRect.height / 2}px`;
+    els.friendScene.appendChild(slash);
+    window.setTimeout(() => slash.remove(), 420);
+  }
+
+  function defeatEnemy(target = state, visual = true) {
+    ensureCombatState(target);
+    const defeated = enemyForCombat(target);
+    const boss = isBossWave(target);
+    const reward = enemyReward(target);
+    addLoops(target, reward);
+    addMeadowCare(reward * (boss ? 0.18 : 0.1), target);
+    recordSporeBurst(reward);
+    target.enemyDefeats = Number(target.enemyDefeats || 0) + 1;
+    if (boss) target.bossDefeats = Number(target.bossDefeats || 0) + 1;
+    advanceCombat(target);
+    target.bestCombatDepth = Math.max(bestCombatDepth(target), combatDepth(target));
+    if (visual) {
+      restartMotion(els.enemyTarget, "enemy-defeated", boss ? 760 : 520);
+      showEnemyReward(reward, defeated.name, boss);
+      playTone(boss ? "great" : "buy", boss ? 6 : 3);
+      pulseScene(boss ? "scene-bloomed" : "scene-impact");
+    }
+    return { reward, boss, name: defeated.name };
+  }
+
+  function damageEnemy(amount, options = {}) {
+    ensureCombatState(state);
+    const damage = Math.max(0, Number(amount) || 0);
+    if (damage <= 0) return { changed: false, defeated: 0, reward: 0 };
+    const visual = options.visual !== false;
+    if (visual) {
+      restartMotion(els.enemyTarget, "enemy-hit", 260);
+      showDamageNumber(damage, damage >= Math.max(5, Number(state.enemyMaxHp || 1) * 0.18));
+      showDamageSlash(options.hot || comboCount >= 8 || isBossWave(state));
+    }
+    let remaining = damage;
+    let defeated = 0;
+    let reward = 0;
+    let guard = 0;
+    while (remaining > 0 && guard < 6) {
+      guard += 1;
+      const before = Number(state.enemyHp || state.enemyMaxHp || enemyMaxHealth(state));
+      state.enemyHp = Math.max(0, before - remaining);
+      if (state.enemyHp > 0) break;
+      const overflow = Math.max(0, remaining - before);
+      const result = defeatEnemy(state, visual && defeated < 2);
+      defeated += 1;
+      reward += result.reward;
+      remaining = overflow * 0.28;
+      if (remaining < 1) break;
+    }
+    return { changed: true, defeated, reward };
+  }
+
+  function handleBossTimeout(target = state) {
+    ensureCombatState(target);
+    if (!isBossWave(target)) return false;
+    const remaining = Number(target.bossDeadline || 0) - Date.now();
+    if (remaining > 0 || Number(target.enemyHp || 0) <= 0) return false;
+    target.bossFails = Number(target.bossFails || 0) + 1;
+    target.combatWave = Math.max(1, combatWavesPerStage - 1);
+    target.enemyKey = "";
+    target.bossDeadline = 0;
+    ensureCombatState(target);
+    showMoment("boss cap escaped", "clear one wave and retry", "great");
+    playTone("bloom", 2);
+    haptic([8, 20, 8]);
+    return true;
+  }
+
+  function combatGoal(target = state) {
+    ensureCombatState(target);
+    const enemy = enemyForCombat(target);
+    const hp = Math.max(0, Number(target.enemyHp || 0));
+    const maxHp = Math.max(1, Number(target.enemyMaxHp || enemyMaxHealth(target)));
+    const progress = 1 - Math.max(0, Math.min(1, hp / maxHp));
+    if (isBossWave(target)) {
+      const seconds = Math.max(0, Math.ceil((Number(target.bossDeadline || 0) - Date.now()) / 1000));
+      return {
+        label: `Boss ${seconds}s`,
+        detail: `${enemy.name} ${format(hp)} hp`,
+        kind: "combat",
+        ready: false,
+        progress
+      };
+    }
+    return {
+      label: `Stage ${combatLabel(target)}`,
+      detail: `${enemy.name} ${format(hp)} hp`,
+      kind: "combat",
+      ready: false,
+      progress
+    };
   }
 
   function rushActive(target = state) {
@@ -482,10 +687,11 @@
     const tutorial = tutorialStage(target);
     if (tutorial.id === "sleeping") return "sleeping";
     if (tutorial.id === "awake") return "awake";
-    if (tutorial.id === "friend") return "Dew Beetle";
+    if (tutorial.id === "friend") return "Cap Knight";
+    if (isBossWave(target)) return "boss fight";
     if (rushActive(target)) return "glowing";
     const progress = Math.max(0, Math.min(1, Number(target.meadowBloom || 0) / meadowRequirement(target)));
-    if (progress >= 0.82) return "nearly blooming";
+    if (progress >= 0.82) return "roots surging";
     if (progress >= 0.45) return "wiggly";
     if (Number(target.meadowLevel || 1) >= 4) return "happy";
     return "soft glow";
@@ -494,10 +700,10 @@
   function tutorialStage(target = state) {
     const clicks = Number(target.clicks || 0);
     if (clicks <= 0) return { id: "sleeping", next: "tap to wake" };
-    if (clicks < 5) return { id: "awake", next: `${5 - clicks} taps to baby cap` };
+    if (clicks < 5) return { id: "awake", next: `${5 - clicks} taps to First Shroom` };
     if (clicks < 15) return { id: "baby", next: `${15 - clicks} taps to root glow` };
-    if (clicks < 25) return { id: "root", next: `${25 - clicks} taps to Dew Beetle` };
-    if (Number(target.meadowLevel || 1) < 2) return { id: "friend", next: "care ring is waking" };
+    if (clicks < 25) return { id: "root", next: `${25 - clicks} taps to Cap Knight` };
+    if (Number(target.meadowLevel || 1) < 2) return { id: "friend", next: "root ring is waking" };
     const milestone = nextClickMilestone(target);
     if (milestone) return { id: "forest", next: `${format(milestone.clicks - clicks)} taps to ${milestone.name}` };
     return { id: "forest", next: `next: ${meadowTitle(target, 1)}` };
@@ -520,7 +726,7 @@
 
     const bloomGain = bloomGainFor(target);
     if (bloomGain > 0) {
-      return { detail: `Great Bloom ready +${format(bloomGain)}`, kind: "bloom", ready: true };
+      return { detail: `Spore Bloom ready +${format(bloomGain)}`, kind: "bloom", ready: true };
     }
 
     const affordablePerk = earlyPerk || perks.find(perk => perkLevel(perk.id, target) < perk.max && Number(target.rootstock || 0) >= perkCost(perk, target));
@@ -535,11 +741,16 @@
 
     const affordablePiece = earlyPiece || [...machines].reverse().find(machine => Number(target.loops || 0) >= machineCost(machine, target));
     if (affordablePiece) {
-      return { detail: `grow ${affordablePiece.name}`, kind: "piece", ready: true };
+      return { detail: `recruit ${affordablePiece.name}`, kind: "piece", ready: true };
     }
 
     if (target.lastDaily !== todayKey() && ownedTotal(target) > 0) {
-      return { detail: "daily dew ready", kind: "dew", ready: true };
+      return { detail: "daily drip ready", kind: "dew", ready: true };
+    }
+
+    const fight = combatGoal(target);
+    if (isBossWave(target) || Number(target.enemyHp || 0) < Number(target.enemyMaxHp || 1)) {
+      return { detail: fight.detail, kind: "combat", ready: false };
     }
 
     const nextMilestone = nextClickMilestone(target);
@@ -552,10 +763,10 @@
     }
 
     if (nextPiece && (pieceNeed <= bloomNeed || incomePerSecond(target) > 0)) {
-      return { detail: `${format(pieceNeed)} spores to ${nextPiece.name}`, kind: "piece", ready: false };
+      return { detail: `${format(pieceNeed)} nutrients to ${nextPiece.name}`, kind: "piece", ready: false };
     }
 
-    return { detail: `${format(bloomNeed)} run spores to Great Bloom`, kind: "bloom", ready: false };
+    return { detail: `${format(bloomNeed)} run nutrients to Spore Bloom`, kind: "bloom", ready: false };
   }
 
   function compactGoalLabel(detail) {
@@ -576,7 +787,7 @@
     if (bloomGain > 0) {
       return {
         label: `Bloom +${format(bloomGain)}`,
-        detail: `Great Bloom for ${format(bloomGain)} mycelium`,
+        detail: `Spore Bloom for ${format(bloomGain)} Ancient Spores`,
         kind: "bloom",
         ready: true
       };
@@ -607,8 +818,8 @@
     const affordablePiece = earlyPiece || [...machines].reverse().find(machine => Number(target.loops || 0) >= machineCost(machine, target));
     if (affordablePiece) {
       return {
-        label: `Grow ${affordablePiece.name}`,
-        detail: `Adds +${format(affordablePiece.rate * rateMultiplier(target))}/sec`,
+        label: `Recruit ${affordablePiece.name}`,
+        detail: `Adds +${format(affordablePiece.rate * rateMultiplier(target))} idle damage/sec`,
         kind: "piece",
         id: affordablePiece.id,
         ready: true
@@ -616,7 +827,12 @@
     }
 
     if (target.lastDaily !== todayKey() && ownedTotal(target) > 0) {
-      return { label: "Claim daily dew", detail: "Daily reward ready", kind: "dew", ready: true };
+      return { label: "Claim daily drip", detail: "Daily reward ready", kind: "dew", ready: true };
+    }
+
+    const fight = combatGoal(target);
+    if (isBossWave(target) || Number(target.enemyHp || 0) < Number(target.enemyMaxHp || 1) || !nextClickMilestone(target)) {
+      return fight;
     }
 
     const nextPiece = machines.find(machine => Number(target.loops || 0) < machineCost(machine, target));
@@ -624,7 +840,7 @@
       const needed = Math.max(0, machineCost(nextPiece, target) - Number(target.loops || 0));
       return {
         label: `${format(needed)} to ${nextPiece.name}`,
-        detail: `Next growth: ${nextPiece.name}`,
+        detail: `Next ally: ${nextPiece.name}`,
         kind: "piece",
         id: nextPiece.id,
         ready: false
@@ -648,6 +864,9 @@
     if (goal.kind === "bloom") {
       return Number(target.totalLoops || 0) / bloomRequirement(target);
     }
+    if (goal.kind === "combat") {
+      return Number(goal.progress || combatGoal(target).progress || 0);
+    }
     const tutorial = tutorialStage(target);
     const clicks = Number(target.clicks || 0);
     const tutorialTargets = { sleeping: 1, awake: 5, baby: 15, root: 25 };
@@ -670,10 +889,11 @@
 
   function actionMomentTitle(action) {
     const labels = {
-      dew: "dew ready",
-      bloom: "Great Bloom ready",
+      dew: "drip ready",
+      bloom: "Spore Bloom ready",
       charm: "new charm ready",
-      piece: "meadow piece ready"
+      piece: "shroom ally ready",
+      combat: "fight"
     };
     return labels[action.kind] || "new goal ready";
   }
@@ -826,7 +1046,7 @@
     addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
     playTone("buy", 4);
-    showMoment(machine.name, `${format(incomePerSecond())} spores/sec`, "buy");
+    showMoment(machine.name, `${format(incomePerSecond())} idle damage/sec`, "buy");
     markDirty();
     checkAchievements();
     render();
@@ -885,6 +1105,12 @@
     state.rushUntil = 0;
     state.meadowLevel = 1;
     state.meadowBloom = 0;
+    state.combatStage = 1;
+    state.combatWave = 1;
+    state.enemyHp = 0;
+    state.enemyMaxHp = 0;
+    state.enemyKey = "";
+    state.bossDeadline = 0;
     state.claimedClickMilestones = [];
     state.firstTapAt = 0;
     state.firstBloomSeconds = 0;
@@ -897,9 +1123,10 @@
       state.machines.plot = 1;
       displayedRate = incomePerSecond();
     }
+    ensureCombatState(state);
     clickRateBurst = 0;
     playTone("great");
-    showMoment("Great Bloom", `+${format(gain)} mycelium / season ${format(state.bloomCount + 1)}`, "great");
+    showMoment("Spore Bloom", `+${format(gain)} Ancient Spores / bloom ${format(state.bloomCount)}`, "great");
     haptic([18, 22, 18, 36]);
     markDirty();
     checkAchievements();
@@ -918,7 +1145,7 @@
     recordSporeBurst(reward);
     addRushCharge(18);
     playTone("dew", 4);
-    showMoment("daily dew", `+${format(reward)} spores`, "dew");
+    showMoment("daily drip", `+${format(reward)} nutrients`, "dew");
     markDirty();
     checkAchievements();
     render();
@@ -954,16 +1181,16 @@
       },
       {
         id: "pieces",
-        name: "Grow the grove",
-        desc: `Buy ${format(pieceTarget)} meadow pieces today.`,
+        name: "Recruit allies",
+        desc: `Recruit ${format(pieceTarget)} shroom allies today.`,
         current: Math.max(0, ownedTotal(state) - Number(base.pieces || 0)),
         target: pieceTarget,
         reward: Math.max(450, incomePerSecond() * 240 + tapPower() * 80)
       },
       {
         id: "spores",
-        name: "Spore sprint",
-        desc: `Earn ${format(sporeTarget)} spores today.`,
+        name: "Nutrient sprint",
+        desc: `Earn ${format(sporeTarget)} nutrients today.`,
         current: Math.max(0, Number(state.lifetimeLoops || 0) - Number(base.spores || 0)),
         target: sporeTarget,
         reward: Math.max(600, sporeTarget * 0.22)
@@ -980,7 +1207,7 @@
     recordSporeBurst(quest.reward);
     addRushCharge(25);
     playTone("unlock", 5);
-    showMoment(quest.name, `+${format(quest.reward)} spores`, "unlock");
+    showMoment(quest.name, `+${format(quest.reward)} nutrients`, "unlock");
     markDirty();
     checkAchievements();
     render();
@@ -1000,10 +1227,10 @@
     const now = Date.now();
     if (now < Number(state.focusUntil || 0)) return;
     els.focusButton.disabled = true;
-    els.focusButton.textContent = "calling shower";
+    els.focusButton.textContent = "calling storm";
     const result = await requestRewardedBoost().catch(() => ({ rewarded: false }));
     if (!result.rewarded) {
-      els.boostHint.textContent = "Reward ad was not completed. Spore Shower stayed inactive.";
+      els.boostHint.textContent = "Reward ad was not completed. Spore Storm stayed inactive.";
       renderFocus();
       return;
     }
@@ -1011,9 +1238,9 @@
     state.focusUntil = now + boostMinutes * 60 * 1000;
     addRushCharge(35);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    els.boostHint.textContent = "Spore Shower active.";
+    els.boostHint.textContent = "Spore Storm active.";
     playTone("shower");
-    showMoment("Spore Shower", `${Math.round(boostMinutes)} minute boost`, "shower");
+    showMoment("Spore Storm", `${Math.round(boostMinutes)} minute boost`, "shower");
     markDirty();
     checkAchievements();
     render();
@@ -1409,7 +1636,7 @@
   function showOfflineReturn() {
     const reward = Number(state.offlineReward || 0);
     if (reward <= 0) return;
-    showMoment("welcome back", `+${format(reward)} spores / ${formatDuration(state.offlineSeconds)} away`, "dew");
+    showMoment("welcome back", `+${format(reward)} nutrients / ${formatDuration(state.offlineSeconds)} away`, "dew");
     playTone("dew", 2);
     state.offlineReward = 0;
     state.offlineSeconds = 0;
@@ -1513,7 +1740,9 @@
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
     state.maxCombo = Math.max(Number(state.maxCombo || 0), comboCount);
+    const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
     const gained = tapPower() * comboTapMultiplier(comboCount);
+    const combat = damageEnemy(gained, { hot: comboCount >= 8, visual: showFullImpact });
     addLoops(state, gained);
     const meadow = addMeadowCare(gained);
     recordSporeBurst(gained);
@@ -1522,17 +1751,18 @@
     addRushCharge(2 + Math.min(5, comboCount / 6));
     markDirty();
     checkAchievements();
-    const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
     if (showFullImpact) showPop(x, y, `+${format(gained)}`, comboCount);
     if (milestone.reward > 0) {
       showPop(rect.left + rect.width / 2, rect.bottom - 16, `${milestone.latest.name} +${format(milestone.reward)}`, comboCount + 8);
-      showMoment(milestone.latest.name, `+${format(milestone.reward)} spores`, "badge");
+      showMoment(milestone.latest.name, `+${format(milestone.reward)} nutrients`, "badge");
       playTone("bloom", comboCount + 2);
     }
     if (meadow.blooms > 0) {
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
-      showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} meadow blooms` : "new meadow bloom", "meadow");
+      showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} zone surges` : "new zone surge", "meadow");
       playTone("bloom", comboCount);
+    } else if (combat.defeated > 0) {
+      addRushCharge(5 + Math.min(10, combat.defeated * 2));
     } else if (milestone.reward <= 0) {
       playTone("tap", comboCount);
     }
@@ -1723,7 +1953,7 @@
   }
 
   async function shareScore() {
-    const text = `I grew ${format(state.lifetimeLoops)} lifetime spores in Idle Shroom. Play at ${publicGameUrl}`;
+    const text = `I grew ${format(state.lifetimeLoops)} lifetime nutrients in Idle Shroom. Play at ${publicGameUrl}`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "Idle Shroom", text, url: publicGameUrl });
@@ -1874,7 +2104,7 @@
       const count = Number(state.machines[machine.id] || 0);
       const disabled = state.loops < cost ? "disabled" : "";
       const progress = Math.max(0, Math.min(100, (state.loops / cost) * 100));
-      const art = machineArt[machine.id] || { className: "root-thread", label: "meadow piece" };
+      const art = machineArt[machine.id] || { className: "root-thread", label: "shroom ally" };
       return `
         <article class="store-item garden-card ${machine.id === recommended?.id ? "recommended" : ""}" data-machine="${machine.id}">
           <span class="store-visual ${art.className}" aria-label="${art.label}">
@@ -1885,7 +2115,7 @@
             <p>${machine.desc}</p>
             <span class="owned">${count} owned / +${format(machine.rate * rateMultiplier())}/sec</span>
           </div>
-          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `grow ${format(cost)}` : `need ${format(cost)}`}</button>
+          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `recruit ${format(cost)}` : `need ${format(cost)}`}</button>
         </article>
       `;
     }).join("");
@@ -1899,7 +2129,7 @@
           <span class="store-visual charm-seed" aria-hidden="true"><i></i></span>
           <div class="store-copy">
             <h3>Next charm</h3>
-            <p>Grow more meadow pieces to unlock a charm.</p>
+            <p>Recruit more allies to unlock a charm.</p>
             <span class="owned">no spend needed yet</span>
           </div>
         </article>
@@ -1923,15 +2153,15 @@
 
   function renderPerks() {
     const active = perks.reduce((sum, perk) => sum + perkLevel(perk.id), 0);
-    els.perkCount.textContent = `${format(state.rootstock)} mycelium / ${active} perks`;
+    els.perkCount.textContent = `${format(state.rootstock)} ancient spores / ${active} perks`;
     if (Number(state.rootstock || 0) <= 0 && active <= 0) {
       els.perkList.innerHTML = `
         <article class="store-item mycelium-card waiting">
           <span class="store-visual mycelium-knot" aria-hidden="true"><i></i></span>
           <div class="store-copy">
-            <h3>First Great Bloom</h3>
-            <p>Reach ${format(bloomRequirement())} run spores. Reset into a stronger season.</p>
-            <span class="owned">${format(Math.min(state.totalLoops, bloomRequirement()))}/${format(bloomRequirement())} run spores</span>
+            <h3>First Spore Bloom</h3>
+            <p>Reach ${format(bloomRequirement())} run nutrients. Restart stronger with Ancient Spores.</p>
+            <span class="owned">${format(Math.min(state.totalLoops, bloomRequirement()))}/${format(bloomRequirement())} run nutrients</span>
           </div>
         </article>
       `;
@@ -1964,14 +2194,14 @@
     if (!leaderboardEntries.length) {
       const goal = nextClickMilestone()
         ? `${format(nextClickMilestone().clicks - Number(state.clicks || 0))} taps to ${nextClickMilestone().name}`
-        : `${format(Math.max(0, bloomRequirement() - Number(state.totalLoops || 0)))} spores to Great Bloom`;
+        : `${format(Math.max(0, bloomRequirement() - Number(state.totalLoops || 0)))} nutrients to Spore Bloom`;
       els.leaderboardList.innerHTML = `
         <article class="leaderboard-empty atlas-card">
           <strong>Current run</strong>
-          <span>${format(state.bloomCount || 0)} blooms / ${format(state.rootstock || 0)} mycelium / ${format(state.lifetimeLoops || 0)} lifetime spores</span>
+          <span>${format(state.bloomCount || 0)} blooms / ${format(state.rootstock || 0)} ancient spores / ${format(state.lifetimeLoops || 0)} lifetime nutrients</span>
           <div class="atlas-stats" aria-hidden="true">
             <b>${format(state.clicks || 0)} taps</b>
-            <b>${format(state.meadowLevel || 1)} meadow</b>
+            <b>${format(state.meadowLevel || 1)} depth</b>
             <b>${format(state.maxCombo || 0)} combo</b>
           </div>
           <em>${goal}</em>
@@ -1983,7 +2213,7 @@
       <article class="leaderboard-row">
         <strong>${index + 1}</strong>
         <span>${escapeHtml(entry.name || "local cap")}</span>
-        <em>${format(entry.greatBlooms || 0)} blooms / ${format(entry.mycelium || 0)} mycelium / ${format(entry.lifetimeSpores || 0)} spores</em>
+        <em>${format(entry.greatBlooms || 0)} blooms / ${format(entry.mycelium || 0)} ancient spores / ${format(entry.lifetimeSpores || 0)} nutrients</em>
       </article>
     `).join("");
   }
@@ -2032,7 +2262,7 @@
     els.dailyButton.disabled = !ready;
     if (els.dewSkillButton) {
       els.dewSkillButton.disabled = !ready;
-      els.dewSkillButton.textContent = ready ? "dew" : "dew done";
+      els.dewSkillButton.textContent = ready ? "drip" : "drip done";
       els.dewSkillButton.dataset.ready = ready ? "true" : "false";
     }
   }
@@ -2044,28 +2274,28 @@
     els.rootstockValue.textContent = format(state.rootstock);
     els.prestigeProgress.style.width = `${Math.round(progress * 100)}%`;
     els.prestigeButton.disabled = gain <= 0;
-    els.prestigeButton.textContent = gain > 0 ? `Great Bloom +${format(gain)}` : "Great Bloom";
+    els.prestigeButton.textContent = gain > 0 ? `Spore Bloom +${format(gain)}` : "Spore Bloom";
     if (els.bloomSkillButton) {
       els.bloomSkillButton.disabled = gain <= 0;
-      els.bloomSkillButton.textContent = gain > 0 ? `Bloom +${format(gain)}` : "Great Bloom";
+      els.bloomSkillButton.textContent = gain > 0 ? `Bloom +${format(gain)}` : "Spore Bloom";
       els.bloomSkillButton.dataset.ready = gain > 0 ? "true" : "false";
     }
     els.prestigeHint.textContent = gain > 0
-      ? `Release this season for ${format(gain)} mycelium. Permanent perks stay.`
-      : `Reach ${format(required)} run spores for Great Bloom ${format(Number(state.bloomCount || 0) + 1)}.`;
+      ? `Release this colony for ${format(gain)} Ancient Spores. Permanent perks stay.`
+      : `Reach ${format(required)} run nutrients for Spore Bloom ${format(Number(state.bloomCount || 0) + 1)}.`;
   }
 
   function renderFocus() {
     const remaining = Math.max(0, Number(state.focusUntil || 0) - Date.now());
     els.focusValue.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m left` : "inactive";
     els.boostHint.textContent = remaining > 0
-      ? `${format(5 + perkLevel("long-boost") * 1)}x spores/sec while the shower is open.`
-      : "Call a 10 minute Spore Shower for a short growth burst.";
+      ? "2x idle damage while the storm is open."
+      : "Call a 10 minute Spore Storm for a short damage burst.";
     els.focusButton.disabled = remaining > 0;
-    els.focusButton.textContent = remaining > 0 ? "shower active" : "call shower";
+    els.focusButton.textContent = remaining > 0 ? "storm active" : "call storm";
     if (els.boostSkillButton) {
       els.boostSkillButton.disabled = remaining > 0;
-      els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "shower";
+      els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "storm";
       els.boostSkillButton.dataset.ready = remaining > 0 ? "active" : "true";
     }
   }
@@ -2075,7 +2305,7 @@
     const charge = Math.max(0, Math.min(rushMax, Number(state.rushCharge || 0)));
     if (remaining > 0) {
       els.rushValue.textContent = `${Math.ceil(remaining / 1000)}s`;
-      els.rushHint.textContent = "Spore Rush active: x3 spores/sec and x2 taps.";
+      els.rushHint.textContent = "Spore Rush active: x3 idle damage and x2 taps.";
       els.rushProgress.style.width = "100%";
       els.rushProgress.classList.add("rush-active");
       if (els.rushOrbit) {
@@ -2085,12 +2315,48 @@
       return;
     }
     els.rushValue.textContent = `${Math.floor(charge)}%`;
-    els.rushHint.textContent = "Tap, grow, claim, and call showers to fill the meter.";
+    els.rushHint.textContent = "Tap, grow allies, claim drips, and call storms to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
     if (els.rushOrbit) {
       els.rushOrbit.style.setProperty("--rush", `${charge}%`);
       els.rushOrbit.classList.remove("active");
+    }
+  }
+
+  function renderCombat() {
+    ensureCombatState(state);
+    const enemy = enemyForCombat(state);
+    const hp = Math.max(0, Number(state.enemyHp || 0));
+    const maxHp = Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
+    const progress = Math.max(0, Math.min(1, hp / maxHp));
+    const boss = isBossWave(state);
+    const remaining = boss ? Math.max(0, Math.ceil((Number(state.bossDeadline || 0) - Date.now()) / 1000)) : 0;
+    if (els.stageLabel) els.stageLabel.textContent = boss ? `boss ${combatLabel()}` : `stage ${combatLabel()}`;
+    if (els.enemyName) els.enemyName.textContent = enemy.name;
+    if (els.enemyHpLabel) els.enemyHpLabel.textContent = `${format(hp)} / ${format(maxHp)} hp`;
+    if (els.enemyHpBar) {
+      els.enemyHpBar.style.width = `${Math.round(progress * 100)}%`;
+      els.enemyHpBar.style.setProperty("--danger", `${Math.round((1 - progress) * 100)}%`);
+    }
+    if (els.bossTimer) {
+      els.bossTimer.textContent = boss ? `${remaining}s` : "";
+      els.bossTimer.hidden = !boss;
+    }
+    if (els.combatStrip) {
+      els.combatStrip.dataset.boss = boss ? "true" : "false";
+      els.combatStrip.dataset.enemy = enemy.id;
+      els.combatStrip.style.setProperty("--enemy-health", `${Math.round(progress * 100)}%`);
+    }
+    if (els.enemyTarget) {
+      els.enemyTarget.dataset.boss = boss ? "true" : "false";
+      els.enemyTarget.dataset.variant = String(enemy.variant);
+      els.enemyTarget.setAttribute("aria-label", `${enemy.name} ${format(hp)} hp`);
+      els.enemyTarget.style.setProperty("--enemy-health", `${Math.round(progress * 100)}%`);
+    }
+    if (els.friendScene) {
+      els.friendScene.dataset.boss = boss ? "true" : "false";
+      els.friendScene.dataset.enemy = enemy.id;
     }
   }
 
@@ -2100,12 +2366,12 @@
     const progress = Math.max(0, Math.min(1, bloom / required));
     const tutorial = tutorialStage();
     const environment = environmentForLevel();
-    els.meadowValue.textContent = `meadow ${format(state.meadowLevel || 1)}`;
+    els.meadowValue.textContent = `depth ${format(state.meadowLevel || 1)}`;
     els.sessionMeadowValue.textContent = format(state.meadowLevel || 1);
     els.meadowName.textContent = environment.label;
     els.meadowMood.textContent = meadowMood();
     els.bloomProgress.style.width = `${Math.round(progress * 100)}%`;
-    els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} care`;
+    els.bloomNeed.textContent = `${format(Math.max(0, required - bloom))} growth`;
     if (els.nextBloomName) {
       const action = nextAction();
       els.nextBloomName.textContent = action.detail;
@@ -2125,7 +2391,7 @@
     document.body.dataset.meadowTier = String(Math.min(8, Math.max(1, Math.ceil(Number(state.meadowLevel || 1) / 4))));
     if (els.friendScene) {
       els.friendScene.dataset.mood = mood;
-      els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood}`);
+      els.friendScene.setAttribute("aria-label", `${meadowTitle()} ${mood} ${enemyForCombat().name}`);
     }
   }
 
@@ -2144,7 +2410,7 @@
           <div class="friend-copy">
             <h3>${friend.name}</h3>
             <p>${quest.name}: ${friend.promise}</p>
-            <span class="owned">${format(Math.min(quest.current, quest.target))}/${format(quest.target)} / reward ${format(quest.reward)} spores</span>
+            <span class="owned">${format(Math.min(quest.current, quest.target))}/${format(quest.target)} / reward ${format(quest.reward)} nutrients</span>
             <div class="mini-progress" aria-hidden="true"><span style="width:${Math.round(progress * 100)}%"></span></div>
           </div>
           <button type="button" data-claim-quest="${quest.id}" ${!done || claimedQuest ? "disabled" : ""}>${claimedQuest ? "claimed" : "claim"}</button>
@@ -2170,11 +2436,11 @@
     if (els.goalProgress) {
       els.goalProgress.style.width = `${Math.round(Math.max(0, Math.min(1, goalProgress(goal))) * 100)}%`;
     }
-    els.tapValue.textContent = format(state.clicks);
+    els.tapValue.textContent = combatLabel();
     if (els.seasonValue) {
       els.seasonValue.textContent = Number(state.rootstock || 0) > 0
-        ? `${format(state.rootstock)} mycelium`
-        : `season ${format(Number(state.bloomCount || 0) + 1)}`;
+        ? `${format(state.rootstock)} ancient spores`
+        : `bloom ${format(Number(state.bloomCount || 0) + 1)}`;
     }
     els.clicksValue.textContent = format(state.clicks);
     els.runValue.textContent = format(state.totalLoops);
@@ -2185,6 +2451,7 @@
     renderOrchard();
     renderCompanions();
     renderDaily();
+    renderCombat();
     renderMeadow();
     renderPrestige();
     renderFocus();
@@ -2217,14 +2484,19 @@
     const now = Date.now();
     const dt = Math.min(5, Math.max(0, (now - lastTick) / 1000));
     lastTick = now;
+    const bossTimedOut = handleBossTimeout(state);
+    const dealt = damageEnemy(combatDps() * dt, { visual: false });
     const earned = incomePerSecond() * dt;
     if (earned > 0) {
       addLoops(state, earned);
       const meadow = addMeadowCare(earned * 0.08);
       if (meadow.blooms > 0) {
-        showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} meadow blooms` : "new meadow bloom", "meadow");
+        showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} zone surges` : "new zone surge", "meadow");
         playTone("bloom", 2);
       }
+      markDirty();
+      checkAchievements();
+    } else if (dealt.changed || bossTimedOut) {
       markDirty();
       checkAchievements();
     }
@@ -2314,6 +2586,13 @@
           nextAction: nextAction().detail,
           nextActionReady: nextAction().ready,
           lastReadyAction: state.lastReadyAction || "",
+          combatStage: combatStage(),
+          combatWave: combatWave(),
+          combatLabel: combatLabel(),
+          enemyName: enemyForCombat().name,
+          enemyHp: Number(state.enemyHp || 0),
+          enemyMaxHp: Number(state.enemyMaxHp || 0),
+          boss: isBossWave(),
           meadowLevel: Number(state.meadowLevel || 1),
           meadowName: meadowTitle(),
           achievements: state.achievements.length,
