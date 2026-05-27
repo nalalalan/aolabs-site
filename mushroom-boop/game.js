@@ -3573,6 +3573,24 @@
     ctx.restore();
   }
 
+  function enemyVisualHalfHeight(enemy, size, boss) {
+    const spriteKey = spriteKeyForEnemy(enemy, boss);
+    if (spriteKey) {
+      if (spriteKey === "mowerTitan") return size * 1.13;
+      if (spriteKey === "gardenBoot") return size * 1.38;
+      if (spriteKey === "kingSluggo") return size * 1.18;
+      return size * .93;
+    }
+    if ((enemy?.id || "").includes("boot")) return size * .66;
+    return size * .58;
+  }
+
+  function combatPanelBottom(sceneRect) {
+    if (!els.combatStrip || !sceneRect) return 0;
+    const stripRect = els.combatStrip.getBoundingClientRect();
+    return Math.max(0, stripRect.bottom - sceneRect.top);
+  }
+
   function drawBattleEvents(ctx, width, height, now) {
     for (let index = battleEvents.length - 1; index >= 0; index -= 1) {
       const event = battleEvents[index];
@@ -3821,8 +3839,20 @@
     drawColonyBack(ctx, width, height, now, tier, owned);
 
     const enemyX = width * .5;
-    const enemyY = height * (visibleBoss ? .3 : .28);
-    drawEnemyShape(ctx, enemy, enemyX, enemyY, rareSpawn ? Math.min(74, width * .18) : visibleBoss ? Math.min(88, width * .2) : Math.min(62, width * .16), now, visibleBoss || enemy.id.includes("ancient-snail"), hitPulse);
+    const enemySize = rareSpawn ? Math.min(74, width * .18) : visibleBoss ? Math.min(88, width * .2) : Math.min(62, width * .16);
+    const enemyIsBossVisual = visibleBoss || enemy.id.includes("ancient-snail");
+    const enemyHalfHeight = enemyVisualHalfHeight(enemy, enemySize, enemyIsBossVisual);
+    const stripBottom = combatPanelBottom(rect);
+    const enemyY = Math.max(
+      height * (visibleBoss ? .44 : .42),
+      stripBottom + enemyHalfHeight + 18
+    );
+    if (els.battleCanvas) {
+      els.battleCanvas.dataset.enemyTop = String(Math.round(enemyY - enemyHalfHeight));
+      els.battleCanvas.dataset.enemyBottom = String(Math.round(enemyY + enemyHalfHeight));
+      els.battleCanvas.dataset.combatBottom = String(Math.round(stripBottom));
+    }
+    drawEnemyShape(ctx, enemy, enemyX, enemyY, enemySize, now, enemyIsBossVisual, hitPulse);
     if (rareSpawn) {
       const rare = rareSpawnDefinition(rareSpawn.id);
       const seconds = Math.max(0, Math.ceil((Number(rareSpawn.expiresAt || 0) - Date.now()) / 1000));
