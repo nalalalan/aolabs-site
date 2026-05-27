@@ -20,7 +20,7 @@ Current status: the web app is installable on phones as a PWA from `https://aola
 
 ## Native ad path
 
-The web build has gated ad slots in `ads-config.js`. Nutrient Frenzy is designed as a rewarded-ad placement: a completed rewarded ad unlocks a 10+ minute nutrients/sec boost. Android still has the legacy-named native `MushroomBoopRewardedAdPlugin` bridge for AdMob rewarded ads so existing wrapper code remains stable once a real rewarded unit id is configured. For iOS, use the `admob` ids in that config as the source of truth, then add the native AdMob plugin during the Capacitor build. Keep ads appropriate for the app rating, clearly dismissible when interruptive, and never require or encourage ad clicks.
+The web build has gated ad slots in `ads-config.js`. Nutrient Frenzy is designed as a rewarded-ad placement: a completed rewarded ad unlocks a 10+ minute nutrients/sec boost. Core play now includes rare spawns that drop nutrients, Relic Caps, Mutation Goo, or Ancient Spores without requiring ads. Android still has the legacy-named native `MushroomBoopRewardedAdPlugin` bridge for AdMob rewarded ads so existing wrapper code remains stable once a real rewarded unit id is configured. For iOS, use the `admob` ids in that config as the source of truth, then add the native AdMob plugin during the Capacitor build. Keep ads appropriate for the app rating, clearly dismissible when interruptive, and never require or encourage ad clicks.
 
 The global leaderboard is configured in `online-config.js` and backed by the Railway `idle-shroom-api` service. It is suitable for casual competition; a fully cheat-resistant mode would require server-authoritative scoring.
 

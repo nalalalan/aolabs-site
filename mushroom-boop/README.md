@@ -4,7 +4,7 @@ Idle Shroom is an original cute mushroom idle clicker game for `https://idleshro
 
 What is included:
 
-- tap combat, shroom allies, active skills, daily goals, Nutrient Frenzy, Spore Bloom prestige, permanent perks, relic upgrades, mutation paths, offline progress, and the Railway-backed global leaderboard
+- tap combat, shroom allies, active skills, rare spawns, daily goals, Nutrient Frenzy, Spore Bloom prestige, permanent perks, relic upgrades, mutation paths, offline progress, and the Railway-backed global leaderboard
 - local save, export, import, and share text
 - PWA manifest and service worker
 - web ad slots gated by `ads-config.js`

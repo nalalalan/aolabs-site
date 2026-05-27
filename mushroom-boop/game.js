@@ -105,6 +105,13 @@
     { id: "mold-hydra", name: "Mold Hydra", variant: 16 },
     { id: "surface-god", name: "The Surface God", variant: 17 }
   ];
+  const rareSpawns = [
+    { id: "golden-beetle", name: "Golden Beetle", enemyId: "golden-beetle", variant: 9, duration: 18, health: 0.68, reward: "nutrients", desc: "Bursts into a huge nutrient pile." },
+    { id: "crystal-slug", name: "Crystal Slug", enemyId: "crystal-slug", variant: 14, duration: 22, health: 1.25, reward: "relicCaps", desc: "Drops Relic Caps for artifact upgrades." },
+    { id: "wandering-truffle", name: "Wandering Truffle", enemyId: "wandering-truffle", variant: 2, duration: 16, health: 0.82, reward: "mutationGoo", desc: "Drops Mutation Goo for shroom evolution." },
+    { id: "spore-thief", name: "Spore Thief", enemyId: "spore-thief", variant: 6, duration: 12, health: 0.48, reward: "mixed", desc: "Runs fast. Catch it before it escapes." },
+    { id: "ancient-snail", name: "Ancient Snail", enemyId: "ancient-snail", variant: 14, duration: 28, health: 1.9, reward: "ancientSpores", desc: "Very tanky, but carries Ancient Spores." }
+  ];
 
   const allyMilestones = [10, 25, 50, 100, 250, 500, 1000, 2500];
   const milestoneText = {
@@ -210,6 +217,8 @@
     { id: "combat-stage-5", name: "First boss cap", desc: "Reach stage 1-10.", req: state => bestCombatDepth(state) >= 10 },
     { id: "combat-stage-25", name: "Deep trail", desc: "Reach stage 3-10.", req: state => bestCombatDepth(state) >= 30 },
     { id: "combat-boss-10", name: "Boss breaker", desc: "Beat 10 boss caps.", req: state => Number(state.bossDefeats || 0) >= 10 },
+    { id: "rare-first", name: "Rare catch", desc: "Defeat a rare spawn.", req: state => Number(state.rareDefeats || 0) >= 1 },
+    { id: "rare-five", name: "Truffle hunter", desc: "Defeat 5 rare spawns.", req: state => Number(state.rareDefeats || 0) >= 5 },
     { id: "rate-100", name: "Soft engine", desc: "Reach 100 idle damage/sec.", req: state => incomePerSecond(state) >= 100 },
     { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 idle damage/sec.", req: state => incomePerSecond(state) >= 10000 },
     { id: "bloom-3", name: "Third Bloom", desc: "Spore Bloom 3 times.", req: state => Number(state.bloomCount || 0) >= 3 },
@@ -351,8 +360,12 @@
       foundRelicIds: [],
       relicLevels: Object.fromEntries(relics.map(relic => [relic.id, 0])),
       spentRelicCaps: 0,
+      bonusRelicCaps: 0,
       activeMutations: [],
       spentMutationGoo: 0,
+      bonusMutationGoo: 0,
+      rareSpawn: null,
+      rareDefeats: 0,
       bestCombatDepth: 1,
       meadowLevel: 1,
       meadowBloom: 0,
@@ -407,7 +420,11 @@
       merged.foundRelicIds = Array.isArray(parsed.foundRelicIds) ? parsed.foundRelicIds : [];
       merged.activeMutations = Array.isArray(parsed.activeMutations) ? parsed.activeMutations : [];
       merged.spentRelicCaps = Math.max(0, Number(parsed.spentRelicCaps || 0));
+      merged.bonusRelicCaps = Math.max(0, Number(parsed.bonusRelicCaps || 0));
       merged.spentMutationGoo = Math.max(0, Number(parsed.spentMutationGoo || 0));
+      merged.bonusMutationGoo = Math.max(0, Number(parsed.bonusMutationGoo || 0));
+      merged.rareSpawn = parsed.rareSpawn && typeof parsed.rareSpawn === "object" ? parsed.rareSpawn : null;
+      merged.rareDefeats = Math.max(0, Number(parsed.rareDefeats || 0));
       merged.lifetimeRootstock = Math.max(
         Number(parsed.lifetimeRootstock || 0),
         Number(parsed.rootstock || 0),
@@ -526,8 +543,9 @@
 
   function relicCapsEarned(target = state) {
     const base = Number(target.bossDefeats || 0) * 3 + bestCombatDepth(target) / 20 + Number(target.bloomCount || 0);
+    const rare = Math.max(0, Number(target.bonusRelicCaps || 0));
     const minerMult = mutationActive("truffle-deepminers", target) ? 1.25 : 1;
-    return Math.max(0, Math.floor(base * minerMult));
+    return Math.max(0, Math.floor(base * minerMult + rare));
   }
 
   function relicCaps(target = state) {
@@ -536,8 +554,9 @@
 
   function mutationGooEarned(target = state) {
     const base = Number(target.enemyDefeats || 0) / 16 + ownedTotal(target) / 18 + Number(target.bloomCount || 0) * 4;
+    const rare = Math.max(0, Number(target.bonusMutationGoo || 0));
     const minerMult = mutationActive("truffle-deepminers", target) ? 1.2 : 1;
-    return Math.max(0, Math.floor(base * minerMult));
+    return Math.max(0, Math.floor(base * minerMult + rare));
   }
 
   function mutationGoo(target = state) {
@@ -614,6 +633,142 @@
   function mutationCost(mutation) {
     const index = Math.max(0, mutations.findIndex(item => item.id === mutation.id));
     return 3 + index * 2 + Math.floor(Number(mutation.level || 0) / 25);
+  }
+
+  function rareSpawnDefinition(id) {
+    return rareSpawns.find(item => item.id === id) || null;
+  }
+
+  function rareSpawnActive(target = state) {
+    const spawn = target?.rareSpawn;
+    if (!spawn || typeof spawn !== "object") return false;
+    return Date.now() < Number(spawn.expiresAt || 0) && Number(spawn.hp || 0) > 0;
+  }
+
+  function activeRareSpawn(target = state) {
+    return rareSpawnActive(target) ? target.rareSpawn : null;
+  }
+
+  function rareSpawnEnemy(spawn = activeRareSpawn()) {
+    const rare = rareSpawnDefinition(spawn?.id);
+    if (!rare) return null;
+    return {
+      id: rare.enemyId,
+      name: rare.name,
+      variant: rare.variant,
+      rareId: rare.id
+    };
+  }
+
+  function rareSpawnMaxHealth(rare, target = state) {
+    const base = Math.max(enemyMaxHealth(target), tapPower(target) * 12 + combatDps(target) * 1.5 + 18);
+    return Math.max(12, Math.round(base * Number(rare?.health || 1)));
+  }
+
+  function rareSpawnReward(rare, target = state) {
+    const rewardBase = Math.max(enemyReward(target), tapPower(target) * 16 + incomePerSecond(target) * 12 + 40);
+    const depth = Math.max(1, bestCombatDepth(target));
+    if (rare.reward === "nutrients") return { nutrients: rewardBase * 8 };
+    if (rare.reward === "relicCaps") return { relicCaps: Math.max(2, Math.floor(2 + depth / 45 + Number(target.bloomCount || 0))) };
+    if (rare.reward === "mutationGoo") return { mutationGoo: Math.max(3, Math.floor(3 + ownedTotal(target) / 45 + Number(target.bloomCount || 0) * 2)) };
+    if (rare.reward === "ancientSpores") return { ancientSpores: Math.max(1, Math.floor(1 + Number(target.bloomCount || 0) / 4)) };
+    return {
+      nutrients: rewardBase * 3,
+      relicCaps: Math.max(1, Math.floor(1 + depth / 90)),
+      mutationGoo: Math.max(1, Math.floor(1 + ownedTotal(target) / 80))
+    };
+  }
+
+  function rareRewardText(reward) {
+    const parts = [];
+    if (reward.nutrients) parts.push(`${format(reward.nutrients)} nutrients`);
+    if (reward.relicCaps) parts.push(`${format(reward.relicCaps)} Relic Caps`);
+    if (reward.mutationGoo) parts.push(`${format(reward.mutationGoo)} Mutation Goo`);
+    if (reward.ancientSpores) parts.push(`${format(reward.ancientSpores)} Ancient Spores`);
+    return parts.join(" / ") || "rare reward";
+  }
+
+  function spawnRare(id = "") {
+    if (rareSpawnActive()) return false;
+    const rare = rareSpawnDefinition(id) || rareSpawns[Math.floor(Math.random() * rareSpawns.length)];
+    if (!rare) return false;
+    const maxHp = rareSpawnMaxHealth(rare);
+    state.rareSpawn = {
+      id: rare.id,
+      hp: maxHp,
+      maxHp,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + rare.duration * 1000
+    };
+    pushBattleEvent("rare-arrive", { rare: rare.id, duration: 900 });
+    showMoment(rare.name, rare.desc, "unlock");
+    playTone("unlock", 4);
+    markDirty();
+    return true;
+  }
+
+  function maybeSpawnRare(trigger = "defeat") {
+    if (rareSpawnActive()) return false;
+    const defeats = Math.max(0, Number(state.enemyDefeats || 0));
+    const bosses = Math.max(0, Number(state.bossDefeats || 0));
+    if (trigger === "boss" && bosses > 0 && bosses % 5 === 0) {
+      const rare = rareSpawns[(bosses + Number(state.bloomCount || 0)) % rareSpawns.length];
+      return spawnRare(rare.id);
+    }
+    if (trigger === "defeat" && defeats > 0 && defeats % 19 === 0) {
+      const rare = rareSpawns[(Math.floor(defeats / 19) + combatStage(state)) % rareSpawns.length];
+      return spawnRare(rare.id);
+    }
+    return false;
+  }
+
+  function expireRareSpawn() {
+    const spawn = state.rareSpawn;
+    if (!spawn || rareSpawnActive()) return false;
+    const rare = rareSpawnDefinition(spawn.id);
+    state.rareSpawn = null;
+    if (rare) showMoment(`${rare.name} escaped`, "watch for the next rare spawn", "combat");
+    markDirty();
+    return true;
+  }
+
+  function claimRareSpawn(spawn = activeRareSpawn()) {
+    const rare = rareSpawnDefinition(spawn?.id);
+    if (!rare) return { defeated: false, reward: {} };
+    const reward = rareSpawnReward(rare);
+    if (reward.nutrients) {
+      addLoops(state, reward.nutrients);
+      addMeadowCare(reward.nutrients * 0.14);
+      recordSporeBurst(reward.nutrients);
+    }
+    if (reward.relicCaps) state.bonusRelicCaps = Math.max(0, Number(state.bonusRelicCaps || 0)) + reward.relicCaps;
+    if (reward.mutationGoo) state.bonusMutationGoo = Math.max(0, Number(state.bonusMutationGoo || 0)) + reward.mutationGoo;
+    if (reward.ancientSpores) {
+      state.rootstock = Math.max(0, Number(state.rootstock || 0)) + reward.ancientSpores;
+      state.lifetimeRootstock = Math.max(ancientSporePower(state), Number(state.lifetimeRootstock || 0) + reward.ancientSpores);
+    }
+    state.rareDefeats = Math.max(0, Number(state.rareDefeats || 0)) + 1;
+    state.rareSpawn = null;
+    pushBattleEvent("rare", { rare: rare.id, duration: 1400 });
+    addRushCharge(20);
+    playTone("great", 6);
+    showMoment(rare.name, rareRewardText(reward), "great");
+    pulseScene("scene-bloomed");
+    return { defeated: true, reward };
+  }
+
+  function damageRareSpawn(amount, options = {}) {
+    const spawn = activeRareSpawn();
+    if (!spawn) return { changed: false, defeated: false, reward: {} };
+    const damage = Math.max(0, Number(amount) || 0);
+    if (damage <= 0) return { changed: false, defeated: false, reward: {} };
+    spawn.hp = Math.max(0, Number(spawn.hp || 0) - damage);
+    if (options.visual !== false) {
+      pushBattleEvent("rare-hit", { rare: spawn.id, hot: options.hot, duration: 520 });
+      showDamageNumber(damage, Boolean(options.hot));
+    }
+    if (spawn.hp <= 0) return claimRareSpawn(spawn);
+    return { changed: true, defeated: false, reward: {} };
   }
 
   function bossDamageMultiplier(target = state) {
@@ -774,6 +929,7 @@
       if (!Array.isArray(target.defeatedBossIds)) target.defeatedBossIds = [];
       if (!target.defeatedBossIds.includes(defeated.id)) target.defeatedBossIds.push(defeated.id);
     }
+    const rareArrived = maybeSpawnRare(boss ? "boss" : "defeat");
     advanceCombat(target);
     target.bestCombatDepth = Math.max(bestCombatDepth(target), combatDepth(target));
     if (visual) {
@@ -782,6 +938,7 @@
       showEnemyReward(reward, defeated.name, boss);
       playTone(boss ? "great" : "buy", boss ? 6 : 3);
       pulseScene(boss ? "scene-bloomed" : "scene-impact");
+      if (rareArrived) pulseScene("scene-bloomed");
     }
     return { reward, boss, name: defeated.name };
   }
@@ -834,6 +991,20 @@
 
   function combatGoal(target = state) {
     ensureCombatState(target);
+    const rareSpawn = activeRareSpawn(target);
+    if (rareSpawn) {
+      const rare = rareSpawnDefinition(rareSpawn.id);
+      const hp = Math.max(0, Number(rareSpawn.hp || 0));
+      const maxHp = Math.max(1, Number(rareSpawn.maxHp || hp || 1));
+      const seconds = Math.max(0, Math.ceil((Number(rareSpawn.expiresAt || 0) - Date.now()) / 1000));
+      return {
+        label: `Rare ${seconds}s`,
+        detail: `${rare?.name || "Rare Spawn"} ${format(hp)} hp`,
+        kind: "combat",
+        ready: false,
+        progress: 1 - Math.max(0, Math.min(1, hp / maxHp))
+      };
+    }
     const enemy = enemyForCombat(target);
     const hp = Math.max(0, Number(target.enemyHp || 0));
     const maxHp = Math.max(1, Number(target.enemyMaxHp || enemyMaxHealth(target)));
@@ -2206,7 +2377,8 @@
     state.maxCombo = Math.max(Number(state.maxCombo || 0), comboCount);
     const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
     const gained = tapPower() * comboTapMultiplier(comboCount);
-    const combat = damageEnemy(gained, { hot: comboCount >= 8, visual: showFullImpact });
+    const rareHit = damageRareSpawn(gained * 1.35, { hot: comboCount >= 8, visual: showFullImpact });
+    const combat = damageEnemy(rareHit.changed ? gained * 0.35 : gained, { hot: comboCount >= 8, visual: showFullImpact && !rareHit.defeated });
     if (showFullImpact) pushBattleEvent("tap", { hot: comboCount >= 8, duration: comboCount >= 8 ? 720 : 560 });
     addLoops(state, gained);
     const meadow = addMeadowCare(gained);
@@ -2226,6 +2398,8 @@
       showPop(rect.left + rect.width / 2, rect.top + 24, `bloom +${format(meadow.reward)}`, comboCount + 8);
       showMoment(meadow.latest?.label || meadowTitle(), meadow.blooms > 1 ? `${meadow.blooms} zone surges` : "new zone surge", "meadow");
       playTone("bloom", comboCount);
+    } else if (rareHit.defeated) {
+      addRushCharge(12);
     } else if (combat.defeated > 0) {
       addRushCharge(5 + Math.min(10, combat.defeated * 2));
     } else if (milestone.reward <= 0) {
@@ -2986,17 +3160,17 @@
     ctx.fillStyle = soil;
     ctx.fillRect(0, floorY - 30, width, height - floorY + 35);
 
-    ctx.strokeStyle = `rgba(139, 255, 120, ${.18 + Math.min(.34, tier * .035 + owned * .0025)})`;
-    ctx.lineWidth = Math.max(2, width * .006);
+    ctx.strokeStyle = `rgba(139, 255, 120, ${.1 + Math.min(.2, tier * .02 + owned * .0014)})`;
+    ctx.lineWidth = Math.max(1.2, width * .0035);
     ctx.lineCap = "round";
-    for (let i = 0; i < 8 + spread * 2; i += 1) {
+    for (let i = 0; i < 6 + spread; i += 1) {
       const startX = width * ((i * .137 + .08) % .92);
       const endX = width * ((i * .233 + .14) % .86 + .05);
       const startY = height * (.97 - (i % 4) * .04);
-      const endY = height * (.62 - Math.min(.18, spread * .01) + (i % 3) * .035);
+      const endY = height * (.72 - Math.min(.08, spread * .006) + (i % 3) * .026);
       ctx.beginPath();
       ctx.moveTo(startX, startY);
-      ctx.bezierCurveTo(startX + Math.sin(i) * 80, height * .82, endX - Math.cos(i) * 60, height * .7, endX, endY);
+      ctx.bezierCurveTo(startX + Math.sin(i) * 52, height * .86, endX - Math.cos(i) * 44, height * .79, endX, endY);
       ctx.stroke();
     }
 
@@ -3110,6 +3284,43 @@
           fillGlow(ctx, enemyX, enemyY, 100 + ease * 70, "rgb(168, 255, 132)", .32 * (1 - t));
         }
       }
+      if (event.kind === "rare-arrive") {
+        ctx.globalAlpha = 1 - t;
+        fillGlow(ctx, enemyX, enemyY, 96 + ease * 90, "rgb(255, 232, 111)", .34 * (1 - t));
+        ctx.strokeStyle = "rgba(255, 246, 176, .9)";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.ellipse(enemyX, enemyY + 6, 88 + ease * 42, 26 + ease * 10, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        for (let i = 0; i < 16; i += 1) {
+          const angle = i / 16 * Math.PI * 2 + ease * 3;
+          ctx.fillStyle = i % 2 ? "#fff1a2" : "#92ff83";
+          ctx.beginPath();
+          ctx.arc(enemyX + Math.cos(angle) * (36 + ease * 80), enemyY + Math.sin(angle) * (22 + ease * 46), 2.8 + (i % 3), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (event.kind === "rare-hit") {
+        ctx.globalAlpha = .85 * (1 - t);
+        ctx.strokeStyle = event.hot ? "#fff0a6" : "#baff82";
+        ctx.lineWidth = event.hot ? 6 : 4;
+        ctx.beginPath();
+        ctx.ellipse(enemyX, enemyY + 2, 76 + ease * 28, 38 + ease * 12, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      if (event.kind === "rare") {
+        ctx.globalAlpha = 1 - t;
+        fillGlow(ctx, enemyX, enemyY, 190 * ease, "rgb(255, 221, 95)", .5 * (1 - t));
+        drawAtlasSprite(ctx, "bloomBurst", enemyX, enemyY + 12, 190 * (0.5 + ease * .45), 135 * (0.5 + ease * .45), { alpha: .76 * (1 - t), rotation: -ease * .45 });
+        for (let i = 0; i < 30; i += 1) {
+          const angle = i * 1.618 + ease * 5;
+          const r = ease * (38 + (i % 7) * 18);
+          ctx.fillStyle = i % 3 === 0 ? "#8dff7e" : "#fff1a6";
+          ctx.beginPath();
+          ctx.arc(enemyX + Math.cos(angle) * r, enemyY + Math.sin(angle) * r * .65 + ease * 58, 3 + (i % 4), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
       if (event.kind === "defeat") {
         ctx.globalAlpha = 1 - t;
         fillGlow(ctx, enemyX, enemyY, (event.boss ? 170 : 110) * ease, "rgb(255, 219, 103)", event.boss ? .46 : .3);
@@ -3215,9 +3426,11 @@
     const tier = colonyTier();
     const owned = ownedTotal();
     const boss = isBossWave();
-    const enemy = enemyForCombat();
-    const hp = Math.max(0, Number(state.enemyHp || 0));
-    const maxHp = Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
+    const rareSpawn = activeRareSpawn();
+    const enemy = rareSpawnEnemy(rareSpawn) || enemyForCombat();
+    const visibleBoss = boss && !rareSpawn;
+    const hp = rareSpawn ? Math.max(0, Number(rareSpawn.hp || 0)) : Math.max(0, Number(state.enemyHp || 0));
+    const maxHp = rareSpawn ? Math.max(1, Number(rareSpawn.maxHp || rareSpawn.hp || 1)) : Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
     const hitPulse = Math.max(0, 1 - (now - (battleEvents.filter(event => event.kind === "tap" || event.kind === "hit").at(-1)?.createdAt || -1000)) / 260);
 
     const lowerMask = ctx.createLinearGradient(0, height * .44, 0, height);
@@ -3237,22 +3450,37 @@
       ctx.fill();
     }
 
-    ctx.strokeStyle = `rgba(139, 255, 120, ${.18 + Math.min(.28, tier * .035 + owned * .002)})`;
-    ctx.lineWidth = 2;
-    for (let i = 0; i < 9 + tier; i += 1) {
+    ctx.strokeStyle = `rgba(139, 255, 120, ${.08 + Math.min(.16, tier * .018 + owned * .001)})`;
+    ctx.lineWidth = 1.35;
+    for (let i = 0; i < 5 + Math.floor(tier * .7); i += 1) {
       const startX = width * (.1 + (i % 5) * .2);
       const startY = height * (.88 - (i % 3) * .08);
       ctx.beginPath();
       ctx.moveTo(startX, height);
-      ctx.bezierCurveTo(startX - 70, startY, width * (.2 + (i % 4) * .18), height * (.7 - (i % 2) * .08), width * (.5 + Math.sin(i) * .34), height * (.55 - tier * .015));
+      ctx.bezierCurveTo(startX - 46, startY, width * (.2 + (i % 4) * .18), height * (.76 - (i % 2) * .045), width * (.5 + Math.sin(i) * .28), height * (.64 - Math.min(.08, tier * .008)));
       ctx.stroke();
     }
 
     drawColonyBack(ctx, width, height, now, tier, owned);
 
     const enemyX = width * .5;
-    const enemyY = height * (boss ? .3 : .28);
-    drawEnemyShape(ctx, enemy, enemyX, enemyY, boss ? Math.min(88, width * .2) : Math.min(62, width * .16), now, boss, hitPulse);
+    const enemyY = height * (visibleBoss ? .3 : .28);
+    drawEnemyShape(ctx, enemy, enemyX, enemyY, rareSpawn ? Math.min(74, width * .18) : visibleBoss ? Math.min(88, width * .2) : Math.min(62, width * .16), now, visibleBoss || enemy.id.includes("ancient-snail"), hitPulse);
+    if (rareSpawn) {
+      const rare = rareSpawnDefinition(rareSpawn.id);
+      const seconds = Math.max(0, Math.ceil((Number(rareSpawn.expiresAt || 0) - Date.now()) / 1000));
+      ctx.save();
+      ctx.globalAlpha = .92;
+      const tagWidth = Math.min(width - 48, 210);
+      roundedRect(ctx, enemyX - tagWidth / 2, enemyY + 58, tagWidth, 28, 14);
+      ctx.fillStyle = "rgba(7, 19, 10, .82)";
+      ctx.fill();
+      ctx.fillStyle = "#fff3a6";
+      ctx.font = "800 11px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${rare?.name || "Rare Spawn"} / ${seconds}s`, enemyX, enemyY + 76);
+      ctx.restore();
+    }
 
     const idleShots = Math.min(8, Math.floor(owned / 3));
     for (let i = 0; i < idleShots; i += 1) {
@@ -3292,7 +3520,7 @@
 
     drawBattleEvents(ctx, width, height, now);
 
-    if (boss) {
+    if (visibleBoss) {
       ctx.save();
       ctx.globalAlpha = .16 + Math.sin(now / 160) * .05;
       ctx.fillStyle = "#ffd35c";
@@ -3336,6 +3564,14 @@
       state.claimedClickMilestones = Array.isArray(imported.claimedClickMilestones) ? imported.claimedClickMilestones : [];
       state.defeatedBossIds = Array.isArray(imported.defeatedBossIds) ? imported.defeatedBossIds : [];
       state.foundRelicIds = Array.isArray(imported.foundRelicIds) ? imported.foundRelicIds : [];
+      state.relicLevels = { ...fallback.relicLevels, ...(imported.relicLevels || {}) };
+      state.spentRelicCaps = Math.max(0, Number(imported.spentRelicCaps || 0));
+      state.bonusRelicCaps = Math.max(0, Number(imported.bonusRelicCaps || 0));
+      state.activeMutations = Array.isArray(imported.activeMutations) ? imported.activeMutations : [];
+      state.spentMutationGoo = Math.max(0, Number(imported.spentMutationGoo || 0));
+      state.bonusMutationGoo = Math.max(0, Number(imported.bonusMutationGoo || 0));
+      state.rareSpawn = imported.rareSpawn && typeof imported.rareSpawn === "object" ? imported.rareSpawn : null;
+      state.rareDefeats = Math.max(0, Number(imported.rareDefeats || 0));
       state.lifetimeRootstock = Math.max(
         Number(imported.lifetimeRootstock || 0),
         Number(imported.rootstock || 0),
@@ -3840,13 +4076,17 @@
 
   function renderCombat() {
     ensureCombatState(state);
-    const enemy = enemyForCombat(state);
-    const hp = Math.max(0, Number(state.enemyHp || 0));
-    const maxHp = Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
+    const rareSpawn = activeRareSpawn();
+    const rareEnemy = rareSpawnEnemy(rareSpawn);
+    const enemy = rareEnemy || enemyForCombat(state);
+    const hp = rareSpawn ? Math.max(0, Number(rareSpawn.hp || 0)) : Math.max(0, Number(state.enemyHp || 0));
+    const maxHp = rareSpawn ? Math.max(1, Number(rareSpawn.maxHp || rareSpawn.hp || 1)) : Math.max(1, Number(state.enemyMaxHp || enemyMaxHealth(state)));
     const progress = Math.max(0, Math.min(1, hp / maxHp));
     const boss = isBossWave(state);
-    const remaining = boss ? Math.max(0, Math.ceil((Number(state.bossDeadline || 0) - Date.now()) / 1000)) : 0;
-    if (els.stageLabel) els.stageLabel.textContent = boss ? `boss ${combatLabel()}` : `stage ${combatLabel()}`;
+    const remaining = rareSpawn
+      ? Math.max(0, Math.ceil((Number(rareSpawn.expiresAt || 0) - Date.now()) / 1000))
+      : boss ? Math.max(0, Math.ceil((Number(state.bossDeadline || 0) - Date.now()) / 1000)) : 0;
+    if (els.stageLabel) els.stageLabel.textContent = rareSpawn ? "rare spawn" : boss ? `boss ${combatLabel()}` : `stage ${combatLabel()}`;
     if (els.enemyName) els.enemyName.textContent = enemy.name;
     if (els.enemyHpLabel) els.enemyHpLabel.textContent = `${format(hp)} / ${format(maxHp)} hp`;
     if (els.enemyHpBar) {
@@ -3854,22 +4094,25 @@
       els.enemyHpBar.style.setProperty("--danger", `${Math.round((1 - progress) * 100)}%`);
     }
     if (els.bossTimer) {
-      els.bossTimer.textContent = boss ? `${remaining}s` : "";
-      els.bossTimer.hidden = !boss;
+      els.bossTimer.textContent = rareSpawn || boss ? `${remaining}s` : "";
+      els.bossTimer.hidden = !(rareSpawn || boss);
     }
     if (els.combatStrip) {
-      els.combatStrip.dataset.boss = boss ? "true" : "false";
+      els.combatStrip.dataset.boss = boss && !rareSpawn ? "true" : "false";
+      els.combatStrip.dataset.rare = rareSpawn ? "true" : "false";
       els.combatStrip.dataset.enemy = enemy.id;
       els.combatStrip.style.setProperty("--enemy-health", `${Math.round(progress * 100)}%`);
     }
     if (els.enemyTarget) {
-      els.enemyTarget.dataset.boss = boss ? "true" : "false";
+      els.enemyTarget.dataset.boss = boss && !rareSpawn ? "true" : "false";
+      els.enemyTarget.dataset.rare = rareSpawn ? "true" : "false";
       els.enemyTarget.dataset.variant = String(enemy.variant);
       els.enemyTarget.setAttribute("aria-label", `${enemy.name} ${format(hp)} hp`);
       els.enemyTarget.style.setProperty("--enemy-health", `${Math.round(progress * 100)}%`);
     }
     if (els.friendScene) {
-      els.friendScene.dataset.boss = boss ? "true" : "false";
+      els.friendScene.dataset.boss = boss && !rareSpawn ? "true" : "false";
+      els.friendScene.dataset.rare = rareSpawn ? "true" : "false";
       els.friendScene.dataset.enemy = enemy.id;
     }
   }
@@ -4005,7 +4248,9 @@
     const now = Date.now();
     const dt = Math.min(5, Math.max(0, (now - lastTick) / 1000));
     lastTick = now;
+    const rareExpired = expireRareSpawn();
     const bossTimedOut = handleBossTimeout(state);
+    const rareHit = damageRareSpawn(combatDps() * dt * 0.18, { visual: false });
     const dealt = damageEnemy(combatDps() * dt, { visual: false });
     const earned = incomePerSecond() * dt;
     if (earned > 0) {
@@ -4017,7 +4262,7 @@
       }
       markDirty();
       checkAchievements();
-    } else if (dealt.changed || bossTimedOut) {
+    } else if (dealt.changed || bossTimedOut || rareHit.changed || rareExpired) {
       markDirty();
       checkAchievements();
     }
@@ -4158,14 +4403,20 @@
           relicCaps: relicCaps(),
           relicCapsEarned: relicCapsEarned(),
           spentRelicCaps: Number(state.spentRelicCaps || 0),
+          bonusRelicCaps: Number(state.bonusRelicCaps || 0),
           relicLevelsTotal: Object.values(state.relicLevels || {}).reduce((sum, value) => sum + Math.max(0, Number(value) || 0), 0),
           mutationGoo: mutationGoo(),
           mutationGooEarned: mutationGooEarned(),
           spentMutationGoo: Number(state.spentMutationGoo || 0),
+          bonusMutationGoo: Number(state.bonusMutationGoo || 0),
           unlockedRelics: relics.filter(relic => relicUnlocked(relic)).length,
           foundRelics: Array.isArray(state.foundRelicIds) ? state.foundRelicIds.length : 0,
           readyMutations: mutations.filter(mutation => mutationUnlocked(mutation)).length,
           activeMutations: Array.isArray(state.activeMutations) ? state.activeMutations.length : 0,
+          rareActive: rareSpawnActive(),
+          rareName: rareSpawnDefinition(activeRareSpawn()?.id)?.name || "",
+          rareHp: Number(activeRareSpawn()?.hp || 0),
+          rareDefeats: Number(state.rareDefeats || 0),
           worldRegion: currentWorldRegion().name,
           achievements: state.achievements.length,
           maxCombo: Number(state.maxCombo || 0),
@@ -4190,6 +4441,16 @@
         recordNewRelics(state);
         ensureCombatState(state);
         markDirty();
+        render();
+        return this.metrics();
+      },
+      forceRare(id = "wandering-truffle", hp = 0) {
+        state.soundOn = false;
+        spawnRare(id);
+        if (state.rareSpawn && Number(hp) > 0) {
+          state.rareSpawn.hp = Number(hp);
+          state.rareSpawn.maxHp = Math.max(Number(hp), 1);
+        }
         render();
         return this.metrics();
       }

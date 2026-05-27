@@ -16101,3 +16101,52 @@ body[data-tab="systems"] .systems-grid .section-head span {
     min-height: min(500px, calc(100vh - 294px)) !important;
   }
 }
+
+/* Rare-spawn and Bloom hierarchy pass: gameplay prompts must stay above the colony art. */
+.game-page .bloom-callout {
+  z-index: 44 !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: clamp(172px, 34%, 224px) !important;
+  width: min(278px, calc(100% - 54px)) !important;
+  min-height: 0 !important;
+  padding: 12px 14px !important;
+  border: 1px solid rgba(255, 248, 177, .52) !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 239, 146, .28), transparent 36%),
+    linear-gradient(180deg, #321942, #102713) !important;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .42), 0 0 30px rgba(182, 255, 123, .24), inset 0 1px 0 rgba(255, 255, 218, .2) !important;
+  transform: translateX(-50%) translateY(8px) scale(.98) !important;
+  pointer-events: auto !important;
+}
+
+body[data-bloom-ready="true"] .bloom-callout {
+  transform: translateX(-50%) translateY(0) scale(1) !important;
+}
+
+.game-page .bloom-callout strong {
+  color: #fff6a6 !important;
+  font-size: clamp(14px, 4.2vw, 18px) !important;
+  line-height: 1.05 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .42) !important;
+}
+
+.game-page .bloom-callout span {
+  color: #e9ffd0 !important;
+  font-size: clamp(10px, 2.8vw, 12px) !important;
+}
+
+.game-page .combat-strip[data-rare="true"] {
+  border-color: rgba(255, 232, 111, .55) !important;
+  background:
+    radial-gradient(circle at 16% 15%, rgba(255, 232, 111, .22), transparent 38%),
+    linear-gradient(180deg, rgba(36, 24, 8, .9), rgba(7, 22, 10, .8)) !important;
+  box-shadow: 0 13px 30px rgba(0, 0, 0, .34), 0 0 26px rgba(255, 224, 90, .24), inset 0 1px 0 rgba(255, 255, 210, .2) !important;
+}
+
+.game-page .combat-strip[data-rare="true"] .enemy-health span {
+  background: linear-gradient(90deg, #fff27a, #87ff7e 68%, #ff9f5e) !important;
+  box-shadow: 0 0 16px rgba(255, 232, 111, .5) !important;
+}
