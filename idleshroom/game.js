@@ -269,6 +269,7 @@
   let lastPointerTapAt = 0;
   let battleAnimationFrame = 0;
   let battleLastFrame = 0;
+  let empireRoadSignature = "";
   const battleEvents = [];
   const battleSpriteAtlasPath = "./sprites/idle-shroom-sprite-atlas-20260527.png";
   const battleSpriteAtlasBase = 1254;
@@ -318,6 +319,7 @@
     "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget", "bloomCallout",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
     "ancientSporesValue", "essenceValue", "relicCapsValue", "mutationGooValue",
+    "empireRoad", "formBadge", "empireNextTitle", "empireNextDetail", "empireNextMeter", "empireRoadTrack",
     "stormSkillButton", "rootSkillButton", "frenzySkillButton", "barrageSkillButton", "ringSkillButton", "ancientSkillButton",
     "relicState", "relicList", "mutationState", "mutationList", "mapState", "networkList",
     "dewSkillButton", "boostSkillButton", "bloomSkillButton"
@@ -1378,6 +1380,305 @@
     const milestone = nextClickMilestone(target);
     if (milestone?.clicks) return clicks / milestone.clicks;
     return 0;
+  }
+
+  function clampProgress(value) {
+    return Math.max(0, Math.min(1, Number(value) || 0));
+  }
+
+  function nextShroomForm(target = state) {
+    const current = currentShroomForm(target);
+    const currentIndex = shroomForms.findIndex(form => form.id === current.id);
+    return shroomForms[currentIndex + 1] || null;
+  }
+
+  function shroomFormProgress(formId, target = state) {
+    const depth = bestCombatDepth(target);
+    const clicks = Number(target.clicks || 0);
+    const blooms = Number(target.bloomCount || 0);
+    const ancient = ancientSporePower(target);
+    const checks = {
+      capblade: Math.max(depth / 12, clicks / 140),
+      sporeheart: Math.max(depth / 35, blooms / 1),
+      "mycelium-lord": Math.max(depth / 80, ancient / 8),
+      "bloom-king": Math.max(depth / 160, blooms / 5),
+      "fungal-god": Math.max(depth / 320, ancient / 40)
+    };
+    return clampProgress(checks[formId] ?? 1);
+  }
+
+  function shroomFormDetail(formId, target = state) {
+    const depth = bestCombatDepth(target);
+    const clicks = Number(target.clicks || 0);
+    const blooms = Number(target.bloomCount || 0);
+    const ancient = ancientSporePower(target);
+    if (formId === "capblade") return `${format(Math.max(0, 12 - depth))} depth or ${format(Math.max(0, 140 - clicks))} taps`;
+    if (formId === "sporeheart") return `${format(Math.max(0, 35 - depth))} depth or first Spore Bloom`;
+    if (formId === "mycelium-lord") return `${format(Math.max(0, 80 - depth))} depth or ${format(Math.max(0, 8 - ancient))} ancient power`;
+    if (formId === "bloom-king") return `${format(Math.max(0, 5 - blooms))} blooms or ${format(Math.max(0, 160 - depth))} depth`;
+    if (formId === "fungal-god") return `${format(Math.max(0, 40 - ancient))} ancient power or ${format(Math.max(0, 320 - depth))} depth`;
+    return "ancient form reached";
+  }
+
+  function allyEmpireGoal(target = state) {
+    const loops = Number(target.loops || 0);
+    const firstLocked = machines.find(machine => Number(target.machines?.[machine.id] || 0) <= 0);
+    if (firstLocked) {
+      const cost = machineCost(firstLocked, target);
+      return {
+        kind: "ally",
+        label: firstLocked.name.replace(/^The /, ""),
+        title: `Grow ${firstLocked.name}`,
+        detail: `${format(Math.max(0, cost - loops))} nutrients to new ally`,
+        progress: clampProgress(loops / Math.max(1, cost))
+      };
+    }
+
+    let best = null;
+    machines.forEach(machine => {
+      const owned = Math.max(0, Number(target.machines?.[machine.id] || 0));
+      if (owned <= 0) return;
+      const next = nextAllyMilestone(owned);
+      const remaining = Math.max(1, next - owned);
+      const progress = clampProgress(owned / Math.max(1, next));
+      if (!best || remaining < best.remaining || progress > best.progress) {
+        best = {
+          kind: "ally",
+          label: machine.name.replace(/^The /, ""),
+          title: `${machine.name} ${format(owned)}/${format(next)}`,
+          detail: `${format(remaining)} levels to ${milestoneText[next] || "power spike"}`,
+          progress,
+          remaining
+        };
+      }
+    });
+    return best || {
+      kind: "ally",
+      label: "Button Buddies",
+      title: "Grow Button Buddies",
+      detail: "First automatic shroom ally",
+      progress: 0
+    };
+  }
+
+  function bossEmpireGoal(target = state) {
+    ensureCombatState(target);
+    const stage = combatStage(target);
+    const boss = bossRoster[(stage - 1) % bossRoster.length];
+    if (isBossWave(target)) {
+      const hp = Math.max(0, Number(target.enemyHp || 0));
+      const maxHp = Math.max(1, Number(target.enemyMaxHp || enemyMaxHealth(target)));
+      const seconds = Math.max(0, Math.ceil((Number(target.bossDeadline || 0) - Date.now()) / 1000));
+      return {
+        kind: "boss",
+        label: boss.name,
+        title: `Defeat ${boss.name}`,
+        detail: `${seconds}s / ${format(hp)} hp`,
+        progress: clampProgress(1 - hp / maxHp)
+      };
+    }
+    const wavesLeft = Math.max(0, combatWavesPerStage - combatWave(target));
+    return {
+      kind: "boss",
+      label: boss.name,
+      title: `Boss: ${boss.name}`,
+      detail: `${format(wavesLeft)} waves to boss`,
+      progress: clampProgress((combatWave(target) - 1) / Math.max(1, combatWavesPerStage - 1))
+    };
+  }
+
+  function relicProgress(relic, target = state) {
+    const checks = {
+      "elder-spore-crown": Number(target.bossDefeats || 0) / 1,
+      "rotwood-idol": bestCombatDepth(target) / 24,
+      "moonlit-mycelium": Number(target.bloomCount || 0) / 1,
+      "compost-chalice": Number(target.bossDefeats || 0) / 4,
+      "fairy-ring-compass": bestCombatDepth(target) / 55,
+      "salt-cracked-shell": Number(target.bossDefeats || 0) / 8,
+      "lantern-mold": Number(target.dailyClaims || 0) / 2,
+      "rootbone-drum": Number(target.rushes || 0) / 3,
+      "sporeglass-lens": Number(target.maxCombo || 0) / 40,
+      "ancient-capstone": bestCombatDepth(target) / 120
+    };
+    return clampProgress(checks[relic.id] ?? 0);
+  }
+
+  function systemEmpireGoal(target = state) {
+    const readyMutation = mutations.find(mutation => mutationUnlocked(mutation, target) && !mutationActive(mutation.id, target) && mutationGoo(target) >= mutationCost(mutation));
+    if (readyMutation) {
+      return {
+        kind: "mutation",
+        label: readyMutation.name,
+        title: `Mutate ${readyMutation.name}`,
+        detail: readyMutation.desc,
+        progress: 1,
+        ready: true
+      };
+    }
+
+    const readyRelic = relics.find(relic => relicUnlocked(relic, target) && relicCaps(target) >= relicUpgradeCost(relic, target));
+    if (readyRelic) {
+      return {
+        kind: "relic",
+        label: readyRelic.name,
+        title: `Upgrade ${readyRelic.name}`,
+        detail: `Relic level ${format(relicLevel(readyRelic.id, target) + 1)}`,
+        progress: 1,
+        ready: true
+      };
+    }
+
+    const nextMutation = mutations.find(mutation => !mutationActive(mutation.id, target));
+    const nextRelic = relics.find(relic => !relicUnlocked(relic, target));
+    if (nextMutation && mutationUnlocked(nextMutation, target)) {
+      const cost = mutationCost(nextMutation);
+      return {
+        kind: "mutation",
+        label: nextMutation.name,
+        title: `Mutation: ${nextMutation.name}`,
+        detail: `${format(Math.max(0, cost - mutationGoo(target)))} Mutation Goo needed`,
+        progress: clampProgress(mutationGoo(target) / Math.max(1, cost))
+      };
+    }
+    if (nextMutation) {
+      const level = Math.max(0, Number(target.machines?.[nextMutation.machine] || 0));
+      return {
+        kind: "mutation",
+        label: nextMutation.name,
+        title: `Mutation: ${nextMutation.name}`,
+        detail: `${format(Math.max(0, nextMutation.level - level))} ${nextMutation.family} levels needed`,
+        progress: clampProgress(level / Math.max(1, nextMutation.level))
+      };
+    }
+    if (nextRelic) {
+      return {
+        kind: "relic",
+        label: nextRelic.name,
+        title: `Relic: ${nextRelic.name}`,
+        detail: nextRelic.desc,
+        progress: relicProgress(nextRelic, target)
+      };
+    }
+    const lowestRelic = [...relics].sort((a, b) => relicLevel(a.id, target) - relicLevel(b.id, target))[0];
+    return {
+      kind: "relic",
+      label: lowestRelic?.name || "Relics",
+      title: `Relic: ${lowestRelic?.name || "Ancient cache"}`,
+      detail: `${format(relicCaps(target))} Relic Caps held`,
+      progress: lowestRelic ? clampProgress(relicCaps(target) / Math.max(1, relicUpgradeCost(lowestRelic, target))) : 1
+    };
+  }
+
+  function bloomEmpireGoal(target = state) {
+    const gain = bloomGainFor(target);
+    const required = bloomRequirement(target);
+    return {
+      kind: "bloom",
+      label: "Spore Bloom",
+      title: gain > 0 ? `Spore Bloom +${format(gain)}` : "Spore Bloom",
+      detail: gain > 0 ? "Release the colony. Return stronger." : `${format(Math.max(0, required - Number(target.totalLoops || 0)))} run nutrients needed`,
+      progress: gain > 0 ? 1 : clampProgress(Number(target.totalLoops || 0) / Math.max(1, required)),
+      ready: gain > 0
+    };
+  }
+
+  function worldEmpireGoal(target = state) {
+    const current = currentWorldRegion(target);
+    const next = nextWorldRegion(target);
+    if (!next) {
+      return {
+        kind: "world",
+        label: current.name,
+        title: current.name,
+        detail: "world layer conquered",
+        progress: 1
+      };
+    }
+    const depth = bestCombatDepth(target);
+    const currentDepth = Math.max(1, Number(current.depth || 1));
+    const range = Math.max(1, Number(next.depth || currentDepth + 1) - currentDepth);
+    return {
+      kind: "world",
+      label: next.name,
+      title: `Spread to ${next.name}`,
+      detail: `${format(Math.max(0, next.depth - depth))} depths left`,
+      progress: clampProgress((depth - currentDepth) / range)
+    };
+  }
+
+  function nextEmpireGoal(target = state) {
+    const rareSpawn = activeRareSpawn(target);
+    if (rareSpawn) {
+      const rare = rareSpawnDefinition(rareSpawn.id);
+      const hp = Math.max(0, Number(rareSpawn.hp || 0));
+      const maxHp = Math.max(1, Number(rareSpawn.maxHp || hp || 1));
+      const seconds = Math.max(0, Math.ceil((Number(rareSpawn.expiresAt || 0) - Date.now()) / 1000));
+      return {
+        kind: "rare",
+        title: `Catch ${rare?.name || "Rare Spawn"}`,
+        detail: `${seconds}s / ${format(hp)} hp / ${rare?.desc || "rare reward"}`,
+        progress: clampProgress(1 - hp / maxHp),
+        ready: false
+      };
+    }
+
+    const tutorial = tutorialStage(target);
+    if (tutorial.id !== "forest") {
+      return {
+        kind: "form",
+        title: tutorial.next,
+        detail: "First Shroom is waking.",
+        progress: goalProgress(primaryGoal(target), target),
+        ready: false
+      };
+    }
+
+    const bloom = bloomEmpireGoal(target);
+    if (bloom.ready) return bloom;
+
+    const system = systemEmpireGoal(target);
+    if (system.ready) return system;
+
+    if (isBossWave(target)) return bossEmpireGoal(target);
+
+    const form = nextShroomForm(target);
+    if (form) {
+      const progress = shroomFormProgress(form.id, target);
+      if (progress >= 0.28 || bestCombatDepth(target) < 45) {
+        return {
+          kind: "form",
+          title: `Evolve: ${form.name}`,
+          detail: shroomFormDetail(form.id, target),
+          progress
+        };
+      }
+    }
+
+    const ally = allyEmpireGoal(target);
+    const boss = bossEmpireGoal(target);
+    if (ally.progress < 1 && (ally.progress >= boss.progress || boss.progress < 0.55)) return ally;
+    if (boss.progress < 1) return boss;
+    if (system.progress < 1) return system;
+    return worldEmpireGoal(target).progress < 1 ? worldEmpireGoal(target) : bloom;
+  }
+
+  function empireRoadNodes(target = state) {
+    const currentForm = currentShroomForm(target);
+    const form = nextShroomForm(target);
+    const formProgress = form ? shroomFormProgress(form.id, target) : 1;
+    const ally = allyEmpireGoal(target);
+    const boss = bossEmpireGoal(target);
+    const system = systemEmpireGoal(target);
+    const bloom = bloomEmpireGoal(target);
+    const world = worldEmpireGoal(target);
+    return [
+      { kind: "form", label: currentForm.name.replace(" Shroom", ""), progress: form ? formProgress : 1 },
+      { ...ally, label: ally.label.replace("Button Buddies", "Buddies").replace("Puffball Bombers", "Puffballs") },
+      { ...boss, label: boss.label.replace(/^The /, "").replace("Lawn Mower Titan", "Mower Titan") },
+      { ...system, label: system.label.replace(/^The /, "").replace("Elder Spore Crown", "Spore Crown").replace("Volcanic Puffball", "Volcanic Puff") },
+      bloom,
+      { ...world, label: world.label.replace("Forgotten Greenhouse", "Greenhouse").replace("Underground Ocean", "Ocean") }
+    ];
   }
 
   function usePrimaryGoal() {
@@ -4010,6 +4311,43 @@
     if (els.seedButton) els.seedButton.setAttribute("aria-label", `${form.name}, tap to release spores`);
   }
 
+  function renderEmpireRoad() {
+    if (!els.empireRoad) return;
+    const goal = nextEmpireGoal();
+    const form = currentShroomForm();
+    const progress = clampProgress(goal.progress);
+    els.empireRoad.dataset.kind = goal.kind || "colony";
+    els.empireRoad.dataset.ready = goal.ready ? "true" : "false";
+    if (els.formBadge) els.formBadge.textContent = form.name;
+    if (els.empireNextTitle) els.empireNextTitle.textContent = goal.title || "Grow the colony";
+    if (els.empireNextDetail) els.empireNextDetail.textContent = goal.detail || "Next colony milestone";
+    if (els.empireNextMeter) els.empireNextMeter.style.width = `${Math.round(progress * 100)}%`;
+    if (!els.empireRoadTrack) return;
+
+    const nodes = empireRoadNodes();
+    const signature = nodes.map(node => [
+      node.kind,
+      node.label,
+      Math.round(clampProgress(node.progress) * 20),
+      node.ready ? "ready" : "",
+      node.kind === goal.kind ? "active" : ""
+    ].join(":")).join("|");
+    if (signature === empireRoadSignature) return;
+    empireRoadSignature = signature;
+    els.empireRoadTrack.innerHTML = nodes.map(node => {
+      const pct = Math.round(clampProgress(node.progress) * 100);
+      const active = node.kind === goal.kind;
+      const ready = node.ready || pct >= 100;
+      const className = `road-node ${active ? "active" : ""} ${ready ? "ready" : ""}`;
+      return `
+        <span class="${className}" data-kind="${escapeHtml(node.kind)}" style="--road-progress:${pct}%">
+          <i></i>
+          <em>${escapeHtml(node.label)}</em>
+        </span>
+      `;
+    }).join("");
+  }
+
   function renderDaily() {
     const ready = state.lastDaily !== todayKey();
     els.dailyReward.textContent = ready ? `${state.streak ? `${state.streak + 1}x streak` : "ready"}` : `${state.streak}x claimed`;
@@ -4219,6 +4557,7 @@
     renderOrchard();
     renderCompanions();
     renderColonyLayer();
+    renderEmpireRoad();
     renderDaily();
     renderCombat();
     renderMeadow();
