@@ -576,6 +576,13 @@
     return [...shroomForms].reverse().find(form => form.req(target)) || shroomForms[0];
   }
 
+  function compactShroomFormName(form) {
+    if (!form?.name) return "First Shroom";
+    return form.name
+      .replace("Ancient Fungal God", "Fungal God")
+      .replace(" Shroom", "");
+  }
+
   function colonyTier(target = state) {
     return Math.max(1, Math.min(9, Math.floor(ownedTotal(target) / 9) + Math.floor(bestCombatDepth(target) / 22) + Math.floor(Number(target.bloomCount || 0) / 2) + 1));
   }
@@ -893,6 +900,33 @@
     return (helperPressure + capPulse) * mult;
   }
 
+  function sceneFxPoint(x, y, fallbackX = 0.5, fallbackY = 0.5) {
+    const rect = els.friendScene?.getBoundingClientRect();
+    if (!rect) return null;
+    const rawX = Number.isFinite(x) ? x - rect.left : rect.width * fallbackX;
+    const rawY = Number.isFinite(y) ? y - rect.top : rect.height * fallbackY;
+    const minY = Math.min(128, rect.height * 0.3);
+    const maxY = Math.max(minY + 1, rect.height - 108);
+    return {
+      x: Math.max(18, Math.min(rect.width - 18, rawX)),
+      y: Math.max(minY, Math.min(maxY, rawY))
+    };
+  }
+
+  function appendSceneFx(element, x, y, fallbackX = 0.5, fallbackY = 0.5) {
+    const point = sceneFxPoint(x, y, fallbackX, fallbackY);
+    if (!point || !els.friendScene) {
+      element.style.left = `${Number.isFinite(x) ? x : 0}px`;
+      element.style.top = `${Number.isFinite(y) ? y : 0}px`;
+      document.body.appendChild(element);
+      return null;
+    }
+    element.style.left = `${point.x}px`;
+    element.style.top = `${point.y}px`;
+    els.friendScene.appendChild(element);
+    return point;
+  }
+
   function showEnemyReward(reward, defeatedName, boss = false) {
     if (!els.enemyTarget) return;
     const rect = els.enemyTarget.getBoundingClientRect();
@@ -906,9 +940,13 @@
     const pop = document.createElement("span");
     pop.className = `damage-number${hot ? " hot" : ""}`;
     pop.textContent = `-${format(amount)}`;
-    pop.style.left = `${rect.left + rect.width * (0.44 + Math.random() * 0.18)}px`;
-    pop.style.top = `${rect.top + rect.height * (0.22 + Math.random() * 0.18)}px`;
-    document.body.appendChild(pop);
+    appendSceneFx(
+      pop,
+      rect.left + rect.width * (0.44 + Math.random() * 0.18),
+      rect.top + rect.height * (0.22 + Math.random() * 0.18),
+      0.5,
+      0.3
+    );
     window.setTimeout(() => pop.remove(), 680);
   }
 
@@ -2551,6 +2589,17 @@
 
   function showMoment(title, detail = "", kind = "bloom") {
     if (testPlayMode || !document.body) return;
+    if (document.body.dataset.tab === "play" && els.empireRoad && (els.empireNextTitle || els.empireNextDetail)) {
+      if (els.empireNextTitle) els.empireNextTitle.textContent = title;
+      if (els.empireNextDetail) els.empireNextDetail.textContent = detail || actionMomentTitle({ kind });
+      els.empireRoad.dataset.flash = kind;
+      window.clearTimeout(momentTimer);
+      momentTimer = window.setTimeout(() => {
+        els.empireRoad.removeAttribute("data-flash");
+        requestRenderCore();
+      }, 1250);
+      return;
+    }
     const host = document.querySelector(".phone-frame") || document.body;
     const existing = host.querySelector(".moment-banner");
     if (existing) existing.remove();
@@ -2683,7 +2732,7 @@
     comboCount = now - lastTapTime < 900 ? Math.min(99, comboCount + 1) : 1;
     lastTapTime = now;
     state.maxCombo = Math.max(Number(state.maxCombo || 0), comboCount);
-    const showFullImpact = !testPlayMode || state.clicks % 50 === 0;
+    const showFullImpact = !testPlayMode && (comboCount <= 3 || comboCount % 5 === 0 || state.clicks % 25 === 0);
     const gained = tapPower() * comboTapMultiplier(comboCount);
     const rareHit = damageRareSpawn(gained * 1.35, { hot: comboCount >= 8, visual: showFullImpact });
     const combat = damageEnemy(rareHit.changed ? gained * 0.35 : gained, { hot: comboCount >= 8, visual: showFullImpact && !rareHit.defeated });
@@ -2729,9 +2778,7 @@
     const pop = document.createElement("span");
     pop.className = `pop${combo >= 6 ? " pop-hot" : ""}`;
     pop.textContent = text;
-    pop.style.left = `${x}px`;
-    pop.style.top = `${y}px`;
-    document.body.appendChild(pop);
+    appendSceneFx(pop, x, y, 0.5, 0.58);
     window.setTimeout(() => pop.remove(), 900);
   }
 
@@ -2798,21 +2845,20 @@
   }
 
   function showCounterFly(x, y) {
-    if (!els.loopsValue) return;
-    const target = els.loopsValue.getBoundingClientRect();
-    const targetX = target.left + target.width / 2;
-    const targetY = target.top + target.height / 2;
-    const count = comboCount >= 8 ? 4 : 3;
+    if (!els.friendScene) return;
+    const start = sceneFxPoint(x, y, 0.5, 0.66);
+    if (!start) return;
+    const count = comboCount >= 8 ? 2 : 1;
     for (let i = 0; i < count; i += 1) {
       const mote = document.createElement("span");
       const spread = (i - (count - 1) / 2) * 10;
       mote.className = "spore-fly";
-      mote.style.left = `${x + spread}px`;
-      mote.style.top = `${y + (Math.random() * 8 - 4)}px`;
-      mote.style.setProperty("--tx", `${targetX - x - spread}px`);
-      mote.style.setProperty("--ty", `${targetY - y}px`);
+      mote.style.left = `${start.x + spread}px`;
+      mote.style.top = `${start.y + (Math.random() * 8 - 4)}px`;
+      mote.style.setProperty("--tx", `${(Math.random() - 0.5) * 44}px`);
+      mote.style.setProperty("--ty", `${-54 - Math.random() * 36}px`);
       mote.style.setProperty("--delay", `${i * 34}ms`);
-      document.body.appendChild(mote);
+      els.friendScene.appendChild(mote);
       window.setTimeout(() => mote.remove(), 820 + i * 34);
     }
   }
@@ -2829,21 +2875,24 @@
   }
 
   function showSporeBurst(x, y) {
+    if (!els.friendScene) return;
+    const start = sceneFxPoint(x, y, 0.5, 0.58);
+    if (!start) return;
     const mobile = window.matchMedia("(max-width: 620px)").matches;
-    const count = mobile ? 8 : 6;
+    const count = mobile ? 4 : 3;
     for (let i = 0; i < count; i += 1) {
       const angle = (Math.PI * 2 * i) / count + Math.random() * 0.45;
-      const distance = 44 + Math.random() * (mobile ? 76 : 64);
+      const distance = 30 + Math.random() * (mobile ? 48 : 44);
       const spore = document.createElement("span");
       const sparkle = i % 3 === 0;
       spore.className = `${sparkle ? "spore-spark" : "spore-pop"}${comboCount >= 8 && !sparkle ? " big" : ""}`;
-      spore.style.left = `${x}px`;
-      spore.style.top = `${y}px`;
+      spore.style.left = `${start.x}px`;
+      spore.style.top = `${start.y}px`;
       spore.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
-      spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 38}px`);
+      spore.style.setProperty("--dy", `${Math.sin(angle) * distance - 26}px`);
       spore.style.setProperty("--spin", `${Math.random() * 220 - 110}deg`);
-      spore.style.setProperty("--size", `${sparkle ? 8 + Math.random() * 8 : 9 + Math.random() * 10}px`);
-      document.body.appendChild(spore);
+      spore.style.setProperty("--size", `${sparkle ? 6 + Math.random() * 6 : 7 + Math.random() * 8}px`);
+      els.friendScene.appendChild(spore);
       window.setTimeout(() => spore.remove(), 820);
     }
   }
@@ -4318,7 +4367,10 @@
     const progress = clampProgress(goal.progress);
     els.empireRoad.dataset.kind = goal.kind || "colony";
     els.empireRoad.dataset.ready = goal.ready ? "true" : "false";
-    if (els.formBadge) els.formBadge.textContent = form.name;
+    if (els.formBadge) {
+      els.formBadge.textContent = compactShroomFormName(form);
+      els.formBadge.title = form.name;
+    }
     if (els.empireNextTitle) els.empireNextTitle.textContent = goal.title || "Grow the colony";
     if (els.empireNextDetail) els.empireNextDetail.textContent = goal.detail || "Next colony milestone";
     if (els.empireNextMeter) els.empireNextMeter.style.width = `${Math.round(progress * 100)}%`;
