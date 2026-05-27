@@ -344,6 +344,7 @@
       enemyDefeats: 0,
       bossDefeats: 0,
       bossFails: 0,
+      defeatedBossIds: [],
       bestCombatDepth: 1,
       meadowLevel: 1,
       meadowBloom: 0,
@@ -393,6 +394,7 @@
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
       merged.claimedClickMilestones = Array.isArray(parsed.claimedClickMilestones) ? parsed.claimedClickMilestones : [];
+      merged.defeatedBossIds = Array.isArray(parsed.defeatedBossIds) ? parsed.defeatedBossIds : [];
       ensureCombatState(merged);
       applyOffline(merged);
       return merged;
@@ -503,7 +505,7 @@
   }
 
   function colonyTier(target = state) {
-    return Math.max(1, Math.min(9, Math.floor(ownedTotal(target) / 14) + Math.floor(bestCombatDepth(target) / 34) + Math.floor(Number(target.bloomCount || 0) / 2) + 1));
+    return Math.max(1, Math.min(9, Math.floor(ownedTotal(target) / 9) + Math.floor(bestCombatDepth(target) / 22) + Math.floor(Number(target.bloomCount || 0) / 2) + 1));
   }
 
   function currentWorldRegion(target = state) {
@@ -676,7 +678,11 @@
     addMeadowCare(reward * (boss ? 0.18 : 0.1), target);
     recordSporeBurst(reward);
     target.enemyDefeats = Number(target.enemyDefeats || 0) + 1;
-    if (boss) target.bossDefeats = Number(target.bossDefeats || 0) + 1;
+    if (boss) {
+      target.bossDefeats = Number(target.bossDefeats || 0) + 1;
+      if (!Array.isArray(target.defeatedBossIds)) target.defeatedBossIds = [];
+      if (!target.defeatedBossIds.includes(defeated.id)) target.defeatedBossIds.push(defeated.id);
+    }
     advanceCombat(target);
     target.bestCombatDepth = Math.max(bestCombatDepth(target), combatDepth(target));
     if (visual) {
@@ -1299,6 +1305,7 @@
     const keep = defaultState();
     const keptPerks = { ...keep.perks, ...(state.perks || {}) };
     const keptAchievements = Array.isArray(state.achievements) ? [...state.achievements] : [];
+    const keptBossIds = Array.isArray(state.defeatedBossIds) ? [...state.defeatedBossIds] : [];
     const bestFirstBloomSeconds = Number(state.bestFirstBloomSeconds || 0);
     state.rootstock += gain;
     state.bloomCount = Number(state.bloomCount || 0) + 1;
@@ -1326,6 +1333,7 @@
     state.perks = keptPerks;
     state.upgrades = [];
     state.achievements = keptAchievements;
+    state.defeatedBossIds = keptBossIds;
     if (perkLevel("starter-cap", state) > 0) {
       state.machines.plot = 3;
       displayedRate = incomePerSecond();
@@ -2663,6 +2671,177 @@
     ctx.restore();
   }
 
+  function drawCapHouse(ctx, x, y, size, capColor, stemColor, now, index) {
+    const breathe = 1 + Math.sin(now / 900 + index) * .025;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(size * breathe, size);
+    ctx.fillStyle = "rgba(0,0,0,.22)";
+    ctx.beginPath();
+    ctx.ellipse(0, 25, 34, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = stemColor;
+    roundedRect(ctx, -17, -4, 34, 34, 12);
+    ctx.fill();
+    ctx.fillStyle = capColor;
+    ctx.beginPath();
+    ctx.ellipse(0, -4, 34, 18, 0, Math.PI, 0);
+    ctx.quadraticCurveTo(29, 3, 17, 11);
+    ctx.quadraticCurveTo(0, 18, -17, 11);
+    ctx.quadraticCurveTo(-29, 3, -34, -4);
+    ctx.fill();
+    ctx.fillStyle = "rgba(255, 248, 182, .9)";
+    [-14, 3, 18].forEach((spot, spotIndex) => {
+      ctx.beginPath();
+      ctx.arc(spot, -7 - spotIndex, 3 + spotIndex * .7, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    fillGlow(ctx, 0, 13, 22, "rgb(255, 219, 103)", .18);
+    ctx.restore();
+  }
+
+  function drawSporeVent(ctx, x, y, size, now, index) {
+    const puff = (Math.sin(now / 520 + index * 1.7) + 1) / 2;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(size, size);
+    ctx.fillStyle = "#66472c";
+    roundedRect(ctx, -7, -30, 14, 38, 7);
+    ctx.fill();
+    ctx.fillStyle = "#e8d58a";
+    ctx.beginPath();
+    ctx.ellipse(0, -32, 12, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    for (let i = 0; i < 5; i += 1) {
+      ctx.globalAlpha = (.55 - i * .07) * puff;
+      ctx.fillStyle = i % 2 ? "#a8ff91" : "#fff1a2";
+      ctx.beginPath();
+      ctx.arc((i - 2) * 7, -48 - puff * 20 - i * 5, 3 + (i % 2), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawWorkerShroom(ctx, x, y, size, now, index) {
+    const step = Math.sin(now / 230 + index * 1.3) * 3;
+    ctx.save();
+    ctx.translate(x, y + step);
+    ctx.scale(size, size);
+    ctx.fillStyle = "rgba(0,0,0,.2)";
+    ctx.beginPath();
+    ctx.ellipse(0, 15, 14, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#f1d49d";
+    roundedRect(ctx, -6, -1, 12, 18, 6);
+    ctx.fill();
+    ctx.fillStyle = index % 3 === 0 ? "#ef5754" : index % 3 === 1 ? "#f1bf4a" : "#7bcf78";
+    ctx.beginPath();
+    ctx.ellipse(0, -2, 14, 10, 0, Math.PI, 0);
+    ctx.quadraticCurveTo(10, 3, 5, 8);
+    ctx.quadraticCurveTo(0, 11, -5, 8);
+    ctx.quadraticCurveTo(-10, 3, -14, -2);
+    ctx.fill();
+    ctx.fillStyle = "#ffe56f";
+    ctx.beginPath();
+    ctx.arc(14, -10 + Math.sin(now / 340 + index) * 2, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawBossTrophies(ctx, width, height, now) {
+    const defeatedIds = Array.isArray(state.defeatedBossIds) ? state.defeatedBossIds : [];
+    const bossDefeats = Number(state.bossDefeats || 0);
+    if (bossDefeats <= 0 && defeatedIds.length <= 0) return;
+    const baseY = height * .9;
+    ctx.save();
+    ctx.globalAlpha = .78;
+    if (defeatedIds.includes("king-sluggo") || bossDefeats >= 1) {
+      drawAtlasSprite(ctx, "kingSluggo", width * .18, baseY - 4, 70, 44, { alpha: .46, rotation: -.08 });
+      drawTinyCrown(ctx, width * .18, baseY - 35 + Math.sin(now / 640) * 2, 16);
+    }
+    if (defeatedIds.includes("boot-of-doom") || bossDefeats >= 5) {
+      drawAtlasSprite(ctx, "gardenBoot", width * .77, baseY - 3, 58, 72, { alpha: .52, rotation: .08 });
+      ctx.strokeStyle = "rgba(141, 255, 129, .55)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(width * .74, baseY + 20);
+      ctx.quadraticCurveTo(width * .77, baseY - 6, width * .81, baseY - 29);
+      ctx.stroke();
+    }
+    if (defeatedIds.includes("mower-titan") || bossDefeats >= 6) {
+      drawAtlasSprite(ctx, "mowerTitan", width * .5, baseY - 6, 78, 58, { alpha: .54, rotation: -.04 });
+      fillGlow(ctx, width * .5, baseY - 13, 42, "rgb(141, 255, 129)", .12);
+    }
+    ctx.restore();
+  }
+
+  function drawColonyBack(ctx, width, height, now, tier, owned) {
+    const floorY = height * .79;
+    const spread = Math.min(9, tier + Math.floor(owned / 4) + Math.floor(Number(state.bossDefeats || 0) / 2));
+    ctx.save();
+    const soil = ctx.createLinearGradient(0, floorY - 20, 0, height);
+    soil.addColorStop(0, "rgba(23, 34, 17, .14)");
+    soil.addColorStop(.35, "rgba(24, 28, 13, .55)");
+    soil.addColorStop(1, "rgba(7, 8, 4, .92)");
+    ctx.fillStyle = soil;
+    ctx.fillRect(0, floorY - 30, width, height - floorY + 35);
+
+    ctx.strokeStyle = `rgba(139, 255, 120, ${.18 + Math.min(.34, tier * .035 + owned * .0025)})`;
+    ctx.lineWidth = Math.max(2, width * .006);
+    ctx.lineCap = "round";
+    for (let i = 0; i < 8 + spread * 2; i += 1) {
+      const startX = width * ((i * .137 + .08) % .92);
+      const endX = width * ((i * .233 + .14) % .86 + .05);
+      const startY = height * (.97 - (i % 4) * .04);
+      const endY = height * (.62 - Math.min(.18, spread * .01) + (i % 3) * .035);
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.bezierCurveTo(startX + Math.sin(i) * 80, height * .82, endX - Math.cos(i) * 60, height * .7, endX, endY);
+      ctx.stroke();
+    }
+
+    const houseCount = Math.min(12, 2 + Math.floor(owned / 3) + Math.floor(spread / 2));
+    const capColors = ["#d94c47", "#f1bf4a", "#7b71dd", "#ec6a56", "#78c673"];
+    for (let i = 0; i < houseCount; i += 1) {
+      const x = width * (.1 + ((i * .173) % .78));
+      const y = height * (.88 - (i % 3) * .055);
+      const size = .58 + Math.min(.38, spread * .025) + (i % 3) * .05;
+      drawCapHouse(ctx, x, y, size, capColors[i % capColors.length], i % 2 ? "#ffe3a8" : "#f4d096", now, i);
+    }
+
+    const ventCount = Math.min(7, Math.floor(owned / 5) + Math.floor(spread / 3));
+    for (let i = 0; i < ventCount; i += 1) {
+      drawSporeVent(ctx, width * (.16 + ((i * .19) % .68)), height * (.9 - (i % 2) * .08), .62 + spread * .02, now, i);
+    }
+    drawBossTrophies(ctx, width, height, now);
+    ctx.restore();
+  }
+
+  function drawColonyFront(ctx, width, height, now, tier, owned) {
+    ctx.save();
+    const workers = Math.min(12, Math.max(1, 1 + Math.floor(owned / 2) + Math.floor(Number(state.bossDefeats || 0) / 1.5)));
+    for (let i = 0; i < workers; i += 1) {
+      const lane = i % 3;
+      const travel = ((now / (4200 + i * 280)) + i * .17) % 1;
+      const x = width * (.08 + travel * .84);
+      const y = height * (.91 - lane * .035);
+      drawWorkerShroom(ctx, x, y, .72 + Math.min(.16, tier * .015), now, i);
+    }
+    if (tier >= 2 || owned >= 8) {
+      ctx.strokeStyle = "rgba(255, 218, 103, .58)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(width * .1, height * .83);
+      ctx.quadraticCurveTo(width * .34, height * .78, width * .56, height * .84);
+      ctx.quadraticCurveTo(width * .74, height * .89, width * .9, height * .82);
+      ctx.stroke();
+      for (let i = 0; i < 7; i += 1) {
+        fillGlow(ctx, width * (.14 + i * .12), height * (.83 + Math.sin(now / 500 + i) * .012), 9, "rgb(255, 229, 119)", .2);
+      }
+    }
+    ctx.restore();
+  }
+
   function drawBattleEvents(ctx, width, height, now) {
     for (let index = battleEvents.length - 1; index >= 0; index -= 1) {
       const event = battleEvents[index];
@@ -2747,6 +2926,11 @@
       if (event.kind === "upgrade") {
         ctx.globalAlpha = 1 - t;
         fillGlow(ctx, heroX, heroY, 130 * ease, "rgb(152, 255, 130)", .24);
+        const allySprite = spriteKeyForAlly(event.machine || "plot");
+        drawAtlasSprite(ctx, allySprite, width * .5, height * (.76 - ease * .08), 80 + ease * 32, 72 + ease * 24, {
+          alpha: .58 * (1 - t),
+          rotation: Math.sin(ease * Math.PI * 2) * .08
+        });
         for (let i = 0; i < 12; i += 1) {
           ctx.fillStyle = i % 2 ? "#ffe77a" : "#baff83";
           ctx.beginPath();
@@ -2818,6 +3002,8 @@
       ctx.stroke();
     }
 
+    drawColonyBack(ctx, width, height, now, tier, owned);
+
     const enemyX = width * .5;
     const enemyY = height * (boss ? .3 : .28);
     drawEnemyShape(ctx, enemy, enemyX, enemyY, boss ? Math.min(88, width * .2) : Math.min(62, width * .16), now, boss, hitPulse);
@@ -2838,34 +3024,25 @@
     const visibleAllies = machineOrder.filter(id => Number(state.machines[id] || 0) > 0).slice(0, 10);
     visibleAllies.forEach((id, index) => {
       const row = index % 2;
-      const count = visibleAllies.length;
       const x = width * (.12 + ((index % 5) / 4) * .76) + (row ? width * .05 : 0);
       const y = height * (.8 + row * .075);
-      const size = id === "observatory" || id === "aurora" ? 1.18 : .88 + Math.min(.28, Number(state.machines[id] || 0) / 60);
-      drawAlly(ctx, x, y, size, id, now, index, true);
+      const allyCount = Number(state.machines[id] || 0);
+      const size = id === "observatory" || id === "aurora" ? 1.18 : .86 + Math.min(.32, allyCount / 58);
+      const swarm = Math.min(7, 1 + Math.floor(Math.sqrt(allyCount) / 2));
+      for (let cluster = 0; cluster < swarm; cluster += 1) {
+        const ox = (cluster - (swarm - 1) / 2) * Math.min(18, width * .038);
+        const oy = (cluster % 2) * 12 - Math.floor(cluster / 2) * 4;
+        drawAlly(ctx, x + ox, y + oy, size * (cluster ? .78 : 1), id, now, index + cluster * .37, true);
+      }
+      if ([10, 25, 50, 100, 250, 500, 1000].some(level => allyCount >= level)) {
+        fillGlow(ctx, x, y - 24, 28 + Math.min(34, allyCount / 12), "rgb(255, 225, 112)", .16);
+      }
     });
 
     const heroScale = Math.max(.76, Math.min(1.05, width / 430)) * (1 + Math.min(.12, Number(state.rootstock || 0) * .008));
     drawFirstShroom(ctx, width * .5, height * .77, heroScale, now, currentShroomForm(), hitPulse);
 
-    const empire = Math.min(1, (tier + owned / 80 + Number(state.rootstock || 0) / 18) / 8);
-    if (empire > .06) {
-      ctx.save();
-      ctx.globalAlpha = empire;
-      for (let i = 0; i < 2 + tier; i += 1) {
-        const houseX = width * (.18 + (i % 4) * .2);
-        const houseY = height * (.92 - Math.floor(i / 4) * .08);
-        ctx.fillStyle = "#ffedaa";
-        roundedRect(ctx, houseX - 13, houseY - 24, 26, 29, 10);
-        ctx.fill();
-        ctx.fillStyle = i % 2 ? "#d94c47" : "#7b71dd";
-        ctx.beginPath();
-        ctx.ellipse(houseX, houseY - 24, 22, 13, 0, Math.PI, 0);
-        ctx.fill();
-        fillGlow(ctx, houseX, houseY - 8, 20, "rgb(255, 219, 101)", .18);
-      }
-      ctx.restore();
-    }
+    drawColonyFront(ctx, width, height, now, tier, owned);
 
     drawBattleEvents(ctx, width, height, now);
 
@@ -2911,6 +3088,7 @@
       state.achievements = Array.isArray(imported.achievements) ? imported.achievements : [];
       state.claimedQuests = Array.isArray(imported.claimedQuests) ? imported.claimedQuests : [];
       state.claimedClickMilestones = Array.isArray(imported.claimedClickMilestones) ? imported.claimedClickMilestones : [];
+      state.defeatedBossIds = Array.isArray(imported.defeatedBossIds) ? imported.defeatedBossIds : [];
       save();
       render();
       els.saveDialog.close();
@@ -3680,8 +3858,12 @@
           enemyHp: Number(state.enemyHp || 0),
           enemyMaxHp: Number(state.enemyMaxHp || 0),
           boss: isBossWave(),
+          bossDefeats: Number(state.bossDefeats || 0),
+          defeatedBossIds: Array.isArray(state.defeatedBossIds) ? state.defeatedBossIds.length : 0,
           meadowLevel: Number(state.meadowLevel || 1),
           meadowName: meadowTitle(),
+          ownedAllies: ownedTotal(),
+          colonyTier: colonyTier(),
           shroomForm: currentShroomForm().name,
           ancientSpores: ancientSpores(),
           myceliumEssence: myceliumEssence(),
