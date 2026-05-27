@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260527-shroom-rpg-16">
+  <link rel="stylesheet" href="./styles.css?v=20260527-fungal-empire-17">
   <script src="./ads-config.js"></script>
   <script src="./online-config.js?v=20260520-forest-heart-1"></script>
 </head>
@@ -82,9 +82,27 @@
             <span class="goal-progress" aria-hidden="true"><span id="goalProgress"></span></span>
           </div>
           <div>
-            <span class="metric-label">stage</span>
+            <span class="metric-label">depth</span>
             <strong id="tapValue">1</strong>
             <small id="seasonValue">bloom 1</small>
+          </div>
+        </div>
+        <div class="currency-ribbon" aria-label="permanent currencies">
+          <div>
+            <span>Ancient Spores</span>
+            <strong id="ancientSporesValue">0</strong>
+          </div>
+          <div>
+            <span>Mycelium Essence</span>
+            <strong id="essenceValue">0</strong>
+          </div>
+          <div>
+            <span>Relic Caps</span>
+            <strong id="relicCapsValue">0</strong>
+          </div>
+          <div>
+            <span>Mutation Goo</span>
+            <strong id="mutationGooValue">0</strong>
           </div>
         </div>
 
@@ -136,6 +154,20 @@
             <span class="root-ring" id="rootRing" aria-hidden="true"></span>
             <span class="rush-orbit" id="rushOrbit" aria-hidden="true"></span>
             <span class="enemy-target" id="enemyTarget" aria-hidden="true"><i></i></span>
+            <div class="colony-layer" id="colonyLayer" aria-hidden="true">
+              <span class="cap-house house-a"></span>
+              <span class="cap-house house-b"></span>
+              <span class="cap-house house-c"></span>
+              <span class="spore-vent vent-a"></span>
+              <span class="spore-vent vent-b"></span>
+              <span class="root-highway root-a"></span>
+              <span class="root-highway root-b"></span>
+              <span class="worker worker-a"></span>
+              <span class="worker worker-b"></span>
+              <span class="worker worker-c"></span>
+              <span class="relic-stone stone-a"></span>
+              <span class="relic-stone stone-b"></span>
+            </div>
             <button type="button" class="seed-button" id="seedButton" aria-label="tap the mushroom cap">
               <span class="seed-core" aria-hidden="true"></span>
               <span class="seed-mouth" aria-hidden="true"></span>
@@ -149,9 +181,12 @@
         <span class="combo-badge" id="comboBadge" aria-live="polite"></span>
 
         <div class="skill-row" aria-label="colony skills">
-          <button type="button" id="dewSkillButton">drip</button>
-          <button type="button" id="boostSkillButton">storm</button>
-          <button type="button" id="bloomSkillButton">Spore Bloom</button>
+          <button type="button" id="stormSkillButton">Storm</button>
+          <button type="button" id="rootSkillButton">Roots</button>
+          <button type="button" id="frenzySkillButton">Frenzy</button>
+          <button type="button" id="barrageSkillButton">Barrage</button>
+          <button type="button" id="ringSkillButton">Ring</button>
+          <button type="button" id="ancientSkillButton">Ancient</button>
         </div>
       </section>
 
@@ -167,10 +202,10 @@
         </div>
 
         <div class="state-card">
-          <span class="metric-label">Spore Storm</span>
+          <span class="metric-label">Colony Surge</span>
           <strong id="focusValue">inactive</strong>
-          <p id="boostHint">Call a 10 minute Spore Storm for a short damage burst.</p>
-          <button type="button" id="focusButton">call storm</button>
+          <p id="boostHint">Start a 10 minute idle surge when you want to push.</p>
+          <button type="button" id="focusButton">start surge</button>
         </div>
 
         <div class="state-card rush-card">
@@ -207,6 +242,32 @@
           <span id="perkCount">0 active</span>
         </div>
         <div class="store-list" id="perkList"></div>
+      </section>
+    </section>
+
+    <section class="systems-grid screen-panel" data-screen="systems">
+      <section class="store-panel relic-panel">
+        <div class="section-head">
+          <h2>relics</h2>
+          <span id="relicState">0 found</span>
+        </div>
+        <div class="system-list relic-list" id="relicList"></div>
+      </section>
+
+      <section class="store-panel mutation-panel">
+        <div class="section-head">
+          <h2>mutations</h2>
+          <span id="mutationState">0 ready</span>
+        </div>
+        <div class="system-list mutation-list" id="mutationList"></div>
+      </section>
+
+      <section class="store-panel map-panel">
+        <div class="section-head">
+          <h2>Spore Map</h2>
+          <span id="mapState">Forest Floor</span>
+        </div>
+        <div class="network-list" id="networkList"></div>
       </section>
     </section>
 
@@ -262,6 +323,7 @@
     <nav class="bottom-tabs" id="bottomTabs" aria-label="Idle Shroom screens">
       <button type="button" data-tab-target="play" aria-pressed="true">Fight</button>
       <button type="button" data-tab-target="store" aria-pressed="false">Allies</button>
+      <button type="button" data-tab-target="systems" aria-pressed="false">Relics</button>
       <button type="button" data-tab-target="quests" aria-pressed="false">Quests</button>
       <button type="button" data-tab-target="board" aria-pressed="false">Empire</button>
     </nav>
@@ -284,6 +346,6 @@
   </div>
 
     <script src="./ads.js?v=20260526-gamepass-1"></script>
-    <script src="./game.js?v=20260527-shroom-rpg-16"></script>
+    <script src="./game.js?v=20260527-fungal-empire-17"></script>
 </body>
 </html>

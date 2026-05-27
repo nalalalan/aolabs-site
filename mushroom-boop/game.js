@@ -46,42 +46,42 @@
   ];
 
   const machines = [
-    { id: "plot", name: "Cap Knight", base: 15, scale: 1.16, rate: 0.18, desc: "A tiny sword shroom that hops forward and pokes beetles." },
-    { id: "press", name: "Puffball Bomber", base: 90, scale: 1.17, rate: 0.9, desc: "Sneezes soft spore bombs that pop into nutrients." },
-    { id: "clock", name: "Glowshroom Mage", base: 520, scale: 1.18, rate: 5, desc: "Fires damp purple magic through the roots." },
-    { id: "collector", name: "Death-Cap Assassin", base: 3200, scale: 1.19, rate: 28, desc: "Darts from the dark and lands quick cap strikes." },
-    { id: "greenhouse", name: "Shelf-Fungus Tank", base: 18000, scale: 1.2, rate: 150, desc: "A chunky shield shroom that absorbs boss stomps." },
-    { id: "rail", name: "Mycelium Beast", base: 112000, scale: 1.21, rate: 940, desc: "A root-backed giant that shakes nutrients loose." },
-    { id: "relay", name: "Lantern Sporecaster", base: 720000, scale: 1.22, rate: 5900, desc: "Casts warm bioluminescent bursts from the back line." },
-    { id: "bell", name: "Barkplate Guardian", base: 4800000, scale: 1.23, rate: 36000, desc: "Marches in bark armor and shoves threats away." },
-    { id: "spring", name: "Rotwood Warlock", base: 32000000, scale: 1.24, rate: 230000, desc: "Turns deep rot into echoing cave damage." },
-    { id: "observatory", name: "Mooncap Oracle", base: 230000000, scale: 1.25, rate: 1500000, desc: "Calls moonlit spores from far below the stump." },
-    { id: "aurora", name: "Abyssal Bloom", base: 1900000000, scale: 1.26, rate: 9800000, desc: "A huge glowing colony that pulses through the whole screen." },
-    { id: "heartwood", name: "Ancient Spore Engine", base: 15000000000, scale: 1.27, rate: 68000000, desc: "The buried fungal heart that keeps fighting while you are gone." }
+    { id: "plot", name: "Button Buddies", base: 10, scale: 1.15, rate: 0.12, desc: "Tiny starter shrooms that slap enemies with little caps." },
+    { id: "press", name: "Cap Knights", base: 55, scale: 1.16, rate: 0.55, desc: "Leaf-shield swordsmen that hop forward, slash, and jump back." },
+    { id: "clock", name: "Puffball Bombers", base: 320, scale: 1.17, rate: 3.2, desc: "Round puffballs that inflate, sneeze, and launch spore bombs." },
+    { id: "collector", name: "Glowshroom Mages", base: 1900, scale: 1.18, rate: 18, desc: "Blue-purple casters that fire bioluminescent spores and sigils." },
+    { id: "greenhouse", name: "Death-Cap Assassins", base: 12000, scale: 1.19, rate: 110, desc: "Fast black-and-red shrooms that vanish and strike behind bosses." },
+    { id: "rail", name: "Shelf-Fungus Guardians", base: 78000, scale: 1.2, rate: 720, desc: "Heavy bark-shield fungi that slam threats with slow huge hits." },
+    { id: "relay", name: "Morel Monks", base: 520000, scale: 1.21, rate: 4600, desc: "Wrinkly elder shrooms that meditate and boost the colony rhythm." },
+    { id: "bell", name: "Chanterelle Archers", base: 3600000, scale: 1.22, rate: 30000, desc: "Golden bow shrooms that fire volleys of glowing needle-spores." },
+    { id: "spring", name: "Truffle Miners", base: 26000000, scale: 1.23, rate: 210000, desc: "Round workers that dig up nutrients, relic caps, and goo." },
+    { id: "observatory", name: "Mycelium Beasts", base: 210000000, scale: 1.24, rate: 1500000, desc: "Root-covered fungal animals that stomp, bite, and lash." },
+    { id: "aurora", name: "The Ancient Cap", base: 1900000000, scale: 1.25, rate: 12000000, desc: "A massive old mushroom spirit whose attacks shake the screen." },
+    { id: "heartwood", name: "Worldroot Engine", base: 17000000000, scale: 1.26, rate: 88000000, desc: "Late-game mycelium machinery for Great Overgrowth scale." }
   ];
 
   const machineArt = {
-    plot: { className: "root-thread cap-knight", label: "cap knight" },
-    press: { className: "dew-cup puffball-bomber", label: "puffball bomber" },
-    clock: { className: "lantern-cap glowshroom-mage", label: "glowshroom mage" },
-    collector: { className: "friend-burrow deathcap-assassin", label: "death-cap assassin" },
-    greenhouse: { className: "rainleaf-canopy shelf-tank", label: "shelf-fungus tank" },
-    rail: { className: "glowroot-web mycelium-beast", label: "mycelium beast" },
-    relay: { className: "moonspore-hollow lantern-sporecaster", label: "lantern sporecaster" },
-    bell: { className: "bellcap-choir barkplate-guardian", label: "barkplate guardian" },
-    spring: { className: "dreamspring-pool rotwood-warlock", label: "rotwood warlock" },
-    observatory: { className: "starcap-observatory mooncap-oracle", label: "mooncap oracle" },
-    aurora: { className: "aurora-rootway abyssal-bloom", label: "abyssal bloom" },
-    heartwood: { className: "heartwood-grove ancient-spore-engine", label: "ancient spore engine" }
+    plot: { className: "root-thread button-buddies", label: "button buddies" },
+    press: { className: "dew-cup cap-knights", label: "cap knights" },
+    clock: { className: "lantern-cap puffball-bombers", label: "puffball bombers" },
+    collector: { className: "friend-burrow glowshroom-mages", label: "glowshroom mages" },
+    greenhouse: { className: "rainleaf-canopy deathcap-assassins", label: "death-cap assassins" },
+    rail: { className: "glowroot-web shelf-guardians", label: "shelf-fungus guardians" },
+    relay: { className: "moonspore-hollow morel-monks", label: "morel monks" },
+    bell: { className: "bellcap-choir chanterelle-archers", label: "chanterelle archers" },
+    spring: { className: "dreamspring-pool truffle-miners", label: "truffle miners" },
+    observatory: { className: "starcap-observatory mycelium-beasts", label: "mycelium beasts" },
+    aurora: { className: "aurora-rootway ancient-cap", label: "the ancient cap" },
+    heartwood: { className: "heartwood-grove worldroot-engine", label: "worldroot engine" }
   };
 
   const friendArt = {
-    boops: { name: "Cap Knight", className: "dew-beetle", promise: "Keeps the front line hopping." },
-    pieces: { name: "Glowshroom Mage", className: "lantern-moth", promise: "Turns upgrades into visible magic." },
+    boops: { name: "Button Buddy", className: "dew-beetle", promise: "Keeps the front line slapping." },
+    pieces: { name: "Cap Knight", className: "lantern-moth", promise: "Turns upgrades into visible squad growth." },
     spores: { name: "Puffball Bomber", className: "puff-sprite", promise: "Carries big nutrient bursts." }
   };
 
-  const combatWavesPerStage = 5;
+  const combatWavesPerStage = 10;
   const bossSeconds = 30;
   const enemyRoster = [
     { id: "sap-beetle", name: "Sap Beetle", variant: 0 },
@@ -94,10 +94,82 @@
     { id: "lawnmower-spark", name: "Lawnmower Spark", variant: 7 }
   ];
   const bossRoster = [
-    { id: "boot-titan", name: "The Boot", variant: 8 },
-    { id: "mower-jaw", name: "Mower Jaw", variant: 9 },
-    { id: "gardener-hand", name: "Gardener Hand", variant: 10 },
-    { id: "drought-crown", name: "Drought Crown", variant: 11 }
+    { id: "king-sluggo", name: "King Sluggo", variant: 8 },
+    { id: "beetle-baron", name: "The Beetle Baron", variant: 9 },
+    { id: "rotjaw-worm", name: "Rotjaw Worm", variant: 10 },
+    { id: "gardener-hand", name: "The Gardener", variant: 11 },
+    { id: "boot-of-doom", name: "Boot of Doom", variant: 12 },
+    { id: "mower-titan", name: "Lawn Mower Titan", variant: 13 },
+    { id: "salt-priest-snail", name: "Salt Priest Snail", variant: 14 },
+    { id: "drought-witch", name: "The Drought Witch", variant: 15 },
+    { id: "mold-hydra", name: "Mold Hydra", variant: 16 },
+    { id: "surface-god", name: "The Surface God", variant: 17 }
+  ];
+
+  const allyMilestones = [10, 25, 50, 100, 250, 500, 1000, 2500];
+  const milestoneText = {
+    10: "damage boost",
+    25: "new visual detail",
+    50: "special passive",
+    100: "evolved attack",
+    250: "colony-wide bonus",
+    500: "mutation form",
+    1000: "ancient form",
+    2500: "repeating power spike"
+  };
+
+  const shroomForms = [
+    { id: "sprout", name: "Sprout Shroom", req: target => bestCombatDepth(target) < 12 && Number(target.rootstock || 0) < 1 },
+    { id: "capblade", name: "Capblade Shroom", req: target => bestCombatDepth(target) >= 12 || Number(target.clicks || 0) >= 140 },
+    { id: "sporeheart", name: "Sporeheart Shroom", req: target => bestCombatDepth(target) >= 35 || Number(target.bloomCount || 0) >= 1 },
+    { id: "mycelium-lord", name: "Mycelium Lord", req: target => bestCombatDepth(target) >= 80 || Number(target.rootstock || 0) >= 8 },
+    { id: "bloom-king", name: "Bloom King", req: target => bestCombatDepth(target) >= 160 || Number(target.bloomCount || 0) >= 5 },
+    { id: "fungal-god", name: "Ancient Fungal God", req: target => bestCombatDepth(target) >= 320 || Number(target.rootstock || 0) >= 40 }
+  ];
+
+  const relics = [
+    { id: "elder-spore-crown", name: "Elder Spore Crown", req: target => Number(target.bossDefeats || 0) >= 1, desc: "Tap damage rises with every Spore Bloom." },
+    { id: "rotwood-idol", name: "Rotwood Idol", req: target => bestCombatDepth(target) >= 24, desc: "All shroom allies gain more passive damage." },
+    { id: "moonlit-mycelium", name: "Moonlit Mycelium", req: target => Number(target.bloomCount || 0) >= 1, desc: "Idle power keeps glowing after resets." },
+    { id: "compost-chalice", name: "Compost Chalice", req: target => Number(target.bossDefeats || 0) >= 4, desc: "Bosses drop bigger nutrient piles." },
+    { id: "fairy-ring-compass", name: "Fairy Ring Compass", req: target => bestCombatDepth(target) >= 55, desc: "Spore Bloom starts future runs deeper." },
+    { id: "salt-cracked-shell", name: "Salt-Cracked Shell", req: target => Number(target.bossDefeats || 0) >= 8, desc: "Extra damage against slug and snail bosses." },
+    { id: "lantern-mold", name: "Lantern Mold", req: target => Number(target.dailyClaims || 0) >= 2, desc: "Offline workers bring back more nutrients." },
+    { id: "rootbone-drum", name: "Rootbone Drum", req: target => Number(target.rushes || 0) >= 3, desc: "Active skill cooldowns shorten." },
+    { id: "sporeglass-lens", name: "Sporeglass Lens", req: target => Number(target.maxCombo || 0) >= 40, desc: "Taps crit harder during long combos." },
+    { id: "ancient-capstone", name: "Ancient Capstone", req: target => bestCombatDepth(target) >= 120, desc: "Boss damage scales with the whole colony." }
+  ];
+
+  const mutations = [
+    { id: "ironcap-knights", name: "Ironcap Knights", family: "Cap Knights", machine: "press", level: 25, desc: "More boss damage and acorn armor." },
+    { id: "volcanic-puffball", name: "Volcanic Puffball", family: "Puffball Bombers", machine: "clock", level: 25, desc: "Bombs leave larger glowing blast clouds." },
+    { id: "moon-mage", name: "Moon Mage", family: "Glowshroom Mages", machine: "collector", level: 25, desc: "Spells hit harder in boss fights." },
+    { id: "ghostcap-knight", name: "Ghostcap Knights", family: "Cap Knights", machine: "press", level: 50, desc: "Slashes can duplicate into ghost spores." },
+    { id: "poison-puffball", name: "Poison Puffball", family: "Puffball Bombers", machine: "clock", level: 50, desc: "Puff clouds keep damaging enemies after impact." },
+    { id: "truffle-deepminers", name: "Deep Truffle Miners", family: "Truffle Miners", machine: "spring", level: 25, desc: "Dig up more Relic Caps and Mutation Goo." },
+    { id: "rootbeast-alpha", name: "Rootbeast Alpha", family: "Mycelium Beasts", machine: "observatory", level: 10, desc: "Stomps shake the whole playfield." }
+  ];
+
+  const worldRegions = [
+    { id: "forest-floor", name: "Forest Floor", depth: 1 },
+    { id: "deep-woods", name: "Deep Woods", depth: 80 },
+    { id: "ancient-garden", name: "Ancient Garden", depth: 160 },
+    { id: "moonlit-swamp", name: "Moonlit Swamp", depth: 260 },
+    { id: "crystal-caverns", name: "Crystal Caverns", depth: 380 },
+    { id: "giants-backyard", name: "Giant's Backyard", depth: 540 },
+    { id: "forgotten-greenhouse", name: "Forgotten Greenhouse", depth: 720 },
+    { id: "rotwood-kingdom", name: "Rotwood Kingdom", depth: 950 },
+    { id: "underground-ocean", name: "Underground Ocean", depth: 1250 },
+    { id: "spore-moon", name: "Spore Moon", depth: 1600 }
+  ];
+
+  const activeSkills = [
+    { id: "spore-storm", button: "stormSkillButton", short: "Storm", name: "Spore Storm", cooldown: 28, unlock: () => true, desc: "Rapid spores shred the current enemy.", damage: target => tapPower(target) * 20 + combatDps(target) * 2.2 },
+    { id: "root-grasp", button: "rootSkillButton", short: "Roots", name: "Root Grasp", cooldown: 36, unlock: target => bestCombatDepth(target) >= 6 || ownedTotal(target) >= 8, desc: "Roots wrap the target and amplify damage.", damage: target => tapPower(target) * 26 + combatDps(target) * 2.6 },
+    { id: "nutrient-frenzy", button: "frenzySkillButton", short: "Frenzy", name: "Nutrient Frenzy", cooldown: 44, unlock: target => ownedTotal(target) >= 18, desc: "A short rain of glowing nutrients.", reward: target => Math.max(enemyReward(target) * 1.7, incomePerSecond(target) * 30 + tapPower(target) * 40) },
+    { id: "puffball-barrage", button: "barrageSkillButton", short: "Barrage", name: "Puffball Barrage", cooldown: 52, unlock: target => Number(target.machines.clock || 0) > 0 || bestCombatDepth(target) >= 16, desc: "Puffball bombs burst across the boss lane.", damage: target => tapPower(target) * 36 + Number(target.machines.clock || 0) * 18 * rootBonus(target) + combatDps(target) * 3.5 },
+    { id: "fairy-ring", button: "ringSkillButton", short: "Ring", name: "Fairy Ring", cooldown: 58, unlock: target => bestCombatDepth(target) >= 28 || Number(target.bloomCount || 0) >= 1, desc: "A glowing crit ring opens under the enemy.", damage: target => tapPower(target) * 44 + combatDps(target) * 4.2 },
+    { id: "ancient-bloom", button: "ancientSkillButton", short: "Ancient", name: "Ancient Bloom", cooldown: 80, unlock: target => Number(target.rootstock || 0) > 0 || bestCombatDepth(target) >= 45, desc: "The whole colony exhales a huge fungal blast.", damage: target => tapPower(target) * 92 + combatDps(target) * 8 + Math.max(0, Number(target.rootstock || 0)) * 120 }
   ];
 
   const upgrades = [
@@ -105,12 +177,12 @@
     { id: "rate-1", name: "Marching Caps", cost: 850, req: state => ownedTotal(state) >= 12, desc: "All shroom allies deal 1.5x idle damage.", kind: "rate", value: 1.5 },
     { id: "tap-5", name: "Spore Knuckles", cost: 5200, req: state => state.clicks >= 180, desc: "Tap power x2.5 when the First Shroom is awake.", kind: "tap", value: 2.5 },
     { id: "rate-2", name: "Glowcap Volley", cost: 36000, req: state => state.totalLoops >= 18000, desc: "Glowshroom magic doubles passive damage.", kind: "rate", value: 2 },
-    { id: "tap-rate", name: "Puffball Recoil", cost: 160000, req: state => state.machines.press >= 12, desc: "Tap power grows with every Puffball Bomber.", kind: "tapRoute", value: 0.08 },
+    { id: "tap-rate", name: "Puffball Recoil", cost: 160000, req: state => state.machines.clock >= 12, desc: "Tap power grows with every Puffball Bomber.", kind: "tapRoute", value: 0.08 },
     { id: "rate-3", name: "Root War Drum", cost: 880000, req: state => state.totalLoops >= 420000, desc: "The colony's march boosts idle damage x2.25.", kind: "rate", value: 2.25 },
     { id: "prestige-soft", name: "Ancient Spores", cost: 4200000, req: state => state.rootstock >= 3, desc: "Spore Bloom perks become stronger.", kind: "root", value: 0.08 },
     { id: "tap-echo", name: "Boing Combo", cost: 12000000, req: state => state.clicks >= 1500, desc: "Every tap lands with a wetter bounce. Tap power x2.2.", kind: "tap", value: 2.2 },
     { id: "rate-4", name: "Barkplate Line", cost: 42000000, req: state => Number(state.machines.bell || 0) >= 1, desc: "Barkplate Guardians boost idle damage x2.6.", kind: "rate", value: 2.6 },
-    { id: "tap-route-2", name: "Warlock Spores", cost: 180000000, req: state => state.clicks >= 4000, desc: "Tap power grows with every Rotwood Warlock.", kind: "tapMachine", machine: "spring", value: 0.12 },
+    { id: "tap-route-2", name: "Truffle Spores", cost: 180000000, req: state => state.clicks >= 4000, desc: "Tap power grows with every Truffle Miner.", kind: "tapMachine", machine: "spring", value: 0.12 },
     { id: "rate-5", name: "Cavern Army", cost: 900000000, req: state => Number(state.meadowLevel || 1) >= 20, desc: "Deep zones multiply idle damage x3.", kind: "rate", value: 3 },
     { id: "tap-aurora", name: "Core Pulse", cost: 5200000000, req: state => state.clicks >= 10000, desc: "Late-game taps glow harder. Tap power x3.", kind: "tap", value: 3 },
     { id: "rate-6", name: "Empire Heart", cost: 22000000000, req: state => Number(state.machines.heartwood || 0) >= 1, desc: "Ancient Spore Engines multiply idle damage x3.5.", kind: "rate", value: 3.5 }
@@ -135,8 +207,8 @@
     { id: "combo-75", name: "Spore drummer", desc: "Reach a 75 tap combo.", req: state => Number(state.maxCombo || 0) >= 75 },
     { id: "machine-50", name: "Busy colony", desc: "Own 50 shroom allies.", req: state => ownedTotal(state) >= 50 },
     { id: "machine-150", name: "Tiny empire", desc: "Own 150 shroom allies.", req: state => ownedTotal(state) >= 150 },
-    { id: "combat-stage-5", name: "First boss cap", desc: "Reach stage 1-5.", req: state => bestCombatDepth(state) >= 5 },
-    { id: "combat-stage-25", name: "Deep trail", desc: "Reach stage 5-5.", req: state => bestCombatDepth(state) >= 25 },
+    { id: "combat-stage-5", name: "First boss cap", desc: "Reach stage 1-10.", req: state => bestCombatDepth(state) >= 10 },
+    { id: "combat-stage-25", name: "Deep trail", desc: "Reach stage 3-10.", req: state => bestCombatDepth(state) >= 30 },
     { id: "combat-boss-10", name: "Boss breaker", desc: "Beat 10 boss caps.", req: state => Number(state.bossDefeats || 0) >= 10 },
     { id: "rate-100", name: "Soft engine", desc: "Reach 100 idle damage/sec.", req: state => incomePerSecond(state) >= 100 },
     { id: "rate-10k", name: "Root weather", desc: "Reach 10,000 idle damage/sec.", req: state => incomePerSecond(state) >= 10000 },
@@ -152,8 +224,8 @@
     { id: "spore-memory", name: "Ancient Memory", baseCost: 1, max: 10, desc: "Baseline idle damage +18% per level." },
     { id: "soft-hands", name: "Stronger Cap", baseCost: 1, max: 10, desc: "Tap power +25% per level." },
     { id: "cheap-caps", name: "Root Economy", baseCost: 2, max: 8, desc: "Shroom allies and charms cost 6% less per level." },
-    { id: "long-boost", name: "Long Spore Storm", baseCost: 2, max: 5, desc: "Spore Storm lasts 2 more minutes per level." },
-    { id: "starter-cap", name: "Starting Knight", baseCost: 3, max: 1, desc: "Each Spore Bloom starts with one Cap Knight." }
+    { id: "long-boost", name: "Long Surge", baseCost: 2, max: 5, desc: "Colony Surge lasts 2 more minutes per level." },
+    { id: "starter-cap", name: "Starting Buddies", baseCost: 3, max: 1, desc: "Each Spore Bloom starts with three Button Buddies." }
   ];
 
   const state = loadState();
@@ -191,18 +263,21 @@
     "achievementCount", "achievementList", "clicksValue", "runValue", "lifetimeValue", "seasonValue",
     "multiplierValue", "sessionMeadowValue", "shareButton", "exportButton", "importButton", "saveDialog",
     "saveText", "dialogTitle", "dialogHelp", "copySaveButton", "loadSaveButton", "saveState",
-    "bottomTabs", "friendScene", "companionRow", "rushOrbit", "rootRing", "soundButton",
+    "bottomTabs", "friendScene", "companionRow", "colonyLayer", "rushOrbit", "rootRing", "soundButton",
     "combatStrip", "stageLabel", "enemyName", "enemyHpLabel", "enemyHpBar", "bossTimer", "enemyTarget",
     "meadowValue", "meadowName", "meadowMood", "bloomProgress", "bloomNeed", "nextBloomName",
+    "ancientSporesValue", "essenceValue", "relicCapsValue", "mutationGooValue",
+    "stormSkillButton", "rootSkillButton", "frenzySkillButton", "barrageSkillButton", "ringSkillButton", "ancientSkillButton",
+    "relicState", "relicList", "mutationState", "mutationList", "mapState", "networkList",
     "dewSkillButton", "boostSkillButton", "bloomSkillButton"
   ].forEach(id => { els[id] = document.getElementById(id); });
 
   function setScreen(tab) {
-    const screens = new Set(["play", "store", "quests", "board"]);
+    const screens = new Set(["play", "store", "systems", "quests", "board"]);
     const next = screens.has(tab) ? tab : "play";
     document.body.dataset.tab = next;
     if (next !== "play") {
-      document.querySelector(".moment-banner")?.remove();
+      document.querySelectorAll(".moment-banner, .pop, .damage-number").forEach(element => element.remove());
     }
     if (!els.bottomTabs) return;
     els.bottomTabs.querySelectorAll("[data-tab-target]").forEach(button => {
@@ -251,6 +326,8 @@
       offlineReward: 0,
       offlineSeconds: 0,
       lastReadyAction: "",
+      skillCooldowns: {},
+      lastSkillCast: "",
       lastSaved: Date.now(),
       machines: Object.fromEntries(machines.map(machine => [machine.id, 0])),
       perks: Object.fromEntries(perks.map(perk => [perk.id, 0])),
@@ -276,6 +353,7 @@
       merged.machines = { ...fallback.machines, ...(parsed.machines || {}) };
       merged.perks = { ...fallback.perks, ...(parsed.perks || {}) };
       merged.questBaselines = { ...fallback.questBaselines, ...(parsed.questBaselines || {}) };
+      merged.skillCooldowns = { ...fallback.skillCooldowns, ...(parsed.skillCooldowns || {}) };
       merged.upgrades = Array.isArray(parsed.upgrades) ? parsed.upgrades : [];
       merged.achievements = Array.isArray(parsed.achievements) ? parsed.achievements : [];
       merged.claimedQuests = Array.isArray(parsed.claimedQuests) ? parsed.claimedQuests : [];
@@ -315,14 +393,20 @@
 
   function format(value) {
     const number = Number(value) || 0;
+    const sign = number < 0 ? "-" : "";
+    const absolute = Math.abs(number);
     if (number > 0 && number < 1) {
       return number.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
     }
-    if (number < 10 && number % 1) {
+    if (absolute < 10 && number % 1) {
       return number.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
     }
-    if (number < 1000) return number.toFixed(number % 1 ? 1 : 0);
-    return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(number);
+    if (absolute < 1000) return number.toFixed(number % 1 ? 1 : 0);
+    const suffixes = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "Ud", "Dd", "Td", "Qad"];
+    const tier = Math.min(suffixes.length - 1, Math.floor(Math.log10(absolute) / 3));
+    const scaled = absolute / Math.pow(1000, tier);
+    const digits = scaled >= 100 ? 0 : scaled >= 10 ? 1 : 2;
+    return `${sign}${scaled.toFixed(digits).replace(/\.0+$|(\.\d*[1-9])0+$/, "$1")}${suffixes[tier]}`;
   }
 
   function formatDuration(seconds) {
@@ -363,6 +447,59 @@
     return perk.baseCost + perkLevel(perk.id, target);
   }
 
+  function ancientSpores(target = state) {
+    return Math.max(0, Number(target.rootstock || 0));
+  }
+
+  function myceliumEssence(target = state) {
+    return Math.max(0, Math.floor(Number(target.bloomCount || 0) * 7 + bestCombatDepth(target) / 14 + ownedTotal(target) / 32));
+  }
+
+  function relicCaps(target = state) {
+    return Math.max(0, Math.floor(Number(target.bossDefeats || 0) * 3 + bestCombatDepth(target) / 20 + Number(target.bloomCount || 0)));
+  }
+
+  function mutationGoo(target = state) {
+    return Math.max(0, Math.floor(Number(target.enemyDefeats || 0) / 16 + ownedTotal(target) / 18 + Number(target.bloomCount || 0) * 4));
+  }
+
+  function currentShroomForm(target = state) {
+    return [...shroomForms].reverse().find(form => form.req(target)) || shroomForms[0];
+  }
+
+  function colonyTier(target = state) {
+    return Math.max(1, Math.min(9, Math.floor(ownedTotal(target) / 14) + Math.floor(bestCombatDepth(target) / 34) + Math.floor(Number(target.bloomCount || 0) / 2) + 1));
+  }
+
+  function currentWorldRegion(target = state) {
+    const depth = bestCombatDepth(target);
+    return [...worldRegions].reverse().find(region => depth >= region.depth) || worldRegions[0];
+  }
+
+  function nextWorldRegion(target = state) {
+    const depth = bestCombatDepth(target);
+    return worldRegions.find(region => depth < region.depth) || null;
+  }
+
+  function nextAllyMilestone(count) {
+    const owned = Math.max(0, Number(count || 0));
+    return allyMilestones.find(milestone => owned < milestone)
+      || Math.ceil((owned + 1) / 2500) * 2500;
+  }
+
+  function allyMilestoneCopy(count) {
+    const next = nextAllyMilestone(count);
+    return `next ${format(next)}: ${milestoneText[next] || "power spike"}`;
+  }
+
+  function relicUnlocked(relic, target = state) {
+    return Boolean(relic.req(target));
+  }
+
+  function mutationUnlocked(mutation, target = state) {
+    return Number(target.machines?.[mutation.machine] || 0) >= mutation.level;
+  }
+
   function combatStage(target = state) {
     return Math.max(1, Math.floor(Number(target.combatStage || target.stage || 1)));
   }
@@ -396,7 +533,9 @@
 
   function enemyForCombat(target = state) {
     const roster = isBossWave(target) ? bossRoster : enemyRoster;
-    const index = (combatStage(target) + combatWave(target) - 2) % roster.length;
+    const index = isBossWave(target)
+      ? (combatStage(target) - 1) % roster.length
+      : (combatDepth(target) - 1) % roster.length;
     return roster[index];
   }
 
@@ -771,7 +910,7 @@
 
   function compactGoalLabel(detail) {
     const text = String(detail || "");
-    return text.replace(/^(\d+(?:\.\d+)?[KMBT]?) taps to .+$/i, "$1 taps");
+    return text.replace(/^(\d+(?:\.\d+)?[A-Za-z]*) taps to .+$/i, "$1 taps");
   }
 
   function primaryGoal(target = state) {
@@ -938,7 +1077,7 @@
       }
     });
     if (hasUpgrade("tap-rate", target)) {
-      tap *= 1 + Number(target.machines.press || 0) * 0.08;
+      tap *= 1 + Number(target.machines.clock || 0) * 0.08;
     }
     tap *= 1 + perkLevel("soft-hands", target) * 0.25;
     if (rushActive(target)) tap *= 2;
@@ -1043,10 +1182,17 @@
     if (!machine || state.loops < cost) return;
     state.loops -= cost;
     state.machines[id] += 1;
+    const count = Number(state.machines[id] || 0);
+    const milestone = allyMilestones.includes(count);
     addRushCharge(4);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    playTone("buy", 4);
-    showMoment(machine.name, `${format(incomePerSecond())} idle damage/sec`, "buy");
+    playTone(milestone ? "unlock" : "buy", milestone ? 6 : 4);
+    showMoment(
+      milestone ? `${machine.name} evolved` : machine.name,
+      milestone ? `${milestoneText[count] || "power spike"} unlocked` : `${format(incomePerSecond())} idle damage/sec`,
+      milestone ? "unlock" : "buy"
+    );
+    if (milestone) pulseScene("scene-bloomed");
     markDirty();
     checkAchievements();
     render();
@@ -1103,6 +1249,8 @@
     state.focusUntil = 0;
     state.rushCharge = 0;
     state.rushUntil = 0;
+    state.skillCooldowns = {};
+    state.lastSkillCast = "";
     state.meadowLevel = 1;
     state.meadowBloom = 0;
     state.combatStage = 1;
@@ -1120,7 +1268,7 @@
     state.upgrades = [];
     state.achievements = keptAchievements;
     if (perkLevel("starter-cap", state) > 0) {
-      state.machines.plot = 1;
+      state.machines.plot = 3;
       displayedRate = incomePerSecond();
     }
     ensureCombatState(state);
@@ -1230,7 +1378,7 @@
     els.focusButton.textContent = "calling storm";
     const result = await requestRewardedBoost().catch(() => ({ rewarded: false }));
     if (!result.rewarded) {
-      els.boostHint.textContent = "Reward ad was not completed. Spore Storm stayed inactive.";
+      els.boostHint.textContent = "Reward ad was not completed. Colony Surge stayed inactive.";
       renderFocus();
       return;
     }
@@ -1238,9 +1386,70 @@
     state.focusUntil = now + boostMinutes * 60 * 1000;
     addRushCharge(35);
     displayedRate = Math.max(displayedRate, incomePerSecond());
-    els.boostHint.textContent = "Spore Storm active.";
+    els.boostHint.textContent = "Colony Surge active.";
     playTone("shower");
-    showMoment("Spore Storm", `${Math.round(boostMinutes)} minute boost`, "shower");
+    showMoment("Colony Surge", `${Math.round(boostMinutes)} minute boost`, "shower");
+    markDirty();
+    checkAchievements();
+    render();
+  }
+
+  function skillCooldown(skill, target = state) {
+    const rootboneRelic = relics.find(relic => relic.id === "rootbone-drum");
+    const rootbone = rootboneRelic && relicUnlocked(rootboneRelic, target) ? 0.9 : 1;
+    return Math.max(10, skill.cooldown * rootbone);
+  }
+
+  function skillRemaining(skill, target = state) {
+    return Math.max(0, Number(target.skillCooldowns?.[skill.id] || 0) - Date.now());
+  }
+
+  function skillUnlocked(skill, target = state) {
+    return !skill.unlock || skill.unlock(target);
+  }
+
+  function renderSkills() {
+    activeSkills.forEach(skill => {
+      const button = els[skill.button];
+      if (!button) return;
+      const unlocked = skillUnlocked(skill);
+      const remainingMs = skillRemaining(skill);
+      const ready = unlocked && remainingMs <= 0;
+      button.disabled = !ready;
+      button.textContent = remainingMs > 0 ? `${skill.short} ${Math.ceil(remainingMs / 1000)}s` : skill.short;
+      button.title = unlocked ? `${skill.name}: ${skill.desc}` : `${skill.name} unlocks as the colony grows.`;
+      button.dataset.ready = ready ? "true" : remainingMs > 0 ? "active" : "false";
+      button.dataset.locked = unlocked ? "false" : "true";
+      button.dataset.skill = skill.id;
+    });
+  }
+
+  function useActiveSkill(id) {
+    const skill = activeSkills.find(item => item.id === id);
+    if (!skill || !skillUnlocked(skill) || skillRemaining(skill) > 0) return;
+    if (!state.skillCooldowns || typeof state.skillCooldowns !== "object") state.skillCooldowns = {};
+    ensureCombatState(state);
+    let detail = "";
+    if (skill.reward) {
+      const reward = Math.max(0, skill.reward(state));
+      addLoops(state, reward);
+      addMeadowCare(reward * 0.12);
+      recordSporeBurst(reward);
+      detail = `+${format(reward)} nutrients`;
+      showEnemyReward(reward, skill.name, false);
+      playTone("dew", 5);
+    } else {
+      const damage = Math.max(1, skill.damage(state));
+      const result = damageEnemy(damage, { hot: true, visual: true });
+      detail = result.defeated > 0 ? `${format(result.reward)} nutrients dropped` : `-${format(damage)} damage`;
+      playTone(skill.id === "ancient-bloom" ? "great" : "shower", 6);
+    }
+    state.skillCooldowns[skill.id] = Date.now() + skillCooldown(skill) * 1000;
+    state.lastSkillCast = skill.id;
+    addRushCharge(skill.id === "ancient-bloom" ? 30 : 15);
+    pulseScene(skill.id === "ancient-bloom" ? "scene-bloomed" : "scene-impact");
+    showMoment(skill.name, detail, skill.id === "ancient-bloom" ? "great" : "unlock");
+    haptic(skill.id === "ancient-bloom" ? [18, 24, 18, 42] : [10, 18, 10]);
     markDirty();
     checkAchievements();
     render();
@@ -2088,14 +2297,11 @@
   function renderMachines() {
     const strongestAffordable = [...machines].reverse().find(machine => state.loops >= machineCost(machine));
     const nextLocked = machines.find(machine => state.loops < machineCost(machine));
-    const nextLockedIndex = machines.findIndex(machine => machine.id === nextLocked?.id);
-    const nextPreview = nextLockedIndex >= 0 ? machines[nextLockedIndex + 1] : null;
     const strongestOwned = [...machines].reverse().find(machine => Number(state.machines[machine.id] || 0) > 0);
-    const visibleMachines = [];
-    [strongestAffordable, nextLocked, nextPreview, strongestOwned, machines[0], machines[1]].forEach(machine => {
-      if (machine && !visibleMachines.some(item => item.id === machine.id) && visibleMachines.length < 3) {
-        visibleMachines.push(machine);
-      }
+    const firstLockedIndex = nextLocked ? machines.findIndex(machine => machine.id === nextLocked.id) : machines.length;
+    const visibleMachines = machines.filter((machine, index) => {
+      const count = Number(state.machines[machine.id] || 0);
+      return count > 0 || index <= firstLockedIndex + 1 || state.loops >= machineCost(machine) * 0.35;
     });
     const recommended = strongestAffordable || nextLocked || strongestOwned || visibleMachines[0];
     els.machineCount.textContent = nextLocked ? `next: ${nextLocked.name}` : "heartwood looping";
@@ -2105,6 +2311,8 @@
       const disabled = state.loops < cost ? "disabled" : "";
       const progress = Math.max(0, Math.min(100, (state.loops / cost) * 100));
       const art = machineArt[machine.id] || { className: "root-thread", label: "shroom ally" };
+      const dps = count * machine.rate * rateMultiplier();
+      const milestone = allyMilestoneCopy(count);
       return `
         <article class="store-item garden-card ${machine.id === recommended?.id ? "recommended" : ""}" data-machine="${machine.id}">
           <span class="store-visual ${art.className}" aria-label="${art.label}">
@@ -2113,9 +2321,10 @@
           <div class="store-copy">
             <h3>${machine.name}</h3>
             <p>${machine.desc}</p>
-            <span class="owned">${count} owned / +${format(machine.rate * rateMultiplier())}/sec</span>
+            <span class="owned">level ${format(count)} / +${format(dps)}/sec</span>
+            <span class="milestone-copy">${milestone}</span>
           </div>
-          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `recruit ${format(cost)}` : `need ${format(cost)}`}</button>
+          <button type="button" data-buy-machine="${machine.id}" ${disabled}>${state.loops >= cost ? `grow ${format(cost)}` : `need ${format(cost)}`}</button>
         </article>
       `;
     }).join("");
@@ -2186,6 +2395,70 @@
     }).join("");
   }
 
+  function renderRelicSystems() {
+    const caps = relicCaps();
+    const unlocked = relics.filter(relic => relicUnlocked(relic));
+    if (els.relicState) els.relicState.textContent = `${unlocked.length}/${relics.length} found / ${format(caps)} caps`;
+    if (els.relicList) {
+      els.relicList.innerHTML = relics.map((relic, index) => {
+        const found = relicUnlocked(relic);
+        const level = found ? Math.max(1, Math.floor(caps / Math.max(3, index + 4))) : 0;
+        return `
+          <article class="system-item relic-item ${found ? "unlocked" : "locked"}">
+            <span class="system-glyph relic-glyph relic-${index % 5}" aria-hidden="true"></span>
+            <div>
+              <h3>${found ? relic.name : "Unfound relic"}</h3>
+              <p>${found ? relic.desc : "Defeat bosses and push deeper to uncover this artifact."}</p>
+              <span>${found ? `level ${format(level)} / upgrade with Relic Caps` : "locked"}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    const readyMutations = mutations.filter(mutation => mutationUnlocked(mutation));
+    if (els.mutationState) els.mutationState.textContent = `${readyMutations.length}/${mutations.length} ready / ${format(mutationGoo())} goo`;
+    if (els.mutationList) {
+      els.mutationList.innerHTML = mutations.map((mutation, index) => {
+        const ready = mutationUnlocked(mutation);
+        const count = Number(state.machines?.[mutation.machine] || 0);
+        return `
+          <article class="system-item mutation-item ${ready ? "unlocked" : "locked"}">
+            <span class="system-glyph mutation-glyph mutation-${index % 4}" aria-hidden="true"></span>
+            <div>
+              <h3>${ready ? mutation.name : mutation.family}</h3>
+              <p>${ready ? mutation.desc : `Grow ${mutation.family} to level ${format(mutation.level)}.`}</p>
+              <span>${ready ? "mutation active" : `${format(count)}/${format(mutation.level)} levels`}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    const region = currentWorldRegion();
+    const nextRegion = nextWorldRegion();
+    if (els.mapState) {
+      els.mapState.textContent = nextRegion
+        ? `${region.name} / next ${nextRegion.name}`
+        : "Spore Moon claimed";
+    }
+    if (els.networkList) {
+      els.networkList.innerHTML = worldRegions.map(regionItem => {
+        const reached = bestCombatDepth() >= regionItem.depth;
+        const next = !reached && regionItem === nextRegion;
+        return `
+          <article class="network-node ${reached ? "reached" : ""} ${next ? "next" : ""}">
+            <span aria-hidden="true"></span>
+            <div>
+              <strong>${regionItem.name}</strong>
+              <em>${reached ? "covered in mycelium" : `depth ${format(regionItem.depth)}`}</em>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+  }
+
   function renderLeaderboard() {
     const endpoint = leaderboardEndpoint();
     els.leaderboardState.textContent = leaderboardStatus || (endpoint ? "global board" : "local board");
@@ -2246,14 +2519,40 @@
   function renderCompanions() {
     if (!els.companionRow) return;
     if (!els.companionRow.childElementCount) {
-      els.companionRow.innerHTML = Array.from({ length: 6 }, (_, index) => (
-        `<span class="companion companion-${index + 1}"><i></i></span>`
+      const companionTypes = [
+        "button-buddy", "cap-knight", "puffball-bomber", "glowshroom-mage", "deathcap-assassin",
+        "shelf-guardian", "morel-monk", "chanterelle-archer", "truffle-miner", "mycelium-beast"
+      ];
+      els.companionRow.innerHTML = companionTypes.map((type, index) => (
+        `<span class="companion companion-${index + 1} ${type}" data-ally="${type}"><i></i></span>`
       )).join("");
     }
-    const active = Math.min(6, Math.max(1, Math.ceil((state.meadowLevel || 1) / 2) + Math.floor(ownedTotal() / 10)));
+    const active = Math.min(10, Math.max(1, Math.ceil((state.meadowLevel || 1) / 2) + Math.floor(ownedTotal() / 8)));
     Array.from(els.companionRow.children).forEach((child, index) => {
       child.classList.toggle("live", index < active);
     });
+  }
+
+  function renderColonyLayer() {
+    if (!els.colonyLayer) return;
+    const tier = colonyTier();
+    const liveCount = Math.min(els.colonyLayer.children.length, 2 + tier + Math.floor(ownedTotal() / 18));
+    Array.from(els.colonyLayer.children).forEach((child, index) => {
+      child.classList.toggle("live", index < liveCount);
+    });
+  }
+
+  function renderCurrencies() {
+    if (els.ancientSporesValue) els.ancientSporesValue.textContent = format(ancientSpores());
+    if (els.essenceValue) els.essenceValue.textContent = format(myceliumEssence());
+    if (els.relicCapsValue) els.relicCapsValue.textContent = format(relicCaps());
+    if (els.mutationGooValue) els.mutationGooValue.textContent = format(mutationGoo());
+    const form = currentShroomForm();
+    const region = currentWorldRegion();
+    document.body.dataset.shroomForm = form.id;
+    document.body.dataset.colonyTier = String(colonyTier());
+    document.body.dataset.worldRegion = region.id;
+    if (els.seedButton) els.seedButton.setAttribute("aria-label", `${form.name}, tap to release spores`);
   }
 
   function renderDaily() {
@@ -2289,10 +2588,10 @@
     const remaining = Math.max(0, Number(state.focusUntil || 0) - Date.now());
     els.focusValue.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m left` : "inactive";
     els.boostHint.textContent = remaining > 0
-      ? "2x idle damage while the storm is open."
-      : "Call a 10 minute Spore Storm for a short damage burst.";
+      ? "2x idle damage while the colony surge is open."
+      : "Start a 10 minute idle surge when you want to push.";
     els.focusButton.disabled = remaining > 0;
-    els.focusButton.textContent = remaining > 0 ? "storm active" : "call storm";
+    els.focusButton.textContent = remaining > 0 ? "surge active" : "start surge";
     if (els.boostSkillButton) {
       els.boostSkillButton.disabled = remaining > 0;
       els.boostSkillButton.textContent = remaining > 0 ? `${Math.ceil(remaining / 60000)}m` : "storm";
@@ -2315,7 +2614,7 @@
       return;
     }
     els.rushValue.textContent = `${Math.floor(charge)}%`;
-    els.rushHint.textContent = "Tap, grow allies, claim drips, and call storms to fill the meter.";
+    els.rushHint.textContent = "Tap, grow allies, claim drips, and fire skills to fill the meter.";
     els.rushProgress.style.width = `${charge}%`;
     els.rushProgress.classList.remove("rush-active");
     if (els.rushOrbit) {
@@ -2423,6 +2722,7 @@
     const passiveRate = incomePerSecond();
     const tapBurst = visibleTapBurst();
     const goal = primaryGoal();
+    renderCurrencies();
     els.loopsValue.textContent = format(state.loops);
     els.rateValue.textContent = format(passiveRate);
     if (els.nextGoalButton) {
@@ -2450,11 +2750,13 @@
     els.achievementCount.textContent = `${state.achievements.length} unlocked`;
     renderOrchard();
     renderCompanions();
+    renderColonyLayer();
     renderDaily();
     renderCombat();
     renderMeadow();
     renderPrestige();
     renderFocus();
+    renderSkills();
     renderRush();
     renderSound();
     announceReadyAction();
@@ -2465,6 +2767,7 @@
     renderMachines();
     renderUpgrades();
     renderPerks();
+    renderRelicSystems();
     renderAchievements();
     renderQuests();
     renderLeaderboard();
@@ -2543,9 +2846,13 @@
   if (els.nextGoalButton) els.nextGoalButton.addEventListener("click", usePrimaryGoal);
   els.dailyButton.addEventListener("click", claimDaily);
   els.focusButton.addEventListener("click", useFocus);
-  els.dewSkillButton.addEventListener("click", claimDaily);
-  els.boostSkillButton.addEventListener("click", useFocus);
-  els.bloomSkillButton.addEventListener("click", graft);
+  activeSkills.forEach(skill => {
+    const button = els[skill.button];
+    if (button) button.addEventListener("click", () => useActiveSkill(skill.id));
+  });
+  if (els.dewSkillButton) els.dewSkillButton.addEventListener("click", claimDaily);
+  if (els.boostSkillButton) els.boostSkillButton.addEventListener("click", useFocus);
+  if (els.bloomSkillButton) els.bloomSkillButton.addEventListener("click", graft);
   if (els.soundButton) els.soundButton.addEventListener("click", toggleSound);
   els.shareButton.addEventListener("click", shareScore);
   els.exportButton.addEventListener("click", exportSave);
@@ -2595,6 +2902,14 @@
           boss: isBossWave(),
           meadowLevel: Number(state.meadowLevel || 1),
           meadowName: meadowTitle(),
+          shroomForm: currentShroomForm().name,
+          ancientSpores: ancientSpores(),
+          myceliumEssence: myceliumEssence(),
+          relicCaps: relicCaps(),
+          mutationGoo: mutationGoo(),
+          unlockedRelics: relics.filter(relic => relicUnlocked(relic)).length,
+          readyMutations: mutations.filter(mutation => mutationUnlocked(mutation)).length,
+          worldRegion: currentWorldRegion().name,
           achievements: state.achievements.length,
           maxCombo: Number(state.maxCombo || 0),
           sporesPerSecond: incomePerSecond(),
