@@ -60,6 +60,7 @@
       --mushroom-boop: #c17660;
       --meowtronome: #b87966;
       --dbalarm: #c96155;
+      --cooking: #987856;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -160,7 +161,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr;
+      grid-template-columns: 1.05fr 1fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr .5fr;
       height: 9px;
       margin: 24px 0 0 132px;
       overflow: hidden;
@@ -190,8 +191,9 @@
     .palette-strip span:nth-child(20) { background: var(--dbalarm); }
     .palette-strip span:nth-child(21) { background: var(--lily); }
     .palette-strip span:nth-child(22) { background: var(--yum); }
-    .palette-strip span:nth-child(23) { background: var(--wallguard); }
-    .palette-strip span:nth-child(24) { background: var(--duet); }
+    .palette-strip span:nth-child(23) { background: var(--cooking); }
+    .palette-strip span:nth-child(24) { background: var(--wallguard); }
+    .palette-strip span:nth-child(25) { background: var(--duet); }
 
     .grid {
       display: grid;
@@ -357,8 +359,9 @@
     .dbalarm { --accent: var(--dbalarm); order: 21; }
     .lily { --accent: var(--lily); order: 22; }
     .yum { --accent: var(--yum); order: 23; }
-    .wallguard { --accent: var(--wallguard); order: 24; }
-    .duet { --accent: var(--duet); order: 25; }
+    .cooking { --accent: var(--cooking); order: 24; }
+    .wallguard { --accent: var(--wallguard); order: 25; }
+    .duet { --accent: var(--duet); order: 26; }
 
     footer {
       display: flex;
@@ -480,7 +483,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -782,6 +785,19 @@
           <p class="desc">media wall for cars, food, alcohol, and k-pop girls.</p>
         </div>
         <div class="card-foot"><span class="url">yum.aolabs.io</span></div>
+      </a>
+
+      <a class="app cooking" href="https://aolabs.io/cooking/" aria-label="cooking">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>cooking</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/cooking.svg?v=20260601-cooking" alt=""></span>
+          </div>
+          <p class="desc">recipe table with rating, calories, and protein estimates.</p>
+        </div>
+        <div class="card-foot"><span class="url">aolabs.io/cooking</span></div>
       </a>
 
       <a class="app wallguard" href="https://wallguard.aolabs.io" aria-label="wallguard">

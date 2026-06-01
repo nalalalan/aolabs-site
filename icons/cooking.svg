@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Cooking icon">
+  <defs>
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".15"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".52"/>
+    </filter>
+    <linearGradient id="cream" x1="22" y1="20" x2="106" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff8ef"/>
+      <stop offset="1" stop-color="#eadbc8"/>
+    </linearGradient>
+    <linearGradient id="clay" x1="18" y1="26" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e7a091"/>
+      <stop offset=".56" stop-color="#c17660"/>
+      <stop offset="1" stop-color="#865443"/>
+    </linearGradient>
+    <linearGradient id="green" x1="20" y1="20" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#93b48e"/>
+      <stop offset=".58" stop-color="#668c62"/>
+      <stop offset="1" stop-color="#436643"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="24" y1="16" x2="106" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0cf78"/>
+      <stop offset=".58" stop-color="#c58f43"/>
+      <stop offset="1" stop-color="#82572c"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="18" y1="22" x2="106" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6a5c4c"/>
+      <stop offset="1" stop-color="#3d352e"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#d)">
+    <path d="M31 55h66c-3 20-15 34-33 34S34 75 31 55z" fill="url(#cream)"/>
+    <path d="M40 60h48c-4 10-13 17-24 17S44 70 40 60z" fill="url(#clay)" opacity=".9"/>
+    <path d="M42 87h46l-7 18H49z" fill="url(#green)"/>
+    <path d="M49 94c9 5 20 5 29 0" fill="none" stroke="#fff8ef" stroke-width="4.5" stroke-linecap="round" opacity=".72"/>
+    <circle cx="53" cy="51" r="9" fill="#fff8ef"/>
+    <circle cx="56" cy="51" r="4.2" fill="url(#gold)"/>
+    <path d="M25 41c18-11 39-15 63-12" fill="none" stroke="url(#ink)" stroke-width="5.2" stroke-linecap="round" opacity=".72"/>
+    <path d="M86 26 105 18" fill="none" stroke="url(#ink)" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M75 35c3-7 8-11 14-13" fill="none" stroke="url(#green)" stroke-width="4.4" stroke-linecap="round"/>
+    <path d="M92 43c5-5 10-7 16-7" fill="none" stroke="url(#gold)" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M30 97c23 14 52 14 75 0" fill="none" stroke="url(#ink)" stroke-width="5" stroke-linecap="round" opacity=".52"/>
+  </g>
+</svg>
