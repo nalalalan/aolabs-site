@@ -314,6 +314,8 @@
       .rating-b { background: var(--blue); }
       .rating-c { background: var(--gold); }
       .rating-a { background: var(--green); }
+      .rating-d { background: #8d8275; }
+      .rating-s { background: var(--clay); }
 
       .source-note {
         display: flex;
@@ -451,7 +453,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>23 recipes. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
+              <p>23 recipes. Difficulty ranks prep effort. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
             </div>
           </div>
         </div>
@@ -461,7 +463,7 @@
           <span>B</span>
           <span>A</span>
           <span>S</span>
-          <span class="scale-note">S chef-level</span>
+          <span class="scale-note">S chef-level prep</span>
         </div>
       </section>
 
@@ -674,6 +676,31 @@
     </main>
     <script>
       (() => {
+        const ratingByInitialRow = [
+          "C",
+          "D",
+          "C",
+          "C",
+          "D",
+          "A",
+          "A",
+          "B",
+          "A",
+          "B",
+          "B",
+          "B",
+          "C",
+          "B",
+          "D",
+          "B",
+          "A",
+          "D",
+          "C",
+          "A",
+          "S",
+          "S",
+          "B",
+        ];
         const categoryByInitialRow = [
           "entree",
           "breakfast",
@@ -743,6 +770,12 @@
 
         const initialRows = Array.from(table.querySelectorAll(".recipe-row"));
         initialRows.forEach((row, index) => {
+          const rating = ratingByInitialRow[index] || "C";
+          const ratingBadge = row.querySelector('[data-label="difficulty rating"] .rating');
+          if (ratingBadge) {
+            ratingBadge.textContent = rating;
+            ratingBadge.className = `rating rating-${rating.toLocaleLowerCase()}`;
+          }
           if (!row.querySelector('[data-label="category"]')) {
             const categoryCell = document.createElement("div");
             categoryCell.className = "cell category";
