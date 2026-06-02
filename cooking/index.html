@@ -181,7 +181,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 104px minmax(150px, .85fr) minmax(260px, 1.9fr) 120px 120px 140px;
+        grid-template-columns: 108px 100px minmax(140px, .78fr) minmax(240px, 1.8fr) 112px 112px 132px;
         align-items: stretch;
       }
 
@@ -424,7 +424,7 @@
         }
 
         .cell {
-          grid-template-columns: 96px minmax(0, 1fr);
+          grid-template-columns: 104px minmax(0, 1fr);
           gap: 10px;
           font-size: 13.5px;
         }
@@ -472,6 +472,7 @@
 
       <section class="recipe-table" role="table" aria-label="Recipe table">
         <div class="table-head" role="row">
+          <div role="columnheader" aria-sort="none" data-sort-key="category" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">category</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="rating" data-sort-type="rating" data-sort-default="desc"><button class="sort-button" type="button">difficulty rating</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="dish" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">dish name</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="recipe" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">recipe</button></div>
@@ -673,6 +674,31 @@
     </main>
     <script>
       (() => {
+        const categoryByInitialRow = [
+          "entree",
+          "breakfast",
+          "entree",
+          "entree",
+          "beverage",
+          "dessert",
+          "entree",
+          "dessert",
+          "dessert",
+          "dessert",
+          "appetizer",
+          "beverage",
+          "beverage",
+          "dessert",
+          "beverage",
+          "dessert",
+          "dessert",
+          "snack",
+          "entree",
+          "appetizer",
+          "appetizer",
+          "entree",
+          "dessert",
+        ];
         const cholesterolByInitialRow = [
           ["35-60mg est.", 48],
           ["15-30mg est.", 23],
@@ -699,6 +725,7 @@
           ["0mg est.", 0],
         ];
         const labelsByKey = {
+          category: "category",
           rating: "difficulty rating",
           dish: "dish name",
           recipe: "recipe",
@@ -716,6 +743,14 @@
 
         const initialRows = Array.from(table.querySelectorAll(".recipe-row"));
         initialRows.forEach((row, index) => {
+          if (!row.querySelector('[data-label="category"]')) {
+            const categoryCell = document.createElement("div");
+            categoryCell.className = "cell category";
+            categoryCell.setAttribute("role", "cell");
+            categoryCell.dataset.label = "category";
+            categoryCell.textContent = categoryByInitialRow[index] || "other";
+            row.insertBefore(categoryCell, row.firstElementChild);
+          }
           if (row.querySelector('[data-label="cholesterol"]')) return;
           const [label, value] = cholesterolByInitialRow[index] || ["unknown est.", -1];
           const cell = document.createElement("div");
