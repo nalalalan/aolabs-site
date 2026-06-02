@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f3eee4">
     <title>cooking.aolabs.io</title>
-    <meta name="description" content="AO Labs recipe table with ratings, calories, and protein estimates.">
+    <meta name="description" content="AO Labs recipe table with ratings, calories, protein, and cholesterol estimates.">
     <link rel="canonical" href="https://cooking.aolabs.io/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AO Labs">
     <meta property="og:title" content="cooking">
-    <meta property="og:description" content="Recipe table with ratings, calories, and protein estimates.">
+    <meta property="og:description" content="Recipe table with ratings, calories, protein, and cholesterol estimates.">
     <meta property="og:url" content="https://cooking.aolabs.io/">
     <meta property="og:image" content="https://aolabs.io/icons/cooking.svg?v=20260601-cooking">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="cooking">
-    <meta name="twitter:description" content="Recipe table with ratings, calories, and protein estimates.">
+    <meta name="twitter:description" content="Recipe table with ratings, calories, protein, and cholesterol estimates.">
     <link rel="icon" href="/icons/cooking.svg?v=20260601-cooking" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icons/cooking.svg?v=20260601-cooking">
     <meta name="apple-mobile-web-app-title" content="cooking">
     <meta name="application-name" content="cooking">
     <link rel="stylesheet" href="https://aolabs.io/suite-header.css?v=20260516-suite-bloom">
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <style>
       :root {
         color-scheme: light;
@@ -167,10 +170,18 @@
         box-shadow: var(--shadow);
       }
 
+      html.js .recipe-table {
+        visibility: hidden;
+      }
+
+      html.js.table-ready .recipe-table {
+        visibility: visible;
+      }
+
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 120px minmax(160px, .9fr) minmax(280px, 2.1fr) 140px 140px;
+        grid-template-columns: 104px minmax(150px, .85fr) minmax(260px, 1.9fr) 120px 120px 140px;
         align-items: stretch;
       }
 
@@ -197,6 +208,10 @@
         padding: 13px 14px;
         border-right: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
+      }
+
+      .table-head > div {
+        padding: 0;
       }
 
       .table-head > div:last-child,
@@ -232,6 +247,55 @@
       .metric {
         font-variant-numeric: tabular-nums;
         color: #38302a;
+      }
+
+      .sort-button {
+        display: flex;
+        width: 100%;
+        min-height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: 0;
+        padding: 13px 14px;
+        text-align: left;
+        text-transform: inherit;
+      }
+
+      .sort-button::after {
+        content: "sort";
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: lowercase;
+      }
+
+      .table-head > div[aria-sort="ascending"] .sort-button::after {
+        content: "low";
+        color: var(--green);
+      }
+
+      .table-head > div[aria-sort="descending"] .sort-button::after {
+        content: "high";
+        color: var(--green);
+      }
+
+      .table-head > div[data-sort-type="text"][aria-sort="ascending"] .sort-button::after {
+        content: "a-z";
+      }
+
+      .table-head > div[data-sort-type="text"][aria-sort="descending"] .sort-button::after {
+        content: "z-a";
+      }
+
+      .sort-button:focus-visible {
+        outline: 2px solid rgba(102, 127, 88, .72);
+        outline-offset: -3px;
       }
 
       .rating {
@@ -277,7 +341,14 @@
         }
 
         .table-head {
-          display: none;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          border-bottom: 1px solid var(--line-strong);
+        }
+
+        .sort-button {
+          min-height: 44px;
+          padding: 10px 12px;
         }
 
         .recipe-row {
@@ -380,7 +451,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>23 recipes. Calories and protein are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
+              <p>23 recipes. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
             </div>
           </div>
         </div>
@@ -401,11 +472,12 @@
 
       <section class="recipe-table" role="table" aria-label="Recipe table">
         <div class="table-head" role="row">
-          <div role="columnheader">difficulty rating</div>
-          <div role="columnheader">dish name</div>
-          <div role="columnheader">recipe</div>
-          <div role="columnheader">calories</div>
-          <div role="columnheader">protein</div>
+          <div role="columnheader" aria-sort="none" data-sort-key="rating" data-sort-type="rating" data-sort-default="desc"><button class="sort-button" type="button">difficulty rating</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="dish" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">dish name</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="recipe" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">recipe</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="calories" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">calories</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="cholesterol" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">cholesterol</button></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -596,8 +668,120 @@
       <footer class="source-note">
         <span>source: Alan recipe list, June 1, 2026</span>
         <span>Codex suggested rows are researched suggestions, not Alan-pinned recipes</span>
-        <span>exact calories need package labels, serving counts, and measured loose amounts</span>
+        <span>exact nutrition needs package labels, serving counts, and measured loose amounts</span>
       </footer>
     </main>
+    <script>
+      (() => {
+        const cholesterolByInitialRow = [
+          ["35-60mg est.", 48],
+          ["15-30mg est.", 23],
+          ["740-760mg est.", 750],
+          ["250-320mg est.", 285],
+          ["50-90mg est.", 70],
+          ["150-250mg est.", 200],
+          ["120-220mg est.", 170],
+          ["20-45mg est.", 33],
+          ["70-140mg est.", 105],
+          ["0mg est.", 0],
+          ["40-90mg est.", 65],
+          ["0-25mg est.", 13],
+          ["15-35mg est.", 25],
+          ["0-15mg est.", 8],
+          ["20-40mg est.", 30],
+          ["35-75mg est.", 55],
+          ["30-70mg est.", 50],
+          ["25mg per oz est.", 25],
+          ["420-520mg est.", 470],
+          ["110-180mg est.", 145],
+          ["80-140mg est.", 110],
+          ["180-320mg est.", 250],
+          ["0mg est.", 0],
+        ];
+        const labelsByKey = {
+          rating: "difficulty rating",
+          dish: "dish name",
+          recipe: "recipe",
+          calories: "calories",
+          protein: "protein",
+          cholesterol: "cholesterol",
+        };
+        const ratingValue = { D: 1, C: 2, B: 3, A: 4, S: 5 };
+        const table = document.querySelector(".recipe-table");
+        const head = table?.querySelector(".table-head");
+        if (!table || !head) {
+          document.documentElement.classList.add("table-ready");
+          return;
+        }
+
+        const initialRows = Array.from(table.querySelectorAll(".recipe-row"));
+        initialRows.forEach((row, index) => {
+          if (row.querySelector('[data-label="cholesterol"]')) return;
+          const [label, value] = cholesterolByInitialRow[index] || ["unknown est.", -1];
+          const cell = document.createElement("div");
+          cell.className = "cell metric";
+          cell.setAttribute("role", "cell");
+          cell.dataset.label = "cholesterol";
+          cell.dataset.sortValue = String(value);
+          cell.innerHTML = `<span>${label.replace(" est.", ' <span class="amount">est.</span>')}</span>`;
+          row.appendChild(cell);
+        });
+
+        const numericEstimate = (text) => {
+          const numbers = text.replace(/,/g, "").match(/\d+(?:\.\d+)?/g)?.map(Number) || [];
+          if (!numbers.length) return -1;
+          if (numbers.length === 1) return numbers[0];
+          return (numbers[0] + numbers[1]) / 2;
+        };
+        const valueFor = (row, key, type) => {
+          const label = labelsByKey[key];
+          const cell = row.querySelector(`[data-label="${label}"]`);
+          if (!cell) return type === "text" ? "" : -1;
+          if (type === "rating") return ratingValue[cell.textContent.trim()] || 0;
+          if (type === "numeric") return Number(cell.dataset.sortValue || numericEstimate(cell.textContent));
+          return cell.textContent.trim().toLocaleLowerCase();
+        };
+        const resetAria = () => {
+          head.querySelectorAll("[role='columnheader']").forEach((header) => {
+            header.setAttribute("aria-sort", "none");
+          });
+        };
+        const sortRows = (header, direction) => {
+          const key = header.dataset.sortKey;
+          const type = header.dataset.sortType;
+          const multiplier = direction === "asc" ? 1 : -1;
+          const rows = Array.from(table.querySelectorAll(".recipe-row"));
+          rows
+            .map((row, index) => ({ row, index, value: valueFor(row, key, type) }))
+            .sort((a, b) => {
+              let result = 0;
+              if (type === "text") {
+                result = String(a.value).localeCompare(String(b.value), undefined, { sensitivity: "base" });
+              } else {
+                result = Number(a.value) - Number(b.value);
+              }
+              return result === 0 ? a.index - b.index : result * multiplier;
+            })
+            .forEach(({ row }) => table.appendChild(row));
+          resetAria();
+          header.setAttribute("aria-sort", direction === "asc" ? "ascending" : "descending");
+          head.dataset.sortKey = key;
+          head.dataset.sortDirection = direction;
+        };
+
+        head.querySelectorAll("[data-sort-key]").forEach((header) => {
+          header.querySelector("button")?.addEventListener("click", () => {
+            const currentKey = head.dataset.sortKey;
+            const currentDirection = head.dataset.sortDirection;
+            const nextDirection =
+              currentKey === header.dataset.sortKey
+                ? currentDirection === "asc" ? "desc" : "asc"
+                : header.dataset.sortDefault || "asc";
+            sortRows(header, nextDirection);
+          });
+        });
+        document.documentElement.classList.add("table-ready");
+      })();
+    </script>
   </body>
 </html>
