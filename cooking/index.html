@@ -453,7 +453,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>23 recipes. Difficulty ranks prep effort. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
+              <p>26 recipes. Difficulty ranks prep effort. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
             </div>
           </div>
         </div>
@@ -666,10 +666,34 @@
           <div class="cell metric" role="cell" data-label="calories"><span>550-850 <span class="amount">est.</span></span></div>
           <div class="cell metric" role="cell" data-label="protein"><span>6-12g <span class="amount">est.</span></span></div>
         </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">thai tea</div>
+          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Brew strong Thai tea mix or black tea with spices, strain, sweeten with condensed milk and sugar, chill, then pour over ice with evaporated milk or half-and-half.</div>
+          <div class="cell metric" role="cell" data-label="calories"><span>250-450 <span class="amount">est.</span></span></div>
+          <div class="cell metric" role="cell" data-label="protein"><span>4-8g <span class="amount">est.</span></span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">Gyeranjjim (Korean steamed eggs)</div>
+          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and a little sesame oil. Steam gently in a ttukbaegi or covered bowl until soft and barely set.</div>
+          <div class="cell metric" role="cell" data-label="calories"><span>180-320 <span class="amount">est.</span></span></div>
+          <div class="cell metric" role="cell" data-label="protein"><span>12-22g <span class="amount">est.</span></span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">cheese corn</div>
+          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Mix corn with butter, mayonnaise, a little sugar, salt, and pepper. Heat in a skillet, cover with mozzarella, then melt or broil until bubbling.</div>
+          <div class="cell metric" role="cell" data-label="calories"><span>350-600 <span class="amount">est.</span></span></div>
+          <div class="cell metric" role="cell" data-label="protein"><span>10-18g <span class="amount">est.</span></span></div>
+        </div>
       </section>
 
       <footer class="source-note">
-        <span>source: Alan recipe list, June 1, 2026</span>
+        <span>source: Alan recipe list, June 1 and June 4, 2026</span>
         <span>Codex suggested rows are researched suggestions, not Alan-pinned recipes</span>
         <span>exact nutrition needs package labels, serving counts, and measured loose amounts</span>
       </footer>
@@ -700,6 +724,9 @@
           "S",
           "S",
           "B",
+          "C",
+          "C",
+          "C",
         ];
         const categoryByInitialRow = [
           "entree",
@@ -725,6 +752,9 @@
           "appetizer",
           "entree",
           "dessert",
+          "beverage",
+          "side",
+          "side",
         ];
         const cholesterolByInitialRow = [
           ["35-60mg est.", 48],
@@ -750,6 +780,9 @@
           ["80-140mg est.", 110],
           ["180-320mg est.", 250],
           ["0mg est.", 0],
+          ["15-35mg est.", 25],
+          ["370-560mg est.", 465],
+          ["40-90mg est.", 65],
         ];
         const labelsByKey = {
           category: "category",
