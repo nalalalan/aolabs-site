@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f3eee4">
     <title>cooking.aolabs.io</title>
-    <meta name="description" content="AO Labs recipe table with ratings, calories, protein, and cholesterol estimates.">
+    <meta name="description" content="AO Labs recipe table with prep ratings and single best-guess nutrition values.">
     <link rel="canonical" href="https://cooking.aolabs.io/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AO Labs">
     <meta property="og:title" content="cooking">
-    <meta property="og:description" content="Recipe table with ratings, calories, protein, and cholesterol estimates.">
+    <meta property="og:description" content="Recipe table with prep ratings and single best-guess calories, protein, tyrosine, and cholesterol values.">
     <meta property="og:url" content="https://cooking.aolabs.io/">
     <meta property="og:image" content="https://aolabs.io/icons/cooking.svg?v=20260601-cooking">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="cooking">
-    <meta name="twitter:description" content="Recipe table with ratings, calories, protein, and cholesterol estimates.">
+    <meta name="twitter:description" content="Recipe table with prep ratings and single best-guess calories, protein, tyrosine, and cholesterol values.">
     <link rel="icon" href="/icons/cooking.svg?v=20260601-cooking" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icons/cooking.svg?v=20260601-cooking">
     <meta name="apple-mobile-web-app-title" content="cooking">
@@ -181,7 +181,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 108px 100px minmax(140px, .78fr) minmax(240px, 1.8fr) 112px 112px 132px;
+        grid-template-columns: 94px 94px minmax(128px, .72fr) minmax(260px, 1.85fr) 94px 94px 116px 122px;
         align-items: stretch;
       }
 
@@ -239,9 +239,16 @@
         font-weight: 640;
       }
 
-      .amount {
-        color: var(--muted);
-        font-weight: 680;
+      .recipe-steps {
+        display: grid;
+        gap: 5px;
+        margin: 0;
+        padding-left: 17px;
+      }
+
+      .recipe-steps li {
+        margin: 0;
+        padding-left: 1px;
       }
 
       .metric {
@@ -453,7 +460,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>26 recipes. Difficulty ranks prep effort. Calories, protein, and cholesterol are estimates until exact package servings and loose amounts are pinned. Rows marked Codex suggested are researched suggestions.</p>
+              <p>26 recipes. Difficulty ranks prep effort. Nutrition columns are single best-guess values for the listed serving. Recipes use short step lists. Rows marked Codex suggested are researched suggestions.</p>
             </div>
           </div>
         </div>
@@ -480,310 +487,305 @@
           <div role="columnheader" aria-sort="none" data-sort-key="recipe" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">recipe</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="calories" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">calories</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="tyrosine" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">tyrosine</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="cholesterol" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">cholesterol</button></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">pasta</div>
-          <div class="cell recipe" role="cell" data-label="recipe">De Cecco #11 thin spaghetti, quarter-sized dry bundle. Rao's mushroom Italian sausage sauce, half of a 24 oz jar. Parmigiano Reggiano grated on top.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>700-850 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>25-35g <span class="amount">est.</span></span></div>
-        </div>
-
-        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">greek yogurt and granola</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Friendly Farms nonfat Greek yogurt, half a tub. Millville Protein Oats &amp; Honey granola added to size.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>500-700 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>50-65g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">pasta</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil De Cecco #11 thin spaghetti, quarter-sized dry bundle.</li><li>Warm half a 24 oz jar Rao's mushroom Italian sausage sauce; finish with Parmigiano Reggiano.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="775"><span>775 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1050"><span>1,050mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="48"><span>48mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">breakfast</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">greek yogurt and granola</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Spoon about half a tub Friendly Farms nonfat Greek yogurt.</li><li>Add Millville Protein Oats &amp; Honey granola to size.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="58"><span>58g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="2100"><span>2,100mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="23"><span>23mg</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">rice and eggs</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Jasmine rice, a lot of rice. 4 eggs.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>680-880 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>28-34g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook a big serving of jasmine rice.</li><li>Top with 4 eggs.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="780"><span>780 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="31"><span>31g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1100"><span>1,100mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="750"><span>750mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell category" role="cell" data-label="category">entree</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">salmon and soy sauce</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Kosher salmon, about a pound from a grocery pack. Dip with a lot of soy sauce.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>900-1,100 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>90-105g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook about 1 lb kosher salmon.</li><li>Serve with a lot of soy sauce for dipping.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="1000"><span>1,000 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="98"><span>98g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="3400"><span>3,400mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="285"><span>285mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
+          <div class="cell category" role="cell" data-label="category">beverage</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">avocado smoothie</div>
-          <div class="cell recipe" role="cell" data-label="recipe">2 avocados. Lactose-free whole milk, enough to cover the ice. Blend with an immersion blender.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>750-950 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>18-28g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Blend 2 avocados with ice.</li><li>Add lactose-free whole milk until it covers the ice.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="850"><span>850 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="23"><span>23g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="800"><span>800mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="70"><span>70mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">crème brûlée</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Gordon Ramsay/Hell's Kitchen style: vanilla custard in ramekins. Heat cream with vanilla, temper into egg yolks and sugar, bake in a water bath until just set, chill, then brûlée a thin sugar top. Cherry compote optional.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>350-550 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>5-8g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">cr&egrave;me br&ucirc;l&eacute;e</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Heat cream with vanilla; temper into egg yolks and sugar.</li><li>Bake ramekins in a water bath, chill, then br&ucirc;l&eacute;e a thin sugar top.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="450"><span>450 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="7"><span>7g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="250"><span>250mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="200"><span>200mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Bánh xèo</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Rice flour, cornstarch, turmeric, salt, water, coconut milk, and green onion batter. Fry thin with pork belly, shrimp, mung beans, and bean sprouts; fold and eat with lettuce, herbs, and nước chấm.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>500-800 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>20-35g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh x&egrave;o</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Make rice flour, cornstarch, turmeric, coconut milk, water, and green onion batter.</li><li>Fry thin with pork belly, shrimp, mung beans, and bean sprouts; fold with herbs and n&#432;&#7899;c ch&#7845;m.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="650"><span>650 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="28"><span>28g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1000"><span>1,000mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="170"><span>170mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">da ua</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Warm whole milk just enough to dissolve sweetened condensed milk, stir in plain yogurt as the starter, jar it, incubate warm around 110°F for 8 hours, then chill.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>150-260 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>6-12g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Warm milk and dissolve condensed milk.</li><li>Stir in yogurt starter; jar and incubate around 110&deg;F for 8 hours, then chill.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="205"><span>205 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="330"><span>330mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="33"><span>33mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve; n&#432;&#7899;ng</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Blend pandan water, coconut milk, eggs, sugar, tapioca starch, rice flour, salt, butter, and baking powder.</li><li>Strain, pour into a hot pan, bake at 350&deg;F, and cool upside down.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="300"><span>300 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="105"><span>105mg</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Bánh bò nướng</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Blend pandan with water, mix with coconut milk, cream, eggs, sugar, tapioca starch, rice flour, salt, butter, and baking powder. Strain smooth, pour into a hot pan, bake at 350°F, then cool upside down.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>220-380 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>4-8g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve;</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Mix rice flour, tapioca starch, sugar, salt, yeast, vanilla, coconut milk, and warm water.</li><li>Proof until frothy; pour into hot greased molds and steam until springy.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="80"><span>80mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Bánh bò</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Steamed bánh bò hấp. Mix rice flour, tapioca starch, sugar, salt, yeast, vanilla, coconut milk, and warm water; proof until frothy, pour into hot greased molds, and steam until springy.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>180-320 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>3-6g <span class="amount">est.</span></span></div>
-        </div>
-
-        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Bánh bèo</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Steam a thin rice flour, tapioca flour, salt, water, and oil batter in small dishes. Top with dried shrimp crumble, mung bean paste if wanted, scallion oil, fried pork fat, and nước chấm.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>350-650 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>10-20g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&egrave;o</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Steam thin rice flour and tapioca batter in small dishes.</li><li>Top with dried shrimp, scallion oil, fried pork fat, and n&#432;&#7899;c ch&#7845;m.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="500"><span>500 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="15"><span>15g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="550"><span>550mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">mung bean milk tea with boba</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Soak whole mung beans 4-8 hours, blend with water, strain, boil with rock sugar, pandan, and a pinch of salt, then chill and serve with milk or tea plus cooked boba pearls.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>450-700 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>6-12g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Soak whole mung beans 4-8 hours; blend with water and strain.</li><li>Boil with rock sugar, pandan, and salt; chill and serve with milk or tea plus boba.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="575"><span>575 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="340"><span>340mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="13"><span>13mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">cà phê sữa đá</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Large phin batch with Café Du Monde coffee grounds. Mix finished coffee with condensed milk at about a 1/3 condensed milk ratio. Pour over ice.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>180-320 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>4-7g <span class="amount">est.</span></span></div>
+          <div class="cell category" role="cell" data-label="category">beverage</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">c&agrave; ph&ecirc; s&#7919;a &#273;&aacute;</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew a large phin batch with Caf&eacute; Du Monde coffee grounds.</li><li>Mix with condensed milk at about 1/3 condensed milk; pour over ice.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">beignets</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Café Du Monde style: Use Café Du Monde beignet mix or a yeast dough, roll and cut squares, fry until puffed, then cover heavily with powdered sugar. Buy order is 3 pieces.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>500-700 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>8-14g <span class="amount">est.</span></span></div>
-        </div>
-
-        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">café au lait</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Café Du Monde style: Brew strong Coffee and Chicory, then mix half coffee and half hot milk. Serve hot, iced, or frozen.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>120-250 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>6-12g <span class="amount">est.</span></span></div>
+          <div class="cell dish" role="cell" data-label="dish name">beignets</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Use Caf&eacute; Du Monde mix or yeast dough; roll and cut squares.</li><li>Fry until puffed; cover heavily with powdered sugar.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="11"><span>11g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="350"><span>350mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="8"><span>8mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">beverage</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">caf&eacute; au lait</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Brew strong Coffee and Chicory.</li><li>Mix half coffee with half hot milk; serve hot, iced, or frozen.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="185"><span>185 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="320"><span>320mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="30"><span>30mg</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">disney churros</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Disney Parks: Boil water with butter, salt, and cinnamon, stir in flour to form dough, cool 5-7 minutes, beat in eggs, pipe 1-inch bites into 350°F oil, fry, drain, and toss with cinnamon sugar.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>300-450 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>4-7g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Boil water, butter, salt, and cinnamon; stir in flour.</li><li>Cool 5-7 minutes, beat in eggs, pipe 1-inch bites, fry, and toss with cinnamon sugar.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="375"><span>375 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="55"><span>55mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">mochi donuts</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Pon de Ring-style dough with tapioca flour, all-purpose flour, butter, eggs, warm whole milk, yeast, sugar, vanilla, and salt. Shape connected dough balls on parchment, fry, then glaze plain or matcha.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>250-450 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>3-6g <span class="amount">est.</span></span></div>
-        </div>
-
-        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">mochi donuts</div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Make Pon de Ring-style dough with tapioca flour, AP flour, butter, eggs, warm milk, yeast, sugar, vanilla, and salt.</li><li>Shape connected dough balls, fry on parchment, then glaze plain or matcha.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="50"><span>50mg</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">snack</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">Point Reyes blue cheese block</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Literally buy a block of Point Reyes blue cheese. Nothing to make.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>100 per oz <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>6g per oz <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy Point Reyes blue cheese.</li><li>Use 1 oz as the serving basis for this row.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="100"><span>100 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="300"><span>300mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
+          <div class="cell category" role="cell" data-label="category">entree</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">caesar salad</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Romaine lettuce, chopped. Parmesan cheese, croutons, sliced avocados, and 2 eggs. Codex suggested dressing: garlic, lemon, Dijon, Worcestershire, anchovy or anchovy paste, egg yolk or mayo, olive oil, and Parmesan.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>600-850 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>28-40g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Chop romaine; add Parmesan, croutons, avocado, and 2 eggs.</li><li>Dressing: garlic, lemon, Dijon, Worcestershire, anchovy, egg yolk or mayo, olive oil, and Parmesan.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="725"><span>725 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="34"><span>34g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1200"><span>1,200mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="470"><span>470mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">shao mai</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Din Tai Fung style: Thick shao mai skin, juicy pork filling, and a single shrimp on top. Mix pork, chopped shrimp, ginger, scallion, soy sauce, Shaoxing wine, sesame oil, white pepper, and cornstarch; pack into wrappers and steam.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>500-700 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>30-45g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Mix pork, chopped shrimp, ginger, scallion, soy sauce, Shaoxing wine, sesame oil, white pepper, and cornstarch.</li><li>Pack into thick shao mai wrappers; top with shrimp and steam.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="38"><span>38g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1500"><span>1,500mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="145"><span>145mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell category" role="cell" data-label="category">appetizer</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
           <div class="cell dish" role="cell" data-label="dish name">kurobuta pork xiao long bao</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Din Tai Fung style: Thin soup dumpling skin with Kurobuta pork, hot broth, ginger, and green onion. Fold by hand toward the 18-fold look and steam; easiest trusted version is ordering the Din Tai Fung basket.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>450-650 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>25-35g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Use thin soup dumpling skins with Kurobuta pork, broth gel, ginger, and green onion.</li><li>Fold toward the 18-fold look and steam; easiest trusted version is ordering Din Tai Fung.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="550"><span>550 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1150"><span>1,150mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="110"><span>110mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell category" role="cell" data-label="category">entree</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
           <div class="cell dish" role="cell" data-label="dish name">butaton-style tonkotsu ramen</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Butaton menu: Rich tonkotsu broth, thin noodles, pork belly or chashu, egg, green onion, bean sprouts, and dried seaweed. For Butaton Ramen, add spicy rich broth, black garlic oil, and kikurage.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>850-1,200 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>35-55g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Use rich tonkotsu broth, thin noodles, pork belly or chashu, egg, green onion, bean sprouts, and seaweed.</li><li>For Butaton-style, add spicy broth, black garlic oil, and kikurage.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="1025"><span>1,025 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="45"><span>45g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1650"><span>1,650mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="250"><span>250mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
+          <div class="cell category" role="cell" data-label="category">dessert</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">sticky rice with mango and coconut</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested from Thai Time-style mango sticky rice plus Thai street-food method: Soak glutinous rice, steam it, fold in salted sweet coconut cream, rest until glossy, then serve with ripe mango, extra coconut sauce, and sesame or crispy mung beans.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>550-850 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>6-12g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Soak and steam glutinous rice.</li><li>Fold in salted sweet coconut cream; serve with mango, sauce, and sesame or crispy mung beans.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="700"><span>700 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="150"><span>150mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">thai tea</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Brew strong Thai tea mix or black tea with spices, strain, sweeten with condensed milk and sugar, chill, then pour over ice with evaporated milk or half-and-half.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>250-450 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>4-8g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Brew strong Thai tea mix or black tea with spices; strain.</li><li>Sweeten with condensed milk and sugar; chill and pour over ice with evaporated milk or half-and-half.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">side</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">Gyeranjjim (Korean steamed eggs)</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and a little sesame oil. Steam gently in a ttukbaegi or covered bowl until soft and barely set.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>180-320 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>12-22g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and sesame oil.</li><li>Steam gently in a ttukbaegi or covered bowl until soft and barely set.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="17"><span>17g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="700"><span>700mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="465"><span>465mg</span></div>
         </div>
 
         <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">side</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">cheese corn</div>
-          <div class="cell recipe" role="cell" data-label="recipe">Codex suggested: Mix corn with butter, mayonnaise, a little sugar, salt, and pepper. Heat in a skillet, cover with mozzarella, then melt or broil until bubbling.</div>
-          <div class="cell metric" role="cell" data-label="calories"><span>350-600 <span class="amount">est.</span></span></div>
-          <div class="cell metric" role="cell" data-label="protein"><span>10-18g <span class="amount">est.</span></span></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Codex suggested: Mix corn with butter, mayonnaise, a little sugar, salt, and pepper.</li><li>Heat in a skillet; cover with mozzarella and melt or broil until bubbling.</li></ul></div>
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="475"><span>475 kcal</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="14"><span>14g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="500"><span>500mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
         </div>
       </section>
 
       <footer class="source-note">
         <span>source: Alan recipe list, June 1 and June 4, 2026</span>
         <span>Codex suggested rows are researched suggestions, not Alan-pinned recipes</span>
-        <span>exact nutrition needs package labels, serving counts, and measured loose amounts</span>
+        <span>nutrition values are best guesses until package labels, serving counts, and measured loose amounts are pinned</span>
       </footer>
     </main>
     <script>
       (() => {
-        const ratingByInitialRow = [
-          "C",
-          "D",
-          "C",
-          "C",
-          "D",
-          "A",
-          "A",
-          "B",
-          "A",
-          "B",
-          "B",
-          "B",
-          "C",
-          "B",
-          "D",
-          "B",
-          "A",
-          "D",
-          "C",
-          "A",
-          "S",
-          "S",
-          "B",
-          "C",
-          "C",
-          "C",
-        ];
-        const categoryByInitialRow = [
-          "entree",
-          "breakfast",
-          "entree",
-          "entree",
-          "beverage",
-          "dessert",
-          "entree",
-          "dessert",
-          "dessert",
-          "dessert",
-          "appetizer",
-          "beverage",
-          "beverage",
-          "dessert",
-          "beverage",
-          "dessert",
-          "dessert",
-          "snack",
-          "entree",
-          "appetizer",
-          "appetizer",
-          "entree",
-          "dessert",
-          "beverage",
-          "side",
-          "side",
-        ];
-        const cholesterolByInitialRow = [
-          ["35-60mg est.", 48],
-          ["15-30mg est.", 23],
-          ["740-760mg est.", 750],
-          ["250-320mg est.", 285],
-          ["50-90mg est.", 70],
-          ["150-250mg est.", 200],
-          ["120-220mg est.", 170],
-          ["20-45mg est.", 33],
-          ["70-140mg est.", 105],
-          ["0mg est.", 0],
-          ["40-90mg est.", 65],
-          ["0-25mg est.", 13],
-          ["15-35mg est.", 25],
-          ["0-15mg est.", 8],
-          ["20-40mg est.", 30],
-          ["35-75mg est.", 55],
-          ["30-70mg est.", 50],
-          ["25mg per oz est.", 25],
-          ["420-520mg est.", 470],
-          ["110-180mg est.", 145],
-          ["80-140mg est.", 110],
-          ["180-320mg est.", 250],
-          ["0mg est.", 0],
-          ["15-35mg est.", 25],
-          ["370-560mg est.", 465],
-          ["40-90mg est.", 65],
-        ];
         const labelsByKey = {
           category: "category",
           rating: "difficulty rating",
@@ -791,6 +793,7 @@
           recipe: "recipe",
           calories: "calories",
           protein: "protein",
+          tyrosine: "tyrosine",
           cholesterol: "cholesterol",
         };
         const ratingValue = { D: 1, C: 2, B: 3, A: 4, S: 5 };
@@ -801,45 +804,17 @@
           return;
         }
 
-        const initialRows = Array.from(table.querySelectorAll(".recipe-row"));
-        initialRows.forEach((row, index) => {
-          const rating = ratingByInitialRow[index] || "C";
-          const ratingBadge = row.querySelector('[data-label="difficulty rating"] .rating');
-          if (ratingBadge) {
-            ratingBadge.textContent = rating;
-            ratingBadge.className = `rating rating-${rating.toLocaleLowerCase()}`;
-          }
-          if (!row.querySelector('[data-label="category"]')) {
-            const categoryCell = document.createElement("div");
-            categoryCell.className = "cell category";
-            categoryCell.setAttribute("role", "cell");
-            categoryCell.dataset.label = "category";
-            categoryCell.textContent = categoryByInitialRow[index] || "other";
-            row.insertBefore(categoryCell, row.firstElementChild);
-          }
-          if (row.querySelector('[data-label="cholesterol"]')) return;
-          const [label, value] = cholesterolByInitialRow[index] || ["unknown est.", -1];
-          const cell = document.createElement("div");
-          cell.className = "cell metric";
-          cell.setAttribute("role", "cell");
-          cell.dataset.label = "cholesterol";
-          cell.dataset.sortValue = String(value);
-          cell.innerHTML = `<span>${label.replace(" est.", ' <span class="amount">est.</span>')}</span>`;
-          row.appendChild(cell);
-        });
-
-        const numericEstimate = (text) => {
+        const numericValue = (text) => {
           const numbers = text.replace(/,/g, "").match(/\d+(?:\.\d+)?/g)?.map(Number) || [];
           if (!numbers.length) return -1;
-          if (numbers.length === 1) return numbers[0];
-          return (numbers[0] + numbers[1]) / 2;
+          return numbers[0];
         };
         const valueFor = (row, key, type) => {
           const label = labelsByKey[key];
           const cell = row.querySelector(`[data-label="${label}"]`);
           if (!cell) return type === "text" ? "" : -1;
           if (type === "rating") return ratingValue[cell.textContent.trim()] || 0;
-          if (type === "numeric") return Number(cell.dataset.sortValue || numericEstimate(cell.textContent));
+          if (type === "numeric") return Number(cell.dataset.sortValue || numericValue(cell.textContent));
           return cell.textContent.trim().toLocaleLowerCase();
         };
         const resetAria = () => {
