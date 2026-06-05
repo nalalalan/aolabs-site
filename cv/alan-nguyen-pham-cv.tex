@@ -78,10 +78,10 @@
 \contactsep Worcester, MA
 \contactsep \href{https://aolabs.io}{aolabs.io}
 \contactsep \href{https://www.linkedin.com/in/alanpham97/}{linkedin.com/in/alanpham97}\\[4pt]
-\profilebox{\textcolor{text}{Mechanical engineering Ph.D. candidate building soft robotic materials, reconfigurable mechanisms, and motion prototypes for human-facing physical systems. Targeting mechanical R\&D roles where CAD/fabrication, experimental characterization, pneumatic/compliant mechanisms, and visible physical behavior meet.}}
+\profilebox{\textcolor{text}{Mechanical engineering Ph.D. candidate building soft robotic materials, reconfigurable mechanisms, mechanical-memory cells, and mechanism simulators for human-facing physical systems. Targeting mechanical R\&D roles where CAD/fabrication, experimental characterization, pneumatic/compliant mechanisms, and visible physical behavior meet.}}
 
 \section*{Research Focus}
-\textcolor{muted}{Soft robotics; morphing mechanisms; robotic materials; compliant mechanisms; pneumatic actuation; mechanical design; CAD/fabrication; force/stiffness testing; motion systems; haptics; human-robot interaction; physical HCI; experimental mechanics; nonlinear dynamics; shape displays; adaptive interfaces.}
+\textcolor{muted}{Soft robotics; morphing mechanisms; robotic materials; compliant mechanisms; pneumatic actuation; electropermanent magnetic latching; mechanism simulation; inverse-sheet design; mechanical design; CAD/fabrication; force/stiffness testing; motion systems; haptics; human-robot interaction; physical HCI; experimental mechanics; nonlinear dynamics; shape displays; adaptive interfaces.}
 
 \section*{Education}
 \degreeentry{Doctor of Philosophy, Mechanical Engineering}{Expected 2027}{Worcester Polytechnic Institute, Worcester, MA}{Advisors: Dr. Pratap Rao and Dr. Cagdas Onal}
@@ -98,6 +98,9 @@
   \item Led first-author research on reconfigurable Sarrus-linkage soft-robotic cells that turn one monolithically printed pneumatic Sarrus/PneuNet unit into planar, cylindrical, and locomotion assemblies.
   \item Designed, fabricated, and characterized 2-by-2 pneumatic modules with cross-cell channels, snap-fit connectivity, and built-in bending bias for repeatable out-of-plane morphing.
   \item Assembled programmable morphing-surface arrays demonstrating single- and double-dome shape display, bilayer overhangs, tennis-ball transport/capture, and horizontal, diagonal, and circular traveling-wave deformation.
+  \item Built Wavevis, a public React/TypeScript/Three.js mechanism visualizer for double-layer Sarrus-cell arrays and inverse overhang sheets, with geometry-invariant checks and CSV/JSON export for deformation metrics.
+  \item Used Wavevis to reject an all-four-equal X-cell overhang branch and select pairwise opposite-equal X-cells under shared connector-contact constraints, documenting the decision in a June 2026 constraint proof.
+  \item Developed FluxCell as a bounded electropermanent-magnetic Sarrus-cell mechanical-memory proof, reducing the next experiment to one-axis keeper overlap, a purchase-ready parts list, and pending stroke/current/hold/release/thermal evidence gates.
   \item Reassembled modules as cylindrical soft robots for continuum bending, grasping/placement, a 200~mm peristaltic crawl, and self-rolling locomotion.
   \item Quantified pressure-dependent expansion, bending angle, force-displacement response, hysteresis, and variable stiffness across cell, module, and array scales to connect geometry and actuation pattern to task-level behavior.
 \end{itemize}
@@ -161,6 +164,8 @@
 \section*{Publications and Research Outputs}
 \begin{itemize}
   \item Pham, A. N., Rao, P., \& Onal, C. D. (2026). Manuscript in prep.: \textit{Reconfigurable Sarrus-linkage cells for multifunctional soft robots}.
+  \item Pham, A. N. (2026). \href{https://aolabs.io/wavevis/proofs/connector-contact-constraint-proof.pdf}{\textit{Wavevis overhang connector assignment: evidence rejecting all-four-equal X-cells}} [Constraint proof and public simulator note].
+  \item Pham, A. N. (2026). \textit{Pulse-programmed mechanical memory in an electropermanent robotic cell} [FluxCell design manuscript and evidence protocol; measured actuation data pending].
   \item Winston, S., Pham, A., Bahr, B., Singh, A., Schumann, C., Flicek, R., Grutzik, S., Kuether, R. J., \& Vemaganti, K. (2025). \href{https://aolabs.io/sandia/paper.pdf}{\textit{Quantifying the Effect of Non-Physical Parameters on the Nonlinear Dynamics of an Electromechanical Ratcheting Mechanism}}. Accepted to IMAC, A Conference and Exposition on Structural Dynamics.
   \item Bonofiglio, K. (2023). \href{https://digital.wpi.edu/pdfviewer/ms35td790}{\textit{Making Concentric Tube Robots More Accessible: An Open-Source Platform with Easy-to-Source Components and Guided Learning Materials}} [Master's thesis, Worcester Polytechnic Institute]. Research contributor to open-source CTR hardware assembly and validation support.
   \item Pham, A., \& Teagle Hernandez, A. (2022). \href{https://www.proquest.com/docview/2718992967}{\textit{Structural Properties and Perceived Acoustic Quality of Modern Violins}} (Publication No. 29065875) [Master's thesis, California State University, Long Beach]. ProQuest Dissertations and Theses Global.
@@ -206,7 +211,7 @@
 \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{0.18\textwidth} X@{}}
 Mechanical design & SolidWorks, Onshape, PTC Creo, FEA review, GD\&T-aware drawings, BOMs, ECOs, DFM, assembly planning, fixture design, prototype iteration.\\
 Soft robotics & Pneumatic actuation, compliant mechanisms, continuum robots, modular soft robots, morphing surfaces, shape displays, haptics, human-robot interaction, robotic prototyping.\\
-Software & CUBIT, Sierra/SolidMechanics, ParaView, MATLAB, Simulink Simscape Multibody, Abaqus, Ansys FEA, Python, C/C++, ROS2, LabVIEW, Minitab, MS Office.\\
+Software & CUBIT, Sierra/SolidMechanics, ParaView, MATLAB, Simulink Simscape Multibody, Abaqus, Ansys FEA, Python, C/C++, TypeScript, React, Three.js, ROS2, LabVIEW, Minitab, MS Office.\\
 Experiments & Modal testing, vibroacoustic measurement, FFT-based signal analysis, anechoic-chamber testing, optical tracking, pressure/force/displacement characterization, design of experiments.\\
 Hardware & 3D printing, laser cutting, soldering, Arduino, Raspberry Pi, National Instruments DAQ, strain~gages, thermocouples, pressure sensors, force testing (Mecmesin), hand tools.\\
 \end{tabularx}
