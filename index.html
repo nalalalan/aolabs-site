@@ -41,6 +41,7 @@
       --nerve: #b98259;
       --ocean: #527d83;
       --violin: #a8783c;
+      --virtualviolin: #b96f36;
       --yum: #bb8854;
       --lily: #c28b98;
       --cv: #68758f;
@@ -161,7 +162,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr .5fr;
+      grid-template-columns: 1.05fr 1fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr .5fr .48fr;
       height: 9px;
       margin: 24px 0 0 132px;
       overflow: hidden;
@@ -182,18 +183,19 @@
     .palette-strip span:nth-child(11) { background: var(--relay); }
     .palette-strip span:nth-child(12) { background: var(--nerve); }
     .palette-strip span:nth-child(13) { background: var(--violin); }
-    .palette-strip span:nth-child(14) { background: var(--bus); }
-    .palette-strip span:nth-child(15) { background: var(--league); }
-    .palette-strip span:nth-child(16) { background: var(--spotify); }
-    .palette-strip span:nth-child(17) { background: var(--a3); }
-    .palette-strip span:nth-child(18) { background: var(--idleshroom); }
-    .palette-strip span:nth-child(19) { background: var(--meowtronome); }
-    .palette-strip span:nth-child(20) { background: var(--dbalarm); }
-    .palette-strip span:nth-child(21) { background: var(--lily); }
-    .palette-strip span:nth-child(22) { background: var(--yum); }
-    .palette-strip span:nth-child(23) { background: var(--cooking); }
-    .palette-strip span:nth-child(24) { background: var(--wallguard); }
-    .palette-strip span:nth-child(25) { background: var(--duet); }
+    .palette-strip span:nth-child(14) { background: var(--virtualviolin); }
+    .palette-strip span:nth-child(15) { background: var(--bus); }
+    .palette-strip span:nth-child(16) { background: var(--league); }
+    .palette-strip span:nth-child(17) { background: var(--spotify); }
+    .palette-strip span:nth-child(18) { background: var(--a3); }
+    .palette-strip span:nth-child(19) { background: var(--idleshroom); }
+    .palette-strip span:nth-child(20) { background: var(--meowtronome); }
+    .palette-strip span:nth-child(21) { background: var(--dbalarm); }
+    .palette-strip span:nth-child(22) { background: var(--lily); }
+    .palette-strip span:nth-child(23) { background: var(--yum); }
+    .palette-strip span:nth-child(24) { background: var(--cooking); }
+    .palette-strip span:nth-child(25) { background: var(--wallguard); }
+    .palette-strip span:nth-child(26) { background: var(--duet); }
 
     .grid {
       display: grid;
@@ -349,19 +351,20 @@
     .relay { --accent: var(--relay); order: 12; }
     .nerve { --accent: var(--nerve); order: 13; }
     .violin { --accent: var(--violin); order: 14; }
-    .bus { --accent: var(--bus); order: 15; }
-    .league { --accent: var(--league); order: 16; }
-    .spotify { --accent: var(--spotify); order: 17; }
-    .a3 { --accent: var(--a3); order: 18; }
+    .virtualviolin { --accent: var(--virtualviolin); order: 15; }
+    .bus { --accent: var(--bus); order: 16; }
+    .league { --accent: var(--league); order: 17; }
+    .spotify { --accent: var(--spotify); order: 18; }
+    .a3 { --accent: var(--a3); order: 19; }
     .idleshroom,
-    .mushroom-boop { --accent: var(--idleshroom); order: 19; }
-    .meowtronome { --accent: var(--meowtronome); order: 20; }
-    .dbalarm { --accent: var(--dbalarm); order: 21; }
-    .lily { --accent: var(--lily); order: 22; }
-    .yum { --accent: var(--yum); order: 23; }
-    .cooking { --accent: var(--cooking); order: 24; }
-    .wallguard { --accent: var(--wallguard); order: 25; }
-    .duet { --accent: var(--duet); order: 26; }
+    .mushroom-boop { --accent: var(--idleshroom); order: 20; }
+    .meowtronome { --accent: var(--meowtronome); order: 21; }
+    .dbalarm { --accent: var(--dbalarm); order: 22; }
+    .lily { --accent: var(--lily); order: 23; }
+    .yum { --accent: var(--yum); order: 24; }
+    .cooking { --accent: var(--cooking); order: 25; }
+    .wallguard { --accent: var(--wallguard); order: 26; }
+    .duet { --accent: var(--duet); order: 27; }
 
     footer {
       display: flex;
@@ -483,7 +486,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -668,6 +671,19 @@
           <p class="desc">fine violin visuals, makers, varnish, and source notes.</p>
         </div>
         <div class="card-foot"><span class="url">violin.aolabs.io</span></div>
+      </a>
+
+      <a class="app virtualviolin" href="https://virtualviolin.aolabs.io/" aria-label="virtual violin">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>virtual violin</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/virtualviolin.svg?v=20260607-mvp" alt=""></span>
+          </div>
+          <p class="desc">browser violin with mouse bowing and number-row fingering.</p>
+        </div>
+        <div class="card-foot"><span class="url">virtualviolin.aolabs.io</span></div>
       </a>
 
       <a class="app bus" href="https://bus.aolabs.io" aria-label="bus">
