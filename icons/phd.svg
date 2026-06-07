@@ -1,13 +1,14 @@
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd icon">
   <defs>
-    <filter id="soft-shadow" x="10" y="14" width="108" height="104" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#9f6b72" flood-opacity=".18"/>
+    <filter id="soft-shadow" x="-18%" y="-16%" width="136%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#8d6870" flood-opacity=".14"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fff8f2" flood-opacity=".52"/>
     </filter>
+    <linearGradient id="japandi-pink" x1="30" y1="10" x2="96" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#edc8cc"/>
+      <stop offset=".56" stop-color="#d99fa8"/>
+      <stop offset="1" stop-color="#c18691"/>
+    </linearGradient>
   </defs>
-  <rect width="128" height="128" rx="28" fill="#f8f1ef"/>
-  <g filter="url(#soft-shadow)">
-    <circle cx="45" cy="47" r="25" fill="#d99fa8"/>
-    <circle cx="83" cy="47" r="25" fill="#d99fa8"/>
-    <circle cx="64" cy="74" r="33" fill="#d99fa8"/>
-  </g>
+  <path filter="url(#soft-shadow)" d="M64 116c-21.4 0-37.7-16.4-37.7-37 0-8.7 2.9-16.7 7.8-23.1-12.5-2.3-21.8-12.8-21.8-25.5C12.3 15.4 24 4.8 39 5.9c12.4.9 21.4 10.4 23.2 22.5 2.5-.4 5-.4 7.5 0C71.5 16.3 80.7 6.8 93 5.9c15-1.1 26.7 9.5 26.7 24.5 0 12.6-9.2 23.1-21.5 25.5 4.9 6.4 7.6 14.4 7.6 23.1 0 20.6-20 37-41.8 37Z" fill="url(#japandi-pink)"/>
 </svg>
