@@ -1,0 +1,13 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="soft-shadow" x="10" y="14" width="108" height="104" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#9f6b72" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#f8f1ef"/>
+  <g filter="url(#soft-shadow)">
+    <circle cx="45" cy="47" r="25" fill="#d99fa8"/>
+    <circle cx="83" cy="47" r="25" fill="#d99fa8"/>
+    <circle cx="64" cy="74" r="33" fill="#d99fa8"/>
+  </g>
+</svg>
