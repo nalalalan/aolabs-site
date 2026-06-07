@@ -1,18 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd icon">
   <defs>
-    <filter id="mark-shadow" x="-18%" y="-16%" width="136%" height="138%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#33232a" flood-opacity=".22"/>
+    <filter id="book-shadow" x="-16%" y="-14%" width="132%" height="136%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="5" flood-color="#33232a" flood-opacity=".22"/>
     </filter>
-    <linearGradient id="research-stack" x1="26" y1="17" x2="101" y2="111" gradientUnits="userSpaceOnUse">
+    <linearGradient id="thesis-book" x1="25" y1="27" x2="105" y2="106" gradientUnits="userSpaceOnUse">
       <stop stop-color="#9d707a"/>
-      <stop offset=".52" stop-color="#6f4b57"/>
+      <stop offset=".54" stop-color="#6f4b57"/>
       <stop offset="1" stop-color="#3f2a34"/>
     </linearGradient>
   </defs>
-  <g filter="url(#mark-shadow)" transform="rotate(-4 64 64)">
-    <rect x="26" y="31" width="22" height="73" rx="11" fill="url(#research-stack)" opacity=".92"/>
-    <rect x="53" y="18" width="24" height="91" rx="12" fill="url(#research-stack)"/>
-    <rect x="82" y="37" width="21" height="67" rx="10.5" fill="url(#research-stack)" opacity=".88"/>
-    <path d="M38 45v45M65 33v60M92 50v40" stroke="#d7b3ba" stroke-width="3" stroke-linecap="round" opacity=".20"/>
+  <g filter="url(#book-shadow)">
+    <path d="M22 31c16-5 31-2 42 8v68c-11-9-26-12-42-7V31Z" fill="url(#thesis-book)"/>
+    <path d="M106 31c-16-5-31-2-42 8v68c11-9 26-12 42-7V31Z" fill="url(#thesis-book)" opacity=".92"/>
+    <path d="M64 39v68" stroke="#dec1c6" stroke-width="4" stroke-linecap="round" opacity=".28"/>
+    <path d="M34 50c8-1 15 .8 21 5M34 65c8-1 15 .8 21 5M34 80c8-1 15 .8 21 5" stroke="#dec1c6" stroke-width="4" stroke-linecap="round" opacity=".27"/>
+    <path d="M73 55c6-4 13-5.5 21-4M73 70c6-4 13-5.5 21-4M73 85c6-4 13-5.5 21-4" stroke="#dec1c6" stroke-width="4" stroke-linecap="round" opacity=".24"/>
   </g>
 </svg>
