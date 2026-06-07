@@ -1,3 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd">
-  <text x="64" y="78" text-anchor="middle" fill="#3f2a34" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="800" letter-spacing="-1">phd</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd mark">
+  <defs>
+    <filter id="phi-shadow" x="-18%" y="-18%" width="136%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#33232a" flood-opacity=".24"/>
+    </filter>
+    <linearGradient id="phi-ink" x1="35" y1="18" x2="92" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9d707a"/>
+      <stop offset=".55" stop-color="#6f4b57"/>
+      <stop offset="1" stop-color="#3f2a34"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#phi-shadow)" fill="none" stroke="url(#phi-ink)" stroke-linecap="round">
+    <ellipse cx="64" cy="65" rx="31" ry="38" stroke-width="13"/>
+    <path d="M64 16v96" stroke-width="14"/>
+  </g>
 </svg>
