@@ -1,27 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd magic research mark">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="phd soft magic research mark">
   <defs>
-    <filter id="magic-shadow" x="-20%" y="-18%" width="140%" height="142%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="8" stdDeviation="5" flood-color="#33232a" flood-opacity=".24"/>
+    <filter id="soft-shadow" x="-18%" y="-18%" width="136%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="7" stdDeviation="4" flood-color="#8f6070" flood-opacity=".18"/>
     </filter>
-    <linearGradient id="rose-ink" x1="28" y1="96" x2="98" y2="21" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#3f2a34"/>
-      <stop offset=".48" stop-color="#76505d"/>
-      <stop offset="1" stop-color="#b7838d"/>
+    <linearGradient id="wand-ink" x1="30" y1="95" x2="82" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#865d73"/>
+      <stop offset=".55" stop-color="#c98299"/>
+      <stop offset="1" stop-color="#f0aeba"/>
     </linearGradient>
-    <linearGradient id="spark-ink" x1="57" y1="15" x2="95" y2="68" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#c5969e"/>
-      <stop offset=".58" stop-color="#7a4f5f"/>
-      <stop offset="1" stop-color="#3f2a34"/>
-    </linearGradient>
+    <radialGradient id="glow-ink" cx="42%" cy="34%" r="62%">
+      <stop stop-color="#ffe0bd"/>
+      <stop offset=".58" stop-color="#e5a76a"/>
+      <stop offset="1" stop-color="#c7828e"/>
+    </radialGradient>
   </defs>
-  <g filter="url(#magic-shadow)">
-    <path d="M42 31c-10 13-11 31-2 45" fill="none" stroke="#5b3947" stroke-width="5" stroke-linecap="round"/>
-    <path d="M45 84c15 18 48 17 61-3 13-19 4-42-18-51" fill="none" stroke="#8c5d69" stroke-width="6" stroke-linecap="round"/>
-    <path d="M31 93 72 52" fill="none" stroke="url(#rose-ink)" stroke-width="10" stroke-linecap="round"/>
-    <path d="M32 94 45 81" fill="none" stroke="#d2a2aa" stroke-width="4" stroke-linecap="round" opacity=".75"/>
-    <path d="M77 16 84 34 102 41 84 48 77 66 70 48 52 41 70 34z" fill="url(#spark-ink)"/>
-    <circle cx="42" cy="31" r="4" fill="#a87883"/>
-    <circle cx="105" cy="77" r="5" fill="#3f2a34"/>
-    <circle cx="47" cy="86" r="3.5" fill="#d0a2aa"/>
+  <g filter="url(#soft-shadow)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 34c-11 15-9 35 4 48" stroke="#d8a1ae" stroke-width="4.5" opacity=".62"/>
+    <path d="M43 82c16 19 49 18 64-3 12-18 4-41-18-51" stroke="#ca849a" stroke-width="6" opacity=".78"/>
+    <path d="M31 94c15-14 29-28 48-49" stroke="url(#wand-ink)" stroke-width="11"/>
+    <path d="M33 93c10-9 18-17 27-26" stroke="#ffe1dd" stroke-width="4" opacity=".55"/>
+    <circle cx="81" cy="43" r="13" fill="url(#glow-ink)" stroke="#f3bec0" stroke-width="3"/>
+    <circle cx="95" cy="35" r="4.5" fill="#e7bd78" stroke="none"/>
+    <circle cx="72" cy="25" r="3.5" fill="#e9a9b5" stroke="none"/>
+    <circle cx="101" cy="58" r="3.5" fill="#d892a4" stroke="none"/>
+    <circle cx="49" cy="85" r="3.5" fill="#efb7bd" stroke="none"/>
   </g>
 </svg>
