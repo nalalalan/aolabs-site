@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f3eee4">
     <title>cooking.aolabs.io</title>
-    <meta name="description" content="AO Labs recipe table with prep ratings and single best-guess nutrition values.">
+    <meta name="description" content="AO Labs recipe table with prep ratings, photos, detailed recipes, nutrition estimates, and rough food-poisoning risk percentages.">
     <link rel="canonical" href="https://cooking.aolabs.io/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AO Labs">
     <meta property="og:title" content="cooking">
-    <meta property="og:description" content="Recipe table with prep ratings and single best-guess calories, protein, tyrosine, and cholesterol values.">
+    <meta property="og:description" content="Recipe table with prep ratings, better photos, detailed recipes, nutrition estimates, and rough food-poisoning risk percentages.">
     <meta property="og:url" content="https://cooking.aolabs.io/">
     <meta property="og:image" content="https://aolabs.io/icons/cooking.svg?v=20260601-cooking">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="cooking">
-    <meta name="twitter:description" content="Recipe table with prep ratings and single best-guess calories, protein, tyrosine, and cholesterol values.">
+    <meta name="twitter:description" content="Recipe table with prep ratings, better photos, detailed recipes, nutrition estimates, and rough food-poisoning risk percentages.">
     <link rel="icon" href="/icons/cooking.svg?v=20260601-cooking" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icons/cooking.svg?v=20260601-cooking">
     <meta name="apple-mobile-web-app-title" content="cooking">
@@ -68,7 +68,7 @@
 
       .shell {
         width: calc(100% - 32px);
-        max-width: 1160px;
+        max-width: 1480px;
         margin: 0 auto;
         padding: 28px 0 42px;
       }
@@ -181,7 +181,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 84px 84px minmax(118px, .68fr) 96px minmax(230px, 1.78fr) 82px 82px 104px 112px;
+        grid-template-columns: 78px 78px minmax(118px, .72fr) 150px minmax(300px, 1.9fr) 84px 78px 98px 106px 108px;
         align-items: stretch;
       }
 
@@ -249,8 +249,8 @@
 
       .dish-photo {
         display: block;
-        width: 78px;
-        height: 58px;
+        width: 132px;
+        height: 94px;
         object-fit: cover;
         border-radius: 7px;
         background: rgba(83, 70, 54, .1);
@@ -260,6 +260,13 @@
       .recipe {
         color: #403831;
         font-weight: 640;
+      }
+
+      .recipe a {
+        color: #92543e;
+        font-weight: 850;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
       }
 
       .recipe-steps {
@@ -283,9 +290,10 @@
         display: flex;
         width: 100%;
         min-height: 100%;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 3px;
         border: 0;
         background: transparent;
         color: inherit;
@@ -359,7 +367,7 @@
         font-weight: 700;
       }
 
-      @media (max-width: 820px) {
+      @media (max-width: 1120px) {
         .summary {
           grid-template-columns: 1fr;
           gap: 14px;
@@ -416,8 +424,8 @@
         }
 
         .dish-photo {
-          width: min(150px, 100%);
-          height: 92px;
+          width: min(190px, 100%);
+          height: 124px;
         }
 
         .cell:last-child {
@@ -492,7 +500,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>26 recipes. Difficulty ranks prep effort. Nutrition columns are single best-guess values for the listed serving. Recipes use short step lists.</p>
+              <p>26 recipes. Difficulty ranks prep effort. S-tier rows now carry source links and full method notes. Nutrition and food-poisoning risk are estimates for the listed serving.</p>
             </div>
           </div>
         </div>
@@ -522,54 +530,59 @@
           <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="tyrosine" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">tyrosine</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="cholesterol" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">cholesterol</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="risk" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">food poisoning risk est.</button></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">pasta</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/01-pasta.jpg" alt="spaghetti" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil De Cecco #11 thin spaghetti, quarter-sized dry bundle.</li><li>Warm half a 24 oz jar Rao's mushroom Italian sausage sauce; finish with Parmigiano Reggiano.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/01-pasta.jpg" alt="spaghetti with red sauce" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Salt boiling water until it tastes lightly seasoned; cook De Cecco #11 thin spaghetti just under al dente.</li><li>Warm Rao's mushroom Italian sausage sauce separately; loosen with a spoon of pasta water so it coats instead of sitting on top.</li><li>Toss pasta in the sauce for 60 seconds; finish with Parmigiano Reggiano and black pepper.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="775"><span>775 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1050"><span>1,050mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="48"><span>48mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.05"><span>0.05%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">breakfast</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">greek yogurt and granola</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/02-greek-yogurt-and-granola.jpg" alt="Greek yogurt" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Spoon about half a tub Friendly Farms nonfat Greek yogurt.</li><li>Add Millville Protein Oats &amp; Honey granola to size.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/02-greek-yogurt-and-granola.jpg" alt="Greek yogurt with granola" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Open yogurt.</li><li>Dump granola on it.</li><li>Eat. That was breakfast.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="58"><span>58g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="2100"><span>2,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="23"><span>23mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.03"><span>0.03%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">rice and eggs</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/03-rice-with-raw-egg.jpg" alt="rice with egg" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook a big serving of jasmine rice.</li><li>Top with 4 eggs.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/03-rice-with-raw-egg.jpg" alt="rice with raw egg" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook a big bowl of jasmine rice.</li><li>Crack 4 eggs on top while the rice is hot.</li><li>Add soy sauce if wanted. Stir. Done.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="780"><span>780 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="31"><span>31g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1100"><span>1,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="750"><span>750mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.80"><span>0.8%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
-          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">salmon and soy sauce</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/04-salmon-with-rice-and-soy-sauce.jpg" alt="salmon with rice and soy sauce" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook about 1 lb kosher salmon.</li><li>Serve with a lot of soy sauce for dipping.</li></ul></div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
+          <div class="cell dish" role="cell" data-label="dish name">raw salmon and soy sauce</div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/04-salmon-with-rice-and-soy-sauce.jpg" alt="raw salmon with soy sauce" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy salmon intended for raw eating or previously frozen handling.</li><li>Skin it with a sharp knife, slice it, dip it in soy sauce.</li><li>That is the whole recipe.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1000"><span>1,000 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="98"><span>98g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="3400"><span>3,400mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="285"><span>285mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="2.50"><span>2.5%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -577,83 +590,90 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">avocado smoothie</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/05-avocado-smoothie.jpg" alt="avocado smoothie" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Blend 2 avocados with ice.</li><li>Add lactose-free whole milk until it covers the ice.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Put 2 avocados, ice, and lactose-free whole milk in a blender.</li><li>Blend until thick.</li><li>Drink the green thing.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="850"><span>850 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="23"><span>23g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="800"><span>800mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="70"><span>70mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.08"><span>0.08%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">cr&egrave;me br&ucirc;l&eacute;e</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/06-creme-brulee.jpg" alt="cr&egrave;me br&ucirc;l&eacute;e" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Heat cream with vanilla; temper into egg yolks and sugar.</li><li>Bake ramekins in a water bath, chill, then br&ucirc;l&eacute;e a thin sugar top.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/06-creme-brulee.jpg" alt="creme brulee" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use the <a href="https://www.seriouseats.com/creme-brulee-recipe-7107199">Serious Eats method</a>: cream, vanilla, egg yolks, sugar, and salt.</li><li>Temper hot cream into yolks slowly; strain so the custard is completely smooth.</li><li>Bake low in a water bath until the centers wobble; chill at least 4 hours.</li><li>Torch a thin, even sugar layer right before eating so the top cracks instead of sweating.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="450"><span>450 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="7"><span>7g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="250"><span>250mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="200"><span>200mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.06"><span>0.06%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh x&egrave;o</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/07-banh-xeo.jpg" alt="B&aacute;nh x&egrave;o" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Make rice flour, cornstarch, turmeric, coconut milk, water, and green onion batter.</li><li>Fry thin with pork belly, shrimp, mung beans, and bean sprouts; fold with herbs and n&#432;&#7899;c ch&#7845;m.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/07-banh-xeo.jpg" alt="banh xeo with herbs and dipping sauce" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use the <a href="https://www.seriouseats.com/banh-xeo-crispy-vietnamese-rice-pancakes-recipe-7112029">Serious Eats batter ratios</a>: rice flour, cornstarch, turmeric, coconut milk, water, salt, and scallions.</li><li>Rest the batter so it hydrates; keep pork belly, shrimp, mung beans, bean sprouts, herbs, and n&#432;&#7899;c ch&#7845;m ready before frying.</li><li>Use a ripping-hot lightly oiled pan, pour thin, cover briefly, then uncover until the edge turns lacy and crisp.</li><li>Fold once and eat immediately with lettuce, mint, cilantro, and dipping sauce.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="650"><span>650 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="28"><span>28g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1000"><span>1,000mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="170"><span>170mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.10"><span>0.1%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">da ua</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/08-yogurt.jpg" alt="yogurt" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Warm milk and dissolve condensed milk.</li><li>Stir in yogurt starter; jar and incubate around 110&deg;F for 8 hours, then chill.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/08-yogurt.jpg" alt="Vietnamese yogurt" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Dissolve condensed milk into warm whole milk; cool to warm, not hot.</li><li>Whisk in plain yogurt starter until smooth, then jar it.</li><li>Incubate around 105-110&deg;F until set, usually 6-8 hours.</li><li>Chill hard before eating so it firms up and tastes clean.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="205"><span>205 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="330"><span>330mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="33"><span>33mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.12"><span>0.12%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve; n&#432;&#7899;ng</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/09-banh-bo.jpg" alt="B&aacute;nh b&ograve;" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Blend pandan water, coconut milk, eggs, sugar, tapioca starch, rice flour, salt, butter, and baking powder.</li><li>Strain, pour into a hot pan, bake at 350&deg;F, and cool upside down.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/09-banh-bo.jpg" alt="banh bo nuong honeycomb cake" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Warm coconut milk with sugar and pandan; cool before eggs touch it.</li><li>Mix tapioca starch, a little rice flour, salt, and single-acting baking powder; fold in beaten eggs gently so the honeycomb structure stays possible.</li><li>Strain, pour into a preheated greased pan, and bake until the center springs back.</li><li>Cool upside down before cutting so the cake does not collapse into a gummy slab.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="300"><span>300 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="105"><span>105mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.05"><span>0.05%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve;</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/10-banh-bo-vanilla.jpg" alt="B&aacute;nh b&ograve;" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix rice flour, tapioca starch, sugar, salt, yeast, vanilla, coconut milk, and warm water.</li><li>Proof until frothy; pour into hot greased molds and steam until springy.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/10-banh-bo-vanilla.jpg" alt="steamed banh bo" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix rice flour, tapioca starch, sugar, yeast, vanilla, coconut milk, warm water, and salt into a pourable batter.</li><li>Proof until it smells lightly yeasty and has visible bubbles.</li><li>Steam in hot greased cups until springy; avoid opening the lid early.</li><li>Eat warm or with coconut sauce.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="80"><span>80mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.05"><span>0.05%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&egrave;o</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/11-banh-beo.jpg" alt="B&aacute;nh b&egrave;o" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Steam thin rice flour and tapioca batter in small dishes.</li><li>Top with dried shrimp, scallion oil, fried pork fat, and n&#432;&#7899;c ch&#7845;m.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/11-banh-beo.jpg" alt="banh beo rice cakes" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Whisk rice flour, tapioca starch, water, oil, and salt; rest the batter so it hydrates.</li><li>Steam shallow spoonfuls in small dishes until glossy and set.</li><li>Top with dried shrimp floss, scallion oil, fried shallot, and crisp pork fat.</li><li>Spoon n&#432;&#7899;c ch&#7845;m over each dish right before eating.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="500"><span>500 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="15"><span>15g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="550"><span>550mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.08"><span>0.08%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -661,11 +681,12 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">mung bean milk tea with boba</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/12-brown-sugar-bubble-tea.png" alt="bubble tea" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak whole mung beans 4-8 hours; blend with water and strain.</li><li>Boil with rock sugar, pandan, and salt; chill and serve with milk or tea plus boba.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak mung beans, simmer until tender, then blend with water and strain for a smooth base.</li><li>Cook black tea strong; sweeten with rock sugar, pandan, and a pinch of salt.</li><li>Boil boba until chewy, hold in brown sugar syrup, then combine tea, mung bean milk, dairy, and ice.</li><li>Drink while the boba is still warm and soft.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="575"><span>575 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="340"><span>340mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="13"><span>13mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.06"><span>0.06%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -673,59 +694,64 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">c&agrave; ph&ecirc; s&#7919;a &#273;&aacute;</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/13-vietnamese-iced-coffee.jpg" alt="Vietnamese iced coffee" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew a large phin batch with Caf&eacute; Du Monde coffee grounds.</li><li>Mix with condensed milk at about 1/3 condensed milk; pour over ice.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Pack a phin with Caf&eacute; Du Monde coffee and chicory; bloom with a small splash of hot water.</li><li>Fill the phin and let it drip slowly over condensed milk.</li><li>Stir until glossy, then pour over a full glass of ice.</li><li>Use enough coffee strength that the ice does not flatten it.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.02"><span>0.02%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">beignets</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/14-beignets.jpg" alt="beignets" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use Caf&eacute; Du Monde mix or yeast dough; roll and cut squares.</li><li>Fry until puffed; cover heavily with powdered sugar.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/14-beignets.jpg" alt="beignets with powdered sugar" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use Caf&eacute; Du Monde mix for low-friction beignets, or make a soft yeast dough with milk, egg, sugar, flour, and butter.</li><li>Roll thin enough to puff instead of doughnuting; cut squares.</li><li>Fry at 360-370&deg;F until hollow and golden.</li><li>Bury them in powdered sugar while hot.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="11"><span>11g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="350"><span>350mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="8"><span>8mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.04"><span>0.04%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">caf&eacute; au lait</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/15-cafe-au-lait.jpg" alt="caf&eacute; au lait" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew strong Coffee and Chicory.</li><li>Mix half coffee with half hot milk; serve hot, iced, or frozen.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/15-cafe-au-lait.jpg" alt="cafe au lait" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew strong coffee and chicory.</li><li>Add hot milk.</li><li>There is no third trick.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="185"><span>185 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="320"><span>320mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="30"><span>30mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.02"><span>0.02%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">disney churros</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/16-churros.jpg" alt="churros" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil water, butter, salt, and cinnamon; stir in flour.</li><li>Cool 5-7 minutes, beat in eggs, pipe 1-inch bites, fry, and toss with cinnamon sugar.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/16-churros.jpg" alt="churros with chocolate sauce" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil water, butter, salt, and cinnamon; dump in flour and stir until a dough ball pulls from the pot.</li><li>Cool 5-7 minutes so eggs do not scramble; beat in eggs one at a time.</li><li>Pipe short ridged pieces into hot oil and fry until crisp outside.</li><li>Toss immediately in cinnamon sugar; chocolate sauce optional but correct.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="375"><span>375 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="55"><span>55mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.04"><span>0.04%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">mochi donuts</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/17-mochi-donut.jpg" alt="mochi donut" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Make Pon de Ring-style dough with tapioca flour, AP flour, butter, eggs, warm milk, yeast, sugar, vanilla, and salt.</li><li>Shape connected dough balls, fry on parchment, then glaze plain or matcha.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/17-mochi-donut.jpg" alt="mochi donuts" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Make a Pon de Ring-style dough with tapioca flour, AP flour, warm milk, butter, egg, yeast, sugar, vanilla, and salt.</li><li>Let the dough relax, then shape connected balls on parchment squares so each donut keeps the ring pattern.</li><li>Fry parchment-side down first; peel parchment away once the dough sets.</li><li>Glaze with vanilla, matcha, or black sesame while still slightly warm.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="50"><span>50mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.06"><span>0.06%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -733,11 +759,12 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="dish name">Point Reyes blue cheese block</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/18-blue-cheese.jpg" alt="blue cheese" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy Point Reyes blue cheese.</li><li>Use 1 oz as the serving basis for this row.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy Point Reyes blue cheese.</li><li>Cut cheese.</li><li>Eat cheese.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="100"><span>100 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="300"><span>300mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.04"><span>0.04%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -745,35 +772,38 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">caesar salad</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/19-caesar-salad.jpg" alt="Caesar salad" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Chop romaine; add Parmesan, croutons, avocado, and 2 eggs.</li><li>Dressing: garlic, lemon, Dijon, Worcestershire, anchovy, egg yolk or mayo, olive oil, and Parmesan.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Chop cold romaine; keep it dry so the dressing sticks.</li><li>Blend or whisk garlic, lemon, Dijon, Worcestershire, anchovy, Parmesan, black pepper, and egg yolk or mayo.</li><li>Add Parmesan, croutons, avocado, and 2 eggs; dress only when ready to eat.</li><li>Use pasteurized yolk or mayo if lowering raw-egg risk matters for the batch.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="725"><span>725 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="34"><span>34g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1200"><span>1,200mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="470"><span>470mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.45"><span>0.45%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
           <div class="cell dish" role="cell" data-label="dish name">shao mai</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/20-shao-mai.jpg" alt="shao mai" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix pork, chopped shrimp, ginger, scallion, soy sauce, Shaoxing wine, sesame oil, white pepper, and cornstarch.</li><li>Pack into thick shao mai wrappers; top with shrimp and steam.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/20-shao-mai.jpg" alt="shao mai dumplings" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix ground pork, chopped shrimp, ginger, scallion, soy sauce, Shaoxing wine, sesame oil, white pepper, sugar, salt, and cornstarch until sticky.</li><li>Keep the filling cold; slap it against the bowl so it binds and bounces instead of crumbling.</li><li>Pack into thick shao mai wrappers, leave the top open, and crown with shrimp or carrot.</li><li>Steam until the pork is fully cooked and the wrapper is glossy.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="38"><span>38g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1500"><span>1,500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="145"><span>145mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.12"><span>0.12%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
           <div class="cell dish" role="cell" data-label="dish name">kurobuta pork xiao long bao</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/21-xiao-long-bao.jpg" alt="xiao long bao" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use thin soup dumpling skins with Kurobuta pork, broth gel, ginger, and green onion.</li><li>Fold toward the 18-fold look and steam; easiest trusted version is ordering Din Tai Fung.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/21-xiao-long-bao.jpg" alt="xiao long bao soup dumplings" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Base it on <a href="https://www.seriouseats.com/soup-dumplings-xiao-long-bao-recipe">Kenji's soup dumpling method</a>: make a gelatin-rich pork aspic first and chill it solid.</li><li>Mix fatty Kurobuta pork with ginger-scallion water, Shaoxing wine, soy sauce, sesame oil, white pepper, sugar, and finely diced aspic.</li><li>Roll wrappers thin at the edge and slightly thicker in the center so the bottom holds soup.</li><li>Pleat tightly toward the 18-fold look without tearing; keep dumplings cold until steaming.</li><li>Steam hard for about 8 minutes and eat immediately with black vinegar and ginger.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="550"><span>550 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1150"><span>1,150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="110"><span>110mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.15"><span>0.15%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -781,11 +811,12 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
           <div class="cell dish" role="cell" data-label="dish name">butaton-style tonkotsu ramen</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/22-tonkotsu-ramen.jpg" alt="tonkotsu ramen" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use rich tonkotsu broth, thin noodles, pork belly or chashu, egg, green onion, bean sprouts, and seaweed.</li><li>For Butaton-style, add spicy broth, black garlic oil, and kikurage.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use <a href="https://www.seriouseats.com/rich-and-creamy-tonkotsu-ramen-broth-from-scratch-recipe">Serious Eats tonkotsu broth</a> as the backbone: blanch bones, scrub them clean, then keep a violent rolling boil for 12-18 hours.</li><li>Build separate parts: chashu pork, soft ajitama eggs, tare, black garlic oil or spicy aroma oil, and thin noodles.</li><li>Strain broth, emulsify it hot, and season each bowl with tare instead of salting the pot blindly.</li><li>For the Butaton lane, go rich and spicy: pork belly or chashu, egg, bean sprouts, green onion, kikurage, nori, and black garlic oil.</li><li>Assemble fast so the noodles stay springy and the broth stays opaque and hot.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1025"><span>1,025 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="45"><span>45g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1650"><span>1,650mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="250"><span>250mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.10"><span>0.1%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -793,11 +824,12 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
           <div class="cell dish" role="cell" data-label="dish name">sticky rice with mango and coconut</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/23-mango-sticky-rice.jpg" alt="mango sticky rice" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak and steam glutinous rice.</li><li>Fold in salted sweet coconut cream; serve with mango, sauce, and sesame or crispy mung beans.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak glutinous rice at least 4 hours; steam until chewy and translucent.</li><li>Warm coconut milk with sugar and salt; fold most into the hot rice and rest covered so it absorbs.</li><li>Reduce the remaining coconut sauce slightly for spooning.</li><li>Serve with ripe mango and toasted sesame or crispy mung beans.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="700"><span>700 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="150"><span>150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.06"><span>0.06%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -805,23 +837,25 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">thai tea</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/24-thai-tea.jpg" alt="Thai tea" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew strong Thai tea mix or black tea with spices; strain.</li><li>Sweeten with condensed milk and sugar; chill and pour over ice with evaporated milk or half-and-half.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew Thai tea mix strong and long enough to pull the orange color and spice.</li><li>Strain very clean; gritty tea dust ruins the drink.</li><li>Sweeten while hot with condensed milk and sugar, then chill.</li><li>Pour over ice and top with evaporated milk or half-and-half.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.03"><span>0.03%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">side</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">Gyeranjjim (Korean steamed eggs)</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/25-gyeranjjim.jpg" alt="Gyeranjjim" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and sesame oil.</li><li>Steam gently in a ttukbaegi or covered bowl until soft and barely set.</li></ul></div>
+          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/25-gyeranjjim.jpg" alt="Gyeranjjim Korean steamed eggs" loading="lazy" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and a little sesame oil until fully smooth.</li><li>Cook gently in a ttukbaegi or covered bowl; stir once as curds begin to form.</li><li>Stop when the center is barely set and still soft.</li><li>Finish with sesame oil and scallion.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="17"><span>17g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="700"><span>700mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="465"><span>465mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.05"><span>0.05%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -829,18 +863,19 @@
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="dish name">cheese corn</div>
           <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/26-cheese-corn.jpg" alt="cheese corn" loading="lazy" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix corn with butter, mayonnaise, a little sugar, salt, and pepper.</li><li>Heat in a skillet; cover with mozzarella and melt or broil until bubbling.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Drain corn well so it fries instead of boiling.</li><li>Cook with butter, mayo, a little sugar, salt, and pepper until hot and glossy.</li><li>Cover with mozzarella; broil or lid the skillet until bubbling.</li><li>Eat while the cheese still stretches.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="475"><span>475 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="14"><span>14g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="500"><span>500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.07"><span>0.07%</span></div>
         </div>
       </section>
 
       <footer class="source-note">
-        <span>source: Alan recipe list, June 1 and June 4, 2026</span>
-        <span>nutrition values are best guesses until package labels, serving counts, and measured loose amounts are pinned</span>
-        <span>photos: local Wikimedia/Wikipedia thumbnails</span>
+        <span>source: Alan recipe list, June 1, June 4, and June 10, 2026</span>
+        <span>nutrition values and risk percentages are estimates until package labels, serving counts, measured loose amounts, and handling conditions are pinned</span>
+        <span>photos: local Wikimedia/Wikipedia thumbnails; S-tier links point to source recipes</span>
       </footer>
     </main>
     <script>
@@ -854,6 +889,7 @@
           protein: "protein",
           tyrosine: "tyrosine",
           cholesterol: "cholesterol",
+          risk: "food poisoning risk est.",
         };
         const ratingValue = { D: 1, C: 2, B: 3, A: 4, S: 5 };
         const table = document.querySelector(".recipe-table");
