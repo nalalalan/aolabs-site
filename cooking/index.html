@@ -181,7 +181,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 78px 78px minmax(118px, .72fr) 150px minmax(300px, 1.9fr) 84px 78px 98px 106px 108px;
+        grid-template-columns: 78px 78px minmax(190px, 1.05fr) minmax(330px, 2.05fr) 84px 78px 98px 106px 108px;
         align-items: stretch;
       }
 
@@ -231,26 +231,22 @@
       }
 
       .dish {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
         font-weight: 860;
       }
 
-      .static-head {
-        display: flex;
-        align-items: center;
-        padding: 13px 14px !important;
-      }
-
-      .picture {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 9px;
+      .dish-name {
+        display: block;
       }
 
       .dish-photo {
         display: block;
-        width: 132px;
-        height: 94px;
+        width: 100%;
+        max-width: 176px;
+        height: 122px;
         object-fit: cover;
         border-radius: 7px;
         background: rgba(83, 70, 54, .1);
@@ -419,13 +415,15 @@
           text-transform: lowercase;
         }
 
-        .picture {
-          justify-content: start;
+        .dish-photo {
+          width: min(220px, 100%);
+          max-width: none;
+          height: 140px;
         }
 
-        .dish-photo {
-          width: min(190px, 100%);
-          height: 124px;
+        .dish .dish-photo,
+        .dish .dish-name {
+          grid-column: 2;
         }
 
         .cell:last-child {
@@ -523,8 +521,7 @@
         <div class="table-head" role="row">
           <div role="columnheader" aria-sort="none" data-sort-key="category" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">category</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="rating" data-sort-type="rating" data-sort-default="desc"><button class="sort-button" type="button">difficulty rating</button></div>
-          <div role="columnheader" aria-sort="none" data-sort-key="dish" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">dish name</button></div>
-          <div class="static-head" role="columnheader">picture</div>
+          <div role="columnheader" aria-sort="none" data-sort-key="dish" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">food</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="recipe" data-sort-type="text" data-sort-default="asc"><button class="sort-button" type="button">recipe</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="calories" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">calories</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
@@ -536,8 +533,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">pasta</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/01-pasta.jpg" alt="spaghetti with red sauce" loading="eager" fetchpriority="high" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/01-pasta.jpg" alt="spaghetti with red sauce" loading="eager" fetchpriority="high" decoding="async"><span class="dish-name">pasta</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Salt boiling water until it tastes lightly seasoned; cook De Cecco #11 thin spaghetti just under al dente.</li><li>Warm Rao's mushroom Italian sausage sauce separately; loosen with a spoon of pasta water so it coats instead of sitting on top.</li><li>Toss pasta in the sauce for 60 seconds; finish with Parmigiano Reggiano and black pepper.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="775"><span>775 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
@@ -549,8 +545,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">breakfast</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">greek yogurt and granola</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/02-greek-yogurt-and-granola.jpg" alt="Greek yogurt with granola" loading="eager" fetchpriority="high" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/02-greek-yogurt-and-granola.jpg" alt="Greek yogurt with granola" loading="eager" fetchpriority="high" decoding="async"><span class="dish-name">greek yogurt and granola</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Open yogurt.</li><li>Dump granola on it.</li><li>Eat. That was breakfast.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="58"><span>58g</span></div>
@@ -562,8 +557,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">rice and eggs</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/03-rice-with-raw-egg.jpg" alt="rice with raw egg" loading="eager" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/03-rice-with-raw-egg.jpg" alt="rice with raw egg" loading="eager" decoding="async"><span class="dish-name">rice and eggs</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Cook a big bowl of jasmine rice.</li><li>Crack 4 eggs on top while the rice is hot.</li><li>Add soy sauce if wanted. Stir. Done.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="780"><span>780 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="31"><span>31g</span></div>
@@ -575,8 +569,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">raw salmon and soy sauce</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/04-salmon-with-rice-and-soy-sauce.jpg" alt="raw salmon with soy sauce" loading="eager" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/04-salmon-with-rice-and-soy-sauce.jpg" alt="raw salmon with soy sauce" loading="eager" decoding="async"><span class="dish-name">raw salmon and soy sauce</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy salmon intended for raw eating or previously frozen handling.</li><li>Skin it with a sharp knife, slice it, dip it in soy sauce.</li><li>That is the whole recipe.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1000"><span>1,000 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="98"><span>98g</span></div>
@@ -588,8 +581,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">avocado smoothie</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/05-avocado-smoothie.jpg" alt="avocado smoothie" loading="eager" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/05-avocado-smoothie.jpg" alt="avocado smoothie" loading="eager" decoding="async"><span class="dish-name">avocado smoothie</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Put 2 avocados, ice, and lactose-free whole milk in a blender.</li><li>Blend until thick.</li><li>Drink the green thing.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="850"><span>850 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="23"><span>23g</span></div>
@@ -601,8 +593,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">cr&egrave;me br&ucirc;l&eacute;e</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/06-creme-brulee.jpg" alt="creme brulee" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/06-creme-brulee.jpg" alt="creme brulee" loading="lazy" decoding="async"><span class="dish-name">cr&egrave;me br&ucirc;l&eacute;e</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use the <a href="https://www.seriouseats.com/creme-brulee-recipe-7107199">Serious Eats method</a>: cream, vanilla, egg yolks, sugar, and salt.</li><li>Temper hot cream into yolks slowly; strain so the custard is completely smooth.</li><li>Bake low in a water bath until the centers wobble; chill at least 4 hours.</li><li>Torch a thin, even sugar layer right before eating so the top cracks instead of sweating.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="450"><span>450 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="7"><span>7g</span></div>
@@ -614,8 +605,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh x&egrave;o</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/07-banh-xeo.jpg" alt="banh xeo with herbs and dipping sauce" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/07-banh-xeo.jpg" alt="banh xeo with herbs and dipping sauce" loading="lazy" decoding="async"><span class="dish-name">B&aacute;nh x&egrave;o</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use the <a href="https://www.seriouseats.com/banh-xeo-crispy-vietnamese-rice-pancakes-recipe-7112029">Serious Eats batter ratios</a>: rice flour, cornstarch, turmeric, coconut milk, water, salt, and scallions.</li><li>Rest the batter so it hydrates; keep pork belly, shrimp, mung beans, bean sprouts, herbs, and n&#432;&#7899;c ch&#7845;m ready before frying.</li><li>Use a ripping-hot lightly oiled pan, pour thin, cover briefly, then uncover until the edge turns lacy and crisp.</li><li>Fold once and eat immediately with lettuce, mint, cilantro, and dipping sauce.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="650"><span>650 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="28"><span>28g</span></div>
@@ -627,8 +617,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">da ua</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/08-yogurt.jpg" alt="Vietnamese yogurt" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/08-yogurt.jpg" alt="Vietnamese yogurt" loading="lazy" decoding="async"><span class="dish-name">da ua</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Dissolve condensed milk into warm whole milk; cool to warm, not hot.</li><li>Whisk in plain yogurt starter until smooth, then jar it.</li><li>Incubate around 105-110&deg;F until set, usually 6-8 hours.</li><li>Chill hard before eating so it firms up and tastes clean.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="205"><span>205 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
@@ -640,8 +629,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve; n&#432;&#7899;ng</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/09-banh-bo.jpg" alt="banh bo nuong honeycomb cake" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/09-banh-bo.jpg" alt="banh bo nuong honeycomb cake" loading="lazy" decoding="async"><span class="dish-name">B&aacute;nh b&ograve; n&#432;&#7899;ng</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Warm coconut milk with sugar and pandan; cool before eggs touch it.</li><li>Mix tapioca starch, a little rice flour, salt, and single-acting baking powder; fold in beaten eggs gently so the honeycomb structure stays possible.</li><li>Strain, pour into a preheated greased pan, and bake until the center springs back.</li><li>Cool upside down before cutting so the cake does not collapse into a gummy slab.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="300"><span>300 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
@@ -653,8 +641,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&ograve;</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/10-banh-bo-vanilla.jpg" alt="steamed banh bo" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/10-banh-bo-vanilla.jpg" alt="steamed banh bo" loading="lazy" decoding="async"><span class="dish-name">B&aacute;nh b&ograve;</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix rice flour, tapioca starch, sugar, yeast, vanilla, coconut milk, warm water, and salt into a pourable batter.</li><li>Proof until it smells lightly yeasty and has visible bubbles.</li><li>Steam in hot greased cups until springy; avoid opening the lid early.</li><li>Eat warm or with coconut sauce.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
@@ -666,8 +653,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">B&aacute;nh b&egrave;o</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/11-banh-beo.jpg" alt="banh beo rice cakes" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/11-banh-beo.jpg" alt="banh beo rice cakes" loading="lazy" decoding="async"><span class="dish-name">B&aacute;nh b&egrave;o</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Whisk rice flour, tapioca starch, water, oil, and salt; rest the batter so it hydrates.</li><li>Steam shallow spoonfuls in small dishes until glossy and set.</li><li>Top with dried shrimp floss, scallion oil, fried shallot, and crisp pork fat.</li><li>Spoon n&#432;&#7899;c ch&#7845;m over each dish right before eating.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="500"><span>500 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="15"><span>15g</span></div>
@@ -679,8 +665,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">mung bean milk tea with boba</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/12-brown-sugar-bubble-tea.png" alt="bubble tea" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/12-brown-sugar-bubble-tea.png" alt="bubble tea" loading="lazy" decoding="async"><span class="dish-name">mung bean milk tea with boba</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak mung beans, simmer until tender, then blend with water and strain for a smooth base.</li><li>Cook black tea strong; sweeten with rock sugar, pandan, and a pinch of salt.</li><li>Boil boba until chewy, hold in brown sugar syrup, then combine tea, mung bean milk, dairy, and ice.</li><li>Drink while the boba is still warm and soft.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="575"><span>575 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
@@ -692,8 +677,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">c&agrave; ph&ecirc; s&#7919;a &#273;&aacute;</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/13-vietnamese-iced-coffee.jpg" alt="Vietnamese iced coffee" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/13-vietnamese-iced-coffee.jpg" alt="Vietnamese iced coffee" loading="lazy" decoding="async"><span class="dish-name">c&agrave; ph&ecirc; s&#7919;a &#273;&aacute;</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Pack a phin with Caf&eacute; Du Monde coffee and chicory; bloom with a small splash of hot water.</li><li>Fill the phin and let it drip slowly over condensed milk.</li><li>Stir until glossy, then pour over a full glass of ice.</li><li>Use enough coffee strength that the ice does not flatten it.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
@@ -705,8 +689,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">beignets</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/14-beignets.jpg" alt="beignets with powdered sugar" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/14-beignets.jpg" alt="beignets with powdered sugar" loading="lazy" decoding="async"><span class="dish-name">beignets</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use Caf&eacute; Du Monde mix for low-friction beignets, or make a soft yeast dough with milk, egg, sugar, flour, and butter.</li><li>Roll thin enough to puff instead of doughnuting; cut squares.</li><li>Fry at 360-370&deg;F until hollow and golden.</li><li>Bury them in powdered sugar while hot.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="11"><span>11g</span></div>
@@ -718,8 +701,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">caf&eacute; au lait</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/15-cafe-au-lait.jpg" alt="cafe au lait" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/15-cafe-au-lait.jpg" alt="cafe au lait" loading="lazy" decoding="async"><span class="dish-name">caf&eacute; au lait</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew strong coffee and chicory.</li><li>Add hot milk.</li><li>There is no third trick.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="185"><span>185 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
@@ -731,8 +713,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">disney churros</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/16-churros.jpg" alt="churros with chocolate sauce" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/16-churros.jpg" alt="churros with chocolate sauce" loading="lazy" decoding="async"><span class="dish-name">disney churros</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil water, butter, salt, and cinnamon; dump in flour and stir until a dough ball pulls from the pot.</li><li>Cool 5-7 minutes so eggs do not scramble; beat in eggs one at a time.</li><li>Pipe short ridged pieces into hot oil and fry until crisp outside.</li><li>Toss immediately in cinnamon sugar; chocolate sauce optional but correct.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="375"><span>375 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
@@ -744,8 +725,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">mochi donuts</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/17-mochi-donut.jpg" alt="mochi donuts" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/17-mochi-donut.jpg" alt="mochi donuts" loading="lazy" decoding="async"><span class="dish-name">mochi donuts</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Make a Pon de Ring-style dough with tapioca flour, AP flour, warm milk, butter, egg, yeast, sugar, vanilla, and salt.</li><li>Let the dough relax, then shape connected balls on parchment squares so each donut keeps the ring pattern.</li><li>Fry parchment-side down first; peel parchment away once the dough sets.</li><li>Glaze with vanilla, matcha, or black sesame while still slightly warm.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
@@ -757,8 +737,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">snack</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Point Reyes blue cheese block</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/18-blue-cheese.jpg" alt="blue cheese" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/18-blue-cheese.jpg" alt="blue cheese" loading="lazy" decoding="async"><span class="dish-name">Point Reyes blue cheese block</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy Point Reyes blue cheese.</li><li>Cut cheese.</li><li>Eat cheese.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="100"><span>100 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
@@ -770,8 +749,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">caesar salad</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/19-caesar-salad.jpg" alt="Caesar salad" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/19-caesar-salad.jpg" alt="Caesar salad" loading="lazy" decoding="async"><span class="dish-name">caesar salad</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Chop cold romaine; keep it dry so the dressing sticks.</li><li>Blend or whisk garlic, lemon, Dijon, Worcestershire, anchovy, Parmesan, black pepper, and egg yolk or mayo.</li><li>Add Parmesan, croutons, avocado, and 2 eggs; dress only when ready to eat.</li><li>Use pasteurized yolk or mayo if lowering raw-egg risk matters for the batch.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="725"><span>725 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="34"><span>34g</span></div>
@@ -783,8 +761,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-a">A</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">shao mai</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/20-shao-mai.jpg" alt="shao mai dumplings" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/20-shao-mai.jpg" alt="shao mai dumplings" loading="lazy" decoding="async"><span class="dish-name">shao mai</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Mix ground pork, chopped shrimp, ginger, scallion, soy sauce, Shaoxing wine, sesame oil, white pepper, sugar, salt, and cornstarch until sticky.</li><li>Keep the filling cold; slap it against the bowl so it binds and bounces instead of crumbling.</li><li>Pack into thick shao mai wrappers, leave the top open, and crown with shrimp or carrot.</li><li>Steam until the pork is fully cooked and the wrapper is glossy.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="38"><span>38g</span></div>
@@ -796,8 +773,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">appetizer</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">kurobuta pork xiao long bao</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/21-xiao-long-bao.jpg" alt="xiao long bao soup dumplings" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/21-xiao-long-bao.jpg" alt="xiao long bao soup dumplings" loading="lazy" decoding="async"><span class="dish-name">kurobuta pork xiao long bao</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Base it on <a href="https://www.seriouseats.com/soup-dumplings-xiao-long-bao-recipe">Kenji's soup dumpling method</a>: make a gelatin-rich pork aspic first and chill it solid.</li><li>Mix fatty Kurobuta pork with ginger-scallion water, Shaoxing wine, soy sauce, sesame oil, white pepper, sugar, and finely diced aspic.</li><li>Roll wrappers thin at the edge and slightly thicker in the center so the bottom holds soup.</li><li>Pleat tightly toward the 18-fold look without tearing; keep dumplings cold until steaming.</li><li>Steam hard for about 8 minutes and eat immediately with black vinegar and ginger.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="550"><span>550 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
@@ -809,8 +785,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-s">S</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">butaton-style tonkotsu ramen</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/22-tonkotsu-ramen.jpg" alt="tonkotsu ramen" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/22-tonkotsu-ramen.jpg" alt="tonkotsu ramen" loading="lazy" decoding="async"><span class="dish-name">butaton-style tonkotsu ramen</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Use <a href="https://www.seriouseats.com/rich-and-creamy-tonkotsu-ramen-broth-from-scratch-recipe">Serious Eats tonkotsu broth</a> as the backbone: blanch bones, scrub them clean, then keep a violent rolling boil for 12-18 hours.</li><li>Build separate parts: chashu pork, soft ajitama eggs, tare, black garlic oil or spicy aroma oil, and thin noodles.</li><li>Strain broth, emulsify it hot, and season each bowl with tare instead of salting the pot blindly.</li><li>For the Butaton lane, go rich and spicy: pork belly or chashu, egg, bean sprouts, green onion, kikurage, nori, and black garlic oil.</li><li>Assemble fast so the noodles stay springy and the broth stays opaque and hot.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1025"><span>1,025 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="45"><span>45g</span></div>
@@ -822,8 +797,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">dessert</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-b">B</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">sticky rice with mango and coconut</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/23-mango-sticky-rice.jpg" alt="mango sticky rice" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/23-mango-sticky-rice.jpg" alt="mango sticky rice" loading="lazy" decoding="async"><span class="dish-name">sticky rice with mango and coconut</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Soak glutinous rice at least 4 hours; steam until chewy and translucent.</li><li>Warm coconut milk with sugar and salt; fold most into the hot rice and rest covered so it absorbs.</li><li>Reduce the remaining coconut sauce slightly for spooning.</li><li>Serve with ripe mango and toasted sesame or crispy mung beans.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="700"><span>700 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
@@ -835,8 +809,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">thai tea</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/24-thai-tea.jpg" alt="Thai tea" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/24-thai-tea.jpg" alt="Thai tea" loading="lazy" decoding="async"><span class="dish-name">thai tea</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Brew Thai tea mix strong and long enough to pull the orange color and spice.</li><li>Strain very clean; gritty tea dust ruins the drink.</li><li>Sweeten while hot with condensed milk and sugar, then chill.</li><li>Pour over ice and top with evaporated milk or half-and-half.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
@@ -848,8 +821,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">side</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">Gyeranjjim (Korean steamed eggs)</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/25-gyeranjjim.jpg" alt="Gyeranjjim Korean steamed eggs" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/25-gyeranjjim.jpg" alt="Gyeranjjim Korean steamed eggs" loading="lazy" decoding="async"><span class="dish-name">Gyeranjjim (Korean steamed eggs)</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Whisk 2-3 eggs with anchovy broth or water, salt, scallion, and a little sesame oil until fully smooth.</li><li>Cook gently in a ttukbaegi or covered bowl; stir once as curds begin to form.</li><li>Stop when the center is barely set and still soft.</li><li>Finish with sesame oil and scallion.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="17"><span>17g</span></div>
@@ -861,8 +833,7 @@
         <div class="recipe-row" role="row">
           <div class="cell category" role="cell" data-label="category">side</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
-          <div class="cell dish" role="cell" data-label="dish name">cheese corn</div>
-          <div class="cell picture" role="cell" data-label="picture"><img class="dish-photo" src="photos/26-cheese-corn.jpg" alt="cheese corn" loading="lazy" decoding="async"></div>
+          <div class="cell dish" role="cell" data-label="food"><img class="dish-photo" src="photos/26-cheese-corn.jpg" alt="cheese corn" loading="lazy" decoding="async"><span class="dish-name">cheese corn</span></div>
           <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Drain corn well so it fries instead of boiling.</li><li>Cook with butter, mayo, a little sugar, salt, and pepper until hot and glossy.</li><li>Cover with mozzarella; broil or lid the skillet until bubbling.</li><li>Eat while the cheese still stretches.</li></ul></div>
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="475"><span>475 kcal</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="14"><span>14g</span></div>
@@ -883,7 +854,7 @@
         const labelsByKey = {
           category: "category",
           rating: "difficulty rating",
-          dish: "dish name",
+          dish: "food",
           recipe: "recipe",
           calories: "calories",
           protein: "protein",
