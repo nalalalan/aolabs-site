@@ -36,6 +36,15 @@
     "version": "20260612"
   },
   {
+    "slug": "sleep",
+    "title": "sleep",
+    "description": "Daily sleep-hours log from Samsung Health through Health Connect.",
+    "url": "sleep.aolabs.io",
+    "accent": "#6f837d",
+    "image": "https://aolabs.io/previews/sleep-20260612.png",
+    "version": "20260612"
+  },
+  {
     "slug": "sarrus",
     "title": "sarrus",
     "description": "Soft robotic surfaces, motion records, measurements, and paper.",

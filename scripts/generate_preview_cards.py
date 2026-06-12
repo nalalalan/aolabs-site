@@ -55,6 +55,13 @@ APPS = [
         "accent": "#4f817c",
     },
     {
+        "slug": "sleep",
+        "title": "sleep",
+        "description": "Daily sleep-hours log from Samsung Health through Health Connect.",
+        "url": "sleep.aolabs.io",
+        "accent": "#6f837d",
+    },
+    {
         "slug": "sarrus",
         "title": "sarrus",
         "description": "Soft robotic surfaces, motion records, measurements, and paper.",
