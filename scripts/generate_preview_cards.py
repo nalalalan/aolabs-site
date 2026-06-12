@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import shutil
+import subprocess
+import tempfile
 import textwrap
 from pathlib import Path
 
@@ -9,8 +12,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "previews"
-VERSION = "20260611"
+VERSION = "20260612"
 W, H = 1200, 630
+ICON_SIZE = 214
+ICON_BG = "#f3ece2"
 
 FONT_DIR = Path("C:/Windows/Fonts")
 BOLD = ImageFont.truetype(str(FONT_DIR / "arialbd.ttf"), 72)
@@ -284,7 +289,80 @@ def mark(draw: ImageDraw.ImageDraw, accent: str) -> None:
     draw.polygon([(x + 122, y + 49), (x + 148, y + 88), (x + 96, y + 88)], fill=(212, 149, 85))
 
 
-def card(app: dict[str, str]) -> None:
+def edge_path() -> str:
+    candidates = [
+        shutil.which("msedge"),
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+    ]
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            return candidate
+    raise RuntimeError("Microsoft Edge is required to render SVG app icons into preview cards.")
+
+
+def icon_path(app: dict[str, str]) -> Path | None:
+    slug = app["slug"]
+    png = ROOT / "icons" / f"{slug}.png"
+    svg = ROOT / "icons" / f"{slug}.svg"
+    if png.exists():
+        return png
+    if svg.exists():
+        return svg
+    return None
+
+
+def render_icon(path: Path, cache_dir: Path, browser: str) -> Image.Image:
+    out = cache_dir / f"{path.stem}.png"
+    html = cache_dir / f"{path.stem}.html"
+    html.write_text(
+        f"""<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    html, body {{
+      width: {ICON_SIZE}px;
+      height: {ICON_SIZE}px;
+      margin: 0;
+      overflow: hidden;
+      background: {ICON_BG};
+    }}
+    body {{
+      display: grid;
+      place-items: center;
+    }}
+    img {{
+      display: block;
+      width: {ICON_SIZE - 14}px;
+      height: {ICON_SIZE - 14}px;
+      object-fit: contain;
+    }}
+  </style>
+</head>
+<body><img src="{path.as_uri()}" alt=""></body>
+</html>
+""",
+        encoding="utf-8",
+    )
+    subprocess.run(
+        [
+            browser,
+            "--headless=new",
+            "--disable-gpu",
+            "--hide-scrollbars",
+            f"--screenshot={out}",
+            f"--window-size={ICON_SIZE},{ICON_SIZE}",
+            html.as_uri(),
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return Image.open(out).convert("RGBA")
+
+
+def card(app: dict[str, str], cache_dir: Path, browser: str) -> None:
     im = Image.new("RGB", (W, H), "#efe8de")
     draw = ImageDraw.Draw(im)
 
@@ -306,7 +384,12 @@ def card(app: dict[str, str]) -> None:
 
     draw.text((128, 474), app["url"], fill="#6d6258", font=URL_FONT)
     draw.text((1040, 474), "2026", fill="#6d6258", font=URL_FONT)
-    mark(draw, accent)
+    icon = icon_path(app)
+    if icon:
+        app_icon = render_icon(icon, cache_dir, browser)
+        im.paste(app_icon.convert("RGB"), (830, 146))
+    else:
+        mark(draw, accent)
 
     im.save(OUT / f"{app['slug']}-{VERSION}.png", optimize=True)
 
@@ -325,13 +408,16 @@ def contact_sheet() -> None:
         y = (idx // 3) * 166
         sheet.paste(im, (x, y))
         draw.text((x + 8, y + 132), slug, fill="#2d2426", font=BODY_SMALL)
-    sheet.save(ROOT / "_preview-contact-sheet-20260611.png", optimize=True)
+    sheet.save(ROOT / f"_preview-contact-sheet-{VERSION}.png", optimize=True)
 
 
 def main() -> None:
     OUT.mkdir(exist_ok=True)
-    for app in APPS:
-        card(app)
+    browser = edge_path()
+    with tempfile.TemporaryDirectory(prefix="aolabs-preview-icons-") as tmp:
+        cache_dir = Path(tmp)
+        for app in APPS:
+            card(app, cache_dir, browser)
     contact_sheet()
     (OUT / "manifest.json").write_text(
         json.dumps(

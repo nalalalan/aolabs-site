@@ -5,8 +5,8 @@
     "description": "Research, tools, papers, robotics work, and live systems.",
     "url": "aolabs.io",
     "accent": "#dc9d91",
-    "image": "https://aolabs.io/previews/aolabs-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/aolabs-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "imagineer",
@@ -14,8 +14,8 @@
     "description": "One current step for Alan's WDI R&D path.",
     "url": "imagineer.aolabs.io",
     "accent": "#66799f",
-    "image": "https://aolabs.io/previews/imagineer-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/imagineer-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "cv",
@@ -23,8 +23,8 @@
     "description": "Mechanical R&D CV for soft robotics and AI-assisted prototyping.",
     "url": "cv.aolabs.io",
     "accent": "#68758f",
-    "image": "https://aolabs.io/previews/cv-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/cv-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "brain",
@@ -32,8 +32,8 @@
     "description": "PDF bank for autism, ADHD, and relationship-context notes.",
     "url": "aolabs.io/brain",
     "accent": "#4f817c",
-    "image": "https://aolabs.io/previews/brain-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/brain-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "sarrus",
@@ -41,8 +41,8 @@
     "description": "Soft robotic surfaces, motion records, measurements, and paper.",
     "url": "sarrus.aolabs.io",
     "accent": "#81977f",
-    "image": "https://aolabs.io/previews/sarrus-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/sarrus-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "wavevis",
@@ -50,8 +50,8 @@
     "description": "3D Sarrus-cell and inverse sheet deformation simulators.",
     "url": "aolabs.io/wavevis",
     "accent": "#6d8390",
-    "image": "https://aolabs.io/previews/wavevis-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/wavevis-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "phd",
@@ -59,8 +59,8 @@
     "description": "A PhD capture inbox for thoughts, files, links, screenshots, and fragments.",
     "url": "phd.aolabs.io",
     "accent": "#6f4b57",
-    "image": "https://aolabs.io/previews/phd-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/phd-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "sandia",
@@ -68,8 +68,8 @@
     "description": "NOMAD research record, coauthored paper, FEA results, and presentations.",
     "url": "aolabs.io/sandia",
     "accent": "#2f7f80",
-    "image": "https://aolabs.io/previews/sandia-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/sandia-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "ocean",
@@ -77,8 +77,8 @@
     "description": "WDI-style robotics, animatronics, haptics, and physical-interface inspiration.",
     "url": "ocean.aolabs.io",
     "accent": "#527d83",
-    "image": "https://aolabs.io/previews/ocean-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/ocean-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "progress",
@@ -86,8 +86,8 @@
     "description": "AO Labs source monitor, scan log, and work-memory ledger.",
     "url": "progress.aolabs.io",
     "accent": "#5d72ad",
-    "image": "https://aolabs.io/previews/progress-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/progress-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "spec",
@@ -95,8 +95,8 @@
     "description": "Alan's AI operating instruction record.",
     "url": "spec.aolabs.io",
     "accent": "#76678d",
-    "image": "https://aolabs.io/previews/spec-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/spec-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "talk",
@@ -104,8 +104,8 @@
     "description": "A direct AI mirror shaped by Alan's current voice and context.",
     "url": "talk.aolabs.io",
     "accent": "#8c704d",
-    "image": "https://aolabs.io/previews/talk-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/talk-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "curtis",
@@ -113,8 +113,8 @@
     "description": "Evidence-backed violin practice clips, timing, and repertoire records.",
     "url": "curtis.aolabs.io",
     "accent": "#8f625d",
-    "image": "https://aolabs.io/previews/curtis-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/curtis-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "relay",
@@ -122,8 +122,8 @@
     "description": "Sales-call notes become one clean follow-up email with live evidence.",
     "url": "relay.aolabs.io",
     "accent": "#b87966",
-    "image": "https://aolabs.io/previews/relay-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/relay-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "nerve",
@@ -131,8 +131,8 @@
     "description": "Pressure-practice for sharper answers and calm under stress.",
     "url": "nerve.aolabs.io",
     "accent": "#b98259",
-    "image": "https://aolabs.io/previews/nerve-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/nerve-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "violin",
@@ -140,8 +140,8 @@
     "description": "A dense source-linked wall of fine violin backs.",
     "url": "violin.aolabs.io",
     "accent": "#a8783c",
-    "image": "https://aolabs.io/previews/violin-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/violin-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "virtualviolin",
@@ -149,8 +149,8 @@
     "description": "Bridge-angle bowing and chromatic fingering in the browser.",
     "url": "aolabs.io/virtualviolin",
     "accent": "#b96f36",
-    "image": "https://aolabs.io/previews/virtualviolin-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/virtualviolin-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "bus",
@@ -158,8 +158,8 @@
     "description": "Minimal WRTA live tracker for routes 2, 4, 3, 30, and 31.",
     "url": "bus.aolabs.io",
     "accent": "#bf6e49",
-    "image": "https://aolabs.io/previews/bus-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/bus-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "league",
@@ -167,8 +167,8 @@
     "description": "Recording review room for Samira, Caitlyn, and Fizz practice.",
     "url": "league.aolabs.io",
     "accent": "#8a738d",
-    "image": "https://aolabs.io/previews/league-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/league-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "spotify",
@@ -176,8 +176,8 @@
     "description": "Alan's driving-playlist version record.",
     "url": "spotify.aolabs.io",
     "accent": "#5f7668",
-    "image": "https://aolabs.io/previews/spotify-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/spotify-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "a3",
@@ -185,8 +185,8 @@
     "description": "Audi A3 cockpit telemetry and purchase-state evidence.",
     "url": "a3.aolabs.io",
     "accent": "#7b8aa6",
-    "image": "https://aolabs.io/previews/a3-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/a3-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "idleshroom",
@@ -194,8 +194,8 @@
     "description": "A cozy-dark mushroom tap RPG with growth, rewards, and bosses.",
     "url": "aolabs.io/idleshroom",
     "accent": "#c17660",
-    "image": "https://aolabs.io/previews/idleshroom-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/idleshroom-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "meowtronome",
@@ -203,8 +203,8 @@
     "description": "A quiet browser metronome using a cat-yap sound.",
     "url": "meowtronome.aolabs.io",
     "accent": "#b87966",
-    "image": "https://aolabs.io/previews/meowtronome-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/meowtronome-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "dbalarm",
@@ -212,8 +212,8 @@
     "description": "Browser microphone alarm for high relative dB levels.",
     "url": "aolabs.io/dbalarm",
     "accent": "#c96155",
-    "image": "https://aolabs.io/previews/dbalarm-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/dbalarm-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "lily",
@@ -221,8 +221,8 @@
     "description": "A private memory bank for notes, screenshots, photos, dates, and context.",
     "url": "lily.aolabs.io",
     "accent": "#c28b98",
-    "image": "https://aolabs.io/previews/lily-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/lily-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "yum",
@@ -230,8 +230,8 @@
     "description": "A correction-conditioned media wall and paper for personal taste.",
     "url": "yum.aolabs.io",
     "accent": "#bb8854",
-    "image": "https://aolabs.io/previews/yum-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/yum-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "cooking",
@@ -239,8 +239,8 @@
     "description": "Recipe table with ratings, photos, recipes, and practical estimates.",
     "url": "cooking.aolabs.io",
     "accent": "#987856",
-    "image": "https://aolabs.io/previews/cooking-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/cooking-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "wallguard",
@@ -248,8 +248,8 @@
     "description": "Private Messenger group-state guard dashboard and restore log.",
     "url": "wallguard.aolabs.io",
     "accent": "#6f837d",
-    "image": "https://aolabs.io/previews/wallguard-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/wallguard-20260612.png",
+    "version": "20260612"
   },
   {
     "slug": "duet",
@@ -257,7 +257,7 @@
     "description": "A small interaction study for playful human compatibility reads.",
     "url": "duet.aolabs.io/hello",
     "accent": "#c28b98",
-    "image": "https://aolabs.io/previews/duet-20260611.png",
-    "version": "20260611"
+    "image": "https://aolabs.io/previews/duet-20260612.png",
+    "version": "20260612"
   }
 ]
