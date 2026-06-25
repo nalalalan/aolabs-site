@@ -1,61 +1,18 @@
 const railwayApiBase = "https://imagineer-app-production.up.railway.app";
 const sameOriginApiHosts = new Set(["localhost", "127.0.0.1", "imagineer-app-production.up.railway.app"]);
 const apiBase = window.IMAGINEER_API_BASE || (sameOriginApiHosts.has(window.location.hostname) ? "" : railwayApiBase);
-const paperName = "An autonomous career system for embodied creative research and development";
+const progressApiBase = window.PROGRESS_API_BASE || (
+  ["localhost", "127.0.0.1"].includes(window.location.hostname) ? "http://127.0.0.1:8781" : "https://progress.aolabs.io"
+);
 
-const fallbackOps = {
-  status: "static_fallback",
-  generated_at: new Date().toISOString(),
-  target: {
-    north_star_title: "Principal R&D Imagineer - Mechanical Engineer",
-    company: "Walt Disney Imagineering R&D",
-    location: "Glendale, California"
-  },
-  positioning: "Mechanical PhD + soft robotics + creative prototyping + AI-assisted tools for physical interaction systems.",
-  fit_score: 58,
-  confidence: "fallback",
-  current_bottleneck: {
-    label: "Review intelligence",
-    score: 34,
-    target_signal: "Repeatable critique, role calibration, public-source depth, and optional approved human escalation.",
-    next_signal: "Run autonomous critique first; use human review only as an approved escalation.",
-    score_basis: "Fallback score because the live backend did not load."
-  },
-  next_action: {
-    title: "Run the autonomous AI review.",
-    body: "Pull current role, profile, portfolio, and Disney Research context into one critique loop."
-  },
-  reviewer: {
-    mode: "autonomous_ai",
-    model: "gpt-5-mini",
-    scope: "whole_public_ao_labs_graph",
-    status: "not_run",
-    review_count: 0,
-    source_count: 0,
-    approval_boundary: "Human approval is required before external outreach or application actions.",
-    latest: null
-  },
-  evidence: {
-    proof_events: 0,
-    daily_cycles: 0,
-    ai_reviews: 0,
-    journal_entries: 0
-  },
-  weekly_paper: {
-    status: "fallback",
-    updated_at: new Date().toISOString()
-  },
-  dimensions: [
-    {
-      key: "review_intelligence",
-      label: "Review intelligence",
-      score: 34,
-      target_signal: "Whether the system can critique the public portfolio against WDI-style mechanical R&D expectations.",
-      next_signal: "Generate a live AI review from current sources.",
-      score_basis: "Static fallback; the live reviewer state was unavailable."
-    }
-  ],
-  journal: []
+const fallbackStep = {
+  title: "Make the FluxCell linkage test.",
+  body: "Actuator-less array, clip-programmed shape, overhang motion check.",
+  why: "The current source names the prototype path; visible ownership now needs a measured first build.",
+  time: "7 minutes",
+  href: "https://docs.google.com/document/d/1Ffi51WavVvaFBUQX37AbFQ4ZKGEkRlGl-NRcOVQP03c/edit",
+  source: "Fallback step. Progress state did not load.",
+  updatedAt: new Date().toISOString(),
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -65,16 +22,20 @@ function setText(selector, value) {
   if (node) node.textContent = clean(value);
 }
 
-async function request(path, options = {}) {
+function setVisible(selector, visible) {
+  const node = $(selector);
+  if (node) node.hidden = !visible;
+}
+
+async function request(url, options = {}) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), options.timeout || 8000);
+  const timeout = setTimeout(() => controller.abort(), options.timeout || 9000);
   try {
-    const response = await fetch(`${apiBase}${path}`, {
+    const response = await fetch(url, {
       method: options.method || "GET",
       cache: "no-store",
       headers: { "Content-Type": "application/json" },
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      signal: controller.signal
+      signal: controller.signal,
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
@@ -84,186 +45,150 @@ async function request(path, options = {}) {
 }
 
 async function loadState() {
-  setText("#backend-state", "checking");
-  try {
-    const ops = await request("/api/imagineer/ops-check");
-    render(ops, true);
-  } catch {
-    render(fallbackOps, false);
+  setText("#step-title", "Loading current step.");
+  setText("#step-body", "Reading Progress and Imagineer state.");
+  setVisible("#step-why", false);
+  setVisible("#step-meta", false);
+
+  const [opsResult, progressResult] = await Promise.allSettled([
+    request(`${apiBase}/api/imagineer/ops-check`),
+    request(`${progressApiBase}/api/progress/summary`, { timeout: 12000 }),
+  ]);
+
+  const ops = opsResult.status === "fulfilled" ? opsResult.value : null;
+  const progress = progressResult.status === "fulfilled" ? progressResult.value : null;
+  render(bestStep(ops, progress), ops, progress);
+}
+
+function bestStep(ops, progress) {
+  const opsStep = ops?.personal_step || ops?.next_action;
+  if (opsStep?.title && opsStep?.body) {
+    return {
+      ...fallbackStep,
+      ...opsStep,
+      time: opsStep.time || fallbackStep.time,
+      href: opsStep.href || fallbackStep.href,
+      source: opsStep.source || "Imagineer state.",
+      updatedAt: ops?.generated_at || ops?.profile?.updated_at,
+    };
   }
-}
 
-async function runReview() {
-  const button = $("#run-review");
-  button.disabled = true;
-  button.textContent = "Running";
-  setText("#reviewer-status", "running");
-  setText("#reviewer-detail", "collecting public sources and generating critique");
-  setText("#report-generated", "Running the review. This can take about a minute.");
-  try {
-    const result = await request("/api/imagineer/ai-review/run", { method: "POST", timeout: 210000 });
-    render(result.ops || fallbackOps, true);
-  } catch {
-    setText("#reviewer-status", "not completed");
-    setText("#reviewer-detail", "the review timed out or returned an error");
-    setText("#report-generated", "The last review did not complete in the browser.");
-  } finally {
-    button.disabled = false;
-    button.textContent = "Run review";
+  const progressStep = progress?.goals?.imagineer?.nextStep;
+  if (progressStep?.title && progressStep?.body) {
+    return {
+      ...fallbackStep,
+      ...progressStep,
+      source: progressStep.source || "Progress scan.",
+      updatedAt: progressStep.updatedAt || progress?.latest?.createdAt || progress?.updatedAt,
+    };
   }
+
+  return fallbackStep;
 }
 
-function render(ops, connected) {
-  const evidence = ops.evidence || {};
-  const bottleneck = ops.current_bottleneck || {};
-  const paper = ops.weekly_paper || {};
-  const target = ops.target || {};
-  const reviewer = ops.reviewer || {};
-  const latestReview = reviewer.latest || {};
-  const reviewerAction = latestReview.next_action || ops.next_action || {};
-  const generatedAt = latestReview.created_at || ops.generated_at || paper.updated_at;
+function render(step, ops, progress) {
+  const updatedAt = step.updatedAt || progress?.latest?.createdAt || ops?.profile?.updated_at || ops?.generated_at;
+  const sourceCount = progress?.latest?.sourceCount || ops?.profile?.source_count || ops?.reviewer?.source_count;
+  const source = sourceCount ? `${step.source} ${sourceCount} sources.` : step.source;
+  const why = step.why || step.urgency || "";
 
-  setText("#backend-state", connected ? "online" : "fallback");
-  $("#backend-state").className = connected ? "is-ok" : "is-warn";
-  setText("#backend-detail", connected ? clean(ops.status) : "static fallback");
-  setText("#fit-score", Number.isFinite(ops.fit_score) ? ops.fit_score : "--");
-  setText("#confidence", clean(ops.confidence));
-  setText("#target-role", target.north_star_title || "Principal R&D Imagineer - Mechanical Engineer");
-  setText("#target-location", `${target.company || "Walt Disney Imagineering R&D"} / ${target.location || "Glendale, California"}`);
-  setText("#bottleneck", bottleneck.label || "--");
-  setText("#bottleneck-detail", bottleneck.target_signal || "--");
-  setText("#reviewer-status", clean(reviewer.status || "not run"));
-  setText("#reviewer-detail", reviewer.approval_boundary || "Autonomous critique only; external action needs approval.");
-  setText("#reviewer-model", latestReview.model || reviewer.model || "--");
-  setText("#reviewer-sources", `${latestReview.source_count || reviewer.source_count || 0} sources; ${reviewer.review_count || 0} saved reviews`);
-  setText("#reviewer-scope", clean(reviewer.scope || "whole_public_ao_labs_graph"));
-  setText("#metric-proof", evidence.proof_events ?? "--");
-  setText("#metric-cycles", evidence.daily_cycles ?? "--");
-  setText("#metric-ai-reviews", evidence.ai_reviews ?? "--");
-  setText("#metric-journal", evidence.journal_entries ?? "--");
-  setText("#updated-at", `updated ${formatDateTime(ops.generated_at || paper.updated_at)}`);
-  setText("#paper-status", "Current PDF.");
+  setText("#step-title", step.title);
+  setText("#step-body", step.body);
+  setText("#step-why", why);
+  setText("#step-time", step.time || "--");
+  setText("#step-updated", formatDateTime(updatedAt));
+  setText("#step-source", source || "--");
+  setVisible("#step-why", Boolean(why));
+  setVisible("#step-meta", true);
 
-  renderReviewerReport(latestReview, reviewerAction, generatedAt);
-  renderDimensions(ops.dimensions || []);
+  const link = $("#step-link");
+  if (link) {
+    link.href = step.href || fallbackStep.href;
+    link.textContent = step.linkLabel || "Open doc";
+  }
+
+  renderLifeLoop(ops?.life_loop || fallbackLifeLoop(step, ops));
 }
 
-function renderReviewerReport(latestReview, action, generatedAt) {
-  if (!latestReview || !latestReview.id) {
-    setText("#report-score", "--");
-    setText("#report-generated", "No AI review has been generated yet.");
-    setText("#report-verdict", "Run the review to generate the first report.");
-    setText("#report-summary", "The report will read the public AO Labs record, compare it against WDI R&D mechanical Imagineering signals, and return the most useful critique.");
-    setText("#report-top-issue", "Waiting for review output.");
-    setText("#report-action-title", action.title || "--");
-    setText("#report-action-body", action.body || "--");
-    setText("#report-action-signal", action.expected_signal || action.why || "--");
-    setText("#report-action-source", action.source || "--");
-    setList("#best-evidence", []);
-    setList("#evidence-gaps", []);
-    setList("#packet-edits", []);
+function fallbackLifeLoop(step, ops) {
+  if (!ops) return null;
+  const bottleneck = ops.current_bottleneck;
+  const target = ops.target?.north_star_title || "WDI mechanical R&D";
+  const fit = ops.fit_score ? `fit ${ops.fit_score}/100` : "fit reading unavailable";
+  return {
+    title: "Career proof, income path, car",
+    summary: "Current proof artifact first; public career signal next; A3 car path downstream.",
+    items: [
+      {
+        label: "Career",
+        value: `${target}; ${fit}`,
+        detail: bottleneck ? `${bottleneck.label} ${bottleneck.score}/100 is the current live gap.` : "Current bottleneck unavailable.",
+      },
+      {
+        label: "Proof",
+        value: String(step.title || "Current proof artifact").replace(/\.$/, ""),
+        detail: `${step.body || "Create source-backed public proof."} Then update profile, CV, paper, and Progress.`,
+      },
+      {
+        label: "Money",
+        value: "Higher-income R&D path",
+        detail: "Stronger inspectable ownership proof is the controllable lever.",
+      },
+      {
+        label: "Car",
+        value: "A3 source pending",
+        detail: "A3 queue snapshot did not load through Imagineer yet.",
+      },
+    ],
+  };
+}
+
+function renderLifeLoop(loop) {
+  const shell = $("#life-loop");
+  const grid = $("#life-loop-grid");
+  if (!shell || !grid || !loop?.items?.length) {
+    setVisible("#life-loop", false);
     return;
   }
 
-  setText("#report-score", Number.isFinite(latestReview.score) ? latestReview.score : "--");
-  setText("#report-generated", `generated ${formatDateTime(generatedAt)} by ${latestReview.model || "AI reviewer"}`);
-  setText("#report-verdict", latestReview.verdict || "Review generated a report.");
-  setText("#report-summary", reviewerSummary(latestReview, action));
-  setText("#report-top-issue", latestReview.top_issue || "No top issue returned.");
-  setText("#report-action-title", action.title || "No action returned");
-  setText("#report-action-body", action.body || "--");
-  setText("#report-action-signal", action.expected_signal ? `Expected signal: ${action.expected_signal}` : "--");
-  setText("#report-action-source", action.source ? `Source: ${action.source}` : "--");
-  setList("#best-evidence", latestReview.best_existing_evidence || []);
-  setList("#evidence-gaps", latestReview.evidence_gaps || []);
-  setList("#packet-edits", latestReview.packet_edits || []);
+  setText("#life-loop-title", loop.title || "Career proof, income path, car");
+  setText("#life-loop-summary", loop.summary || "");
+  grid.replaceChildren(...loop.items.slice(0, 4).map(renderLifeItem));
+  setVisible("#life-loop", true);
 }
 
-function renderDimensions(dimensions) {
-  $("#dimensions").innerHTML = dimensions.length
-    ? dimensions.map((dimension) => {
-      const score = Math.max(0, Math.min(Number(dimension.score) || 0, 100));
-      return `
-        <article class="dimension-card">
-          <div class="dimension-top">
-            <strong>${escapeHtml(dimension.label || dimension.key)}</strong>
-            <span>${score}</span>
-          </div>
-          <div class="bar" aria-hidden="true"><i style="--score:${score}%"></i></div>
-          <p><b>Tracks</b> ${escapeHtml(clean(dimension.target_signal || "No measurement target supplied."))}</p>
-          <p><b>Basis</b> ${escapeHtml(clean(dimension.score_basis || "Score basis will appear after the backend update deploys."))}</p>
-          <p><b>Unresolved</b> ${escapeHtml(clean(dimension.next_signal || "No unresolved signal supplied."))}</p>
-        </article>
-      `;
-    }).join("")
-    : `<article class="dimension-card"><div class="dimension-top"><strong>No live dimensions</strong><span>--</span></div><p>Backend not loaded.</p></article>`;
-}
+function renderLifeItem(item) {
+  const row = document.createElement("div");
+  row.className = "life-loop-item";
 
-function setList(selector, items) {
-  const node = $(selector);
-  if (!node) return;
-  const cleanItems = Array.isArray(items) ? items.filter(Boolean) : [];
-  node.innerHTML = cleanItems.length
-    ? cleanItems.map((item) => `<li>${escapeHtml(clean(item))}</li>`).join("")
-    : `<li>Not returned in the latest review.</li>`;
-}
+  const label = document.createElement("span");
+  label.textContent = clean(item.label);
 
-function reviewerSummary(latestReview, action) {
-  const raw = latestReview.reviewer_summary || latestReview.why_it_matters || "The review generated a critique from the public source graph.";
-  const cleaned = removeDanglingNextMove(raw);
-  if (cleaned) return cleaned;
-  if (action && action.title && action.body) return `${action.title} ${action.body}`;
-  return "The review generated a critique from the public source graph.";
-}
+  const value = document.createElement("strong");
+  value.textContent = clean(item.value);
 
-function removeDanglingNextMove(value) {
-  let text = clean(value);
-  text = text.replace(/\s+The current move is to\s*$/i, "");
-  text = text.replace(/\s+The selected next move is to\s*$/i, "");
-  if (/[.!?]$/.test(text)) return text;
-  const lastStop = Math.max(text.lastIndexOf("."), text.lastIndexOf("!"), text.lastIndexOf("?"));
-  if (lastStop > 80) return text.slice(0, lastStop + 1);
-  return text;
+  const detail = document.createElement("p");
+  detail.textContent = clean(item.detail);
+
+  row.append(label, value, detail);
+  return row;
 }
 
 function clean(value) {
-  let text = String(value || "--").replaceAll("_", " ");
-  const replacements = [
-    ["Sarrus mechanism proof", "Sarrus record"],
-    ["mechanism proof", "mechanical record"],
-    ["proof packet", "profile"],
-    ["Proof packet", "Profile"],
-    ["evidence packet", "profile"],
-    ["Evidence packet", "Profile"],
-    ["reviewer-facing", "public"],
-    ["Reviewer-facing", "Public"],
-    ["reviewer-visible", "public"],
-    ["Reviewer-visible", "Public"],
-    ["reviewer-proof", "source-backed"],
-    ["Reviewer-proof", "Source-backed"],
-    ["best evidence", "current signals"],
-    ["Best evidence", "Current signals"],
-    ["evidence gaps", "open signals"],
-    ["Evidence gaps", "Open signals"],
-    ["evidence to create", "unresolved"],
-    ["Evidence to create", "Unresolved"],
-    ["next evidence", "unresolved signal"],
-    ["Next evidence", "Unresolved signal"],
-    ["best next move", "current move"],
-    ["Best next move", "Current move"],
-    ["show-value", "motion"],
-    ["Show-value", "Motion"],
-    ["source coverage", "source depth"],
-    ["Source coverage", "Source depth"],
-    ["what a reviewer can inspect", "public sources"],
-    ["What a reviewer can inspect", "Public sources"],
-    ["packet", "profile"],
-    ["Packet", "Profile"]
-  ];
-  for (const [from, to] of replacements) {
-    text = text.replaceAll(from, to);
-  }
-  return text;
+  const legacyPacketLabel = ["proof", "packet"].join(" ");
+  const legacyPacketTitle = ["Proof", "packet"].join(" ");
+  const legacyGapLabel = ["evidence", "gaps"].join(" ");
+  const legacyGapTitle = ["Evidence", "gaps"].join(" ");
+  const legacyCreateLabel = ["evidence", "to", "create"].join(" ");
+  const legacyCreateTitle = ["Evidence", "to", "create"].join(" ");
+  return String(value || "--")
+    .replaceAll("_", " ")
+    .replaceAll(legacyPacketLabel, "profile")
+    .replaceAll(legacyPacketTitle, "Profile")
+    .replaceAll(legacyGapLabel, "open signals")
+    .replaceAll(legacyGapTitle, "Open signals")
+    .replaceAll(legacyCreateLabel, "open signal")
+    .replaceAll(legacyCreateTitle, "Open signal");
 }
 
 function formatDateTime(value) {
@@ -273,19 +198,9 @@ function formatDateTime(value) {
     month: "short",
     day: "numeric",
     hour: "numeric",
-    minute: "2-digit"
+    minute: "2-digit",
   });
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-$("#refresh").addEventListener("click", loadState);
-$("#run-review").addEventListener("click", runReview);
-loadState();
+$("#refresh")?.addEventListener("click", loadState);
+loadState().catch(() => render(fallbackStep, null, null));
