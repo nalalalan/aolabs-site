@@ -55,6 +55,13 @@ APPS = [
         "accent": "#4f817c",
     },
     {
+        "slug": "blood",
+        "title": "blood",
+        "description": "Contour blood glucose readings on a clear source-backed graph.",
+        "url": "aolabs.io/blood",
+        "accent": "#9f3041",
+    },
+    {
         "slug": "sleep",
         "title": "sleep",
         "description": "Daily sleep-hours log from Samsung Health through Health Connect.",

@@ -36,6 +36,15 @@
     "version": "20260612"
   },
   {
+    "slug": "blood",
+    "title": "blood",
+    "description": "Contour blood glucose readings on a clear source-backed graph.",
+    "url": "aolabs.io/blood",
+    "accent": "#9f3041",
+    "image": "https://aolabs.io/previews/blood-20260626.png",
+    "version": "20260626"
+  },
+  {
     "slug": "sleep",
     "title": "sleep",
     "description": "Daily sleep-hours log from Samsung Health through Health Connect.",

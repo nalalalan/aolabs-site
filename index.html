@@ -64,6 +64,7 @@
       --meowtronome: #b87966;
       --dbalarm: #c96155;
       --cooking: #987856;
+      --blood: #9f3041;
       --shadow: 0 16px 30px rgba(65, 52, 39, .08), inset 0 1px 0 rgba(255, 255, 255, .78);
     }
 
@@ -164,7 +165,7 @@
 
     .palette-strip {
       display: grid;
-      grid-template-columns: 1.05fr 1fr .99fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr .5fr .48fr .46fr;
+      grid-template-columns: 1.05fr 1fr .99fr .98fr .94fr .88fr .86fr .84fr .82fr .8fr .78fr .76fr .74fr .72fr .7fr .7fr .68fr .66fr .64fr .62fr .6fr .58fr .56fr .54fr .52fr .5fr .48fr .46fr .44fr;
       height: 9px;
       margin: 24px 0 0 132px;
       overflow: hidden;
@@ -181,26 +182,27 @@
     .palette-strip span:nth-child(7) { background: var(--spec); }
     .palette-strip span:nth-child(8) { background: var(--talk); }
     .palette-strip span:nth-child(9) { background: var(--brain); }
-    .palette-strip span:nth-child(10) { background: var(--sarrus); }
-    .palette-strip span:nth-child(11) { background: var(--wavevis); }
-    .palette-strip span:nth-child(12) { background: var(--sandia); }
-    .palette-strip span:nth-child(13) { background: var(--ocean); }
-    .palette-strip span:nth-child(14) { background: var(--curtis); }
-    .palette-strip span:nth-child(15) { background: var(--violin); }
-    .palette-strip span:nth-child(16) { background: var(--virtualviolin); }
-    .palette-strip span:nth-child(17) { background: var(--nerve); }
-    .palette-strip span:nth-child(18) { background: var(--bus); }
-    .palette-strip span:nth-child(19) { background: var(--league); }
-    .palette-strip span:nth-child(20) { background: var(--spotify); }
-    .palette-strip span:nth-child(21) { background: var(--cooking); }
-    .palette-strip span:nth-child(22) { background: var(--meowtronome); }
-    .palette-strip span:nth-child(23) { background: var(--dbalarm); }
-    .palette-strip span:nth-child(24) { background: var(--lily); }
-    .palette-strip span:nth-child(25) { background: var(--yum); }
-    .palette-strip span:nth-child(26) { background: var(--idleshroom); }
-    .palette-strip span:nth-child(27) { background: var(--wallguard); }
-    .palette-strip span:nth-child(28) { background: var(--duet); }
-    .palette-strip span:nth-child(29) { background: var(--paper); }
+    .palette-strip span:nth-child(10) { background: var(--blood); }
+    .palette-strip span:nth-child(11) { background: var(--sarrus); }
+    .palette-strip span:nth-child(12) { background: var(--wavevis); }
+    .palette-strip span:nth-child(13) { background: var(--sandia); }
+    .palette-strip span:nth-child(14) { background: var(--ocean); }
+    .palette-strip span:nth-child(15) { background: var(--curtis); }
+    .palette-strip span:nth-child(16) { background: var(--violin); }
+    .palette-strip span:nth-child(17) { background: var(--virtualviolin); }
+    .palette-strip span:nth-child(18) { background: var(--nerve); }
+    .palette-strip span:nth-child(19) { background: var(--bus); }
+    .palette-strip span:nth-child(20) { background: var(--league); }
+    .palette-strip span:nth-child(21) { background: var(--spotify); }
+    .palette-strip span:nth-child(22) { background: var(--cooking); }
+    .palette-strip span:nth-child(23) { background: var(--meowtronome); }
+    .palette-strip span:nth-child(24) { background: var(--dbalarm); }
+    .palette-strip span:nth-child(25) { background: var(--lily); }
+    .palette-strip span:nth-child(26) { background: var(--yum); }
+    .palette-strip span:nth-child(27) { background: var(--idleshroom); }
+    .palette-strip span:nth-child(28) { background: var(--wallguard); }
+    .palette-strip span:nth-child(29) { background: var(--duet); }
+    .palette-strip span:nth-child(30) { background: var(--paper); }
 
     .grid {
       display: grid;
@@ -352,26 +354,27 @@
     .spec { --accent: var(--spec); order: 8; }
     .talk { --accent: var(--talk); order: 9; }
     .brain { --accent: var(--brain); order: 10; }
-    .sarrus { --accent: var(--sarrus); order: 11; }
-    .wavevis { --accent: var(--wavevis); order: 12; }
-    .sandia { --accent: var(--sandia); order: 13; }
-    .ocean { --accent: var(--ocean); order: 14; }
-    .curtis { --accent: var(--curtis); order: 15; }
-    .violin { --accent: var(--violin); order: 16; }
-    .virtualviolin { --accent: var(--virtualviolin); order: 17; }
-    .nerve { --accent: var(--nerve); order: 18; }
-    .bus { --accent: var(--bus); order: 19; }
-    .league { --accent: var(--league); order: 20; }
-    .spotify { --accent: var(--spotify); order: 21; }
-    .cooking { --accent: var(--cooking); order: 22; }
-    .meowtronome { --accent: var(--meowtronome); order: 23; }
-    .dbalarm { --accent: var(--dbalarm); order: 24; }
-    .lily { --accent: var(--lily); order: 25; }
-    .yum { --accent: var(--yum); order: 26; }
+    .blood { --accent: var(--blood); order: 11; }
+    .sarrus { --accent: var(--sarrus); order: 12; }
+    .wavevis { --accent: var(--wavevis); order: 13; }
+    .sandia { --accent: var(--sandia); order: 14; }
+    .ocean { --accent: var(--ocean); order: 15; }
+    .curtis { --accent: var(--curtis); order: 16; }
+    .violin { --accent: var(--violin); order: 17; }
+    .virtualviolin { --accent: var(--virtualviolin); order: 18; }
+    .nerve { --accent: var(--nerve); order: 19; }
+    .bus { --accent: var(--bus); order: 20; }
+    .league { --accent: var(--league); order: 21; }
+    .spotify { --accent: var(--spotify); order: 22; }
+    .cooking { --accent: var(--cooking); order: 23; }
+    .meowtronome { --accent: var(--meowtronome); order: 24; }
+    .dbalarm { --accent: var(--dbalarm); order: 25; }
+    .lily { --accent: var(--lily); order: 26; }
+    .yum { --accent: var(--yum); order: 27; }
     .idleshroom,
-    .mushroom-boop { --accent: var(--idleshroom); order: 27; }
-    .wallguard { --accent: var(--wallguard); order: 28; }
-    .duet { --accent: var(--duet); order: 29; }
+    .mushroom-boop { --accent: var(--idleshroom); order: 28; }
+    .wallguard { --accent: var(--wallguard); order: 29; }
+    .duet { --accent: var(--duet); order: 30; }
 
     footer {
       display: flex;
@@ -493,7 +496,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -535,6 +538,19 @@
           <p class="desc">pdf bank for autism, adhd, text, files, and images.</p>
         </div>
         <div class="card-foot"><span class="url">aolabs.io/brain</span></div>
+      </a>
+
+      <a class="app blood" href="/blood/" aria-label="blood">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>blood</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/blood.svg?v=20260626-blood" alt=""></span>
+          </div>
+          <p class="desc">Contour blood glucose readings on a clear source-backed graph.</p>
+        </div>
+        <div class="card-foot"><span class="url">aolabs.io/blood</span></div>
       </a>
 
       <a class="app sarrus" href="https://sarrus.aolabs.io" aria-label="sarrus">
