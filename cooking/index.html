@@ -188,16 +188,17 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 68px 54px minmax(132px, .72fr) minmax(232px, 1.3fr) 66px 66px 56px 60px 80px 80px 60px 64px 68px 82px;
+        grid-template-columns: 70px 58px minmax(150px, .9fr) 78px 78px 70px 76px 98px 98px 74px 84px 86px 106px;
         align-items: stretch;
       }
 
       .table-head {
         background: rgba(83, 70, 54, .08);
         color: #594f46;
-        font-size: 12px;
+        font-size: 11.5px;
         font-weight: 850;
         letter-spacing: 0;
+        line-height: 1.15;
         text-transform: lowercase;
       }
 
@@ -224,6 +225,11 @@
       .table-head > div:last-child,
       .cell:last-child {
         border-right: 0;
+      }
+
+      .table-head > div[data-sort-key="recipe"],
+      .cell.recipe {
+        display: none;
       }
 
       .recipe-row:last-child .cell {
@@ -355,35 +361,6 @@
         color: #38302a;
       }
 
-      .portion-stack {
-        display: grid;
-        gap: 5px;
-        min-width: 0;
-        font-size: 12px;
-        line-height: 1.12;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .portion-stack > span {
-        display: grid;
-        gap: 1px;
-        align-items: start;
-        min-width: 0;
-      }
-
-      .portion-stack strong {
-        color: var(--muted);
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: lowercase;
-      }
-
-      .portion-stack .portion-value {
-        min-width: 0;
-        overflow-wrap: anywhere;
-        font-weight: 860;
-      }
-
       .sort-button {
         display: flex;
         width: 100%;
@@ -398,7 +375,9 @@
         cursor: pointer;
         font: inherit;
         letter-spacing: 0;
-        padding: 10px 9px;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        padding: 9px 8px;
         text-align: left;
         text-transform: inherit;
       }
@@ -613,7 +592,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>31 foods. Scores are higher when the serving is steadier fuel or better muscle-function support.</p>
+              <p>31 foods. Full-serving numbers only; scores are higher when the serving is steadier fuel or better muscle-function support.</p>
             </div>
           </div>
         </div>
@@ -672,7 +651,7 @@
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="food"><span class="dish-name">Market 32 penne alla vodka w/ sausage</span><img class="dish-photo" src="photos/29-market32-penne-alla-vodka-sausage.jpeg" alt="Market 32 penne alla vodka with sausage package" loading="eager" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy the 22 oz Market 32 / Price Chopper penne alla vodka w/ sausage container.</li><li>Heat until steaming; half the container is the smaller pasta portion.</li><li>Package label: 1 container, 1,280 kcal, 107g carbs, 9g fiber, 55g protein, 1,890mg sodium.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy the 22 oz Market 32 / Price Chopper penne alla vodka w/ sausage container.</li><li>Heat until steaming.</li><li>Package label: 1 container, 1,280 kcal, 107g carbs, 9g fiber, 55g protein, 1,890mg sodium.</li></ul></div>
           <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
           <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
@@ -1140,7 +1119,7 @@
           <div class="cell category" role="cell" data-label="category">beverage</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="food"><span class="dish-name">Electrolit strawberry kiwi</span><img class="dish-photo" src="photos/31-electrolit-strawberry-kiwi.webp" alt="Electrolit Strawberry Kiwi electrolyte beverage bottle" loading="eager" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy a 21 fl oz Electrolit Strawberry Kiwi bottle.</li><li>Drink chilled; half the bottle is the smaller electrolyte portion.</li><li>Official label: 130 kcal, 31g carbs/sugars, 430mg sodium, 490mg potassium, 30mg magnesium, 50mg calcium, 670mg chloride.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy a 21 fl oz Electrolit Strawberry Kiwi bottle.</li><li>Drink chilled.</li><li>Official label: 130 kcal, 31g carbs/sugars, 430mg sodium, 490mg potassium, 30mg magnesium, 50mg calcium, 670mg chloride.</li></ul></div>
           <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="2.4500"><span>$2.45 / bottle</span></div>
           <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="2.4500"><span>$2.45 / bottle</span></div>
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
@@ -1158,7 +1137,7 @@
           <div class="cell category" role="cell" data-label="category">candy</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="food"><span class="dish-name">mango chili lollipop</span><img class="dish-photo" src="photos/30-mango-chili-lollipop.png" alt="mango chili lollipop with chili salt coating" loading="eager" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy a Mexican mango lollipop with chili salt coating.</li><li>One Vero-style lollipop is the full portion; half is the smaller salty-candy hit.</li><li>Label range: 50-60 kcal, 13-14g carbs, 0g fiber, 0g protein, about 220-290mg sodium.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy a Mexican mango lollipop with chili salt coating.</li><li>One Vero-style lollipop is the serving.</li><li>Label range: 50-60 kcal, 13-14g carbs, 0g fiber, 0g protein, about 220-290mg sodium.</li></ul></div>
           <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="0.2700"><span>$0.27 / lollipop</span></div>
           <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="0.2700"><span>$0.27 / lollipop</span></div>
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
@@ -1212,7 +1191,7 @@
       <footer class="source-note">
         <span>source: Alan recipe list, June 1, June 4, June 10, June 13, and June 25, 2026 package photos; official Electrolit label; Vero lollipop label checks</span>
         <span>scores and nutrition values are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
-        <span>portion lines scale from the listed serving; full is the original site serving</span>
+        <span>numeric cells show the listed full serving only</span>
         <span>crash prevention uses the current carb-pressure model inverted to higher-is-better; muscle function weights protein, carb fuel, sodium/fluid support, and potassium/magnesium/calcium-rich ingredients; sodium alone is capped</span>
         <span>photos: source-matched full-food images; recipe links and calculators use source ratios; calculator price lines are total batch estimates</span>
         <span>citations: <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC carbs + protein/fat/fiber</a>; <a href="https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/low-blood-glucose-hypoglycemia">NIDDK low glucose</a>; <a href="https://medlineplus.gov/fluidandelectrolytebalance.html">MedlinePlus electrolytes</a>; <a href="https://ods.od.nih.gov/factsheets/Potassium-Consumer/">NIH potassium</a>; <a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/">NIH magnesium</a>; <a href="https://ods.od.nih.gov/factsheets/Calcium-Consumer/">NIH calcium</a>; <a href="https://electrolit.com/products/strawberry-kiwi-ih">Electrolit Strawberry Kiwi label</a>; <a href="https://tools.myfooddata.com/nutrition-facts/2417859/wt1/">USDA branded Vero lollipop</a>; <a href="https://www.foodsco.net/p/vero-mango-chili-pepper-powder-covered-mango-lollipops/0075752804567">Vero label check</a></span>
@@ -1291,58 +1270,25 @@
           if (value < 1) return cleanNumber(Math.round(value * 100) / 100, 2) + "%";
           return cleanNumber(Math.round(value * 10) / 10, 1) + "%";
         };
-        const portionDefinitions = [
-          { name: "half", scale: 0.5 },
-          { name: "full", scale: 1 },
-        ];
-        const renderPortionStack = (cell, portions) => {
-          const stack = document.createElement("div");
-          stack.className = "portion-stack";
-          portions.forEach((portion) => {
-            const line = document.createElement("span");
-            const name = document.createElement("strong");
-            const value = document.createElement("span");
-            line.className = "portion-line";
-            value.className = "portion-value";
-            name.textContent = portion.name;
-            value.textContent = portion.value;
-            line.append(name, value);
-            stack.appendChild(line);
-          });
-          cell.replaceChildren(stack);
-        };
-        const renderScaledCell = (row, label, formatter, valueForScale = (base, scale) => base * scale) => {
+        const renderFullCell = (row, label, formatter) => {
           const cell = row.querySelector(`[data-label="${label}"]`);
           if (!cell) return;
           const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
           cell.dataset.baseValue = String(base);
           cell.dataset.sortValue = String(base);
-          renderPortionStack(cell, portionDefinitions.map((portion) => ({
-            name: portion.name,
-            value: formatter(valueForScale(base, portion.scale)),
-          })));
+          cell.replaceChildren(document.createTextNode(formatter(base)));
         };
         if (table) {
           Array.from(table.querySelectorAll(".recipe-row")).forEach((row) => {
-            renderScaledCell(row, labelsByKey.makePrice, formatPrice);
-            renderScaledCell(row, labelsByKey.buyPrice, formatPrice);
-            renderScaledCell(row, labelsByKey.calories, (value) => formatMetricNumber(value) + " kcal");
-            renderScaledCell(row, labelsByKey.protein, (value) => formatMetricNumber(value) + "g");
-            renderScaledCell(row, labelsByKey.tyrosine, (value) => formatMetricNumber(value) + "mg");
-            renderScaledCell(row, labelsByKey.cholesterol, (value) => formatMetricNumber(value) + "mg");
-            renderScaledCell(row, labelsByKey.risk, formatPercent);
-            renderScaledCell(
-              row,
-              labelsByKey.crashPrevention,
-              (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100",
-              (base, scale) => 100 - ((100 - base) * Math.pow(scale, 0.68))
-            );
-            renderScaledCell(
-              row,
-              labelsByKey.muscleFunction,
-              (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100",
-              (base, scale) => base * Math.pow(scale, 0.35)
-            );
+            renderFullCell(row, labelsByKey.makePrice, formatPrice);
+            renderFullCell(row, labelsByKey.buyPrice, formatPrice);
+            renderFullCell(row, labelsByKey.calories, (value) => formatMetricNumber(value) + " kcal");
+            renderFullCell(row, labelsByKey.protein, (value) => formatMetricNumber(value) + "g");
+            renderFullCell(row, labelsByKey.tyrosine, (value) => formatMetricNumber(value) + "mg");
+            renderFullCell(row, labelsByKey.cholesterol, (value) => formatMetricNumber(value) + "mg");
+            renderFullCell(row, labelsByKey.risk, formatPercent);
+            renderFullCell(row, labelsByKey.crashPrevention, (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100");
+            renderFullCell(row, labelsByKey.muscleFunction, (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100");
           });
         }
 
