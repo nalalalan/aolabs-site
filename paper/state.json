@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "project": {
+    "title": "Cellular Soft Robots",
+    "overleafUrl": "https://www.overleaf.com/project/680159de19c8c4376d964dba",
+    "manuscript": "A monolithic cellular architecture for topology-programmable soft robotics"
+  },
+  "createdAt": "2026-06-26T21:53:24-04:00",
+  "updatedAt": "2026-06-26T21:53:24-04:00",
+  "snapshots": [
+    {
+      "id": "2026-06-26-overleaf-source-export",
+      "capturedAt": "2026-06-26T21:53:24-04:00",
+      "date": "2026-06-26",
+      "source": "Overleaf source export",
+      "wordCount": 4590,
+      "addedWords": 0,
+      "deletedWords": 0,
+      "netWords": 0,
+      "texBytes": 53854,
+      "bodyBytes": 50549,
+      "sha256": "854f72cd654cb2256d3e24f588844121c1130820e142755a1b592575e6846c90",
+      "bodySha256": "9f268a3335c57db518ede0bcceb268ef22ca595602e80898fcc06be7030e80fc",
+      "snapshotFile": "data/snapshots/2026-06-26-main.tex",
+      "activeOverleafComments": 4
+    }
+  ],
+  "taskSections": [
+    {
+      "title": "active Overleaf comments",
+      "items": [
+        {
+          "title": "cell/module split",
+          "detail": "Sweep the whole manuscript so cell, module, array, layer, and topology are never used interchangeably; keep the current definition near Methods and echo it in Results captions where the reader first needs it."
+        },
+        {
+          "title": "flexural-joint wording",
+          "detail": "Replace claims that imply a discrete flexural hinge with compliant-linkage language; name the Sarrus legs as bending beams and state what actually bends under inflation."
+        },
+        {
+          "title": "overhang endpoint definition",
+          "detail": "Define exactly where the approximately 1 cm overhang starts and ends; add the same reference endpoints in text, caption, and figure annotation."
+        },
+        {
+          "title": "overhang reference lines",
+          "detail": "Add vertical dashed reference lines or a bracket to the overhang figure so the measurement is visible without reading the paragraph first."
+        }
+      ]
+    },
+    {
+      "title": "cell and module mechanics",
+      "items": [
+        {
+          "title": "single-cell mechanism",
+          "detail": "Separate cell-level expansion from module-level bending: cell equals monolithic Sarrus-linkage-plus-PneuNet unit; module equals the 2 by 2 pneumatic grouping."
+        },
+        {
+          "title": "upper/lower leg asymmetry",
+          "detail": "Describe the upper thin structural legs and lower thicker pneumatic-channel legs as the source of directional bias, using the upright-V and inverted-V language already visible in the figure."
+        },
+        {
+          "title": "print-reliability hinge note",
+          "detail": "Explain that an intentional notch-like hinge was not used because many cells must print reliably and unsupported thin hinge features become floppy or unreliable at higher layers."
+        },
+        {
+          "title": "simulation-language cleanup",
+          "detail": "Do not imply the current physical cell matches an ideal rigid-link/flexible-joint model; state where the real compliant beams and distributed bending depart from that abstraction."
+        },
+        {
+          "title": "module-bias evidence",
+          "detail": "Tie the 80 psi side views, angle plot, and V-shaped leg-pair annotations to one explicit claim: asymmetric connection geometry converts in-plane expansion into repeatable convex bending."
+        },
+        {
+          "title": "stiffness paragraph bridge",
+          "detail": "Connect the force-stiffness regimes to the same beam-bending story: early axial resistance, low-stiffness leg bending, and high-stiffness pneumatic-chamber compression."
+        }
+      ]
+    },
+    {
+      "title": "bilayer overhang section",
+      "items": [
+        {
+          "title": "overhang requirement",
+          "detail": "State the requirement in physical terms: curvature relative to thickness, available length, local expansion ratio, boundary constraint, and the ability to generate both convex and concave bending."
+        },
+        {
+          "title": "threshold question",
+          "detail": "Add a short calculation or design-rule paragraph that answers what combination of curvature, length, thickness, and expansion makes an overhang possible."
+        },
+        {
+          "title": "66-cell limit",
+          "detail": "Make the current prototype boundary explicit: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row rather than a full two-dimensional overhang surface."
+        },
+        {
+          "title": "boundary-condition role",
+          "detail": "State whether the boundary helps or limits the overhang; if edge constraints are part of the effect, put that in the figure/caption instead of leaving it implicit."
+        },
+        {
+          "title": "expansion-ratio reality",
+          "detail": "Clarify that constrained modules may not reach the ideal 2x expansion in the deformed structure; relate leakage, actuation strength, and compression to the achieved overhang."
+        },
+        {
+          "title": "node/mesh analysis",
+          "detail": "Create a simple node-following or mesh analysis from planar state to overhang state so stretch, local bend, and length demand can be inspected rather than argued verbally."
+        },
+        {
+          "title": "avoid water analogy drift",
+          "detail": "Keep the overhang comparison focused on material deformation without molecular rearrangement; do not let the analogy carry the evidence."
+        }
+      ]
+    },
+    {
+      "title": "EPM and pneumatic direction",
+      "items": [
+        {
+          "title": "do not abandon pneumatics",
+          "detail": "Keep pneumatics as the current proven platform; frame EPMs first as valve/manifold control for cells rather than as a replacement actuation system without hard range data."
+        },
+        {
+          "title": "manifold architecture",
+          "detail": "Sketch or describe one pressure manifold feeding many cells, with each cell controlled by a small electrically switched EPM valve."
+        },
+        {
+          "title": "direct magnetic actuation boundary",
+          "detail": "If direct EPM actuation remains in the Discussion, mark it as a separate future path that requires range, force, scale, and heating evidence before it can replace air."
+        },
+        {
+          "title": "physical EPM switching test",
+          "detail": "Run a minimal test with Alnico and NdFeB rods in a tube or constrained guide, measuring attraction/repulsion switching and whether the soft magnet twists."
+        },
+        {
+          "title": "pulse circuit note",
+          "detail": "Describe the EPM as pulse-switched between stable states; avoid treating it like a continuously powered electromagnet or solenoid."
+        },
+        {
+          "title": "student overlap",
+          "detail": "Capture the relevant magnetic-soft-actuator student connection and the split-magnet EPM concept if it becomes a real cited design input."
+        }
+      ]
+    },
+    {
+      "title": "figures and captions",
+      "items": [
+        {
+          "title": "one claim per figure",
+          "detail": "For each main figure, write the single claim the figure proves; remove panels or caption phrases that do not support that claim."
+        },
+        {
+          "title": "large readable labels",
+          "detail": "Increase angle markers, reference lines, pressure labels, and panel lettering so they remain legible at printed caption scale."
+        },
+        {
+          "title": "cell figure",
+          "detail": "Make Figure 1 distinguish uncapped cell, capped cell, Sarrus linkage, PneuNet actuator, and cap role without mixing module behavior into the cell caption."
+        },
+        {
+          "title": "module figure",
+          "detail": "Make Figure 2 carry the directional-bias mechanism: upper/lower leg pairs, single-module and two-module bending angles, and the unactuated cross-section."
+        },
+        {
+          "title": "overhang figure",
+          "detail": "Add measurement references, layer labels, actuation pattern, cell count, and physical row state so the 1 cm claim is visually checkable."
+        },
+        {
+          "title": "cylindrical figures",
+          "detail": "Make bending, grasping, peristalsis, and rolling panels read as topology-level reconfiguration of the same module, not a separate actuator family."
+        },
+        {
+          "title": "source consistency",
+          "detail": "Check every caption number against the exported figures: pressure, expansion ratio, cell count, module count, angle, overhang length, and topology size."
+        }
+      ]
+    },
+    {
+      "title": "Science submission gates",
+      "items": [
+        {
+          "title": "title",
+          "detail": "Make the title contribution-bearing and concrete; avoid a broad category title unless the Results prove that breadth."
+        },
+        {
+          "title": "abstract arc",
+          "detail": "Open with problem, approach, strongest real result, main limitation, and bounded claim; remove repeated topology-programmable language that does not add evidence."
+        },
+        {
+          "title": "novelty sentence",
+          "detail": "State the exact novelty over programmable matter, fixed soft surfaces, and modular soft robots: one printed pneumatic unit used for both morphing surfaces and reconfigurable robot bodies."
+        },
+        {
+          "title": "Results order",
+          "detail": "Lead each Results subsection with evidence and measured behavior, not a tour of what was built."
+        },
+        {
+          "title": "quantitative spine",
+          "detail": "Add a compact chain of hard numbers: pressure range, expansion ratio, stiffness regimes, bending angles, feature height, overhang length, load/object interaction, locomotion outcome, and repeat count where available."
+        },
+        {
+          "title": "claim discipline",
+          "detail": "Keep claims bounded to demonstrated prototypes; do not overstate autonomy, closed-loop control, integrated valves, sensing, or full two-dimensional overhang surfaces."
+        },
+        {
+          "title": "comparison paragraph",
+          "detail": "Compare against the closest systems in the Introduction and Discussion using direct capability differences, not only citation lists."
+        },
+        {
+          "title": "limitations paragraph",
+          "detail": "Make limitations crisp: external pressure, tubing, manual assembly, scale, speed, leakage, limited overhang prototype, no closed-loop control, and no integrated EPM valve yet."
+        },
+        {
+          "title": "Methods reproducibility",
+          "detail": "Add enough detail for fabrication, materials, print orientation, pressure control, measurement calibration, boundary conditions, and analysis scripts to be audited."
+        },
+        {
+          "title": "editorial package",
+          "detail": "Prepare the Science cover-letter line, graphical claim, suggested reviewers, competing-work comparison, and data/code availability before submission."
+        }
+      ]
+    }
+  ]
+}

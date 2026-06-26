@@ -36,6 +36,7 @@
       --line: rgba(104, 87, 68, .22);
       --relay: #b87966;
       --phd: #6f4b57;
+      --paper: #7a6173;
       --talk: #8c704d;
       --duet: #c28b98;
       --nerve: #b98259;
@@ -199,6 +200,7 @@
     .palette-strip span:nth-child(26) { background: var(--idleshroom); }
     .palette-strip span:nth-child(27) { background: var(--wallguard); }
     .palette-strip span:nth-child(28) { background: var(--duet); }
+    .palette-strip span:nth-child(29) { background: var(--paper); }
 
     .grid {
       display: grid;
@@ -342,33 +344,34 @@
 
     .imagineer { --accent: var(--imagineer); order: 1; }
     .phd { --accent: var(--phd); order: 2; }
-    .a3 { --accent: var(--a3); order: 3; }
-    .cv { --accent: var(--cv); order: 4; }
-    .progress { --accent: var(--progress); order: 5; }
-    .relay { --accent: var(--relay); order: 6; }
-    .spec { --accent: var(--spec); order: 7; }
-    .talk { --accent: var(--talk); order: 8; }
-    .brain { --accent: var(--brain); order: 9; }
-    .sarrus { --accent: var(--sarrus); order: 10; }
-    .wavevis { --accent: var(--wavevis); order: 11; }
-    .sandia { --accent: var(--sandia); order: 12; }
-    .ocean { --accent: var(--ocean); order: 13; }
-    .curtis { --accent: var(--curtis); order: 14; }
-    .violin { --accent: var(--violin); order: 15; }
-    .virtualviolin { --accent: var(--virtualviolin); order: 16; }
-    .nerve { --accent: var(--nerve); order: 17; }
-    .bus { --accent: var(--bus); order: 18; }
-    .league { --accent: var(--league); order: 19; }
-    .spotify { --accent: var(--spotify); order: 20; }
-    .cooking { --accent: var(--cooking); order: 21; }
-    .meowtronome { --accent: var(--meowtronome); order: 22; }
-    .dbalarm { --accent: var(--dbalarm); order: 23; }
-    .lily { --accent: var(--lily); order: 24; }
-    .yum { --accent: var(--yum); order: 25; }
+    .paper { --accent: var(--paper); order: 3; }
+    .a3 { --accent: var(--a3); order: 4; }
+    .cv { --accent: var(--cv); order: 5; }
+    .progress { --accent: var(--progress); order: 6; }
+    .relay { --accent: var(--relay); order: 7; }
+    .spec { --accent: var(--spec); order: 8; }
+    .talk { --accent: var(--talk); order: 9; }
+    .brain { --accent: var(--brain); order: 10; }
+    .sarrus { --accent: var(--sarrus); order: 11; }
+    .wavevis { --accent: var(--wavevis); order: 12; }
+    .sandia { --accent: var(--sandia); order: 13; }
+    .ocean { --accent: var(--ocean); order: 14; }
+    .curtis { --accent: var(--curtis); order: 15; }
+    .violin { --accent: var(--violin); order: 16; }
+    .virtualviolin { --accent: var(--virtualviolin); order: 17; }
+    .nerve { --accent: var(--nerve); order: 18; }
+    .bus { --accent: var(--bus); order: 19; }
+    .league { --accent: var(--league); order: 20; }
+    .spotify { --accent: var(--spotify); order: 21; }
+    .cooking { --accent: var(--cooking); order: 22; }
+    .meowtronome { --accent: var(--meowtronome); order: 23; }
+    .dbalarm { --accent: var(--dbalarm); order: 24; }
+    .lily { --accent: var(--lily); order: 25; }
+    .yum { --accent: var(--yum); order: 26; }
     .idleshroom,
-    .mushroom-boop { --accent: var(--idleshroom); order: 26; }
-    .wallguard { --accent: var(--wallguard); order: 27; }
-    .duet { --accent: var(--duet); order: 28; }
+    .mushroom-boop { --accent: var(--idleshroom); order: 27; }
+    .wallguard { --accent: var(--wallguard); order: 28; }
+    .duet { --accent: var(--duet); order: 29; }
 
     footer {
       display: flex;
@@ -490,7 +493,7 @@
         </div>
       </div>
       <div class="palette-strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </header>
 
@@ -571,6 +574,19 @@
           <p class="desc">PhD capture inbox for thoughts, files, links, screenshots, and fragments.</p>
         </div>
         <div class="card-foot"><span class="url">phd.aolabs.io</span></div>
+      </a>
+
+      <a class="app paper" href="https://aolabs.io/paper/" aria-label="paper">
+        <div>
+          <div class="app-top">
+            <div>
+              <h2>paper</h2>
+            </div>
+            <span class="app-icon" aria-hidden="true"><img src="/icons/paper.svg?v=20260626-source-export" alt=""></span>
+          </div>
+          <p class="desc">manuscript word movement and paper-change queue.</p>
+        </div>
+        <div class="card-foot"><span class="url">aolabs.io/paper</span></div>
       </a>
 
       <a class="app sandia" href="https://aolabs.io/sandia/" aria-label="sandia">
