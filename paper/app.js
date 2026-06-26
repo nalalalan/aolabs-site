@@ -6,7 +6,11 @@ async function loadState() {
   for (const url of statePaths) {
     try {
       const response = await fetch(url, { cache: "no-store" });
-      if (response.ok) return await response.json();
+      if (response.ok) {
+        const state = await response.json();
+        if (window.location.pathname.startsWith("/paper/")) state.staticFallback = true;
+        return state;
+      }
     } catch {
       // Try the next route.
     }
@@ -143,6 +147,17 @@ function latestSnapshot(state) {
   return snapshots[snapshots.length - 1] || null;
 }
 
+function refreshSummary(state = {}) {
+  const refresh = state.refresh || {};
+  if (state.staticFallback && !refresh.configured) return "static fallback";
+  if (!refresh.configured) return "server refresh: token missing";
+  if (refresh.status === "failed") return `server refresh failed: ${refresh.lastMessage || "check source"}`;
+  if (refresh.status === "running") return "server refresh running";
+  if (refresh.status === "captured") return "server refresh captured";
+  if (refresh.status === "unchanged") return "server refresh current";
+  return `server refresh every ${number(refresh.intervalMinutes || 60)} min`;
+}
+
 function renderMeta(state) {
   const latest = latestSnapshot(state);
   const snapshotCount = Array.isArray(state.snapshots) ? state.snapshots.length : 0;
@@ -152,10 +167,10 @@ function renderMeta(state) {
 
   if (latest) {
     sourceLine.textContent = `${number(latest.wordCount)} words; latest ${latest.date}; ${latest.source}`;
-    snapshotSummary.textContent = `snapshots: ${number(snapshotCount)}`;
+    snapshotSummary.textContent = `snapshots: ${number(snapshotCount)}; ${refreshSummary(state)}`;
   } else {
     sourceLine.textContent = "no saved manuscript snapshot";
-    snapshotSummary.textContent = "snapshots: 0";
+    snapshotSummary.textContent = `snapshots: 0; ${refreshSummary(state)}`;
   }
   queueMeta.textContent = `${number((state.taskSections || []).reduce((total, section) => total + (section.items || []).length, 0))} paper changes`;
 }
