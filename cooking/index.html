@@ -355,6 +355,28 @@
         color: #38302a;
       }
 
+      .portion-stack {
+        display: grid;
+        gap: 5px;
+        min-width: 0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .portion-stack span {
+        display: grid;
+        grid-template-columns: 31px minmax(0, 1fr);
+        gap: 6px;
+        align-items: baseline;
+        min-width: 0;
+      }
+
+      .portion-stack strong {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: lowercase;
+      }
+
       .sort-button {
         display: flex;
         width: 100%;
@@ -580,7 +602,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>29 foods. Difficulty ranks prep effort. Rows render as half and full portions with matching nutrition, sugar-crash, and food-poisoning estimates.</p>
+              <p>29 foods. Difficulty ranks prep effort. Each food stays one row; numeric cells show half and full portions.</p>
             </div>
           </div>
         </div>
@@ -1113,6 +1135,7 @@
       <footer class="source-note">
         <span>source: Alan recipe list, June 1, June 4, June 10, June 13, and June 25, 2026 package photos</span>
         <span>nutrition values, sugar-crash estimates, per-unit make prices, per-unit buy prices, make/buy ratios, and risk percentages are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
+        <span>portion lines scale from the listed serving; full is the original site serving</span>
         <span>photos: source-matched full-food images; recipe links and calculators use source ratios; calculator price lines are total batch estimates</span>
       </footer>
     </main>
@@ -1188,69 +1211,50 @@
           if (value < 1) return cleanNumber(Math.round(value * 100) / 100, 2) + "%";
           return cleanNumber(Math.round(value * 10) / 10, 1) + "%";
         };
-        const setScaledCell = (row, label, scale, formatter) => {
-          const cell = row.querySelector(`[data-label="${label}"]`);
-          if (!cell) return;
-          const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
-          cell.dataset.baseValue = String(base);
-          const value = base * scale;
-          cell.dataset.sortValue = String(value);
-          const span = cell.querySelector("span");
-          if (span) span.textContent = formatter(value);
-        };
-        const setPortionPrice = (row, label, scale, portionText) => {
-          const cell = row.querySelector(`[data-label="${label}"]`);
-          if (!cell) return;
-          const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
-          cell.dataset.baseValue = String(base);
-          const value = base * scale;
-          cell.dataset.sortValue = value.toFixed(4);
-          const span = cell.querySelector("span");
-          if (span) span.textContent = formatPrice(value) + " / " + portionText + " serving";
-        };
-        const setPortionDish = (row, scale, portionText) => {
-          const dishName = row.querySelector(".dish-name");
-          if (!dishName) return;
-          const baseName = dishName.dataset.baseName || dishName.textContent.trim();
-          dishName.dataset.baseName = baseName;
-          dishName.textContent = baseName + " - " + portionText + " serving";
-          row.dataset.portion = portionText;
-          row.dataset.portionScale = String(scale);
-        };
-        const scalePortionRow = (row, scale, portionText) => {
-          setPortionDish(row, scale, portionText);
-          setPortionPrice(row, labelsByKey.makePrice, scale, portionText);
-          setPortionPrice(row, labelsByKey.buyPrice, scale, portionText);
-          setScaledCell(row, labelsByKey.calories, scale, (value) => formatMetricNumber(value) + " kcal");
-          setScaledCell(row, labelsByKey.protein, scale, (value) => formatMetricNumber(value) + "g");
-          setScaledCell(row, labelsByKey.tyrosine, scale, (value) => formatMetricNumber(value) + "mg");
-          setScaledCell(row, labelsByKey.cholesterol, scale, (value) => formatMetricNumber(value) + "mg");
-          setScaledCell(row, labelsByKey.risk, scale, formatPercent);
-          const crashCell = row.querySelector(`[data-label="${labelsByKey.crash}"]`);
-          if (crashCell) {
-            const baseCrash = Number(crashCell.dataset.baseValue || crashCell.dataset.sortValue || numericValue(crashCell.textContent));
-            crashCell.dataset.baseValue = String(baseCrash);
-            const crashValue = Math.max(1, Math.round(baseCrash * Math.pow(scale, 0.68)));
-            crashCell.dataset.sortValue = String(crashValue);
-            const span = crashCell.querySelector("span");
-            if (span) span.textContent = crashValue + "%";
-          }
-          row.querySelectorAll("img[loading='eager']").forEach((image) => {
-            if (scale < 1) {
-              image.loading = "lazy";
-              image.removeAttribute("fetchpriority");
-            }
+        const portionDefinitions = [
+          { name: "half", scale: 0.5 },
+          { name: "full", scale: 1 },
+        ];
+        const renderPortionStack = (cell, portions) => {
+          const stack = document.createElement("div");
+          stack.className = "portion-stack";
+          portions.forEach((portion) => {
+            const line = document.createElement("span");
+            const name = document.createElement("strong");
+            const value = document.createElement("span");
+            name.textContent = portion.name;
+            value.textContent = portion.value;
+            line.append(name, value);
+            stack.appendChild(line);
           });
+          cell.replaceChildren(stack);
+        };
+        const renderScaledCell = (row, label, formatter, valueForScale = (base, scale) => base * scale) => {
+          const cell = row.querySelector(`[data-label="${label}"]`);
+          if (!cell) return;
+          const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
+          cell.dataset.baseValue = String(base);
+          cell.dataset.sortValue = String(base);
+          renderPortionStack(cell, portionDefinitions.map((portion) => ({
+            name: portion.name,
+            value: formatter(valueForScale(base, portion.scale)),
+          })));
         };
         if (table) {
           Array.from(table.querySelectorAll(".recipe-row")).forEach((row) => {
-            if (row.dataset.portionExpanded === "true") return;
-            row.dataset.portionExpanded = "true";
-            const halfRow = row.cloneNode(true);
-            halfRow.dataset.portionExpanded = "true";
-            scalePortionRow(halfRow, 0.5, "half");
-            scalePortionRow(row, 1, "full");
-            table.insertBefore(halfRow, row);
+            renderScaledCell(row, labelsByKey.makePrice, formatPrice);
+            renderScaledCell(row, labelsByKey.buyPrice, formatPrice);
+            renderScaledCell(row, labelsByKey.calories, (value) => formatMetricNumber(value) + " kcal");
+            renderScaledCell(row, labelsByKey.protein, (value) => formatMetricNumber(value) + "g");
+            renderScaledCell(row, labelsByKey.tyrosine, (value) => formatMetricNumber(value) + "mg");
+            renderScaledCell(row, labelsByKey.cholesterol, (value) => formatMetricNumber(value) + "mg");
+            renderScaledCell(row, labelsByKey.risk, formatPercent);
+            renderScaledCell(
+              row,
+              labelsByKey.crash,
+              (value) => Math.max(1, Math.round(value)) + "%",
+              (base, scale) => base * Math.pow(scale, 0.68)
+            );
           });
         }
 
