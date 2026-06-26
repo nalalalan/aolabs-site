@@ -75,7 +75,7 @@
 
       .shell {
         width: calc(100% - 32px);
-        max-width: 1480px;
+        max-width: 1800px;
         margin: 0 auto;
         padding: 28px 0 42px;
       }
@@ -172,7 +172,8 @@
       .recipe-table {
         border: 1px solid var(--line-strong);
         border-radius: 8px;
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
         background: rgba(255, 253, 248, .82);
         box-shadow: var(--shadow);
       }
@@ -188,7 +189,8 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 70px 58px minmax(150px, .9fr) 78px 78px 70px 76px 98px 98px 74px 84px 86px 106px;
+        min-width: 1364px;
+        grid-template-columns: 68px 56px minmax(134px, .72fr) minmax(280px, 1.35fr) 72px 72px 66px 74px 98px 98px 72px 82px 86px 106px;
         align-items: stretch;
       }
 
@@ -225,11 +227,6 @@
       .table-head > div:last-child,
       .cell:last-child {
         border-right: 0;
-      }
-
-      .table-head > div[data-sort-key="recipe"],
-      .cell.recipe {
-        display: none;
       }
 
       .recipe-row:last-child .cell {
@@ -281,7 +278,7 @@
       }
 
       .recipe-calculator {
-        display: grid;
+        display: none;
         gap: 8px;
         margin-top: 9px;
         padding: 8px;
@@ -463,6 +460,7 @@
 
         .table-head {
           display: grid;
+          min-width: 0;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           border-bottom: 1px solid var(--line-strong);
         }
@@ -474,6 +472,7 @@
 
         .recipe-row {
           display: grid;
+          min-width: 0;
           grid-template-columns: 1fr;
           border-bottom: 1px solid var(--line-strong);
         }
@@ -592,7 +591,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>31 foods. Full-serving numbers only; scores are higher when the serving is steadier fuel or better muscle-function support.</p>
+              <p>31 foods. Full-serving numbers only; recipe calculators hidden for now.</p>
             </div>
           </div>
         </div>
@@ -1193,7 +1192,7 @@
         <span>scores and nutrition values are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
         <span>numeric cells show the listed full serving only</span>
         <span>crash prevention uses the current carb-pressure model inverted to higher-is-better; muscle function weights protein, carb fuel, sodium/fluid support, and potassium/magnesium/calcium-rich ingredients; sodium alone is capped</span>
-        <span>photos: source-matched full-food images; recipe links and calculators use source ratios; calculator price lines are total batch estimates</span>
+        <span>photos: source-matched full-food images; recipe links use source ratios</span>
         <span>citations: <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC carbs + protein/fat/fiber</a>; <a href="https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/low-blood-glucose-hypoglycemia">NIDDK low glucose</a>; <a href="https://medlineplus.gov/fluidandelectrolytebalance.html">MedlinePlus electrolytes</a>; <a href="https://ods.od.nih.gov/factsheets/Potassium-Consumer/">NIH potassium</a>; <a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/">NIH magnesium</a>; <a href="https://ods.od.nih.gov/factsheets/Calcium-Consumer/">NIH calcium</a>; <a href="https://electrolit.com/products/strawberry-kiwi-ih">Electrolit Strawberry Kiwi label</a>; <a href="https://tools.myfooddata.com/nutrition-facts/2417859/wt1/">USDA branded Vero lollipop</a>; <a href="https://www.foodsco.net/p/vero-mango-chili-pepper-powder-covered-mango-lollipops/0075752804567">Vero label check</a></span>
       </footer>
     </main>
@@ -1293,39 +1292,7 @@
         }
 
         document.querySelectorAll(".recipe-calculator").forEach((calculator) => {
-          const baseSize = Number(calculator.dataset.baseSize || 1);
-          const baseMakePrice = Number(calculator.dataset.baseMakePrice || calculator.dataset.basePrice || 0);
-          const baseBuyPrice = Number(calculator.dataset.baseBuyPrice || 0);
-          const input = calculator.querySelector(".calc-final");
-          const rows = Array.from(calculator.querySelectorAll("[data-base-amount]"));
-          let total = calculator.querySelector(".calc-total");
-          if (!total && (baseMakePrice || baseBuyPrice)) {
-            total = document.createElement("div");
-            total.className = "calc-total";
-            total.setAttribute("aria-live", "polite");
-            calculator.appendChild(total);
-          }
-          const update = () => {
-            const finalSize = Math.max(Number(input?.min || 1), Number(input?.value || baseSize));
-            const scale = finalSize / baseSize;
-            rows.forEach((row) => {
-              const amount = Number(row.dataset.baseAmount || 0) * scale;
-              const unit = row.dataset.unit || "";
-              const singular = row.dataset.singular || "";
-              const target = row.querySelector(".calc-amount");
-              if (target) target.textContent = formatAmount(amount, unit, singular);
-            });
-            if (total && (baseMakePrice || baseBuyPrice)) {
-              const makeTotal = baseMakePrice * scale;
-              const buyTotal = baseBuyPrice * scale;
-              const ratio = baseBuyPrice ? makeTotal / buyTotal : 0;
-              total.textContent = baseBuyPrice
-                ? "total make " + formatPrice(makeTotal) + " / buy " + formatPrice(buyTotal) + " / make/buy " + ratio.toFixed(2) + "x"
-                : "make " + formatPrice(makeTotal);
-            }
-          };
-          input?.addEventListener("input", update);
-          update();
+          calculator.remove();
         });
         if (!table || !head) {
           document.documentElement.classList.add("table-ready");
