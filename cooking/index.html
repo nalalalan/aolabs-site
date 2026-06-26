@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f3eee4">
     <title>cooking.aolabs.io</title>
-    <meta name="description" content="AO Labs recipe table with prep ratings, photos, detailed recipes, nutrition estimates, blood-sugar crash estimates, and rough food-poisoning risk percentages.">
+    <meta name="description" content="AO Labs recipe table with prep ratings, photos, concise recipes, nutrition estimates, sugar-crash prevention scores, muscle-function scores, and rough food-poisoning risk percentages.">
     <link rel="canonical" href="https://cooking.aolabs.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
@@ -188,7 +188,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 58px 58px minmax(170px, .9fr) minmax(300px, 1.8fr) 66px 66px 64px 64px 78px 62px 72px 80px 88px;
+        grid-template-columns: 68px 54px minmax(132px, .72fr) minmax(232px, 1.3fr) 66px 66px 56px 60px 80px 80px 60px 64px 68px 82px;
         align-items: stretch;
       }
 
@@ -212,7 +212,7 @@
       .table-head > div,
       .cell {
         min-width: 0;
-        padding: 13px 14px;
+        padding: 10px 9px;
         border-right: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
       }
@@ -232,8 +232,8 @@
 
       .cell {
         color: var(--ink);
-        font-size: 14px;
-        line-height: 1.35;
+        font-size: 13px;
+        line-height: 1.3;
         font-weight: 660;
       }
 
@@ -252,9 +252,9 @@
 
       .dish-photo {
         display: block;
-        width: min(100%, 260px);
-        max-width: 260px;
-        height: 180px;
+        width: min(100%, 176px);
+        max-width: 176px;
+        height: 118px;
         object-fit: contain;
         object-position: center;
         border-radius: 7px;
@@ -340,9 +340,9 @@
 
       .recipe-steps {
         display: grid;
-        gap: 5px;
+        gap: 4px;
         margin: 0;
-        padding-left: 17px;
+        padding-left: 15px;
       }
 
       .recipe-steps li {
@@ -359,22 +359,29 @@
         display: grid;
         gap: 5px;
         min-width: 0;
+        font-size: 12px;
+        line-height: 1.12;
         font-variant-numeric: tabular-nums;
       }
 
-      .portion-stack span {
+      .portion-stack > span {
         display: grid;
-        grid-template-columns: 31px minmax(0, 1fr);
-        gap: 6px;
-        align-items: baseline;
+        gap: 1px;
+        align-items: start;
         min-width: 0;
       }
 
       .portion-stack strong {
         color: var(--muted);
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 900;
         text-transform: lowercase;
+      }
+
+      .portion-stack .portion-value {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        font-weight: 860;
       }
 
       .sort-button {
@@ -391,7 +398,7 @@
         cursor: pointer;
         font: inherit;
         letter-spacing: 0;
-        padding: 13px 14px;
+        padding: 10px 9px;
         text-align: left;
         text-transform: inherit;
       }
@@ -447,15 +454,19 @@
       .rating-s { background: var(--clay); }
 
       .source-note {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 10px;
         margin-top: 14px;
         color: var(--muted);
         font-size: 12.5px;
         line-height: 1.35;
         font-weight: 700;
+      }
+
+      .source-note a {
+        color: var(--clay);
+        font-weight: 850;
       }
 
       @media (max-width: 1120px) {
@@ -511,9 +522,9 @@
         }
 
         .dish-photo {
-          width: min(260px, 100%);
+          width: min(180px, 100%);
           max-width: none;
-          height: 180px;
+          height: 126px;
         }
 
         .dish .dish-photo,
@@ -602,7 +613,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>29 foods. Difficulty ranks prep effort. Each food stays one row; numeric cells show half and full portions.</p>
+              <p>30 foods. Scores are higher when the serving is steadier fuel or better muscle-function support.</p>
             </div>
           </div>
         </div>
@@ -631,7 +642,8 @@
           <div role="columnheader" aria-sort="none" data-sort-key="buyPrice" data-sort-type="numeric" data-sort-default="asc"><button class="sort-button" type="button">buy/unit</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="valueRatio" data-sort-type="numeric" data-sort-default="asc"><button class="sort-button" type="button">make/buy</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="calories" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">calories</button></div>
-          <div role="columnheader" aria-sort="none" data-sort-key="crash" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">sugar crash est.</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="crashPrevention" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">crash prevention /100</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="muscleFunction" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">muscle function /100</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="tyrosine" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">tyrosine</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="cholesterol" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">cholesterol</button></div>
@@ -642,13 +654,14 @@
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-c">C</span></div>
           <div class="cell dish" role="cell" data-label="food"><span class="dish-name">pasta</span><img class="dish-photo" src="photos/01-pasta.webp" alt="slow-cooked red sauce in a Dutch oven" loading="eager" fetchpriority="high" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>For a fast plate, use De Cecco #11 thin spaghetti plus Rao's mushroom Italian sausage sauce, finished with Parmigiano Reggiano and black pepper.</li><li>For the best plate, make the <a href="https://www.seriouseats.com/the-best-slow-cooked-italian-american-tomato-sauce-red-sauce-recipe">Serious Eats slow-cooked red sauce</a> and keep it portioned in the freezer.</li><li>Salt the pasta water, pull the spaghetti just under al dente, and finish it in sauce with a spoon of pasta water for gloss.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Boil De Cecco #11 in well-salted water; finish just under al dente.</li><li>Use Rao's mushroom sausage sauce fast, or freezer-portioned <a href="https://www.seriouseats.com/the-best-slow-cooked-italian-american-tomato-sauce-red-sauce-recipe">Serious Eats red sauce</a> when stocked.</li><li>Finish with pasta water, Parmigiano Reggiano, and black pepper.</li></ul></div>
           <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="6.5000"><span>$6.50 / plate</span></div>
           <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="22.0000"><span>$22.00 / plate</span></div>
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2955"><span>0.30x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="775"><span>775 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="68"><span>68%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="32"><span>32/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="58"><span>58/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1050"><span>1,050mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="48"><span>48mg</span></div>
@@ -659,13 +672,14 @@
           <div class="cell category" role="cell" data-label="category">entree</div>
           <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
           <div class="cell dish" role="cell" data-label="food"><span class="dish-name">Market 32 penne alla vodka w/ sausage</span><img class="dish-photo" src="photos/29-market32-penne-alla-vodka-sausage.jpeg" alt="Market 32 penne alla vodka with sausage package" loading="eager" decoding="async"></div>
-          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy the 22 oz Market 32 / Price Chopper penne alla vodka w/ sausage container.</li><li>Heat until steaming; eat half the container when the target is a smaller pasta meal.</li><li>Package facts: 1 container (674g), 1,280 kcal, 107g carbs, 9g fiber, 11g total sugars, 55g protein, 205mg cholesterol.</li></ul></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy the 22 oz Market 32 / Price Chopper penne alla vodka w/ sausage container.</li><li>Heat until steaming; half the container is the smaller pasta portion.</li><li>Package label: 1 container, 1,280 kcal, 107g carbs, 9g fiber, 55g protein, 1,890mg sodium.</li></ul></div>
           <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
           <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1280"><span>1,280 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="80"><span>80%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="20"><span>20/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="70"><span>70/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="55"><span>55g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1900"><span>1,900mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="205"><span>205mg</span></div>
@@ -682,7 +696,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.6154"><span>0.62x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="38"><span>38%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="62"><span>62/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="76"><span>76/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="58"><span>58g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="2100"><span>2,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="23"><span>23mg</span></div>
@@ -699,7 +714,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2188"><span>0.22x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="780"><span>780 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="55"><span>55%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="45"><span>45/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="78"><span>78/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="31"><span>31g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1100"><span>1,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="750"><span>750mg</span></div>
@@ -716,7 +732,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5714"><span>0.57x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1000"><span>1,000 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="8"><span>8%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="92"><span>92/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="88"><span>88/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="98"><span>98g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="3400"><span>3,400mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="285"><span>285mg</span></div>
@@ -733,7 +750,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5000"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="4"><span>4%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="96"><span>96/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="64"><span>64/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="3"><span>3g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="70"><span>70mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -750,7 +768,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5000"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="850"><span>850 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="58"><span>58%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="42"><span>42/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="72"><span>72/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="23"><span>23g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="800"><span>800mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="70"><span>70mg</span></div>
@@ -767,7 +786,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1771"><span>0.18x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="450"><span>450 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="54"><span>54%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="46"><span>46/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="48"><span>48/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="7"><span>7g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="250"><span>250mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="200"><span>200mg</span></div>
@@ -784,7 +804,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1912"><span>0.19x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="650"><span>650 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="42"><span>42%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="58"><span>58/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="68"><span>68/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="28"><span>28g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1000"><span>1,000mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="170"><span>170mg</span></div>
@@ -801,7 +822,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2875"><span>0.29x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="205"><span>205 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="36"><span>36%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="64"><span>64/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="62"><span>62/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="330"><span>330mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="33"><span>33mg</span></div>
@@ -818,7 +840,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3594"><span>0.36x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="300"><span>300 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="64"><span>64%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="36"><span>36/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="38"><span>38/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="105"><span>105mg</span></div>
@@ -835,7 +858,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3021"><span>0.30x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="68"><span>68%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="32"><span>32/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="30"><span>30/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="80"><span>80mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -852,7 +876,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3733"><span>0.37x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="500"><span>500 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="50"><span>50%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="50"><span>50/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="64"><span>64/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="15"><span>15g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="550"><span>550mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
@@ -869,7 +894,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5500"><span>0.55x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="575"><span>575 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="78"><span>78%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="22"><span>22/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="34"><span>34/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="340"><span>340mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="13"><span>13mg</span></div>
@@ -886,7 +912,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2750"><span>0.28x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="72"><span>72%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="28"><span>28/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="28"><span>28/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
@@ -903,7 +930,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2069"><span>0.21x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="70"><span>70%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="30"><span>30/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="25"><span>25/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="11"><span>11g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="350"><span>350mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="8"><span>8mg</span></div>
@@ -920,7 +948,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2431"><span>0.24x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="185"><span>185 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="24"><span>24%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="76"><span>76/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="48"><span>48/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="320"><span>320mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="30"><span>30mg</span></div>
@@ -937,7 +966,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1154"><span>0.12x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="375"><span>375 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="66"><span>66%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="34"><span>34/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="32"><span>32/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="55"><span>55mg</span></div>
@@ -954,7 +984,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2571"><span>0.26x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="70"><span>70%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="30"><span>30/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="30"><span>30/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="50"><span>50mg</span></div>
@@ -971,7 +1002,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3167"><span>0.32x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="100"><span>100 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="3"><span>3%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="97"><span>97/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="70"><span>70/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="300"><span>300mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
@@ -988,7 +1020,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.7362"><span>0.74x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1120"><span>1,120 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="6"><span>6%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="94"><span>94/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="78"><span>78/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="80"><span>80g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="4800"><span>4,800mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="320"><span>320mg</span></div>
@@ -1005,7 +1038,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5313"><span>0.53x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="725"><span>725 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="18"><span>18%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="82"><span>82/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="82"><span>82/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="34"><span>34g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1200"><span>1,200mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="470"><span>470mg</span></div>
@@ -1022,7 +1056,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2583"><span>0.26x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="35"><span>35%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="65"><span>65/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="78"><span>78/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="38"><span>38g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1500"><span>1,500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="145"><span>145mg</span></div>
@@ -1039,7 +1074,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5044"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="550"><span>550 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="38"><span>38%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="62"><span>62/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="76"><span>76/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1150"><span>1,150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="110"><span>110mg</span></div>
@@ -1056,7 +1092,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5278"><span>0.53x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1025"><span>1,025 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="48"><span>48%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="52"><span>52/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="86"><span>86/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="45"><span>45g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1650"><span>1,650mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="250"><span>250mg</span></div>
@@ -1073,7 +1110,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.6250"><span>0.63x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="700"><span>700 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="82"><span>82%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="18"><span>18/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="36"><span>36/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="150"><span>150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -1090,11 +1128,30 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3393"><span>0.34x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="75"><span>75%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="25"><span>25/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="35"><span>35/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
           <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.03"><span>0.03%</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">candy</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
+          <div class="cell dish" role="cell" data-label="food"><span class="dish-name">mango chili lollipop</span><img class="dish-photo" src="photos/30-mango-chili-lollipop.png" alt="mango chili lollipop with chili salt coating" loading="eager" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy a Mexican mango lollipop with chili salt coating.</li><li>One Vero-style lollipop is the full portion; half is the smaller salty-candy hit.</li><li>Label range: 50-60 kcal, 13-14g carbs, 0g fiber, 0g protein, about 220-290mg sodium.</li></ul></div>
+          <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="0.2700"><span>$0.27 / lollipop</span></div>
+          <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="0.2700"><span>$0.27 / lollipop</span></div>
+          <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
+
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="60"><span>60 kcal</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="38"><span>38/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="45"><span>45/100</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="0"><span>0g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="0"><span>0mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.01"><span>0.01%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -1107,7 +1164,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3214"><span>0.32x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="8"><span>8%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="92"><span>92/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="78"><span>78/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="17"><span>17g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="700"><span>700mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="465"><span>465mg</span></div>
@@ -1124,7 +1182,8 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.4375"><span>0.44x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="475"><span>475 kcal</span></div>
-          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="44"><span>44%</span></div>
+          <div class="cell metric prevention" role="cell" data-label="crash prevention /100" data-sort-value="56"><span>56/100</span></div>
+          <div class="cell metric muscle" role="cell" data-label="muscle function /100" data-sort-value="68"><span>68/100</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="14"><span>14g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="500"><span>500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
@@ -1134,9 +1193,11 @@
 
       <footer class="source-note">
         <span>source: Alan recipe list, June 1, June 4, June 10, June 13, and June 25, 2026 package photos</span>
-        <span>nutrition values, sugar-crash estimates, per-unit make prices, per-unit buy prices, make/buy ratios, and risk percentages are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
+        <span>scores and nutrition values are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
         <span>portion lines scale from the listed serving; full is the original site serving</span>
+        <span>crash prevention uses the current carb-pressure model inverted to higher-is-better; muscle function weights protein, carb fuel, sodium/fluid support, and potassium/magnesium/calcium-rich ingredients; sodium alone is capped</span>
         <span>photos: source-matched full-food images; recipe links and calculators use source ratios; calculator price lines are total batch estimates</span>
+        <span>citations: <a href="https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html">CDC carbs + protein/fat/fiber</a>; <a href="https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/low-blood-glucose-hypoglycemia">NIDDK low glucose</a>; <a href="https://medlineplus.gov/fluidandelectrolytebalance.html">MedlinePlus electrolytes</a>; <a href="https://ods.od.nih.gov/factsheets/Potassium-Consumer/">NIH potassium</a>; <a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/">NIH magnesium</a>; <a href="https://ods.od.nih.gov/factsheets/Calcium-Consumer/">NIH calcium</a>; <a href="https://tools.myfooddata.com/nutrition-facts/2417859/wt1/">USDA branded Vero lollipop</a>; <a href="https://www.foodsco.net/p/vero-mango-chili-pepper-powder-covered-mango-lollipops/0075752804567">Vero label check</a></span>
       </footer>
     </main>
     <script>
@@ -1150,7 +1211,8 @@
           buyPrice: "buy/unit",
           valueRatio: "make/buy",
           calories: "calories",
-          crash: "sugar crash est.",
+          crashPrevention: "crash prevention /100",
+          muscleFunction: "muscle function /100",
           protein: "protein",
           tyrosine: "tyrosine",
           cholesterol: "cholesterol",
@@ -1222,6 +1284,8 @@
             const line = document.createElement("span");
             const name = document.createElement("strong");
             const value = document.createElement("span");
+            line.className = "portion-line";
+            value.className = "portion-value";
             name.textContent = portion.name;
             value.textContent = portion.value;
             line.append(name, value);
@@ -1251,9 +1315,15 @@
             renderScaledCell(row, labelsByKey.risk, formatPercent);
             renderScaledCell(
               row,
-              labelsByKey.crash,
-              (value) => Math.max(1, Math.round(value)) + "%",
-              (base, scale) => base * Math.pow(scale, 0.68)
+              labelsByKey.crashPrevention,
+              (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100",
+              (base, scale) => 100 - ((100 - base) * Math.pow(scale, 0.68))
+            );
+            renderScaledCell(
+              row,
+              labelsByKey.muscleFunction,
+              (value) => Math.max(1, Math.min(99, Math.round(value))) + "/100",
+              (base, scale) => base * Math.pow(scale, 0.35)
             );
           });
         }
