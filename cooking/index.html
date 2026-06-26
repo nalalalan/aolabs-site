@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f3eee4">
     <title>cooking.aolabs.io</title>
-    <meta name="description" content="AO Labs recipe table with prep ratings, photos, detailed recipes, nutrition estimates, and rough food-poisoning risk percentages.">
+    <meta name="description" content="AO Labs recipe table with prep ratings, photos, detailed recipes, nutrition estimates, blood-sugar crash estimates, and rough food-poisoning risk percentages.">
     <link rel="canonical" href="https://cooking.aolabs.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
@@ -188,7 +188,7 @@
       .table-head,
       .recipe-row {
         display: grid;
-        grid-template-columns: 64px 64px minmax(215px, .92fr) minmax(330px, 1.8fr) 76px 76px 72px 72px 68px 78px 86px 94px;
+        grid-template-columns: 58px 58px minmax(170px, .9fr) minmax(300px, 1.8fr) 66px 66px 64px 64px 78px 62px 72px 80px 88px;
         align-items: stretch;
       }
 
@@ -580,7 +580,7 @@
             <img src="/icons/cooking.svg?v=20260601-cooking" alt="">
             <div>
               <h1>cooking</h1>
-              <p>28 recipes. Difficulty ranks prep effort. S-tier rows now carry source links and full method notes. Nutrition and food-poisoning risk are estimates for the listed serving.</p>
+              <p>29 foods. Difficulty ranks prep effort. Rows render as half and full portions with matching nutrition, sugar-crash, and food-poisoning estimates.</p>
             </div>
           </div>
         </div>
@@ -609,6 +609,7 @@
           <div role="columnheader" aria-sort="none" data-sort-key="buyPrice" data-sort-type="numeric" data-sort-default="asc"><button class="sort-button" type="button">buy/unit</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="valueRatio" data-sort-type="numeric" data-sort-default="asc"><button class="sort-button" type="button">make/buy</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="calories" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">calories</button></div>
+          <div role="columnheader" aria-sort="none" data-sort-key="crash" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">sugar crash est.</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="protein" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">protein</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="tyrosine" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">tyrosine</button></div>
           <div role="columnheader" aria-sort="none" data-sort-key="cholesterol" data-sort-type="numeric" data-sort-default="desc"><button class="sort-button" type="button">cholesterol</button></div>
@@ -625,10 +626,28 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2955"><span>0.30x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="775"><span>775 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="68"><span>68%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1050"><span>1,050mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="48"><span>48mg</span></div>
           <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.05"><span>0.05%</span></div>
+        </div>
+
+        <div class="recipe-row" role="row">
+          <div class="cell category" role="cell" data-label="category">entree</div>
+          <div class="cell" role="cell" data-label="difficulty rating"><span class="rating rating-d">D</span></div>
+          <div class="cell dish" role="cell" data-label="food"><span class="dish-name">Market 32 penne alla vodka w/ sausage</span><img class="dish-photo" src="photos/29-market32-penne-alla-vodka-sausage.jpeg" alt="Market 32 penne alla vodka with sausage package" loading="eager" decoding="async"></div>
+          <div class="cell recipe" role="cell" data-label="recipe"><ul class="recipe-steps"><li>Buy the 22 oz Market 32 / Price Chopper penne alla vodka w/ sausage container.</li><li>Heat until steaming; eat half the container when the target is a smaller pasta meal.</li><li>Package facts: 1 container (674g), 1,280 kcal, 107g carbs, 9g fiber, 11g total sugars, 55g protein, 205mg cholesterol.</li></ul></div>
+          <div class="cell metric price make-price" role="cell" data-label="make/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
+          <div class="cell metric price buy-price" role="cell" data-label="buy/unit" data-sort-value="6.9900"><span>$6.99 / container</span></div>
+          <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="1.0000"><span>1.00x</span></div>
+
+          <div class="cell metric" role="cell" data-label="calories" data-sort-value="1280"><span>1,280 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="80"><span>80%</span></div>
+          <div class="cell metric" role="cell" data-label="protein" data-sort-value="55"><span>55g</span></div>
+          <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1900"><span>1,900mg</span></div>
+          <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="205"><span>205mg</span></div>
+          <div class="cell metric risk" role="cell" data-label="food poisoning risk est." data-sort-value="0.08"><span>0.08%</span></div>
         </div>
 
         <div class="recipe-row" role="row">
@@ -641,6 +660,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.6154"><span>0.62x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="38"><span>38%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="58"><span>58g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="2100"><span>2,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="23"><span>23mg</span></div>
@@ -657,6 +677,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2188"><span>0.22x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="780"><span>780 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="55"><span>55%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="31"><span>31g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1100"><span>1,100mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="750"><span>750mg</span></div>
@@ -673,6 +694,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5714"><span>0.57x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1000"><span>1,000 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="8"><span>8%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="98"><span>98g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="3400"><span>3,400mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="285"><span>285mg</span></div>
@@ -689,6 +711,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5000"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="4"><span>4%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="3"><span>3g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="70"><span>70mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -705,6 +728,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5000"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="850"><span>850 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="58"><span>58%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="23"><span>23g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="800"><span>800mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="70"><span>70mg</span></div>
@@ -721,6 +745,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1771"><span>0.18x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="450"><span>450 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="54"><span>54%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="7"><span>7g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="250"><span>250mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="200"><span>200mg</span></div>
@@ -737,6 +762,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1912"><span>0.19x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="650"><span>650 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="42"><span>42%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="28"><span>28g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1000"><span>1,000mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="170"><span>170mg</span></div>
@@ -753,6 +779,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2875"><span>0.29x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="205"><span>205 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="36"><span>36%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="330"><span>330mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="33"><span>33mg</span></div>
@@ -769,6 +796,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3594"><span>0.36x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="300"><span>300 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="64"><span>64%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="105"><span>105mg</span></div>
@@ -785,6 +813,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3021"><span>0.30x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="68"><span>68%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="80"><span>80mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -801,6 +830,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3733"><span>0.37x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="500"><span>500 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="50"><span>50%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="15"><span>15g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="550"><span>550mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
@@ -817,6 +847,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5500"><span>0.55x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="575"><span>575 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="78"><span>78%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="340"><span>340mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="13"><span>13mg</span></div>
@@ -833,6 +864,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2750"><span>0.28x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="72"><span>72%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
@@ -849,6 +881,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2069"><span>0.21x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="70"><span>70%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="11"><span>11g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="350"><span>350mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="8"><span>8mg</span></div>
@@ -865,6 +898,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2431"><span>0.24x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="185"><span>185 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="24"><span>24%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="320"><span>320mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="30"><span>30mg</span></div>
@@ -881,6 +915,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.1154"><span>0.12x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="375"><span>375 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="66"><span>66%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="55"><span>55mg</span></div>
@@ -897,6 +932,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2571"><span>0.26x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="70"><span>70%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="5"><span>5g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="180"><span>180mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="50"><span>50mg</span></div>
@@ -913,6 +949,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3167"><span>0.32x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="100"><span>100 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="3"><span>3%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="300"><span>300mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
@@ -929,6 +966,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.7362"><span>0.74x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1120"><span>1,120 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="6"><span>6%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="80"><span>80g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="4800"><span>4,800mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="320"><span>320mg</span></div>
@@ -945,6 +983,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5313"><span>0.53x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="725"><span>725 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="18"><span>18%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="34"><span>34g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1200"><span>1,200mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="470"><span>470mg</span></div>
@@ -961,6 +1000,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.2583"><span>0.26x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="600"><span>600 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="35"><span>35%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="38"><span>38g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1500"><span>1,500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="145"><span>145mg</span></div>
@@ -977,6 +1017,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5044"><span>0.50x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="550"><span>550 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="38"><span>38%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="30"><span>30g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1150"><span>1,150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="110"><span>110mg</span></div>
@@ -993,6 +1034,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.5278"><span>0.53x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="1025"><span>1,025 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="48"><span>48%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="45"><span>45g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="1650"><span>1,650mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="250"><span>250mg</span></div>
@@ -1009,6 +1051,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.6250"><span>0.63x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="700"><span>700 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="82"><span>82%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="9"><span>9g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="150"><span>150mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="0"><span>0mg</span></div>
@@ -1025,6 +1068,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3393"><span>0.34x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="350"><span>350 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="75"><span>75%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="6"><span>6g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="220"><span>220mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="25"><span>25mg</span></div>
@@ -1041,6 +1085,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.3214"><span>0.32x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="250"><span>250 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="8"><span>8%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="17"><span>17g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="700"><span>700mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="465"><span>465mg</span></div>
@@ -1057,6 +1102,7 @@
           <div class="cell metric value-ratio" role="cell" data-label="make/buy" data-sort-value="0.4375"><span>0.44x</span></div>
 
           <div class="cell metric" role="cell" data-label="calories" data-sort-value="475"><span>475 kcal</span></div>
+          <div class="cell metric crash" role="cell" data-label="sugar crash est." data-sort-value="44"><span>44%</span></div>
           <div class="cell metric" role="cell" data-label="protein" data-sort-value="14"><span>14g</span></div>
           <div class="cell metric" role="cell" data-label="tyrosine" data-sort-value="500"><span>500mg</span></div>
           <div class="cell metric" role="cell" data-label="cholesterol" data-sort-value="65"><span>65mg</span></div>
@@ -1065,8 +1111,8 @@
       </section>
 
       <footer class="source-note">
-        <span>source: Alan recipe list, June 1, June 4, June 10, and June 13, 2026</span>
-        <span>nutrition values, per-unit make prices, per-unit buy prices, make/buy ratios, and risk percentages are estimates until package labels, local prices, serving counts, measured loose amounts, and handling conditions are pinned</span>
+        <span>source: Alan recipe list, June 1, June 4, June 10, June 13, and June 25, 2026 package photos</span>
+        <span>nutrition values, sugar-crash estimates, per-unit make prices, per-unit buy prices, make/buy ratios, and risk percentages are estimates until package labels, local prices, serving counts, measured loose amounts, handling conditions, and personal glucose response are pinned</span>
         <span>photos: source-matched full-food images; recipe links and calculators use source ratios; calculator price lines are total batch estimates</span>
       </footer>
     </main>
@@ -1081,6 +1127,7 @@
           buyPrice: "buy/unit",
           valueRatio: "make/buy",
           calories: "calories",
+          crash: "sugar crash est.",
           protein: "protein",
           tyrosine: "tyrosine",
           cholesterol: "cholesterol",
@@ -1125,6 +1172,88 @@
 
         const formatPrice = (value) => "$" + (Math.round(value * 100) / 100).toFixed(2);
 
+        const table = document.querySelector(".recipe-table");
+        const head = table?.querySelector(".table-head");
+        const numericValue = (text) => {
+          const numbers = text.replace(/,/g, "").match(/\d+(?:\.\d+)?/g)?.map(Number) || [];
+          if (!numbers.length) return -1;
+          return numbers[0];
+        };
+        const formatMetricNumber = (value) => {
+          const rounded = value >= 100 ? Math.round(value) : Math.round(value * 10) / 10;
+          return rounded.toLocaleString(undefined, { maximumFractionDigits: value >= 100 ? 0 : 1 });
+        };
+        const formatPercent = (value) => {
+          if (value < 0.1) return cleanNumber(Math.round(value * 1000) / 1000, 3) + "%";
+          if (value < 1) return cleanNumber(Math.round(value * 100) / 100, 2) + "%";
+          return cleanNumber(Math.round(value * 10) / 10, 1) + "%";
+        };
+        const setScaledCell = (row, label, scale, formatter) => {
+          const cell = row.querySelector(`[data-label="${label}"]`);
+          if (!cell) return;
+          const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
+          cell.dataset.baseValue = String(base);
+          const value = base * scale;
+          cell.dataset.sortValue = String(value);
+          const span = cell.querySelector("span");
+          if (span) span.textContent = formatter(value);
+        };
+        const setPortionPrice = (row, label, scale, portionText) => {
+          const cell = row.querySelector(`[data-label="${label}"]`);
+          if (!cell) return;
+          const base = Number(cell.dataset.baseValue || cell.dataset.sortValue || numericValue(cell.textContent));
+          cell.dataset.baseValue = String(base);
+          const value = base * scale;
+          cell.dataset.sortValue = value.toFixed(4);
+          const span = cell.querySelector("span");
+          if (span) span.textContent = formatPrice(value) + " / " + portionText + " serving";
+        };
+        const setPortionDish = (row, scale, portionText) => {
+          const dishName = row.querySelector(".dish-name");
+          if (!dishName) return;
+          const baseName = dishName.dataset.baseName || dishName.textContent.trim();
+          dishName.dataset.baseName = baseName;
+          dishName.textContent = baseName + " - " + portionText + " serving";
+          row.dataset.portion = portionText;
+          row.dataset.portionScale = String(scale);
+        };
+        const scalePortionRow = (row, scale, portionText) => {
+          setPortionDish(row, scale, portionText);
+          setPortionPrice(row, labelsByKey.makePrice, scale, portionText);
+          setPortionPrice(row, labelsByKey.buyPrice, scale, portionText);
+          setScaledCell(row, labelsByKey.calories, scale, (value) => formatMetricNumber(value) + " kcal");
+          setScaledCell(row, labelsByKey.protein, scale, (value) => formatMetricNumber(value) + "g");
+          setScaledCell(row, labelsByKey.tyrosine, scale, (value) => formatMetricNumber(value) + "mg");
+          setScaledCell(row, labelsByKey.cholesterol, scale, (value) => formatMetricNumber(value) + "mg");
+          setScaledCell(row, labelsByKey.risk, scale, formatPercent);
+          const crashCell = row.querySelector(`[data-label="${labelsByKey.crash}"]`);
+          if (crashCell) {
+            const baseCrash = Number(crashCell.dataset.baseValue || crashCell.dataset.sortValue || numericValue(crashCell.textContent));
+            crashCell.dataset.baseValue = String(baseCrash);
+            const crashValue = Math.max(1, Math.round(baseCrash * Math.pow(scale, 0.68)));
+            crashCell.dataset.sortValue = String(crashValue);
+            const span = crashCell.querySelector("span");
+            if (span) span.textContent = crashValue + "%";
+          }
+          row.querySelectorAll("img[loading='eager']").forEach((image) => {
+            if (scale < 1) {
+              image.loading = "lazy";
+              image.removeAttribute("fetchpriority");
+            }
+          });
+        };
+        if (table) {
+          Array.from(table.querySelectorAll(".recipe-row")).forEach((row) => {
+            if (row.dataset.portionExpanded === "true") return;
+            row.dataset.portionExpanded = "true";
+            const halfRow = row.cloneNode(true);
+            halfRow.dataset.portionExpanded = "true";
+            scalePortionRow(halfRow, 0.5, "half");
+            scalePortionRow(row, 1, "full");
+            table.insertBefore(halfRow, row);
+          });
+        }
+
         document.querySelectorAll(".recipe-calculator").forEach((calculator) => {
           const baseSize = Number(calculator.dataset.baseSize || 1);
           const baseMakePrice = Number(calculator.dataset.baseMakePrice || calculator.dataset.basePrice || 0);
@@ -1160,18 +1289,11 @@
           input?.addEventListener("input", update);
           update();
         });
-        const table = document.querySelector(".recipe-table");
-        const head = table?.querySelector(".table-head");
         if (!table || !head) {
           document.documentElement.classList.add("table-ready");
           return;
         }
 
-        const numericValue = (text) => {
-          const numbers = text.replace(/,/g, "").match(/\d+(?:\.\d+)?/g)?.map(Number) || [];
-          if (!numbers.length) return -1;
-          return numbers[0];
-        };
         const valueFor = (row, key, type) => {
           const label = labelsByKey[key];
           const cell = row.querySelector(`[data-label="${label}"]`);
