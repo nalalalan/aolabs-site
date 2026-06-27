@@ -65,10 +65,12 @@ function renderGraph(state) {
   const graph = document.getElementById("wordGraph");
   const daily = Array.isArray(state.daily) && state.daily.length ? state.daily : dailyFromSnapshots(state.snapshots);
   graph.textContent = "";
-  graph.setAttribute("viewBox", "0 0 920 280");
+  const compact = window.matchMedia("(max-width: 760px)").matches;
+  const viewWidth = compact ? 430 : 920;
+  graph.setAttribute("viewBox", `0 0 ${viewWidth} 280`);
 
-  const margin = { left: 54, right: 24, top: 24, bottom: 40 };
-  const width = 920 - margin.left - margin.right;
+  const margin = { left: compact ? 36 : 54, right: compact ? 18 : 24, top: 24, bottom: 40 };
+  const width = viewWidth - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
   const baselineY = margin.top + height;
   const totalChanged = (day) => {
@@ -95,6 +97,8 @@ function renderGraph(state) {
 
   daily.forEach((day, index) => {
     const xCenter = margin.left + slot * index + slot / 2;
+    const added = Math.abs(Number(day.addedWords || 0));
+    const deleted = Math.abs(Number(day.deletedWords || 0));
     const total = totalChanged(day);
     const barHeight = Math.max(total * scale, total > 0 ? 2 : 0);
 
@@ -107,15 +111,46 @@ function renderGraph(state) {
       return;
     }
 
+    const deletedHeight = deleted > 0 ? Math.max((deleted / total) * barHeight, 2) : 0;
+    const addedHeight = Math.max(barHeight - deletedHeight, added > 0 ? 2 : 0);
+    const addedY = baselineY - barHeight;
+    const deletedY = baselineY - deletedHeight;
+    const segmentLabels = [];
+
+    if (added && addedHeight >= 18) {
+      segmentLabels.push(svg("text", {
+        class: "segment-label",
+        x: xCenter,
+        y: addedY + addedHeight / 2 + 4,
+        "text-anchor": "middle"
+      }, [document.createTextNode(`+${number(added)}`)]));
+    }
+    if (deleted && deletedHeight >= 18) {
+      segmentLabels.push(svg("text", {
+        class: "segment-label",
+        x: xCenter,
+        y: deletedY + deletedHeight / 2 + 4,
+        "text-anchor": "middle"
+      }, [document.createTextNode(`-${number(deleted)}`)]));
+    }
+
     graph.append(
       svg("rect", {
         x: xCenter - barWidth / 2,
-        y: baselineY - barHeight,
+        y: addedY,
         width: barWidth,
-        height: barHeight,
-        class: "bar-changed"
+        height: addedHeight,
+        class: "bar-added"
+      }),
+      svg("rect", {
+        x: xCenter - barWidth / 2,
+        y: deletedY,
+        width: barWidth,
+        height: deletedHeight,
+        class: "bar-deleted"
       }),
       svg("text", { class: "bar-label changed", x: xCenter, y: baselineY - barHeight - 8, "text-anchor": "middle" }, [document.createTextNode(number(total))]),
+      ...segmentLabels,
       svg("text", { class: "tick-label", x: xCenter, y: 266, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
     );
   });
