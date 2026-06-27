@@ -41,8 +41,8 @@
     "description": "CONTOUR NEXT ONE readings from the always-on Blood bridge.",
     "url": "aolabs.io/blood",
     "accent": "#9f3041",
-    "image": "https://aolabs.io/previews/blood-20260627.png",
-    "version": "20260627"
+    "image": "https://aolabs.io/previews/blood-20260627-suite.png",
+    "version": "20260627-suite"
   },
   {
     "slug": "paper",
@@ -50,8 +50,8 @@
     "description": "Manuscript word movement and paper-change queue.",
     "url": "paper.aolabs.io",
     "accent": "#725e70",
-    "image": "https://aolabs.io/previews/paper-20260627.png",
-    "version": "20260627"
+    "image": "https://aolabs.io/previews/paper-20260627-suite.png",
+    "version": "20260627-suite"
   },
   {
     "slug": "sleep",

@@ -1,10 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="paper">
-  <rect width="128" height="128" rx="28" fill="#fffdf8"/>
-  <path d="M25 30h42l18 18v66H25z" fill="#eadde4" stroke="#866a6d" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M67 30v20h20" fill="none" stroke="#866a6d" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M39 18h47l22 22v70H39z" fill="#fff9f0" stroke="#2d2426" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M86 18v25h25" fill="#eadde4" stroke="#2d2426" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M52 56h37M52 68h44M52 80h25" fill="none" stroke="#b7a8ad" stroke-width="5" stroke-linecap="round"/>
-  <path d="M52 94v-13M66 94V72M80 94V78M94 94V64" fill="none" stroke="#2e7d68" stroke-width="7" stroke-linecap="round"/>
-  <path d="M50 103h49" fill="none" stroke="#b75b52" stroke-width="6" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="paper">
+  <defs>
+    <filter id="d" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#2b211d" flood-opacity=".17"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#fffaf4" flood-opacity=".5"/>
+    </filter>
+    <linearGradient id="cream" x1="35" y1="17" x2="103" y2="115" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff8ef"/>
+      <stop offset="1" stop-color="#e6d8c6"/>
+    </linearGradient>
+    <linearGradient id="back" x1="22" y1="28" x2="82" y2="111" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9e94b4"/>
+      <stop offset=".58" stop-color="#74658e"/>
+      <stop offset="1" stop-color="#3a334c"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="24" y1="18" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5b5263"/>
+      <stop offset="1" stop-color="#352f40"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="30" y1="22" x2="104" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8fb2a8"/>
+      <stop offset=".56" stop-color="#5f897f"/>
+      <stop offset="1" stop-color="#3f665f"/>
+    </linearGradient>
+    <linearGradient id="clay" x1="22" y1="20" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e9a190"/>
+      <stop offset=".58" stop-color="#bd715f"/>
+      <stop offset="1" stop-color="#824d3e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="24" y1="18" x2="106" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0cf78"/>
+      <stop offset=".58" stop-color="#c58f43"/>
+      <stop offset="1" stop-color="#83572d"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#d)">
+    <path d="M26 31h47l18 18v64H26z" fill="url(#back)"/>
+    <path d="M43 19h49l22 22v70H43z" fill="url(#cream)"/>
+    <path d="M92 19v24h22" fill="#eadde4"/>
+    <path d="M55 54h36M55 67h44M55 80h29" fill="none" stroke="url(#ink)" stroke-width="5" stroke-linecap="round" opacity=".34"/>
+    <path d="M55 96V82M69 96V72M83 96V78M97 96V63" fill="none" stroke="url(#teal)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M52 103h50" fill="none" stroke="url(#clay)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="97" cy="63" r="6.5" fill="url(#gold)"/>
+  </g>
 </svg>
