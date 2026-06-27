@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>paper / aolabs.io</title>
   <meta name="description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
-  <link rel="canonical" href="https://aolabs.io/paper/index.html">
+  <link rel="canonical" href="https://paper.aolabs.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
   <meta property="og:title" content="paper / aolabs.io">
   <meta property="og:description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
-  <meta property="og:url" content="https://aolabs.io/paper/index.html">
+  <meta property="og:url" content="https://paper.aolabs.io/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="paper / aolabs.io">
   <meta name="twitter:description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
@@ -33,27 +33,29 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Cellular Soft Robots</p>
-          <h1 id="graph-title">daily manuscript word movement</h1>
+          <h1 id="graph-title">manuscript movement</h1>
         </div>
         <p class="source-line" id="sourceLine">loading saved state</p>
       </div>
 
       <div class="graph-wrap">
+        <div class="chart-head">
+          <h2>words changed per day</h2>
+          <p id="snapshotSummary">snapshots: --</p>
+        </div>
         <svg id="wordGraph" role="img" aria-label="Daily added and deleted manuscript words"></svg>
-      </div>
-
-      <div class="legend" aria-label="chart legend">
-        <span><i class="added"></i> added</span>
-        <span><i class="deleted"></i> deleted</span>
-        <span id="snapshotSummary">snapshots: --</span>
+        <div class="legend" aria-label="chart legend">
+          <span><i class="added"></i> added</span>
+          <span><i class="deleted"></i> deleted</span>
+        </div>
       </div>
     </section>
 
     <section class="queue-section" aria-labelledby="queue-title">
       <div class="section-head compact">
         <div>
-          <p class="eyebrow">implementation queue</p>
-          <h2 id="queue-title">paper changes</h2>
+          <p class="eyebrow">advisor queue</p>
+          <h2 id="queue-title">changes to make</h2>
         </div>
         <p class="source-line" id="queueMeta">advisor comments and current manuscript</p>
       </div>

@@ -64,20 +64,19 @@ function renderGraph(state) {
   const graph = document.getElementById("wordGraph");
   const daily = Array.isArray(state.daily) && state.daily.length ? state.daily : dailyFromSnapshots(state.snapshots);
   graph.textContent = "";
-  graph.setAttribute("viewBox", "0 0 920 360");
+  graph.setAttribute("viewBox", "0 0 920 280");
 
-  const margin = { left: 58, right: 24, top: 34, bottom: 54 };
+  const margin = { left: 54, right: 24, top: 24, bottom: 40 };
   const width = 920 - margin.left - margin.right;
-  const height = 360 - margin.top - margin.bottom;
+  const height = 280 - margin.top - margin.bottom;
   const centerY = margin.top + height / 2;
   const maxDelta = Math.max(10, ...daily.flatMap((day) => [Math.abs(day.addedWords || 0), Math.abs(day.deletedWords || 0)]));
-  const scale = (height / 2 - 18) / maxDelta;
+  const scale = (height / 2 - 28) / maxDelta;
 
   graph.append(
     svg("line", { class: "axis-line", x1: margin.left, y1: centerY, x2: margin.left + width, y2: centerY }),
     svg("line", { class: "grid-line", x1: margin.left, y1: margin.top, x2: margin.left + width, y2: margin.top }),
-    svg("line", { class: "grid-line", x1: margin.left, y1: margin.top + height, x2: margin.left + width, y2: margin.top + height }),
-    svg("text", { class: "axis-label", x: margin.left, y: 18 }, [document.createTextNode("words per day")])
+    svg("line", { class: "grid-line", x1: margin.left, y1: margin.top + height, x2: margin.left + width, y2: margin.top + height })
   );
 
   if (!daily.length) {
@@ -86,7 +85,7 @@ function renderGraph(state) {
   }
 
   const slot = width / Math.max(daily.length, 1);
-  const barWidth = Math.min(54, Math.max(18, slot * 0.26));
+  const barWidth = daily.length === 1 ? 72 : Math.min(42, Math.max(16, slot * 0.22));
 
   daily.forEach((day, index) => {
     const xCenter = margin.left + slot * index + slot / 2;
@@ -99,7 +98,7 @@ function renderGraph(state) {
       graph.append(
         svg("circle", { cx: xCenter, cy: centerY, r: 4, fill: "var(--paper)" }),
         svg("text", { class: "bar-label", x: xCenter, y: centerY - 12, "text-anchor": "middle" }, [document.createTextNode("0")]),
-        svg("text", { class: "tick-label", x: xCenter, y: 338, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
+        svg("text", { class: "tick-label", x: xCenter, y: 266, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
       );
       return;
     }
@@ -110,18 +109,18 @@ function renderGraph(state) {
         y: centerY - addedHeight,
         width: barWidth,
         height: addedHeight,
-        fill: "var(--added)"
+        class: "bar-added"
       }),
       svg("rect", {
         x: xCenter + 3,
         y: centerY,
         width: barWidth,
         height: deletedHeight,
-        fill: "var(--deleted)"
+        class: "bar-deleted"
       }),
-      svg("text", { class: "bar-label", x: xCenter - barWidth / 2 - 3, y: centerY - addedHeight - 8, "text-anchor": "middle" }, [document.createTextNode(added ? `+${number(added)}` : "0")]),
-      svg("text", { class: "bar-label", x: xCenter + barWidth / 2 + 3, y: centerY + deletedHeight + 18, "text-anchor": "middle" }, [document.createTextNode(deleted ? `-${number(deleted)}` : "0")]),
-      svg("text", { class: "tick-label", x: xCenter, y: 338, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
+      svg("text", { class: "bar-label added", x: xCenter - barWidth / 2 - 3, y: centerY - addedHeight - 8, "text-anchor": "middle" }, [document.createTextNode(added ? `+${number(added)}` : "0")]),
+      svg("text", { class: "bar-label deleted", x: xCenter + barWidth / 2 + 3, y: centerY + deletedHeight + 18, "text-anchor": "middle" }, [document.createTextNode(deleted ? `-${number(deleted)}` : "0")]),
+      svg("text", { class: "tick-label", x: xCenter, y: 266, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
     );
   });
 }
@@ -137,7 +136,7 @@ function renderTasks(state) {
     ]));
     target.append(el("section", { class: "task-section" }, [
       el("h3", {}, [document.createTextNode(section.title || "paper section")]),
-      ...rows
+      el("div", { class: "task-rows" }, rows)
     ]));
   }
 }
@@ -166,13 +165,13 @@ function renderMeta(state) {
   const queueMeta = document.getElementById("queueMeta");
 
   if (latest) {
-    sourceLine.textContent = `${number(latest.wordCount)} words; latest ${latest.date}; ${latest.source}`;
-    snapshotSummary.textContent = `snapshots: ${number(snapshotCount)}; ${refreshSummary(state)}`;
+    sourceLine.textContent = `${number(latest.wordCount)} words · latest ${formatDate(latest.date)} · ${latest.source}`;
+    snapshotSummary.textContent = `${number(snapshotCount)} snapshots · ${refreshSummary(state)}`;
   } else {
     sourceLine.textContent = "no saved manuscript snapshot";
-    snapshotSummary.textContent = `snapshots: 0; ${refreshSummary(state)}`;
+    snapshotSummary.textContent = `0 snapshots · ${refreshSummary(state)}`;
   }
-  queueMeta.textContent = `${number((state.taskSections || []).reduce((total, section) => total + (section.items || []).length, 0))} paper changes`;
+  queueMeta.textContent = `${number((state.taskSections || []).reduce((total, section) => total + (section.items || []).length, 0))} changes`;
 }
 
 async function main() {

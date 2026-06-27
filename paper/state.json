@@ -6,7 +6,7 @@
     "manuscript": "A monolithic cellular architecture for topology-programmable soft robotics"
   },
   "createdAt": "2026-06-26T21:53:24-04:00",
-  "updatedAt": "2026-06-26T21:53:24-04:00",
+  "updatedAt": "2026-06-27T00:34:39.717Z",
   "snapshots": [
     {
       "id": "2026-06-26-overleaf-source-export",
@@ -23,6 +23,42 @@
       "bodySha256": "9f268a3335c57db518ede0bcceb268ef22ca595602e80898fcc06be7030e80fc",
       "snapshotFile": "data/snapshots/2026-06-26-main.tex",
       "activeOverleafComments": 4
+    },
+    {
+      "id": "overleaf-git-2026-06-26T22-56-27-599Z",
+      "capturedAt": "2026-06-26T22:56:27.599Z",
+      "date": "2026-06-26",
+      "source": "Overleaf Git refresh",
+      "wordCount": 4549,
+      "addedWords": 44,
+      "deletedWords": 85,
+      "netWords": -41,
+      "texBytes": 53280,
+      "bodyBytes": 49975,
+      "sha256": "05ebd465fffd9c450c6b4f91d86607cb6cdd467e48ded9b4cd0b43c975cdacfe",
+      "bodySha256": "8d1fa663bfbdc21abf77d48a5b7ef12246f5429c0005b32f4a6444901a23627a",
+      "snapshotFile": "snapshots/overleaf-git-2026-06-26T22-56-27-599Z.tex",
+      "refreshReason": "startup",
+      "gitMode": "clone",
+      "sourcePath": "main.tex"
+    },
+    {
+      "id": "overleaf-git-2026-06-26T23-56-33-552Z",
+      "capturedAt": "2026-06-26T23:56:33.552Z",
+      "date": "2026-06-26",
+      "source": "Overleaf Git refresh",
+      "wordCount": 4549,
+      "addedWords": 0,
+      "deletedWords": 0,
+      "netWords": 0,
+      "texBytes": 53282,
+      "bodyBytes": 49977,
+      "sha256": "c885c2ef76dd9ba5bd23d5d07827536a277a1fc507f86e55918861a6e696d3a5",
+      "bodySha256": "85f24035a20149cfff1adc111a62874db19fbddad59c925e958bc1f760e353e8",
+      "snapshotFile": "snapshots/overleaf-git-2026-06-26T23-56-33-552Z.tex",
+      "refreshReason": "scheduled",
+      "gitMode": "reclone after Request timed out",
+      "sourcePath": "main.tex"
     }
   ],
   "taskSections": [
@@ -216,5 +252,30 @@
         }
       ]
     }
-  ]
+  ],
+  "daily": [
+    {
+      "date": "2026-06-26",
+      "addedWords": 44,
+      "deletedWords": 85,
+      "netWords": -41,
+      "wordCount": 4549,
+      "snapshots": 3
+    }
+  ],
+  "refresh": {
+    "configured": true,
+    "autoRefresh": true,
+    "intervalMinutes": 60,
+    "source": "Overleaf Git",
+    "projectId": "680159de19c8c4376d964dba",
+    "mainTex": "main.tex",
+    "dataPath": "/data",
+    "status": "unchanged",
+    "lastCheckedAt": "2026-06-27T00:34:39.709Z",
+    "lastMessage": "Overleaf source unchanged",
+    "updatedAt": "2026-06-27T00:34:35.585Z",
+    "lastSnapshotId": "overleaf-git-2026-06-26T23-56-33-552Z",
+    "lastWordCount": 4549
+  }
 }
