@@ -63,6 +63,13 @@ APPS = [
         "accent": "#9f3041",
     },
     {
+        "slug": "paper",
+        "title": "paper",
+        "description": "Manuscript word movement and paper-change queue.",
+        "url": "paper.aolabs.io",
+        "accent": "#725e70",
+    },
+    {
         "slug": "sleep",
         "title": "sleep",
         "description": "Daily sleep-hours log from Samsung Health through Health Connect.",

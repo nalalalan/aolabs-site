@@ -45,6 +45,15 @@
     "version": "20260627"
   },
   {
+    "slug": "paper",
+    "title": "paper",
+    "description": "Manuscript word movement and paper-change queue.",
+    "url": "paper.aolabs.io",
+    "accent": "#725e70",
+    "image": "https://aolabs.io/previews/paper-20260627.png",
+    "version": "20260627"
+  },
+  {
     "slug": "sleep",
     "title": "sleep",
     "description": "Daily sleep-hours log from Samsung Health through Health Connect.",
