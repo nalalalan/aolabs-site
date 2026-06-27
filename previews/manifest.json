@@ -38,11 +38,11 @@
   {
     "slug": "blood",
     "title": "blood",
-    "description": "CONTOUR NEXT ONE readings from the Blood meter bridge.",
+    "description": "CONTOUR NEXT ONE readings from the always-on Blood bridge.",
     "url": "aolabs.io/blood",
     "accent": "#9f3041",
-    "image": "https://aolabs.io/previews/blood-20260626.png",
-    "version": "20260626"
+    "image": "https://aolabs.io/previews/blood-20260627.png",
+    "version": "20260627"
   },
   {
     "slug": "sleep",

@@ -58,7 +58,7 @@ APPS = [
     {
         "slug": "blood",
         "title": "blood",
-        "description": "CONTOUR NEXT ONE readings from the Blood meter bridge.",
+        "description": "CONTOUR NEXT ONE readings from the always-on Blood bridge.",
         "url": "aolabs.io/blood",
         "accent": "#9f3041",
     },
