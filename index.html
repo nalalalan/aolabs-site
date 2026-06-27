@@ -212,6 +212,9 @@
 
     .app {
       --accent: var(--relay);
+      --hub-icon-box: 92px;
+      --hub-icon-size: 88px;
+      --hub-icon-scale: 1;
       grid-column: span 2;
       position: relative;
       min-height: 120px;
@@ -243,7 +246,6 @@
     }
 
     .app > * {
-      position: relative;
       z-index: 1;
     }
 
@@ -256,26 +258,34 @@
     .app-top {
       display: block;
       min-height: 0;
+      position: static;
+    }
+
+    .app-top h2 {
+      position: relative;
+      z-index: 1;
     }
 
     .app-icon {
-      width: 92px;
-      height: 92px;
+      width: var(--hub-icon-box);
+      height: var(--hub-icon-box);
       position: absolute;
-      top: 14px;
+      top: 50%;
       right: 18px;
       display: grid;
       place-items: center;
       overflow: visible;
-      transform: none;
+      transform: translateY(-50%);
     }
 
     .app-icon img {
-      width: 88px;
-      height: 88px;
+      width: var(--hub-icon-size);
+      height: var(--hub-icon-size);
       display: block;
       object-fit: contain;
       filter: drop-shadow(0 10px 14px rgba(56, 44, 34, .15));
+      transform: scale(var(--hub-icon-scale));
+      transform-origin: center;
     }
 
     h2 {
@@ -289,7 +299,7 @@
 
     .desc {
       max-width: min(330px, calc(100% - 108px));
-      margin: 18px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
       font-size: 13.8px;
       line-height: 1.34;
@@ -302,26 +312,13 @@
       text-transform: none;
     }
 
-    .sandia .app-icon {
-      width: 74px;
-      height: 74px;
-      top: 20px;
-      right: 24px;
-    }
-
-    .sandia .app-icon img {
-      width: 70px;
-      height: 70px;
-    }
-
     .card-foot {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       gap: 10px;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(104, 87, 68, .24);
+      margin-top: auto;
+      padding-top: 0;
       font-weight: 850;
     }
 
@@ -375,6 +372,34 @@
     .mushroom-boop { --accent: var(--idleshroom); order: 28; }
     .wallguard { --accent: var(--wallguard); order: 29; }
     .duet { --accent: var(--duet); order: 30; }
+
+    .bus { --hub-icon-scale: .84; }
+    .curtis { --hub-icon-scale: .86; }
+    .sandia { --hub-icon-scale: .89; }
+    .nerve,
+    .spotify { --hub-icon-scale: .91; }
+    .duet { --hub-icon-scale: .94; }
+    .blood,
+    .relay { --hub-icon-scale: .96; }
+    .progress,
+    .spec,
+    .cooking { --hub-icon-scale: .97; }
+    .ocean,
+    .talk { --hub-icon-scale: 1.03; }
+    .league { --hub-icon-scale: 1.06; }
+    .brain,
+    .sarrus,
+    .virtualviolin,
+    .a3,
+    .idleshroom,
+    .lily { --hub-icon-scale: 1.09; }
+    .meowtronome,
+    .wallguard { --hub-icon-scale: 1.1; }
+    .wavevis { --hub-icon-scale: 1.12; }
+    .phd,
+    .yum { --hub-icon-scale: 1.14; }
+    .imagineer { --hub-icon-scale: 1.16; }
+    .violin { --hub-icon-scale: 1.23; }
 
     footer {
       display: flex;
@@ -458,25 +483,8 @@
       }
 
       .app-icon {
-        width: 84px;
-        height: 84px;
-      }
-
-      .app-icon img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .sandia .app-icon {
-        width: 72px;
-        height: 72px;
-        top: 22px;
-        right: 24px;
-      }
-
-      .sandia .app-icon img {
-        width: 68px;
-        height: 68px;
+        --hub-icon-box: 84px;
+        --hub-icon-size: 80px;
       }
 
     }
