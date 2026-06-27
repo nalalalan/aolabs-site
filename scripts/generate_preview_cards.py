@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import tempfile
 import textwrap
+from datetime import datetime
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -12,7 +13,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "previews"
-VERSION = "20260612"
+VERSION = datetime.now().strftime("%Y%m%d")
 W, H = 1200, 630
 ICON_SIZE = 214
 ICON_BG = "#f3ece2"
@@ -57,7 +58,7 @@ APPS = [
     {
         "slug": "blood",
         "title": "blood",
-        "description": "Contour blood glucose readings on a clear source-backed graph.",
+        "description": "CONTOUR NEXT ONE readings from the Blood meter bridge.",
         "url": "aolabs.io/blood",
         "accent": "#9f3041",
     },

@@ -38,7 +38,7 @@
   {
     "slug": "blood",
     "title": "blood",
-    "description": "Contour blood glucose readings on a clear source-backed graph.",
+    "description": "CONTOUR NEXT ONE readings from the Blood meter bridge.",
     "url": "aolabs.io/blood",
     "accent": "#9f3041",
     "image": "https://aolabs.io/previews/blood-20260626.png",
