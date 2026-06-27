@@ -1,4 +1,4 @@
-const CACHE_NAME = "blood-aolabs-20260627-v4";
+const CACHE_NAME = "blood-aolabs-20260627-health-v1";
 const ASSETS = [
   "./",
   "./index.html",
