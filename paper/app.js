@@ -32,9 +32,10 @@ function dailyFromSnapshots(snapshots = []) {
   for (const snapshot of snapshots) {
     const date = snapshot.date || String(snapshot.capturedAt || "").slice(0, 10);
     if (!date) continue;
-    const existing = byDate.get(date) || { date, addedWords: 0, deletedWords: 0, netWords: 0, wordCount: 0, snapshots: 0 };
+    const existing = byDate.get(date) || { date, addedWords: 0, deletedWords: 0, totalChangedWords: 0, netWords: 0, wordCount: 0, snapshots: 0 };
     existing.addedWords += Number(snapshot.addedWords || 0);
     existing.deletedWords += Number(snapshot.deletedWords || 0);
+    existing.totalChangedWords = existing.addedWords + existing.deletedWords;
     existing.netWords += Number(snapshot.netWords || 0);
     existing.wordCount = Number(snapshot.wordCount || existing.wordCount || 0);
     existing.snapshots += 1;
@@ -69,18 +70,23 @@ function renderGraph(state) {
   const margin = { left: 54, right: 24, top: 24, bottom: 40 };
   const width = 920 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
-  const centerY = margin.top + height / 2;
-  const maxDelta = Math.max(10, ...daily.flatMap((day) => [Math.abs(day.addedWords || 0), Math.abs(day.deletedWords || 0)]));
-  const scale = (height / 2 - 28) / maxDelta;
+  const baselineY = margin.top + height;
+  const totalChanged = (day) => {
+    const added = Math.abs(Number(day.addedWords || 0));
+    const deleted = Math.abs(Number(day.deletedWords || 0));
+    return Number(day.totalChangedWords || 0) || added + deleted;
+  };
+  const maxTotal = Math.max(10, ...daily.map(totalChanged));
+  const scale = (height - 36) / maxTotal;
 
   graph.append(
-    svg("line", { class: "axis-line", x1: margin.left, y1: centerY, x2: margin.left + width, y2: centerY }),
+    svg("line", { class: "axis-line", x1: margin.left, y1: baselineY, x2: margin.left + width, y2: baselineY }),
     svg("line", { class: "grid-line", x1: margin.left, y1: margin.top, x2: margin.left + width, y2: margin.top }),
-    svg("line", { class: "grid-line", x1: margin.left, y1: margin.top + height, x2: margin.left + width, y2: margin.top + height })
+    svg("line", { class: "grid-line", x1: margin.left, y1: margin.top + height / 2, x2: margin.left + width, y2: margin.top + height / 2 })
   );
 
   if (!daily.length) {
-    graph.append(svg("text", { class: "empty-label", x: margin.left, y: centerY - 18 }, [document.createTextNode("no snapshots yet")]));
+    graph.append(svg("text", { class: "empty-label", x: margin.left, y: baselineY - 18 }, [document.createTextNode("no snapshots yet")]));
     return;
   }
 
@@ -89,15 +95,13 @@ function renderGraph(state) {
 
   daily.forEach((day, index) => {
     const xCenter = margin.left + slot * index + slot / 2;
-    const added = Number(day.addedWords || 0);
-    const deleted = Number(day.deletedWords || 0);
-    const addedHeight = Math.max(added * scale, added > 0 ? 2 : 0);
-    const deletedHeight = Math.max(deleted * scale, deleted > 0 ? 2 : 0);
+    const total = totalChanged(day);
+    const barHeight = Math.max(total * scale, total > 0 ? 2 : 0);
 
-    if (!added && !deleted) {
+    if (!total) {
       graph.append(
-        svg("circle", { cx: xCenter, cy: centerY, r: 4, fill: "var(--paper)" }),
-        svg("text", { class: "bar-label", x: xCenter, y: centerY - 12, "text-anchor": "middle" }, [document.createTextNode("0")]),
+        svg("circle", { cx: xCenter, cy: baselineY, r: 4, fill: "var(--paper)" }),
+        svg("text", { class: "bar-label", x: xCenter, y: baselineY - 12, "text-anchor": "middle" }, [document.createTextNode("0")]),
         svg("text", { class: "tick-label", x: xCenter, y: 266, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
       );
       return;
@@ -105,21 +109,13 @@ function renderGraph(state) {
 
     graph.append(
       svg("rect", {
-        x: xCenter - barWidth - 3,
-        y: centerY - addedHeight,
+        x: xCenter - barWidth / 2,
+        y: baselineY - barHeight,
         width: barWidth,
-        height: addedHeight,
-        class: "bar-added"
+        height: barHeight,
+        class: "bar-changed"
       }),
-      svg("rect", {
-        x: xCenter + 3,
-        y: centerY,
-        width: barWidth,
-        height: deletedHeight,
-        class: "bar-deleted"
-      }),
-      svg("text", { class: "bar-label added", x: xCenter - barWidth / 2 - 3, y: centerY - addedHeight - 8, "text-anchor": "middle" }, [document.createTextNode(added ? `+${number(added)}` : "0")]),
-      svg("text", { class: "bar-label deleted", x: xCenter + barWidth / 2 + 3, y: centerY + deletedHeight + 18, "text-anchor": "middle" }, [document.createTextNode(deleted ? `-${number(deleted)}` : "0")]),
+      svg("text", { class: "bar-label changed", x: xCenter, y: baselineY - barHeight - 8, "text-anchor": "middle" }, [document.createTextNode(number(total))]),
       svg("text", { class: "tick-label", x: xCenter, y: 266, "text-anchor": "middle" }, [document.createTextNode(formatDate(day.date))])
     );
   });

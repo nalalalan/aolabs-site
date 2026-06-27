@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>paper / aolabs.io</title>
-  <meta name="description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
+  <meta name="description" content="Cellular Soft Robots manuscript total word-change graph and paper-change queue.">
   <link rel="canonical" href="https://paper.aolabs.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
   <meta property="og:title" content="paper / aolabs.io">
-  <meta property="og:description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
+  <meta property="og:description" content="Cellular Soft Robots manuscript total word-change graph and paper-change queue.">
   <meta property="og:url" content="https://paper.aolabs.io/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="paper / aolabs.io">
-  <meta name="twitter:description" content="Cellular Soft Robots manuscript word-movement graph and paper-change queue.">
+  <meta name="twitter:description" content="Cellular Soft Robots manuscript total word-change graph and paper-change queue.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -39,13 +39,12 @@
 
       <div class="graph-wrap">
         <div class="chart-head">
-          <h1 id="graph-title">words changed per day</h1>
+          <h1 id="graph-title">total words changed per day</h1>
           <p id="snapshotSummary">snapshots: --</p>
         </div>
-        <svg id="wordGraph" role="img" aria-label="Daily added and deleted manuscript words"></svg>
+        <svg id="wordGraph" role="img" aria-label="Daily total changed manuscript words"></svg>
         <div class="legend" aria-label="chart legend">
-          <span><i class="added"></i> added</span>
-          <span><i class="deleted"></i> deleted</span>
+          <span><i class="changed"></i> added + deleted</span>
         </div>
       </div>
     </section>
