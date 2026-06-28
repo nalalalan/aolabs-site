@@ -1,4 +1,5 @@
 const syncLine = document.getElementById("sync-line");
+const freshnessLine = document.getElementById("freshness-line");
 const refreshButton = document.getElementById("refresh-button");
 const latestValue = document.getElementById("latest-value");
 const latestUnit = document.getElementById("latest-unit");
@@ -52,6 +53,56 @@ function formatDateTime(value) {
     hour: "numeric",
     minute: "2-digit"
   });
+}
+
+function timeMs(value) {
+  const date = new Date(value);
+  const ms = date.getTime();
+  return Number.isFinite(ms) ? ms : null;
+}
+
+function minutesBetween(later, earlier) {
+  const laterMs = timeMs(later);
+  const earlierMs = timeMs(earlier);
+  if (laterMs == null || earlierMs == null) return null;
+  return Math.round((laterMs - earlierMs) / 60_000);
+}
+
+function sourceFreshnessText(data) {
+  const health = data?.health || {};
+  const latest = health.latest || {};
+  const generatedAt = data?.generatedAt || new Date().toISOString();
+  const uploadAt = health.lastCapturedAt || data?.lastCapturedAt || "";
+  const heartRateAt = latest.heartRate?.measuredAt || "";
+  const hrv = latest.hrv || null;
+  const uploadAge = minutesBetween(generatedAt, uploadAt);
+  const heartRateGap = minutesBetween(uploadAt, heartRateAt);
+  const parts = [];
+
+  if (!uploadAt) {
+    parts.push("No health upload reached Blood yet.");
+  } else if (uploadAge != null && uploadAge > 45) {
+    parts.push(`Health upload stale: ${formatDateTime(uploadAt)}.`);
+  } else {
+    parts.push(`Health upload ${formatDateTime(uploadAt)}.`);
+  }
+
+  if (!heartRateAt) {
+    parts.push("No HR sample reached Blood.");
+  } else if (heartRateGap != null && heartRateGap > 30) {
+    parts.push(`Samsung/Health Connect HR shared through ${formatDateTime(heartRateAt)}.`);
+  } else {
+    parts.push(`HR shared ${formatDateTime(heartRateAt)}.`);
+  }
+
+  if (hrv?.measuredAt) {
+    const hrvSource = hrv.estimated || hrv.derived ? hrvBasisLabel(hrv) : "source RMSSD";
+    parts.push(`HRV: ${hrvSource} ${formatDateTime(hrv.measuredAt)}.`);
+  } else {
+    parts.push("No HRV source reached Blood.");
+  }
+
+  return parts.join(" ");
 }
 
 function metricStamp(metric, field = "measuredAt") {
@@ -452,6 +503,9 @@ function renderHealth(data) {
     const captured = health.lastCapturedAt ? ` Metrics upload ${formatDateTime(health.lastCapturedAt)}.` : "";
     anxietyLabel.textContent = `${label}${captured}`;
   }
+  if (freshnessLine) {
+    freshnessLine.textContent = sourceFreshnessText(data);
+  }
 
   setMetricValue(metricGlucose, glucose?.valueMgDl ? `${glucose.valueMgDl} mg/dL` : "");
   setMetricValue(metricHr, heartRate?.value ? `${heartRate.value} bpm` : "");
@@ -464,10 +518,12 @@ function renderHealth(data) {
     suggestionTime.textContent = suggestion.time ? `Now: ${suggestion.time}` : "Now";
   }
   if (suggestionAction) {
-    suggestionAction.textContent = suggestion.action || "Blood will choose the next stabilizing action from the current outlier.";
+    const reason = suggestion.reason || "";
+    const action = suggestion.action || "Blood will choose the next stabilizing action from the current outlier.";
+    suggestionAction.textContent = reason ? `${reason} ${action}` : action;
   }
   if (suggestionReason) {
-    suggestionReason.textContent = suggestion.reason || anxiety.note || "Personal estimate, not diagnosis.";
+    suggestionReason.textContent = anxiety.note || "Personal estimate, not diagnosis.";
   }
 }
 
@@ -494,9 +550,10 @@ function renderData(data) {
   latestUnit.textContent = "mg/dL";
   latestTime.textContent = formatDateTime(latest.measuredAt);
   latestSource.textContent = sourceLabel(latest);
-  syncLine.textContent = data.lastCapturedAt
-    ? `Last upload ${formatDateTime(data.lastCapturedAt)}.`
-    : "Readings are present; no bridge upload time was stored.";
+  syncLine.textContent = [
+    data.lastCapturedAt ? `Glucose upload ${formatDateTime(data.lastCapturedAt)}.` : "Glucose upload time missing.",
+    data.health?.lastCapturedAt ? `Health upload ${formatDateTime(data.health.lastCapturedAt)}.` : "Health upload waiting."
+  ].join(" ");
   renderAllCharts(data);
   renderTable(data);
 }
