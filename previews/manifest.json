@@ -74,11 +74,11 @@
   {
     "slug": "wavevis",
     "title": "wavevis",
-    "description": "3D Sarrus-cell and inverse sheet deformation simulators.",
+    "description": "Overhang-wave target and constrained-cell mechanism simulator.",
     "url": "aolabs.io/wavevis",
     "accent": "#6d8390",
-    "image": "https://aolabs.io/previews/wavevis-20260612.png",
-    "version": "20260612"
+    "image": "https://aolabs.io/previews/wavevis-20260628.png",
+    "version": "20260628"
   },
   {
     "slug": "phd",

@@ -86,7 +86,7 @@ APPS = [
     {
         "slug": "wavevis",
         "title": "wavevis",
-        "description": "3D Sarrus-cell and inverse sheet deformation simulators.",
+        "description": "Overhang-wave target and constrained-cell mechanism simulator.",
         "url": "aolabs.io/wavevis",
         "accent": "#6d8390",
     },
