@@ -149,6 +149,13 @@ main {
   gap: 5px;
 }
 
+.paper-change-edit {
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 14px !important;
+  font-weight: 750;
+}
+
 .paper-change-why {
   color: var(--muted);
   font-size: 14px !important;

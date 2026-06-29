@@ -140,6 +140,53 @@ function paperEaseRank(item, originalIndex) {
   return rank;
 }
 
+function paperLiteralEdit(title, currentTitle, detail) {
+  const titleText = currentTitle || "current broad title";
+  const edits = {
+    "title": `Literal edit: ${titleText} -> A printed pneumatic cell for morphing surfaces and reconfigurable soft robots`,
+    "claim discipline": "Literal edit: replace unsupported strong claims with bounded phrases like demonstrated prototypes, row-scale overhang, future integrated valves, and future closed-loop control.",
+    "Results order": "Literal edit: change subsection openers from build-tour sentences to result sentences such as At 80 psi, the module bends repeatably because asymmetric legs convert expansion into curvature.",
+    "limitations paragraph": "Literal edit: add this Discussion sentence: Current limits include external pressure, tubing, manual assembly, scale, speed, leakage, row-scale overhang, no closed-loop control, and no integrated EPM valves.",
+    "novelty sentence": "Literal edit: add this Introduction sentence: The same printed pneumatic cell supports both morphing surfaces and reconfigurable soft robot bodies.",
+    "abstract arc": "Literal edit: make the abstract five sentences in order: problem, approach, strongest result, main limit, bounded claim.",
+    "avoid water analogy drift": "Literal edit: delete analogy-led proof sentences; keep only prototype-led sentences about stacked layers bending and curling under differential expansion.",
+    "flexural-joint wording": "Literal edit: replace flexural hinge with compliant Sarrus legs that bend as beams under inflation.",
+    "cell/module split": "Literal edit: define cell = one printed Sarrus-plus-PneuNet unit; define module = 2 by 2 pneumatic grouping.",
+    "overhang endpoint definition": "Literal edit: add endpoints in text and caption: overhang measured from the constrained layer edge to the free tip of the curled row.",
+    "overhang reference lines": "Literal edit: add two dashed vertical measurement lines or one bracket at the overhang endpoints in the figure.",
+    "large readable labels": "Literal edit: increase pressure labels, angle labels, reference lines, and panel letters until they stay readable in the printed PDF.",
+    "one claim per figure": "Literal edit: start each caption with This figure shows... followed by the one claim that figure proves.",
+    "source consistency": "Literal edit: compare every caption number against the exported figure labels and replace mismatched pressure, count, angle, and overhang values.",
+    "do not abandon pneumatics": "Literal edit: write EPMs as valve/manifold control for the pneumatic system, not as a replacement for pneumatic actuation.",
+    "direct magnetic actuation boundary": "Literal edit: mark direct magnetic actuation as future work unless range, force, scale, and heating data are added.",
+    "pulse circuit note": "Literal edit: replace continuously powered electromagnet wording with pulse-switched EPM states.",
+    "student overlap": "Literal edit: add the magnetic-soft-actuator student connection only as a cited design input, not as an unsupported paper claim.",
+    "print-reliability hinge note": "Literal edit: add that notch-like hinges were avoided because many cells must print reliably and thin unsupported hinge features become floppy.",
+    "simulation-language cleanup": "Literal edit: add that the physical cell bends through compliant beams and distributed deformation, while the model is an abstraction.",
+    "single-cell mechanism": "Literal edit: rewrite the first mechanism paragraph so the cell is the printed Sarrus-plus-PneuNet unit and the module is the 2 by 2 grouping.",
+    "upper/lower leg asymmetry": "Literal edit: add upper thin structural legs and lower thicker pneumatic-channel legs create directional bias.",
+    "cell figure": "Literal edit: label uncapped cell, capped cell, Sarrus linkage, PneuNet actuator, and cap role in Figure 1 caption.",
+    "module figure": "Literal edit: label upper/lower leg pairs, one-module bending, two-module bending, and unactuated cross-section in Figure 2 caption.",
+    "overhang figure": "Literal edit: add measurement endpoints, layer labels, actuation pattern, cell count, and row state to the overhang caption.",
+    "cylindrical figures": "Literal edit: add that bending, grasping, peristalsis, and rolling are topology-level reconfigurations of the same module.",
+    "stiffness paragraph bridge": "Literal edit: connect stiffness regimes to early axial resistance, then leg bending, then pneumatic-chamber compression.",
+    "module-bias evidence": "Literal edit: write one sentence tying 80 psi side views, angle plot, and V-shaped annotations to repeatable convex bending.",
+    "boundary-condition role": "Literal edit: add whether the boundary constraint helps generate the overhang or limits the achieved shape.",
+    "expansion-ratio reality": "Literal edit: add that constrained modules may not reach ideal 2x expansion in the deformed overhang row.",
+    "66-cell limit": "Literal edit: add this boundary: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row.",
+    "overhang requirement": "Literal edit: list the overhang variables in one sentence: curvature/thickness, available length, local expansion ratio, boundary constraint, convex and concave bending.",
+    "comparison paragraph": "Literal edit: replace citation-list comparison with direct capability differences against the closest systems.",
+    "quantitative spine": "Literal edit: add the available numbers into Results: pressure, expansion, stiffness, bending angle, feature height, overhang length, load/object interaction, locomotion, repeats.",
+    "Methods reproducibility": "Literal edit: add fabrication, materials, print orientation, pressure control, calibration, boundary conditions, and analysis-script details.",
+    "manifold architecture": "Literal edit: describe one pressure manifold feeding many cells, with each cell controlled by a pulse-switched EPM valve.",
+    "threshold question": "Literal edit: add a short design-rule calculation for what curvature, length, thickness, and expansion make overhang possible.",
+    "node/mesh analysis": "Literal edit: add a node-following or mesh panel/table that compares planar state to overhang state.",
+    "physical EPM switching test": "Literal edit: record attraction/repulsion switching and soft-magnet twisting for Alnico and NdFeB rods in a constrained guide.",
+    "editorial package": "Literal edit: draft the cover-letter line, graphical claim, suggested reviewers, comparison paragraph, and data/code availability text."
+  };
+  return edits[title] || `Literal edit: ${detail}`;
+}
+
 function paperActionItem(item, state = {}) {
   const title = String(item.title || "").trim();
   const detail = String(item.detail || title || "").replace(/\s+/g, " ").trim();
@@ -188,7 +235,7 @@ function paperActionItem(item, state = {}) {
     "editorial package": ["Prepare the Science submission package: cover-letter line, graphical claim, suggested reviewers, competing-work comparison, and data/code availability.", "Why it matters: this is only useful after the paper itself is coherent, so it belongs at the end."]
   };
   const action = actions[title] || [detail, "Why it matters: this turns a source note into one visible paper move."];
-  return { action: action[0], why: action[1] };
+  return { action: action[0], edit: paperLiteralEdit(title, currentTitle, detail), why: action[1] };
 }
 
 function paperChangeItems(state = {}) {
@@ -201,7 +248,7 @@ function paperChangeItems(state = {}) {
     }))
     .filter((item) => item.action)
     .sort((left, right) => left.rank - right.rank || left.originalIndex - right.originalIndex)
-    .map((item) => ({ action: item.action, why: item.why }))
+    .map((item) => ({ action: item.action, edit: item.edit, why: item.why }))
     .filter(Boolean);
 }
 
@@ -315,6 +362,7 @@ function renderPaperList(state) {
       el("span", { class: "paper-change-number" }, [document.createTextNode(String(index + 1))]),
       el("div", { class: "paper-change-copy" }, [
         el("p", {}, [document.createTextNode(item.action)]),
+        el("p", { class: "paper-change-edit" }, [document.createTextNode(item.edit)]),
         el("p", { class: "paper-change-why" }, [document.createTextNode(item.why)])
       ])
     ]));
