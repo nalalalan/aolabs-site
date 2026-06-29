@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>slayy / aolabs.io</title>
-  <meta name="description" content="Paper-progress hype archive for manuscript work bursts.">
+  <meta name="description" content="Manuscript graph, Paper change list, and paper-progress hype archive.">
   <link rel="canonical" href="https://slayy.aolabs.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AO Labs">
   <meta property="og:title" content="slayy / aolabs.io">
-  <meta property="og:description" content="Paper-progress hype archive for manuscript work bursts.">
+  <meta property="og:description" content="Manuscript graph, Paper change list, and paper-progress hype archive.">
   <meta property="og:url" content="https://slayy.aolabs.io/">
   <meta property="og:image" content="https://aolabs.io/previews/slayy-20260629.png">
   <meta property="og:image:secure_url" content="https://aolabs.io/previews/slayy-20260629.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="slayy / aolabs.io">
-  <meta name="twitter:description" content="Paper-progress hype archive for manuscript work bursts.">
+  <meta name="twitter:description" content="Manuscript graph, Paper change list, and paper-progress hype archive.">
   <meta name="twitter:image" content="https://aolabs.io/previews/slayy-20260629.png">
   <link rel="icon" href="/icons/slayy.svg?v=20260629" type="image/svg+xml">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20260629c">
 </head>
 <body>
   <header class="suite-topbar" aria-label="slayy navigation">
@@ -37,23 +37,36 @@
   <main>
     <section class="topline" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow">paper-progress hype</p>
-        <h1 id="page-title">sent email archive</h1>
+        <p class="eyebrow">slayy</p>
+        <h1 id="page-title">paper progress</h1>
       </div>
       <p id="healthLine" class="state-line">checking archive</p>
     </section>
 
-    <section id="lockedPanel" class="locked-panel" hidden>
-      <h2>private archive</h2>
-      <p>The email bodies can be explicit and are meant for Alan and Lily. Add the archive access token to the URL as <code>?access=...</code>.</p>
+    <section class="paper-shell" aria-labelledby="graph-title">
+      <div class="section-head">
+        <h2 id="graph-title">paper graph</h2>
+        <p id="paperLine" class="section-meta">checking paper</p>
+      </div>
+      <svg id="wordGraph" class="word-graph" role="img" aria-label="daily changed words"></svg>
+    </section>
+
+    <section class="paper-list-shell" aria-labelledby="changes-title">
+      <div class="section-head">
+        <h2 id="changes-title">paper changes</h2>
+      </div>
+      <ol id="paperChangeList" class="paper-change-list"></ol>
     </section>
 
     <section class="events-shell" aria-label="slayy emails">
+      <div class="section-head">
+        <h2>hype emails</h2>
+      </div>
       <div id="events" class="events"></div>
     </section>
   </main>
 
   <script>window.SLAYY_API_BASE = "https://slayy.aolabs.io";</script>
-  <script src="./app.js?v=20260629b"></script>
+  <script src="./app.js?v=20260629c"></script>
 </body>
 </html>
