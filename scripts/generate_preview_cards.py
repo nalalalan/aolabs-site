@@ -73,7 +73,7 @@ APPS = [
         "slug": "slayy",
         "title": "slayy",
         "description": "Paper-progress hype emails, scores, citations, and archive.",
-        "url": "aolabs.io/slayy",
+        "url": "slayy.aolabs.io",
         "accent": "#c34a78",
     },
     {

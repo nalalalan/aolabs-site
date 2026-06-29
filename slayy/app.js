@@ -1,4 +1,4 @@
-const API_BASE = window.SLAYY_API_BASE || "https://slayy-aolabs-io-production.up.railway.app";
+const API_BASE = window.SLAYY_API_BASE || "https://slayy.aolabs.io";
 const params = new URLSearchParams(window.location.search);
 const access = params.get("access") || localStorage.getItem("slayy-access") || "";
 if (access) localStorage.setItem("slayy-access", access);
