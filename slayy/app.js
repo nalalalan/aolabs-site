@@ -140,67 +140,68 @@ function paperEaseRank(item, originalIndex) {
   return rank;
 }
 
-function paperActionText(item, state = {}) {
+function paperActionItem(item, state = {}) {
   const title = String(item.title || "").trim();
   const detail = String(item.detail || title || "").replace(/\s+/g, " ").trim();
   const currentTitle = String(state.project?.manuscript || "").replace(/\s+/g, " ").trim();
   const titlePrefix = currentTitle ? `In the title line, replace "${currentTitle}"` : "In the title line, replace the current broad title";
   const actions = {
-    "title": `${titlePrefix} with a concrete title that names the demonstrated contribution: one printed pneumatic cell used for morphing surfaces and reconfigurable robot bodies.`,
-    "claim discipline": "Search the abstract and Discussion for autonomy, closed-loop control, integrated valves, sensing, and full two-dimensional overhang claims; delete or soften anything not shown by the current prototypes.",
-    "Results order": "At the start of each Results subsection, make the first sentence a measured result or physical behavior, not a tour of what was built.",
-    "limitations paragraph": "In Discussion, add one direct limitations sentence naming external pressure, tubing, manual assembly, scale, speed, leakage, limited row overhang, no closed-loop control, and no integrated EPM valve yet.",
-    "novelty sentence": "Near the end of the Introduction, add one novelty sentence: one printed pneumatic unit is reused for both morphing surfaces and reconfigurable robot bodies.",
-    "abstract arc": "Rewrite the abstract in five beats: problem, approach, strongest real result, main limitation, and bounded claim.",
-    "avoid water analogy drift": "In the overhang paragraph, keep only the material-deformation comparison; delete any sentence where the water analogy carries evidence instead of the prototype.",
-    "flexural-joint wording": "Search for flexural hinge language; replace it with compliant-linkage wording that says the Sarrus legs bend as beams under inflation.",
-    "cell/module split": "Search the manuscript for cell, module, array, layer, and topology; make cell mean one printed Sarrus-plus-PneuNet unit and module mean the 2 by 2 pneumatic grouping.",
-    "overhang endpoint definition": "In the overhang text, caption, and figure annotation, name the two endpoints used for the approximately 1 cm overhang measurement.",
-    "overhang reference lines": "Add a bracket or two vertical dashed lines on the overhang figure at the measurement endpoints.",
-    "large readable labels": "Increase angle markers, pressure labels, reference lines, and panel letters until they stay readable at printed caption scale.",
-    "one claim per figure": "For each main figure caption, write one sentence that says the single claim the figure proves; delete panels or caption phrases that do not support that claim.",
-    "source consistency": "Check every caption number against the exported figures: pressure, expansion ratio, cell count, module count, angle, overhang length, and topology size.",
-    "do not abandon pneumatics": "In the EPM Discussion, keep air as the proven actuation platform and frame EPMs first as valve/manifold control for pneumatic cells.",
-    "direct magnetic actuation boundary": "If direct EPM actuation stays in the Discussion, mark it as future work that still needs range, force, scale, and heating data.",
-    "pulse circuit note": "Describe the EPM as pulse-switched between stable states; remove wording that makes it sound continuously powered like a solenoid.",
-    "student overlap": "Add a note only if it becomes a real cited design input: magnetic-soft-actuator student connection and split-magnet EPM concept.",
-    "print-reliability hinge note": "Add one Methods or Discussion sentence explaining that notch-like hinges were avoided because many cells must print reliably and thin unsupported hinge features become floppy or unreliable.",
-    "simulation-language cleanup": "Where the paper mentions ideal rigid-link or flexible-joint models, add one sentence saying the physical cell bends through compliant beams and distributed deformation.",
-    "single-cell mechanism": "In the first cell-mechanism paragraph, separate the cell from the module: cell equals monolithic Sarrus-linkage-plus-PneuNet unit; module equals 2 by 2 pneumatic grouping.",
-    "upper/lower leg asymmetry": "In the module-bending paragraph, say the upper thin structural legs and lower thicker pneumatic-channel legs create directional bias; reuse upright-V and inverted-V wording from the figure.",
-    "cell figure": "In Figure 1 caption, explicitly label uncapped cell, capped cell, Sarrus linkage, PneuNet actuator, and cap role without describing module behavior.",
-    "module figure": "In Figure 2 caption, make the directional-bias mechanism explicit: upper/lower leg pairs, single-module and two-module bending angles, and unactuated cross-section.",
-    "overhang figure": "In the overhang figure/caption, add measurement references, layer labels, actuation pattern, cell count, and row state so the 1 cm claim can be checked visually.",
-    "cylindrical figures": "In bending, grasping, peristalsis, and rolling captions, say these are topology-level reconfigurations of the same module, not a separate actuator family.",
-    "stiffness paragraph bridge": "In the stiffness paragraph, connect the regimes to beam bending: early axial resistance, low-stiffness leg bending, then high-stiffness pneumatic-chamber compression.",
-    "module-bias evidence": "Tie the 80 psi side views, angle plot, and V-shaped leg-pair annotations to one claim: asymmetric connection geometry converts expansion into repeatable convex bending.",
-    "boundary-condition role": "In the overhang caption or paragraph, state whether the boundary helps or limits the overhang instead of leaving the constraint implicit.",
-    "expansion-ratio reality": "In the overhang section, say constrained modules may not reach ideal 2x expansion and connect leakage, actuation strength, and compression to the achieved shape.",
-    "66-cell limit": "Add one boundary sentence: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row rather than full two-dimensional overhang surface.",
-    "overhang requirement": "Write the overhang requirement as physical variables: curvature relative to thickness, available length, local expansion ratio, boundary constraint, and convex/concave bending ability.",
-    "comparison paragraph": "In Introduction or Discussion, compare the closest prior systems by direct capability differences instead of citation lists alone.",
-    "quantitative spine": "Make one pass through Results and add the hard-number chain where available: pressure, expansion ratio, stiffness regimes, bending angles, feature height, overhang length, load/object interaction, locomotion, repeats.",
-    "Methods reproducibility": "In Methods, add enough audit detail for fabrication, materials, print orientation, pressure control, measurement calibration, boundary conditions, and analysis scripts.",
-    "manifold architecture": "Sketch or describe one pressure manifold feeding many cells, with each cell controlled by a small pulse-switched EPM valve.",
-    "threshold question": "Add a short design-rule paragraph or calculation that states what curvature, length, thickness, and expansion combination makes an overhang possible.",
-    "node/mesh analysis": "Create a simple node-following or mesh analysis from planar state to overhang state so stretch, local bend, and length demand are visible.",
-    "physical EPM switching test": "Run the minimal EPM test: Alnico and NdFeB rods in a tube or constrained guide; record attraction/repulsion switching and whether the soft magnet twists.",
-    "editorial package": "Prepare the Science submission package: cover-letter line, graphical claim, suggested reviewers, competing-work comparison, and data/code availability."
+    "title": [`${titlePrefix} with "A printed pneumatic cell for morphing surfaces and reconfigurable soft robots."`, "Why it matters: the reader sees the concrete contribution before the abstract, instead of a broad field label."],
+    "claim discipline": ["Search the abstract and Discussion for autonomy, closed-loop control, integrated valves, sensing, and full two-dimensional overhang claims; delete or soften anything not shown by the current prototypes.", "Why it matters: bounded claims make the paper stronger because the evidence and the words stop fighting each other."],
+    "Results order": ["At the start of each Results subsection, make the first sentence a measured result or physical behavior, not a tour of what was built.", "Why it matters: readers should hit evidence first, then understand the build as the reason the evidence exists."],
+    "limitations paragraph": ["In Discussion, add one direct limitations sentence naming external pressure, tubing, manual assembly, scale, speed, leakage, limited row overhang, no closed-loop control, and no integrated EPM valve yet.", "Why it matters: naming limits makes the real contribution more trustworthy, not weaker."],
+    "novelty sentence": ["Near the end of the Introduction, add one sentence: one printed pneumatic unit is reused for both morphing surfaces and reconfigurable robot bodies.", "Why it matters: this gives the reader the paper's difference in one place."],
+    "abstract arc": ["Rewrite the abstract in five beats: problem, approach, strongest real result, main limitation, and bounded claim.", "Why it matters: a clear abstract keeps the paper from reading like a project tour."],
+    "avoid water analogy drift": ["In the overhang paragraph, keep only the material-deformation comparison; delete any sentence where the water analogy carries evidence instead of the prototype.", "Why it matters: the prototype has to prove the claim, not the metaphor."],
+    "flexural-joint wording": ["Search for flexural hinge language; replace it with compliant-linkage wording that says the Sarrus legs bend as beams under inflation.", "Why it matters: this keeps the mechanism physically honest."],
+    "cell/module split": ["Search for cell, module, array, layer, and topology; make cell mean one printed Sarrus-plus-PneuNet unit and module mean the 2 by 2 pneumatic grouping.", "Why it matters: readers cannot follow the mechanism if the part names move around."],
+    "overhang endpoint definition": ["In the overhang text, caption, and figure annotation, name the two endpoints used for the approximately 1 cm overhang measurement.", "Why it matters: the overhang claim becomes checkable instead of vibes-based."],
+    "overhang reference lines": ["Add a bracket or two vertical dashed lines on the overhang figure at the measurement endpoints.", "Why it matters: the figure should show the measurement without forcing the reader into the paragraph first."],
+    "large readable labels": ["Increase angle markers, pressure labels, reference lines, and panel letters until they stay readable at printed caption scale.", "Why it matters: unreadable labels make good evidence look unfinished."],
+    "one claim per figure": ["For each main figure caption, write one sentence that says the single claim the figure proves; delete panels or caption phrases that do not support that claim.", "Why it matters: each figure gets easier to defend when it has one job."],
+    "source consistency": ["Check every caption number against the exported figures: pressure, expansion ratio, cell count, module count, angle, overhang length, and topology size.", "Why it matters: one wrong number can make the whole results section feel shaky."],
+    "do not abandon pneumatics": ["In the EPM Discussion, keep air as the proven actuation platform and frame EPMs first as valve/manifold control for pneumatic cells.", "Why it matters: the paper should build from what worked, not jump to an unproven replacement."],
+    "direct magnetic actuation boundary": ["If direct EPM actuation stays in the Discussion, mark it as future work that still needs range, force, scale, and heating data.", "Why it matters: this keeps speculation from looking like a demonstrated result."],
+    "pulse circuit note": ["Describe the EPM as pulse-switched between stable states; remove wording that makes it sound continuously powered like a solenoid.", "Why it matters: the control idea only makes sense if the energy/state behavior is accurate."],
+    "student overlap": ["Add a note only if it becomes a real cited design input: magnetic-soft-actuator student connection and split-magnet EPM concept.", "Why it matters: this preserves useful context without adding loose name-dropping."],
+    "print-reliability hinge note": ["Add one Methods or Discussion sentence explaining that notch-like hinges were avoided because many cells must print reliably and thin unsupported hinge features become floppy or unreliable.", "Why it matters: it turns a design choice into engineering logic instead of an unexplained omission."],
+    "simulation-language cleanup": ["Where the paper mentions ideal rigid-link or flexible-joint models, add one sentence saying the physical cell bends through compliant beams and distributed deformation.", "Why it matters: the model stays useful without pretending it is the exact physical cell."],
+    "single-cell mechanism": ["In the first cell-mechanism paragraph, separate the cell from the module: cell equals monolithic Sarrus-linkage-plus-PneuNet unit; module equals 2 by 2 pneumatic grouping.", "Why it matters: the reader needs the basic unit before the larger robot arguments work."],
+    "upper/lower leg asymmetry": ["In the module-bending paragraph, say the upper thin structural legs and lower thicker pneumatic-channel legs create directional bias; reuse upright-V and inverted-V wording from the figure.", "Why it matters: it connects what the reader sees to why the module bends."],
+    "cell figure": ["In Figure 1 caption, explicitly label uncapped cell, capped cell, Sarrus linkage, PneuNet actuator, and cap role without describing module behavior.", "Why it matters: Figure 1 should teach the cell, not blur into the rest of the paper."],
+    "module figure": ["In Figure 2 caption, make the directional-bias mechanism explicit: upper/lower leg pairs, single-module and two-module bending angles, and unactuated cross-section.", "Why it matters: the module figure should prove how expansion becomes bending."],
+    "overhang figure": ["In the overhang figure/caption, add measurement references, layer labels, actuation pattern, cell count, and row state so the 1 cm claim can be checked visually.", "Why it matters: the strongest geometry claim should be readable directly from the figure."],
+    "cylindrical figures": ["In bending, grasping, peristalsis, and rolling captions, say these are topology-level reconfigurations of the same module, not a separate actuator family.", "Why it matters: it makes the robot examples support one system claim instead of looking like separate demos."],
+    "stiffness paragraph bridge": ["In the stiffness paragraph, connect the regimes to beam bending: early axial resistance, low-stiffness leg bending, then high-stiffness pneumatic-chamber compression.", "Why it matters: the mechanics section should explain the same physical story as the figures."],
+    "module-bias evidence": ["Tie the 80 psi side views, angle plot, and V-shaped leg-pair annotations to one claim: asymmetric connection geometry converts expansion into repeatable convex bending.", "Why it matters: it turns several panels into one mechanism argument."],
+    "boundary-condition role": ["In the overhang caption or paragraph, state whether the boundary helps or limits the overhang instead of leaving the constraint implicit.", "Why it matters: boundary conditions decide what the prototype actually proves."],
+    "expansion-ratio reality": ["In the overhang section, say constrained modules may not reach ideal 2x expansion and connect leakage, actuation strength, and compression to the achieved shape.", "Why it matters: it prevents an ideal number from overstating the deformed structure."],
+    "66-cell limit": ["Add one boundary sentence: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row rather than full two-dimensional overhang surface.", "Why it matters: it makes the result impressive without pretending it is larger than it is."],
+    "overhang requirement": ["Write the overhang requirement as physical variables: curvature relative to thickness, available length, local expansion ratio, boundary constraint, and convex/concave bending ability.", "Why it matters: the overhang becomes a design condition, not just a picture."],
+    "comparison paragraph": ["In Introduction or Discussion, compare the closest prior systems by direct capability differences instead of citation lists alone.", "Why it matters: readers need to know what this system can do that nearby work cannot."],
+    "quantitative spine": ["Make one pass through Results and add the hard-number chain where available: pressure, expansion ratio, stiffness regimes, bending angles, feature height, overhang length, load/object interaction, locomotion, repeats.", "Why it matters: numbers give the paper a backbone."],
+    "Methods reproducibility": ["In Methods, add enough audit detail for fabrication, materials, print orientation, pressure control, measurement calibration, boundary conditions, and analysis scripts.", "Why it matters: reproducible methods make the results easier to trust."],
+    "manifold architecture": ["Sketch or describe one pressure manifold feeding many cells, with each cell controlled by a small pulse-switched EPM valve.", "Why it matters: it turns the EPM idea into a plausible system architecture."],
+    "threshold question": ["Add a short design-rule paragraph or calculation that states what curvature, length, thickness, and expansion combination makes an overhang possible.", "Why it matters: this answers the reader's obvious physical question before they get stuck."],
+    "node/mesh analysis": ["Create a simple node-following or mesh analysis from planar state to overhang state so stretch, local bend, and length demand are visible.", "Why it matters: the geometry argument becomes inspectable instead of verbal."],
+    "physical EPM switching test": ["Run the minimal EPM test: Alnico and NdFeB rods in a tube or constrained guide; record attraction/repulsion switching and whether the soft magnet twists.", "Why it matters: one small test separates a real actuation path from a cool idea."],
+    "editorial package": ["Prepare the Science submission package: cover-letter line, graphical claim, suggested reviewers, competing-work comparison, and data/code availability.", "Why it matters: this is only useful after the paper itself is coherent, so it belongs at the end."]
   };
-  return actions[title] || detail;
+  const action = actions[title] || [detail, "Why it matters: this turns a source note into one visible paper move."];
+  return { action: action[0], why: action[1] };
 }
 
 function paperChangeItems(state = {}) {
   const sections = Array.isArray(state.taskSections) ? state.taskSections : [];
   return sections.flatMap((section) => Array.isArray(section.items) ? section.items : [])
     .map((item, originalIndex) => ({
-      description: paperActionText(item, state),
+      ...paperActionItem(item, state),
       rank: paperEaseRank(item, originalIndex),
       originalIndex
     }))
-    .filter((item) => item.description)
+    .filter((item) => item.action)
     .sort((left, right) => left.rank - right.rank || left.originalIndex - right.originalIndex)
-    .map((item) => item.description)
+    .map((item) => ({ action: item.action, why: item.why }))
     .filter(Boolean);
 }
 
@@ -309,10 +310,13 @@ function renderPaperList(state) {
     ]));
     return;
   }
-  items.forEach((description, index) => {
+  items.forEach((item, index) => {
     target.append(el("li", { class: "paper-change-row" }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode(String(index + 1))]),
-      el("p", {}, [document.createTextNode(description)])
+      el("div", { class: "paper-change-copy" }, [
+        el("p", {}, [document.createTextNode(item.action)]),
+        el("p", { class: "paper-change-why" }, [document.createTextNode(item.why)])
+      ])
     ]));
   });
 }

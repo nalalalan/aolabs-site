@@ -144,6 +144,17 @@ main {
   line-height: 1.42;
 }
 
+.paper-change-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.paper-change-why {
+  color: var(--muted);
+  font-size: 14px !important;
+  font-weight: 700;
+}
+
 .events {
   display: grid;
   gap: 18px;
