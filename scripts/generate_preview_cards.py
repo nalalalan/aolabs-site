@@ -70,6 +70,13 @@ APPS = [
         "accent": "#725e70",
     },
     {
+        "slug": "slayy",
+        "title": "slayy",
+        "description": "Paper-progress hype emails, scores, citations, and archive.",
+        "url": "slayy.aolabs.io",
+        "accent": "#c34a78",
+    },
+    {
         "slug": "sleep",
         "title": "sleep",
         "description": "Daily sleep-hours log from Samsung Health through Health Connect.",

@@ -54,6 +54,15 @@
     "version": "20260627-suite"
   },
   {
+    "slug": "slayy",
+    "title": "slayy",
+    "description": "Paper-progress hype emails, scores, citations, and archive.",
+    "url": "slayy.aolabs.io",
+    "accent": "#c34a78",
+    "image": "https://aolabs.io/previews/slayy-20260629.png",
+    "version": "20260629"
+  },
+  {
     "slug": "sleep",
     "title": "sleep",
     "description": "Daily sleep-hours log from Samsung Health through Health Connect.",
