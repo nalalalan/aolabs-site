@@ -86,10 +86,71 @@ function latestSnapshot(state) {
   return snapshots[snapshots.length - 1] || null;
 }
 
+const PAPER_EASE_ORDER = new Map([
+  ["title", 10],
+  ["claim discipline", 20],
+  ["Results order", 30],
+  ["limitations paragraph", 40],
+  ["novelty sentence", 50],
+  ["abstract arc", 60],
+  ["avoid water analogy drift", 70],
+  ["flexural-joint wording", 80],
+  ["cell/module split", 90],
+  ["overhang endpoint definition", 100],
+  ["overhang reference lines", 110],
+  ["large readable labels", 120],
+  ["one claim per figure", 130],
+  ["source consistency", 140],
+  ["do not abandon pneumatics", 150],
+  ["direct magnetic actuation boundary", 160],
+  ["pulse circuit note", 170],
+  ["student overlap", 180],
+  ["print-reliability hinge note", 190],
+  ["simulation-language cleanup", 200],
+  ["single-cell mechanism", 210],
+  ["upper/lower leg asymmetry", 220],
+  ["cell figure", 230],
+  ["module figure", 240],
+  ["overhang figure", 250],
+  ["cylindrical figures", 260],
+  ["stiffness paragraph bridge", 270],
+  ["module-bias evidence", 280],
+  ["boundary-condition role", 290],
+  ["expansion-ratio reality", 300],
+  ["66-cell limit", 310],
+  ["overhang requirement", 320],
+  ["comparison paragraph", 330],
+  ["quantitative spine", 340],
+  ["Methods reproducibility", 350],
+  ["manifold architecture", 360],
+  ["threshold question", 370],
+  ["node/mesh analysis", 380],
+  ["physical EPM switching test", 390],
+  ["editorial package", 400]
+]);
+
+function paperEaseRank(item, originalIndex) {
+  const title = String(item.title || "").trim();
+  if (PAPER_EASE_ORDER.has(title)) return PAPER_EASE_ORDER.get(title);
+  const text = `${title} ${item.detail || ""}`.toLowerCase();
+  let rank = 500 + originalIndex;
+  if (/title|remove|avoid|clarify|state|replace/.test(text)) rank -= 80;
+  if (/figure|caption|label|reference line|bracket/.test(text)) rank -= 30;
+  if (/calculation|analysis|measure|run|test|methods|fabrication|reviewer|data\/code/.test(text)) rank += 100;
+  return rank;
+}
+
 function paperChangeItems(state = {}) {
   const sections = Array.isArray(state.taskSections) ? state.taskSections : [];
   return sections.flatMap((section) => Array.isArray(section.items) ? section.items : [])
-    .map((item) => String(item.detail || item.title || "").replace(/\s+/g, " ").trim())
+    .map((item, originalIndex) => ({
+      description: String(item.detail || item.title || "").replace(/\s+/g, " ").trim(),
+      rank: paperEaseRank(item, originalIndex),
+      originalIndex
+    }))
+    .filter((item) => item.description)
+    .sort((left, right) => left.rank - right.rank || left.originalIndex - right.originalIndex)
+    .map((item) => item.description)
     .filter(Boolean);
 }
 
