@@ -27,6 +27,11 @@ function number(value) {
   return new Intl.NumberFormat("en-US").format(Number(value || 0));
 }
 
+function wordCountPhrase(value) {
+  const count = Number(value || 0);
+  return `${number(count)} ${Math.abs(count) === 1 ? "word" : "words"}`;
+}
+
 function signedNumber(value) {
   const numeric = Number(value || 0);
   if (numeric > 0) return `+${number(numeric)}`;
@@ -56,7 +61,7 @@ function historyTerms(terms = [], max = 4) {
 }
 
 function quoteHistoryTerms(terms = []) {
-  const words = terms.map((term) => `"${term.word.toUpperCase()}"`);
+  const words = terms.map((term) => `"${String(term.word || "").toLowerCase()}"`);
   if (!words.length) return "";
   if (words.length === 1) return words[0];
   if (words.length === 2) return `${words[0]} and ${words[1]}`;
@@ -69,14 +74,14 @@ function hasHistoryTerm(terms = [], words = []) {
 }
 
 function revisionMovementSentence(mood, addedWords, deletedWords, netWords) {
-  const movement = `${number(addedWords)} words in and ${number(deletedWords)} out`;
+  const movement = `${wordCountPhrase(addedWords)} in and ${wordCountPhrase(deletedWords)} out`;
   if (mood === "cleanup") {
-    return `The saved diff was ${movement}, ${number(Math.abs(netWords))} words tighter.`;
+    return `${movement}; ${wordCountPhrase(Math.abs(netWords))} tighter.`;
   }
   if (mood === "build") {
-    return `The saved diff was ${movement}, with ${number(Math.abs(netWords))} words of new structure.`;
+    return `${movement}; ${wordCountPhrase(Math.abs(netWords))} of new structure.`;
   }
-  return `The saved diff was ${movement}, a real sentence-level rewrite.`;
+  return `${movement}; sentence-level rewrite.`;
 }
 
 function revisionTermSentence(addedTerms = [], deletedTerms = []) {
@@ -115,27 +120,27 @@ function revisionGoalSentence(addedTerms = [], deletedTerms = [], mood = "rewrit
 
 function revisionImpactSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
   if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
-    return "That matters because the paper is starting to defend how the cells behave, not just name a system.";
+    return "Cell behavior is defended instead of only named.";
   }
   if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
-    return "That matters because a buildable cell-and-sheet system is easier to believe than a platform claim.";
+    return "A buildable cell-and-sheet system is easier to believe than a platform claim.";
   }
   if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
-    return "That matters because physical direction and constraints are what make the result defensible.";
+    return "Physical direction and constraints make the result defensible.";
   }
   if (hasHistoryTerm(addedTerms, ["prototype", "pressure", "caption"]) || hasHistoryTerm(deletedTerms, ["autonomy", "framework", "allowing", "systems"])) {
-    return "That matters because bounded prototype evidence is harder to dismiss than broad ambition.";
+    return "Bounded prototype evidence is harder to dismiss than broad ambition.";
   }
   if (hasHistoryTerm(addedTerms, ["figure", "caption", "upper", "lower", "bias"])) {
-    return "That matters because captions and labels can make the reader understand the mechanism before the prose explains it.";
+    return "Captions and labels make the mechanism readable before the prose explains it.";
   }
   if (mood === "cleanup") {
-    return "That matters because the draft has less filler between the reader and the real mechanism.";
+    return "Less filler sits between the reader and the real mechanism.";
   }
   if (mood === "build") {
-    return "That matters because the paper gained concrete material the next revision can shape.";
+    return "Concrete material is available for the next stronger revision.";
   }
-  return "That matters because the argument changed at the sentence level, not just in the word count.";
+  return "The argument changed at sentence level, not just in the word count.";
 }
 
 function el(name, attrs = {}, children = []) {
@@ -277,7 +282,7 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
   }
 
   if (!addedWords && !deletedWords && !netWords) {
-    return `paper version ${versionNumber}, ${captured}. Saved checkpoint; manuscript words did not move from version ${versionNumber - 1}. That still helps because the history proves this refresh was a no-op, not lost work. ${wordCount} words total.`;
+    return `paper version ${versionNumber}, ${captured}. Saved checkpoint; manuscript words did not move from version ${versionNumber - 1}. The refresh is recorded as a no-op, not lost work. ${wordCount} words total.`;
   }
   const mood = revisionMood(addedWords, deletedWords, netWords);
   const addedTerms = historyTerms(diff.addedTerms || snapshot.addedTerms || []);
@@ -319,12 +324,12 @@ function emailVersionRecords(events = [], historyDiffsById = new Map()) {
       const termSentence = revisionTermSentence(addedTerms, deletedTerms);
       const mood = revisionMood(addedWords, deletedWords, Number(diff.netWords || version.netWords || 0));
       const movement = totalChangedWords && (addedWords || deletedWords)
-        ? `The saved edit moved ${number(totalChangedWords)} words, with ${number(addedWords)} in and ${number(deletedWords)} out.`
+        ? `${wordCountPhrase(totalChangedWords)} moved: ${wordCountPhrase(addedWords)} in and ${wordCountPhrase(deletedWords)} out.`
         : totalChangedWords === 1
         ? `It saved one tiny paper touch in the archive.`
         : `It saved the paper-work checkpoint.`;
       const goal = termSentence ? revisionGoalSentence(addedTerms, deletedTerms, mood) : "";
-      const impact = termSentence ? revisionImpactSentence(addedTerms, deletedTerms, mood) : "That helps because the progress receipt makes the paper movement easier to see later.";
+      const impact = termSentence ? revisionImpactSentence(addedTerms, deletedTerms, mood) : "The progress receipt makes the paper movement easier to see later.";
       const receiptText = [goal, impact, movement, termSentence].filter(Boolean).join(" ");
       return {
         kind: "email",
