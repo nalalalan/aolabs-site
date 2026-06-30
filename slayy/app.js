@@ -610,6 +610,34 @@ function renderPaperMeta(state) {
   paperLine.textContent = `${number(latest.wordCount)} words / latest ${formatDate(latest.date)} / ${number(changes)} changes`;
 }
 
+function renderOverleafFocus(control = {}) {
+  const toggle = document.getElementById("overleafFocusToggle");
+  const line = document.getElementById("overleafFocusLine");
+  if (!toggle || !line) return;
+  const enabled = control.enabled !== false;
+  toggle.textContent = enabled ? "on" : "off";
+  toggle.setAttribute("aria-checked", enabled ? "true" : "false");
+  toggle.classList.toggle("is-on", enabled);
+  line.textContent = enabled ? "active computer / no league / overleaf" : "disabled";
+  toggle.onclick = async () => {
+    const nextEnabled = toggle.getAttribute("aria-checked") !== "true";
+    toggle.disabled = true;
+    line.textContent = "saving";
+    try {
+      const result = await api("/api/slayy/overleaf-focus", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ enabled: nextEnabled })
+      });
+      renderOverleafFocus(result.overleafFocus || { enabled: nextEnabled });
+    } catch (error) {
+      line.textContent = error.message || "toggle failed";
+    } finally {
+      toggle.disabled = false;
+    }
+  };
+}
+
 function renderPaperGraph(state) {
   const graph = document.getElementById("wordGraph");
   const daily = Array.isArray(state.daily) && state.daily.length ? state.daily : dailyFromSnapshots(state.snapshots);
@@ -856,18 +884,20 @@ function renderEvents(data) {
 async function main() {
   const healthLine = document.getElementById("healthLine");
   try {
-    const [health, eventsData, paperData, diffData, historyDiffData] = await Promise.all([
+    const [health, eventsData, paperData, diffData, historyDiffData, focusData] = await Promise.all([
       fetchWithTimeout(apiUrl("/api/slayy/health"), { cache: "no-store" }).then((response) => response.json()),
       api("/api/slayy/events"),
       api("/api/slayy/paper-state"),
       api("/api/slayy/paper-diff").catch(() => ({ diff: {} })),
-      api("/api/slayy/paper-history-diffs").catch(() => ({ diffs: [] }))
+      api("/api/slayy/paper-history-diffs").catch(() => ({ diffs: [] })),
+      api("/api/slayy/overleaf-focus").catch(() => ({ enabled: true }))
     ]);
     const paperDiff = diffData.diff || {};
     const paperHistoryDiffs = Array.isArray(historyDiffData.diffs) ? historyDiffData.diffs : [];
     healthLine.textContent = `${health.events || 0} emails / ${health.pending || 0} pending / watcher ${health.autoWatch ? "on" : "manual"}`;
     renderEvents(eventsData);
     renderPaperMeta(paperData.state || {});
+    renderOverleafFocus(focusData);
     renderPaperGraph(paperData.state || {});
     renderPaperVersions(paperData.state || {}, eventsData.events || [], paperHistoryDiffs);
     renderPaperList(paperData.state || {}, paperDiff);
@@ -877,6 +907,7 @@ async function main() {
     const versionLine = document.getElementById("versionLine");
     if (versionLine) versionLine.textContent = "paper unavailable";
     renderPaperGraph({ daily: [] });
+    renderOverleafFocus({ enabled: true });
     renderPaperVersions({}, []);
     renderPaperList({ taskSections: [] }, {});
   }
