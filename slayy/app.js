@@ -179,6 +179,9 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
 
   const added = usefulTerms(diff.addedTerms);
   const deleted = usefulTerms(diff.deletedTerms);
+  if (!addedWords && !deletedWords && !netWords) {
+    return `paper version ${versionNumber}, ${captured}. From version ${versionNumber - 1}, the saved manuscript text did not change, ending at ${wordCount} words. Captured from ${source}.`;
+  }
   const movement = `paper version ${versionNumber}, ${captured}. From version ${versionNumber - 1}, the paper added ${number(addedWords)} words and deleted ${number(deletedWords)}, net ${signedNumber(netWords)}, ending at ${wordCount} words.`;
   const addedText = added.length ? ` Words showing up more include ${quotedWords(added)}.` : "";
   const deletedText = deleted.length ? ` Words showing up less include ${quotedWords(deleted)}.` : "";
@@ -190,6 +193,7 @@ function snapshotVersionRecords(state = {}, historyDiffs = []) {
   const historyDiffsById = new Map(historyDiffs.map((diff) => [diff.snapshotId, diff]));
   return snapshots.map((snapshot, index) => ({
     kind: "snapshot",
+    versionIndex: index + 1,
     sortAt: snapshot.capturedAt || `${snapshot.date || ""}T12:00:00`,
     text: snapshotChangeText(snapshot, index, historyDiffsById)
   }));
@@ -571,7 +575,12 @@ function renderPaperVersions(state, events = [], historyDiffs = []) {
   const records = [
     ...snapshotVersionRecords(state, historyDiffs),
     ...emailVersionRecords(events)
-  ].sort((left, right) => new Date(right.sortAt || 0).getTime() - new Date(left.sortAt || 0).getTime());
+  ].sort((left, right) => {
+    if (left.kind === "snapshot" && right.kind === "snapshot") {
+      return Number(right.versionIndex || 0) - Number(left.versionIndex || 0);
+    }
+    return new Date(right.sortAt || 0).getTime() - new Date(left.sortAt || 0).getTime();
+  });
   target.textContent = "";
   if (line) line.textContent = `${number(records.length)} versions / newest first`;
   if (!records.length) {
