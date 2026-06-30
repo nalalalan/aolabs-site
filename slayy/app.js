@@ -69,56 +69,56 @@ function hasHistoryTerm(terms = [], words = []) {
 }
 
 function revisionMovementSentence(mood, addedWords, deletedWords, netWords) {
-  const movement = `${number(addedWords)} words went in and ${number(deletedWords)} came out`;
+  const movement = `${number(addedWords)} words in and ${number(deletedWords)} out`;
   if (mood === "cleanup") {
-    return `Damn yes, this improved the paper. ${movement}, so the draft got ${number(Math.abs(netWords))} words tighter.`;
+    return `The saved diff was ${movement}, ${number(Math.abs(netWords))} words tighter.`;
   }
   if (mood === "build") {
-    return `Damn yes, this improved the paper. ${movement}, so the draft gained ${number(Math.abs(netWords))} words of new structure.`;
+    return `The saved diff was ${movement}, with ${number(Math.abs(netWords))} words of new structure.`;
   }
-  return `Damn yes, this improved the paper. ${movement}, so this was a real sentence-level rewrite.`;
+  return `The saved diff was ${movement}, a real sentence-level rewrite.`;
 }
 
 function revisionTermSentence(addedTerms = [], deletedTerms = []) {
   const parts = [];
   const added = quoteHistoryTerms(addedTerms);
   const deleted = quoteHistoryTerms(deletedTerms);
-  if (added) parts.push(`You added ${added}`);
-  if (deleted) parts.push(`you cut ${deleted}`);
-  return parts.length ? `${parts.join("; ")}.` : "";
+  if (added) parts.push(`it added ${added}`);
+  if (deleted) parts.push(`it cut ${deleted}`);
+  return parts.length ? `In the text, ${parts.join("; ")}.` : "";
 }
 
 function revisionGoalSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
   if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
-    return "The bigger move is making the reader see actuated module behavior and biasing, not just a vague cellular-architecture claim.";
+    return "The draft is becoming a defensible mechanism argument: actuated module behavior and biasing, not a vague cellular-architecture claim.";
   }
   if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
-    return "The bigger move is making the paper feel like a printed physical system built from cells and sheets, not an abstract platform promise.";
+    return "The contribution now reads more like a printed physical system built from cells and sheets than an abstract platform promise.";
   }
   if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
-    return "The bigger move is turning the mechanism into a physical deformation story with direction, constraints, pressure, and actuation.";
+    return "The mechanism is becoming a physical deformation story with direction, constraints, pressure, and actuation.";
   }
   if (hasHistoryTerm(addedTerms, ["prototype", "pressure", "caption"]) || hasHistoryTerm(deletedTerms, ["autonomy", "framework", "allowing", "systems"])) {
-    return "The bigger move is shifting the paper from broad promises toward prototype evidence the reader can actually check.";
+    return "The claim is moving from broad promise toward prototype evidence the reader can actually check.";
   }
   if (hasHistoryTerm(addedTerms, ["figure", "caption", "upper", "lower", "bias"])) {
-    return "The bigger move is making the figures carry the mechanism instead of leaving the reader to infer it.";
+    return "The figures are starting to carry the mechanism instead of making the reader infer it.";
   }
   if (mood === "cleanup") {
-    return "The bigger move is clearing away extra wording so the real mechanism becomes easier to see.";
+    return "The real mechanism is easier to see because extra wording got cleared away.";
   }
   if (mood === "build") {
-    return "The bigger move is giving the paper more concrete material to shape into a stronger argument.";
+    return "The paper gained concrete material for the next stronger argument.";
   }
-  return "The bigger move is changing what the sentence is trying to prove, not just changing the count.";
+  return "The sentence is changing what it is trying to prove, not just the word count.";
 }
 
 function revisionImpactSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
   if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
-    return "That matters because the paper is starting to defend a mechanism, not just name a system.";
+    return "That matters because the paper is starting to defend how the cells behave, not just name a system.";
   }
   if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
-    return "That matters because cells, sheets, and actuation make the contribution feel buildable and evidence-backed.";
+    return "That matters because a buildable cell-and-sheet system is easier to believe than a platform claim.";
   }
   if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
     return "That matters because physical direction and constraints are what make the result defensible.";
@@ -284,10 +284,10 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
   const deletedTerms = historyTerms(diff.deletedTerms || snapshot.deletedTerms || []);
   return [
     `paper version ${versionNumber}, ${captured}.`,
-    revisionSummarySentence(mood, addedWords, deletedWords, netWords),
-    revisionTermSentence(addedTerms, deletedTerms),
     revisionGoalSentence(addedTerms, deletedTerms, mood),
     revisionImpactSentence(addedTerms, deletedTerms, mood),
+    revisionSummarySentence(mood, addedWords, deletedWords, netWords),
+    revisionTermSentence(addedTerms, deletedTerms),
     `${wordCount} words total.`
   ].filter(Boolean).join(" ");
 }
@@ -319,13 +319,13 @@ function emailVersionRecords(events = [], historyDiffsById = new Map()) {
       const termSentence = revisionTermSentence(addedTerms, deletedTerms);
       const mood = revisionMood(addedWords, deletedWords, Number(diff.netWords || version.netWords || 0));
       const movement = totalChangedWords && (addedWords || deletedWords)
-        ? `It celebrated ${number(totalChangedWords)} words of paper movement, with ${number(addedWords)} in and ${number(deletedWords)} out.`
+        ? `The saved edit moved ${number(totalChangedWords)} words, with ${number(addedWords)} in and ${number(deletedWords)} out.`
         : totalChangedWords === 1
         ? `It saved one tiny paper touch in the archive.`
         : `It saved the paper-work checkpoint.`;
       const goal = termSentence ? revisionGoalSentence(addedTerms, deletedTerms, mood) : "";
       const impact = termSentence ? revisionImpactSentence(addedTerms, deletedTerms, mood) : "That helps because the progress receipt makes the paper movement easier to see later.";
-      const receiptText = [movement, termSentence, goal, impact].filter(Boolean).join(" ");
+      const receiptText = [goal, impact, movement, termSentence].filter(Boolean).join(" ");
       return {
         kind: "email",
         sortAt: event.sentAt || event.createdAt || "",
