@@ -309,16 +309,16 @@ function paperEaseRank(item, originalIndex) {
 function paperEditText(title, currentTitle, detail) {
   const titleText = currentTitle || "current broad title";
   const edits = {
-    "title": `Current title: ${titleText}. No forced replacement title; when it feels worth touching, write one in your own words that names the printed pneumatic cell and the surface/robot uses it actually demonstrates.`,
+    "title": `The current title is ${titleText}. No forced replacement title; when it feels worth touching, write one in your own words that names the printed pneumatic cell and the surface/robot uses it actually demonstrates.`,
     "claim discipline": "replace unsupported strong claims with bounded phrases like demonstrated prototypes, row-scale overhang, future integrated valves, and future closed-loop control.",
     "Results order": "change subsection openers from build-tour sentences to result sentences such as At 80 psi, the module bends repeatably because asymmetric legs convert expansion into curvature.",
-    "limitations paragraph": "add this Discussion sentence: Current limits include external pressure, tubing, manual assembly, scale, speed, leakage, row-scale overhang, no closed-loop control, and no integrated EPM valves.",
-    "novelty sentence": "add this Introduction sentence: The same printed pneumatic cell supports both morphing surfaces and reconfigurable soft robot bodies.",
+    "limitations paragraph": "use the Discussion sentence Current limits include external pressure, tubing, manual assembly, scale, speed, leakage, row-scale overhang, no closed-loop control, and no integrated EPM valves.",
+    "novelty sentence": "use the Introduction sentence The same printed pneumatic cell supports both morphing surfaces and reconfigurable soft robot bodies.",
     "abstract arc": "make the abstract five sentences in order: problem, approach, strongest result, main limit, bounded claim.",
     "avoid water analogy drift": "delete analogy-led proof sentences; keep only prototype-led sentences about stacked layers bending and curling under differential expansion.",
     "flexural-joint wording": "replace flexural hinge with compliant Sarrus legs that bend as beams under inflation.",
     "cell/module split": "define cell = one printed Sarrus-plus-PneuNet unit; define module = 2 by 2 pneumatic grouping.",
-    "overhang endpoint definition": "add endpoints in text and caption: overhang measured from the constrained layer edge to the free tip of the curled row.",
+    "overhang endpoint definition": "define the overhang in text and caption as measured from the constrained layer edge to the free tip of the curled row.",
     "overhang reference lines": "add two dashed vertical measurement lines or one bracket at the overhang endpoints in the figure.",
     "large readable labels": "increase pressure labels, angle labels, reference lines, and panel letters until they stay readable in the printed PDF.",
     "one claim per figure": "start each caption with This figure shows... followed by the one claim that figure proves.",
@@ -339,8 +339,8 @@ function paperEditText(title, currentTitle, detail) {
     "module-bias evidence": "write one sentence tying 80 psi side views, angle plot, and V-shaped annotations to repeatable convex bending.",
     "boundary-condition role": "add whether the boundary constraint helps generate the overhang or limits the achieved shape.",
     "expansion-ratio reality": "add that constrained modules may not reach ideal 2x expansion in the deformed overhang row.",
-    "66-cell limit": "add this boundary: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row.",
-    "overhang requirement": "list the overhang variables in one sentence: curvature/thickness, available length, local expansion ratio, boundary constraint, convex and concave bending.",
+    "66-cell limit": "write that the boundary is a 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, and a proof-of-principle row.",
+    "overhang requirement": "list curvature/thickness, available length, local expansion ratio, boundary constraint, and convex/concave bending in one overhang-requirement sentence.",
     "comparison paragraph": "replace citation-list comparison with direct capability differences against the closest systems.",
     "quantitative spine": "add the available numbers into Results: pressure, expansion, stiffness, bending angle, feature height, overhang length, load/object interaction, locomotion, repeats.",
     "Methods reproducibility": "add fabrication, materials, print orientation, pressure control, calibration, boundary conditions, and analysis-script details.",
@@ -362,7 +362,7 @@ function paperActionItem(item, state = {}) {
     "claim discipline": ["Search the abstract and Discussion for autonomy, closed-loop control, integrated valves, sensing, and full two-dimensional overhang claims; delete or soften anything not shown by the current prototypes.", "bounded claims make the paper stronger because the evidence and the words stop fighting each other."],
     "Results order": ["At the start of each Results subsection, make the first sentence a measured result or physical behavior, not a tour of what was built.", "readers should hit evidence first, then understand the build as the reason the evidence exists."],
     "limitations paragraph": ["In Discussion, add one direct limitations sentence naming external pressure, tubing, manual assembly, scale, speed, leakage, limited row overhang, no closed-loop control, and no integrated EPM valve yet.", "naming limits makes the real contribution more trustworthy, not weaker."],
-    "novelty sentence": ["Near the end of the Introduction, add one sentence: one printed pneumatic unit is reused for both morphing surfaces and reconfigurable robot bodies.", "this gives the reader the paper's difference in one place."],
+    "novelty sentence": ["Near the end of the Introduction, add the sentence one printed pneumatic unit is reused for both morphing surfaces and reconfigurable soft robot bodies.", "this gives the reader the paper's difference in one place."],
     "abstract arc": ["Rewrite the abstract in five beats: problem, approach, strongest real result, main limitation, and bounded claim.", "a clear abstract keeps the paper from reading like a project tour."],
     "avoid water analogy drift": ["In the overhang paragraph, keep only the material-deformation comparison; delete any sentence where the water analogy carries evidence instead of the prototype.", "the prototype has to prove the claim, not the metaphor."],
     "flexural-joint wording": ["Search for flexural hinge language; replace it with compliant-linkage wording that says the Sarrus legs bend as beams under inflation.", "this keeps the mechanism physically honest."],
@@ -381,14 +381,14 @@ function paperActionItem(item, state = {}) {
     "single-cell mechanism": ["In the first cell-mechanism paragraph, separate the cell from the module: cell equals monolithic Sarrus-linkage-plus-PneuNet unit; module equals 2 by 2 pneumatic grouping.", "the reader needs the basic unit before the larger robot arguments work."],
     "upper/lower leg asymmetry": ["In the module-bending paragraph, say the upper thin structural legs and lower thicker pneumatic-channel legs create directional bias; reuse upright-V and inverted-V wording from the figure.", "it connects what the reader sees to why the module bends."],
     "cell figure": ["In Figure 1 caption, explicitly label uncapped cell, capped cell, Sarrus linkage, PneuNet actuator, and cap role without describing module behavior.", "Figure 1 should teach the cell, not blur into the rest of the paper."],
-    "module figure": ["In Figure 2 caption, make the directional-bias mechanism explicit: upper/lower leg pairs, single-module and two-module bending angles, and unactuated cross-section.", "the module figure should prove how expansion becomes bending."],
+    "module figure": ["In Figure 2 caption, make the directional-bias mechanism explicit by naming upper/lower leg pairs, single-module and two-module bending angles, and unactuated cross-section.", "the module figure should prove how expansion becomes bending."],
     "overhang figure": ["In the overhang figure/caption, add measurement references, layer labels, actuation pattern, cell count, and row state so the 1 cm claim can be checked visually.", "the strongest geometry claim should be readable directly from the figure."],
     "cylindrical figures": ["In bending, grasping, peristalsis, and rolling captions, say these are topology-level reconfigurations of the same module, not a separate actuator family.", "it makes the robot examples support one system claim instead of looking like separate demos."],
     "stiffness paragraph bridge": ["In the stiffness paragraph, connect the regimes to beam bending: early axial resistance, low-stiffness leg bending, then high-stiffness pneumatic-chamber compression.", "the mechanics section should explain the same physical story as the figures."],
     "module-bias evidence": ["Tie the 80 psi side views, angle plot, and V-shaped leg-pair annotations to one claim: asymmetric connection geometry converts expansion into repeatable convex bending.", "it turns several panels into one mechanism argument."],
     "boundary-condition role": ["In the overhang caption or paragraph, state whether the boundary helps or limits the overhang instead of leaving the constraint implicit.", "boundary conditions decide what the prototype actually proves."],
     "expansion-ratio reality": ["In the overhang section, say constrained modules may not reach ideal 2x expansion and connect leakage, actuation strength, and compression to the achieved shape.", "it prevents an ideal number from overstating the deformed structure."],
-    "66-cell limit": ["Add one boundary sentence: 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, proof-of-principle row rather than full two-dimensional overhang surface.", "it makes the result impressive without pretending it is larger than it is."],
+    "66-cell limit": ["Add one boundary sentence saying this is a 33-cell row, two opposed layers, 66 total cells, about 1 cm overhang, and a proof-of-principle row rather than a full two-dimensional overhang surface.", "it makes the result impressive without pretending it is larger than it is."],
     "overhang requirement": ["Write the overhang requirement as physical variables: curvature relative to thickness, available length, local expansion ratio, boundary constraint, and convex/concave bending ability.", "the overhang becomes a design condition, not just a picture."],
     "comparison paragraph": ["In Introduction or Discussion, compare the closest prior systems by direct capability differences instead of citation lists alone.", "readers need to know what this system can do that nearby work cannot."],
     "quantitative spine": ["Make one pass through Results and add the hard-number chain where available: pressure, expansion ratio, stiffness regimes, bending angles, feature height, overhang length, load/object interaction, locomotion, repeats.", "numbers give the paper a backbone."],
@@ -570,7 +570,7 @@ function renderPaperList(state, diff = {}) {
   const reviewKeys = new Set(openItems
     .filter((item) => item.addressed && !keepOpenKeys.has(item.key) && !setAsideKeys.has(item.key))
     .sort((left, right) => right.addressed.score - left.addressed.score || left.rank - right.rank)
-    .slice(0, 3)
+    .slice(0, 2)
     .map((item) => item.key));
   const items = openItems
     .sort((left, right) => {
@@ -621,9 +621,7 @@ function renderPaperList(state, diff = {}) {
       writeSetAsideKeys(nextKeys);
       renderPaperList(state, diff);
     }));
-    const text = isReview
-      ? `Possible done from latest Paper change: ${item.addressed.reason}. ${oneLayerTaskText(item)}`
-      : oneLayerTaskText(item);
+    const text = oneLayerTaskText(item);
     target.append(el("li", { class: `paper-change-row${isSetAside ? " is-set-aside" : ""}${isReview ? " is-review" : ""}` }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode(String(index + 1))]),
       el("p", { class: "paper-change-description" }, [document.createTextNode(text)]),

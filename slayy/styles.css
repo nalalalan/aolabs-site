@@ -169,12 +169,12 @@ main {
 .paper-version-description {
   color: var(--ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 400;
 }
 
 .paper-change-description {
   color: var(--ink);
-  font-weight: 650;
+  font-weight: 400;
 }
 
 .paper-change-actions {
