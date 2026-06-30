@@ -34,6 +34,85 @@ function signedNumber(value) {
   return "0";
 }
 
+const HISTORY_TERM_STOP_WORDS = new Set([
+  "a", "all", "also", "an", "and", "any", "are", "as", "at", "be", "been", "being", "between",
+  "by", "can", "could", "does", "during", "either", "for", "from", "had", "has", "have", "however",
+  "in", "into", "is", "it", "its", "not", "of", "on", "or", "out", "that", "the", "there", "these",
+  "this", "through", "to", "using", "via", "was", "were", "which", "while", "with", "would"
+]);
+
+function cleanHistoryTerm(item = {}) {
+  const word = String(item.word || item || "").trim().toLowerCase();
+  if (word.length < 3 || HISTORY_TERM_STOP_WORDS.has(word)) return null;
+  return { word, count: Number(item.count || 1) };
+}
+
+function historyTerms(terms = [], max = 4) {
+  return terms
+    .map(cleanHistoryTerm)
+    .filter(Boolean)
+    .sort((left, right) => right.count - left.count || left.word.localeCompare(right.word))
+    .slice(0, max);
+}
+
+function quoteHistoryTerms(terms = []) {
+  const words = terms.map((term) => `"${term.word.toUpperCase()}"`);
+  if (!words.length) return "";
+  if (words.length === 1) return words[0];
+  if (words.length === 2) return `${words[0]} and ${words[1]}`;
+  return `${words.slice(0, -1).join(", ")}, and ${words[words.length - 1]}`;
+}
+
+function hasHistoryTerm(terms = [], words = []) {
+  const set = new Set(terms.map((term) => term.word));
+  return words.some((word) => set.has(word));
+}
+
+function revisionMovementSentence(mood, addedWords, deletedWords, netWords) {
+  const movement = `${number(addedWords)} words went in and ${number(deletedWords)} came out`;
+  if (mood === "cleanup") {
+    return `Damn yes, this improved the paper. ${movement}, so the draft got ${number(Math.abs(netWords))} words tighter.`;
+  }
+  if (mood === "build") {
+    return `Damn yes, this improved the paper. ${movement}, so the draft gained ${number(Math.abs(netWords))} words of new structure.`;
+  }
+  return `Damn yes, this improved the paper. ${movement}, so this was a real sentence-level rewrite.`;
+}
+
+function revisionTermSentence(addedTerms = [], deletedTerms = []) {
+  const parts = [];
+  const added = quoteHistoryTerms(addedTerms);
+  const deleted = quoteHistoryTerms(deletedTerms);
+  if (added) parts.push(`You added ${added}`);
+  if (deleted) parts.push(`you cut ${deleted}`);
+  return parts.length ? `${parts.join("; ")}.` : "";
+}
+
+function revisionImpactSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
+  if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
+    return "That helps a lot because the reader now sees actuated behavior and module biasing instead of having to guess the mechanism from broad architecture language.";
+  }
+  if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
+    return "That helps a lot because the contribution reads more like a printed physical system and less like an abstract platform claim.";
+  }
+  if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
+    return "That helps a lot because buckling direction, actuation, constraints, and pressure become easier to defend as physical behavior.";
+  }
+  if (hasHistoryTerm(addedTerms, ["prototype", "pressure", "caption"]) || hasHistoryTerm(deletedTerms, ["autonomy", "framework", "allowing", "systems"])) {
+    return "That helps a lot because the paper moves away from broad promise language and toward prototype evidence a reader can check.";
+  }
+  if (hasHistoryTerm(addedTerms, ["figure", "caption", "upper", "lower", "bias"])) {
+    return "That helps a lot because the figure language carries more of the mechanism instead of leaving the reader to infer it.";
+  }
+  if (mood === "cleanup") {
+    return "That helps a lot because the draft has less filler between the reader and the real mechanism.";
+  }
+  if (mood === "build") {
+    return "That helps a lot because the paper gained concrete material the next revision can shape.";
+  }
+  return "That helps a lot because the argument changed at the sentence level, not just in the word count.";
+}
+
 function el(name, attrs = {}, children = []) {
   const node = document.createElement(name);
   for (const [key, value] of Object.entries(attrs)) {
@@ -156,13 +235,7 @@ function revisionMood(addedWords, deletedWords, netWords) {
 }
 
 function revisionSummarySentence(mood, addedWords, deletedWords, netWords) {
-  if (mood === "cleanup") {
-    return `Nice, good cleanup: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft got ${number(Math.abs(netWords))} words tighter.`;
-  }
-  if (mood === "build") {
-    return `Nice, this version built the draft out: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft grew by ${number(Math.abs(netWords))} words.`;
-  }
-  return `Nice, this was a real rewrite pass: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft ended ${signedNumber(netWords)} words from the last version.`;
+  return revisionMovementSentence(mood, addedWords, deletedWords, netWords);
 }
 
 function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map()) {
@@ -175,14 +248,22 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
   const netWords = Number(diff.netWords ?? snapshot.netWords ?? 0);
 
   if (index === 0 || !diff.previousSnapshotId) {
-    return `paper version ${versionNumber}, ${captured}. Saved the first baseline at ${wordCount} words.`;
+    return `paper version ${versionNumber}, ${captured}. This started the saved paper history at ${wordCount} words, so every later improvement has a clean before-and-after.`;
   }
 
   if (!addedWords && !deletedWords && !netWords) {
-    return `paper version ${versionNumber}, ${captured}. Saved checkpoint; the manuscript text did not change from version ${versionNumber - 1}. Still ${wordCount} words.`;
+    return `paper version ${versionNumber}, ${captured}. Saved checkpoint; manuscript words did not move from version ${versionNumber - 1}. That still helps because the history proves this refresh was a no-op, not lost work. ${wordCount} words total.`;
   }
   const mood = revisionMood(addedWords, deletedWords, netWords);
-  return `paper version ${versionNumber}, ${captured}. ${revisionSummarySentence(mood, addedWords, deletedWords, netWords)} ${wordCount} words total.`;
+  const addedTerms = historyTerms(diff.addedTerms || snapshot.addedTerms || []);
+  const deletedTerms = historyTerms(diff.deletedTerms || snapshot.deletedTerms || []);
+  return [
+    `paper version ${versionNumber}, ${captured}.`,
+    revisionSummarySentence(mood, addedWords, deletedWords, netWords),
+    revisionTermSentence(addedTerms, deletedTerms),
+    revisionImpactSentence(addedTerms, deletedTerms, mood),
+    `${wordCount} words total.`
+  ].filter(Boolean).join(" ");
 }
 
 function snapshotVersionRecords(state = {}, historyDiffs = []) {
@@ -196,18 +277,32 @@ function snapshotVersionRecords(state = {}, historyDiffs = []) {
   }));
 }
 
-function emailVersionRecords(events = []) {
+function emailVersionRecords(events = [], historyDiffsById = new Map()) {
   return events
     .filter((event) => event.sentAt || event.status === "sent")
     .map((event) => {
       const version = event.paperVersion || {};
       const score = event.score ? `${event.scoreLabel || "score"} ${event.score}/10` : "score saved";
-      const source = event.sourceSummary || version.summary || event.eventName || "manuscript work";
-      const snapshotText = version.snapshotId ? ` Based on ${version.snapshotId}.` : "";
+      const snapshotId = version.snapshotId || (Array.isArray(event.sourceSnapshotIds) ? event.sourceSnapshotIds[0] : "");
+      const diff = historyDiffsById.get(snapshotId) || {};
+      const addedWords = Number(event.addedWords || diff.addedWords || 0);
+      const deletedWords = Number(event.deletedWords || diff.deletedWords || 0);
+      const totalChangedWords = Number(event.totalChangedWords || addedWords + deletedWords || 0);
+      const addedTerms = historyTerms(diff.addedTerms || event.addedTerms || []);
+      const deletedTerms = historyTerms(diff.deletedTerms || event.deletedTerms || []);
+      const termSentence = revisionTermSentence(addedTerms, deletedTerms);
+      const mood = revisionMood(addedWords, deletedWords, Number(diff.netWords || version.netWords || 0));
+      const movement = totalChangedWords && (addedWords || deletedWords)
+        ? `It celebrated ${number(totalChangedWords)} words of paper movement, with ${number(addedWords)} in and ${number(deletedWords)} out.`
+        : totalChangedWords === 1
+        ? `It saved one tiny paper touch in the archive.`
+        : `It saved the paper-work checkpoint.`;
+      const impact = termSentence ? revisionImpactSentence(addedTerms, deletedTerms, mood) : "That helps because the progress receipt makes the paper movement easier to see later.";
+      const receiptText = [movement, termSentence, impact].filter(Boolean).join(" ");
       return {
         kind: "email",
         sortAt: event.sentAt || event.createdAt || "",
-        text: `email version, ${versionTime(event.sentAt || event.createdAt, version.date)}. ${score}. ${source}.${snapshotText}`
+        text: `hype email saved, ${versionTime(event.sentAt || event.createdAt, version.date)}. ${score}. ${receiptText}`
       };
     });
 }
@@ -477,10 +572,10 @@ function renderPaperMeta(state) {
   const latest = latestSnapshot(state);
   const changes = paperChangeItems(state).length;
   if (!latest) {
-    paperLine.textContent = `${number(changes)} comment and recording changes / no saved snapshot`;
+    paperLine.textContent = `${number(changes)} changes / no saved snapshot`;
     return;
   }
-  paperLine.textContent = `${number(latest.wordCount)} words / latest ${formatDate(latest.date)} / ${number(changes)} comment and recording changes`;
+  paperLine.textContent = `${number(latest.wordCount)} words / latest ${formatDate(latest.date)} / ${number(changes)} changes`;
 }
 
 function renderPaperGraph(state) {
@@ -569,9 +664,10 @@ function renderPaperGraph(state) {
 function renderPaperVersions(state, events = [], historyDiffs = []) {
   const target = document.getElementById("paperVersionList");
   const line = document.getElementById("versionLine");
+  const historyDiffsById = new Map(historyDiffs.map((diff) => [diff.snapshotId, diff]));
   const records = [
     ...snapshotVersionRecords(state, historyDiffs),
-    ...emailVersionRecords(events)
+    ...emailVersionRecords(events, historyDiffsById)
   ].sort((left, right) => {
     if (left.kind === "snapshot" && right.kind === "snapshot") {
       return Number(right.versionIndex || 0) - Number(left.versionIndex || 0);
