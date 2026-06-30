@@ -124,11 +124,15 @@ main {
 
 .paper-change-row {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr) auto;
   gap: 14px;
   align-items: start;
   padding: 13px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.paper-change-row.is-set-aside .paper-change-copy {
+  opacity: .62;
 }
 
 .paper-change-number {
@@ -151,15 +155,34 @@ main {
 
 .paper-change-edit {
   color: var(--ink);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-  font-size: 14px !important;
-  font-weight: 750;
+  font-size: 15px !important;
+  font-weight: 760;
 }
 
 .paper-change-why {
   color: var(--muted);
   font-size: 14px !important;
   font-weight: 700;
+}
+
+.paper-change-side-button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  min-height: 34px;
+  padding: 0 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.paper-change-side-button:hover,
+.paper-change-side-button.is-set-aside {
+  border-color: var(--slayy);
+  color: var(--slayy-deep);
 }
 
 .events {
@@ -283,6 +306,11 @@ main {
   .paper-change-row {
     grid-template-columns: 34px minmax(0, 1fr);
     gap: 10px;
+  }
+
+  .paper-change-side-button {
+    grid-column: 2;
+    justify-self: start;
   }
 
   .paper-change-row p {
