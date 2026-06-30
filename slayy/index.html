@@ -13,13 +13,18 @@
   <meta property="og:url" content="https://slayy.aolabs.io/">
   <meta property="og:image" content="https://aolabs.io/previews/slayy-20260629.png">
   <meta property="og:image:secure_url" content="https://aolabs.io/previews/slayy-20260629.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="slayy preview card.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="slayy / aolabs.io">
   <meta name="twitter:description" content="Manuscript graph, Paper history, change list, and hype email archive.">
   <meta name="twitter:image" content="https://aolabs.io/previews/slayy-20260629.png">
+  <meta name="twitter:image:alt" content="slayy preview card.">
   <link rel="icon" href="/icons/slayy.svg?v=20260629" type="image/svg+xml">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260630m">
+  <link rel="stylesheet" href="./styles.css?v=20260630n">
 </head>
 <body>
   <header class="suite-topbar" aria-label="slayy navigation">
@@ -36,9 +41,15 @@
 
   <main>
     <section class="paper-shell" aria-labelledby="graph-title">
-      <div class="section-head">
-        <h2 id="graph-title">paper graph</h2>
-        <p id="paperLine" class="section-meta">checking paper</p>
+      <div class="section-head section-head-primary">
+        <div>
+          <h2 id="graph-title">paper graph</h2>
+          <p id="paperLine" class="section-meta section-meta-left">checking paper</p>
+        </div>
+        <div class="top-celebration">
+          <button id="manualHypeButton" class="manual-hype-button" type="button">yay celebrate now</button>
+          <p id="healthLine" class="section-meta celebrate-status">checking archive</p>
+        </div>
       </div>
       <svg id="wordGraph" class="word-graph" role="img" aria-label="daily changed words"></svg>
     </section>
@@ -61,16 +72,12 @@
     <section class="events-shell" aria-label="slayy emails">
       <div class="section-head">
         <h2>hype emails</h2>
-        <div class="section-actions">
-          <p id="healthLine" class="section-meta">checking archive</p>
-          <button id="manualHypeButton" class="manual-hype-button" type="button">celebrate now</button>
-        </div>
       </div>
       <div id="events" class="events"></div>
     </section>
   </main>
 
   <script>window.SLAYY_API_BASE = "https://slayy.aolabs.io";</script>
-  <script src="./app.js?v=20260630p"></script>
+  <script src="./app.js?v=20260630q"></script>
 </body>
 </html>

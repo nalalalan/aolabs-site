@@ -861,16 +861,16 @@ function bindManualHypeButton() {
     const healthLine = document.getElementById("healthLine");
     const originalText = button.textContent;
     button.disabled = true;
-    button.textContent = "queueing";
-    if (healthLine) healthLine.textContent = "queueing celebration";
+    button.textContent = "making confetti";
+    if (healthLine) healthLine.textContent = "celebration is getting queued";
     try {
       const result = await api("/api/slayy/manual-celebration", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({})
       });
-      button.textContent = result.reused ? "already queued" : "queued";
-      if (healthLine) healthLine.textContent = "celebration queued / sender will send";
+      button.textContent = result.reused ? "already queued" : "queued yay";
+      if (healthLine) healthLine.textContent = result.reused ? "celebration already queued / sender will send" : "celebration queued / sender will send";
       await main();
     } catch (error) {
       if (healthLine) healthLine.textContent = error.message || "celebration failed";

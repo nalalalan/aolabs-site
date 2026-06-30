@@ -50,6 +50,10 @@ main {
   padding-bottom: 12px;
 }
 
+.section-head-primary {
+  align-items: center;
+}
+
 .section-head h2 {
   margin: 0;
   font-size: 22px;
@@ -64,6 +68,11 @@ main {
   text-align: right;
 }
 
+.section-meta-left {
+  margin-top: 4px;
+  text-align: left;
+}
+
 .section-actions {
   display: flex;
   align-items: center;
@@ -71,22 +80,56 @@ main {
   gap: 10px;
 }
 
+.top-celebration {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.celebrate-status {
+  max-width: 260px;
+  line-height: 1.2;
+}
+
 .manual-hype-button {
-  min-height: 34px;
-  border: 1px solid var(--slayy-deep);
-  background: var(--slayy-deep);
-  color: #fff;
+  position: relative;
+  min-height: 40px;
+  border: 1px solid #b9356c;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .42) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 24%, rgba(255, 244, 168, .8) 0 2px, transparent 3px),
+    linear-gradient(135deg, #ff6fa3 0%, #d4477b 52%, #74304f 100%);
+  color: #fff9fc;
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 900;
-  padding: 0 12px;
+  line-height: 1;
+  padding: 0 18px;
+  box-shadow: 0 8px 20px rgba(195, 74, 120, .24);
   cursor: pointer;
+  transform: translateY(0);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
   white-space: nowrap;
 }
 
+.manual-hype-button:hover {
+  box-shadow: 0 10px 24px rgba(195, 74, 120, .32);
+  filter: saturate(1.06);
+  transform: translateY(-1px);
+}
+
+.manual-hype-button:focus-visible {
+  outline: 3px solid rgba(255, 125, 167, .36);
+  outline-offset: 3px;
+}
+
 .manual-hype-button:disabled {
-  opacity: .62;
+  opacity: .72;
   cursor: wait;
+  transform: none;
 }
 
 .word-graph {
@@ -361,6 +404,16 @@ main {
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
+  }
+
+  .top-celebration {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .celebrate-status {
+    max-width: none;
   }
 
   .section-meta {
