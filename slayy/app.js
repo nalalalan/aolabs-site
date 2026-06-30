@@ -260,6 +260,17 @@ function paperActionItem(item, state = {}) {
   return { action: action[0], edit: paperEditText(title, currentTitle, detail), why: action[1] };
 }
 
+function oneLayerTaskText(item = {}) {
+  return [item.action, item.edit, item.why]
+    .map((part) => String(part || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((part) => {
+      const sentence = part.replace(/[.!?]*$/, "");
+      return `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}.`;
+    })
+    .join(" ");
+}
+
 function paperChangeItems(state = {}) {
   const sections = Array.isArray(state.taskSections) ? state.taskSections : [];
   return sections.flatMap((section) => Array.isArray(section.items) ? section.items : [])
@@ -382,7 +393,7 @@ function renderPaperList(state) {
   if (!items.length) {
     target.append(el("li", { class: "paper-change-row" }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode("0")]),
-      el("p", {}, [document.createTextNode("no comment or recording changes in Paper state")])
+      el("p", { class: "paper-change-description" }, [document.createTextNode("No comment or recording changes in Paper state.")])
     ]));
     return;
   }
@@ -402,11 +413,7 @@ function renderPaperList(state) {
     });
     target.append(el("li", { class: `paper-change-row${isSetAside ? " is-set-aside" : ""}` }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode(String(index + 1))]),
-      el("div", { class: "paper-change-copy" }, [
-        el("p", {}, [document.createTextNode(item.action)]),
-        el("p", { class: "paper-change-edit" }, [document.createTextNode(item.edit)]),
-        el("p", { class: "paper-change-why" }, [document.createTextNode(item.why)])
-      ]),
+      el("p", { class: "paper-change-description" }, [document.createTextNode(oneLayerTaskText(item))]),
       button
     ]));
   });

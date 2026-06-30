@@ -131,7 +131,7 @@ main {
   border-bottom: 1px solid var(--line);
 }
 
-.paper-change-row.is-set-aside .paper-change-copy {
+.paper-change-row.is-set-aside .paper-change-description {
   opacity: .62;
 }
 
@@ -148,21 +148,9 @@ main {
   line-height: 1.42;
 }
 
-.paper-change-copy {
-  display: grid;
-  gap: 5px;
-}
-
-.paper-change-edit {
+.paper-change-description {
   color: var(--ink);
-  font-size: 15px !important;
-  font-weight: 760;
-}
-
-.paper-change-why {
-  color: var(--muted);
-  font-size: 14px !important;
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .paper-change-side-button {
