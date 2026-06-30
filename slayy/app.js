@@ -88,29 +88,54 @@ function revisionTermSentence(addedTerms = [], deletedTerms = []) {
   return parts.length ? `${parts.join("; ")}.` : "";
 }
 
-function revisionImpactSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
+function revisionGoalSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
   if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
-    return "That helps a lot because the reader now sees actuated behavior and module biasing instead of having to guess the mechanism from broad architecture language.";
+    return "The bigger move is making the reader see actuated module behavior and biasing, not just a vague cellular-architecture claim.";
   }
   if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
-    return "That helps a lot because the contribution reads more like a printed physical system and less like an abstract platform claim.";
+    return "The bigger move is making the paper feel like a printed physical system built from cells and sheets, not an abstract platform promise.";
   }
   if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
-    return "That helps a lot because buckling direction, actuation, constraints, and pressure become easier to defend as physical behavior.";
+    return "The bigger move is turning the mechanism into a physical deformation story with direction, constraints, pressure, and actuation.";
   }
   if (hasHistoryTerm(addedTerms, ["prototype", "pressure", "caption"]) || hasHistoryTerm(deletedTerms, ["autonomy", "framework", "allowing", "systems"])) {
-    return "That helps a lot because the paper moves away from broad promise language and toward prototype evidence a reader can check.";
+    return "The bigger move is shifting the paper from broad promises toward prototype evidence the reader can actually check.";
   }
   if (hasHistoryTerm(addedTerms, ["figure", "caption", "upper", "lower", "bias"])) {
-    return "That helps a lot because the figure language carries more of the mechanism instead of leaving the reader to infer it.";
+    return "The bigger move is making the figures carry the mechanism instead of leaving the reader to infer it.";
   }
   if (mood === "cleanup") {
-    return "That helps a lot because the draft has less filler between the reader and the real mechanism.";
+    return "The bigger move is clearing away extra wording so the real mechanism becomes easier to see.";
   }
   if (mood === "build") {
-    return "That helps a lot because the paper gained concrete material the next revision can shape.";
+    return "The bigger move is giving the paper more concrete material to shape into a stronger argument.";
   }
-  return "That helps a lot because the argument changed at the sentence level, not just in the word count.";
+  return "The bigger move is changing what the sentence is trying to prove, not just changing the count.";
+}
+
+function revisionImpactSentence(addedTerms = [], deletedTerms = [], mood = "rewrite") {
+  if (hasHistoryTerm(addedTerms, ["actuated", "behavior", "biasing", "double", "modules"])) {
+    return "That matters because the paper is starting to defend a mechanism, not just name a system.";
+  }
+  if (hasHistoryTerm(addedTerms, ["printed", "sheets", "cells", "actuation"])) {
+    return "That matters because cells, sheets, and actuation make the contribution feel buildable and evidence-backed.";
+  }
+  if (hasHistoryTerm(addedTerms, ["buckle", "downwards", "constraints", "pressures"]) || hasHistoryTerm(deletedTerms, ["plane", "buckling", "pneumatic"])) {
+    return "That matters because physical direction and constraints are what make the result defensible.";
+  }
+  if (hasHistoryTerm(addedTerms, ["prototype", "pressure", "caption"]) || hasHistoryTerm(deletedTerms, ["autonomy", "framework", "allowing", "systems"])) {
+    return "That matters because bounded prototype evidence is harder to dismiss than broad ambition.";
+  }
+  if (hasHistoryTerm(addedTerms, ["figure", "caption", "upper", "lower", "bias"])) {
+    return "That matters because captions and labels can make the reader understand the mechanism before the prose explains it.";
+  }
+  if (mood === "cleanup") {
+    return "That matters because the draft has less filler between the reader and the real mechanism.";
+  }
+  if (mood === "build") {
+    return "That matters because the paper gained concrete material the next revision can shape.";
+  }
+  return "That matters because the argument changed at the sentence level, not just in the word count.";
 }
 
 function el(name, attrs = {}, children = []) {
@@ -261,6 +286,7 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
     `paper version ${versionNumber}, ${captured}.`,
     revisionSummarySentence(mood, addedWords, deletedWords, netWords),
     revisionTermSentence(addedTerms, deletedTerms),
+    revisionGoalSentence(addedTerms, deletedTerms, mood),
     revisionImpactSentence(addedTerms, deletedTerms, mood),
     `${wordCount} words total.`
   ].filter(Boolean).join(" ");
@@ -297,8 +323,9 @@ function emailVersionRecords(events = [], historyDiffsById = new Map()) {
         : totalChangedWords === 1
         ? `It saved one tiny paper touch in the archive.`
         : `It saved the paper-work checkpoint.`;
+      const goal = termSentence ? revisionGoalSentence(addedTerms, deletedTerms, mood) : "";
       const impact = termSentence ? revisionImpactSentence(addedTerms, deletedTerms, mood) : "That helps because the progress receipt makes the paper movement easier to see later.";
-      const receiptText = [movement, termSentence, impact].filter(Boolean).join(" ");
+      const receiptText = [movement, termSentence, goal, impact].filter(Boolean).join(" ");
       return {
         kind: "email",
         sortAt: event.sentAt || event.createdAt || "",
