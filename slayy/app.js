@@ -148,12 +148,50 @@ function versionTime(value, date) {
   return "undated";
 }
 
-function snapshotVersionRecords(state = {}) {
+function termWord(term = {}) {
+  return String(term.word || "").trim();
+}
+
+function usefulTerms(terms = [], limit = 5) {
+  return terms
+    .map(termWord)
+    .filter((word) => word && word.length > 2 && !DIFF_STOP_WORDS.has(word.toLowerCase()))
+    .slice(0, limit);
+}
+
+function quotedWords(words = []) {
+  return words.map((word) => `"${word}"`).join(", ");
+}
+
+function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map()) {
+  const versionNumber = index + 1;
+  const captured = versionTime(snapshot.capturedAt, snapshot.date);
+  const diff = historyDiffsById.get(snapshot.id) || {};
+  const wordCount = number(diff.wordCount || snapshot.wordCount);
+  const addedWords = Number(diff.addedWords ?? snapshot.addedWords ?? 0);
+  const deletedWords = Number(diff.deletedWords ?? snapshot.deletedWords ?? 0);
+  const netWords = Number(diff.netWords ?? snapshot.netWords ?? 0);
+  const source = snapshot.source || diff.source || "paper state";
+
+  if (index === 0 || !diff.previousSnapshotId) {
+    return `paper version ${versionNumber}, ${captured}. This started the saved history with ${wordCount} words from ${source}.`;
+  }
+
+  const added = usefulTerms(diff.addedTerms);
+  const deleted = usefulTerms(diff.deletedTerms);
+  const movement = `paper version ${versionNumber}, ${captured}. From version ${versionNumber - 1}, the paper added ${number(addedWords)} words and deleted ${number(deletedWords)}, net ${signedNumber(netWords)}, ending at ${wordCount} words.`;
+  const addedText = added.length ? ` Words showing up more include ${quotedWords(added)}.` : "";
+  const deletedText = deleted.length ? ` Words showing up less include ${quotedWords(deleted)}.` : "";
+  return `${movement}${addedText}${deletedText} Captured from ${source}.`;
+}
+
+function snapshotVersionRecords(state = {}, historyDiffs = []) {
   const snapshots = Array.isArray(state.snapshots) ? state.snapshots : [];
+  const historyDiffsById = new Map(historyDiffs.map((diff) => [diff.snapshotId, diff]));
   return snapshots.map((snapshot, index) => ({
     kind: "snapshot",
     sortAt: snapshot.capturedAt || `${snapshot.date || ""}T12:00:00`,
-    text: `paper version ${index + 1}, ${versionTime(snapshot.capturedAt, snapshot.date)}. ${number(snapshot.wordCount)} words. ${number(snapshot.addedWords)} added, ${number(snapshot.deletedWords)} deleted, net ${signedNumber(snapshot.netWords)}. ${snapshot.source || "paper state"}.`
+    text: snapshotChangeText(snapshot, index, historyDiffsById)
   }));
 }
 
@@ -527,11 +565,11 @@ function renderPaperGraph(state) {
   });
 }
 
-function renderPaperVersions(state, events = []) {
+function renderPaperVersions(state, events = [], historyDiffs = []) {
   const target = document.getElementById("paperVersionList");
   const line = document.getElementById("versionLine");
   const records = [
-    ...snapshotVersionRecords(state),
+    ...snapshotVersionRecords(state, historyDiffs),
     ...emailVersionRecords(events)
   ].sort((left, right) => new Date(right.sortAt || 0).getTime() - new Date(left.sortAt || 0).getTime());
   target.textContent = "";
@@ -684,18 +722,20 @@ function renderEvents(data) {
 async function main() {
   const healthLine = document.getElementById("healthLine");
   try {
-    const [health, eventsData, paperData, diffData] = await Promise.all([
+    const [health, eventsData, paperData, diffData, historyDiffData] = await Promise.all([
       fetchWithTimeout(apiUrl("/api/slayy/health"), { cache: "no-store" }).then((response) => response.json()),
       api("/api/slayy/events"),
       api("/api/slayy/paper-state"),
-      api("/api/slayy/paper-diff").catch(() => ({ diff: {} }))
+      api("/api/slayy/paper-diff").catch(() => ({ diff: {} })),
+      api("/api/slayy/paper-history-diffs").catch(() => ({ diffs: [] }))
     ]);
     const paperDiff = diffData.diff || {};
+    const paperHistoryDiffs = Array.isArray(historyDiffData.diffs) ? historyDiffData.diffs : [];
     healthLine.textContent = `${health.events || 0} emails / ${health.pending || 0} pending / watcher ${health.autoWatch ? "on" : "manual"}`;
     renderEvents(eventsData);
     renderPaperMeta(paperData.state || {});
     renderPaperGraph(paperData.state || {});
-    renderPaperVersions(paperData.state || {}, eventsData.events || []);
+    renderPaperVersions(paperData.state || {}, eventsData.events || [], paperHistoryDiffs);
     renderPaperList(paperData.state || {}, paperDiff);
   } catch (error) {
     healthLine.textContent = error.message || "slayy unavailable";
