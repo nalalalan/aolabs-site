@@ -152,15 +152,41 @@ function termWord(term = {}) {
   return String(term.word || "").trim();
 }
 
-function usefulTerms(terms = [], limit = 5) {
+const HISTORY_SUMMARY_STOP_WORDS = new Set([
+  ...DIFF_STOP_WORDS,
+  "all", "any", "attributed", "bottom", "could", "double", "for", "out", "there", "was", "were", "will",
+  "would", "yet"
+]);
+
+function usefulTerms(terms = [], limit = 3) {
   return terms
     .map(termWord)
-    .filter((word) => word && word.length > 2 && !DIFF_STOP_WORDS.has(word.toLowerCase()))
+    .filter((word) => word && word.length > 2 && !HISTORY_SUMMARY_STOP_WORDS.has(word.toLowerCase()))
     .slice(0, limit);
 }
 
-function quotedWords(words = []) {
-  return words.map((word) => `"${word}"`).join(", ");
+function readableWords(words = []) {
+  if (!words.length) return "";
+  if (words.length === 1) return words[0];
+  if (words.length === 2) return `${words[0]} and ${words[1]}`;
+  return `${words.slice(0, -1).join(", ")}, and ${words[words.length - 1]}`;
+}
+
+function revisionMood(addedWords, deletedWords, netWords) {
+  if (!addedWords && !deletedWords && !netWords) return "checkpoint";
+  if (deletedWords > addedWords * 1.5) return "cleanup";
+  if (addedWords > deletedWords * 1.5) return "build";
+  return "rewrite";
+}
+
+function revisionSummarySentence(mood, addedWords, deletedWords, netWords) {
+  if (mood === "cleanup") {
+    return `Nice, good cleanup: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft got ${number(Math.abs(netWords))} words tighter.`;
+  }
+  if (mood === "build") {
+    return `Nice, this version built the draft out: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft grew by ${number(Math.abs(netWords))} words.`;
+  }
+  return `Nice, this was a real rewrite pass: ${number(addedWords)} words went in, ${number(deletedWords)} came out, and the draft ended ${signedNumber(netWords)} words from the last version.`;
 }
 
 function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map()) {
@@ -174,18 +200,20 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
   const source = snapshot.source || diff.source || "paper state";
 
   if (index === 0 || !diff.previousSnapshotId) {
-    return `paper version ${versionNumber}, ${captured}. This started the saved history with ${wordCount} words from ${source}.`;
+    return `paper version ${versionNumber}, ${captured}. Saved the first baseline at ${wordCount} words.`;
   }
 
   const added = usefulTerms(diff.addedTerms);
   const deleted = usefulTerms(diff.deletedTerms);
   if (!addedWords && !deletedWords && !netWords) {
-    return `paper version ${versionNumber}, ${captured}. From version ${versionNumber - 1}, the saved manuscript text did not change, ending at ${wordCount} words. Captured from ${source}.`;
+    return `paper version ${versionNumber}, ${captured}. Saved checkpoint; the manuscript text did not change from version ${versionNumber - 1}. Still ${wordCount} words.`;
   }
-  const movement = `paper version ${versionNumber}, ${captured}. From version ${versionNumber - 1}, the paper added ${number(addedWords)} words and deleted ${number(deletedWords)}, net ${signedNumber(netWords)}, ending at ${wordCount} words.`;
-  const addedText = added.length ? ` Words showing up more include ${quotedWords(added)}.` : "";
-  const deletedText = deleted.length ? ` Words showing up less include ${quotedWords(deleted)}.` : "";
-  return `${movement}${addedText}${deletedText} Captured from ${source}.`;
+  const mood = revisionMood(addedWords, deletedWords, netWords);
+  const movement = `paper version ${versionNumber}, ${captured}. ${revisionSummarySentence(mood, addedWords, deletedWords, netWords)} ${wordCount} words total.`;
+  const focusText = added.length || deleted.length
+    ? ` It looks like this focused more on ${readableWords(added.length ? added : ["specific manuscript wording"])}${deleted.length ? ` while trimming ${readableWords(deleted)}` : ""}.`
+    : "";
+  return `${movement}${focusText}`;
 }
 
 function snapshotVersionRecords(state = {}, historyDiffs = []) {
