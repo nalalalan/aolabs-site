@@ -19,7 +19,7 @@
   <meta name="twitter:image" content="https://aolabs.io/previews/slayy-20260629.png">
   <link rel="icon" href="/icons/slayy.svg?v=20260629" type="image/svg+xml">
   <link rel="stylesheet" href="/suite-header.css?v=20260516-suite-bloom">
-  <link rel="stylesheet" href="./styles.css?v=20260630k">
+  <link rel="stylesheet" href="./styles.css?v=20260630m">
 </head>
 <body>
   <header class="suite-topbar" aria-label="slayy navigation">
@@ -43,14 +43,6 @@
       <svg id="wordGraph" class="word-graph" role="img" aria-label="daily changed words"></svg>
     </section>
 
-    <section class="focus-shell" aria-label="overleaf focus">
-      <div class="focus-control-row">
-        <span class="focus-control-name">overleaf focus</span>
-        <span id="overleafFocusLine" class="focus-control-meta">checking</span>
-        <button id="overleafFocusToggle" class="focus-toggle" type="button" role="switch" aria-checked="false">off</button>
-      </div>
-    </section>
-
     <section class="paper-version-shell" aria-labelledby="versions-title">
       <div class="section-head">
         <h2 id="versions-title">paper history</h2>
@@ -69,13 +61,16 @@
     <section class="events-shell" aria-label="slayy emails">
       <div class="section-head">
         <h2>hype emails</h2>
-        <p id="healthLine" class="section-meta">checking archive</p>
+        <div class="section-actions">
+          <p id="healthLine" class="section-meta">checking archive</p>
+          <button id="manualHypeButton" class="manual-hype-button" type="button">celebrate now</button>
+        </div>
       </div>
       <div id="events" class="events"></div>
     </section>
   </main>
 
   <script>window.SLAYY_API_BASE = "https://slayy.aolabs.io";</script>
-  <script src="./app.js?v=20260630n"></script>
+  <script src="./app.js?v=20260630p"></script>
 </body>
 </html>

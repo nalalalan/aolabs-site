@@ -36,7 +36,6 @@ main {
 }
 
 .paper-shell,
-.focus-shell,
 .paper-version-shell,
 .paper-list-shell,
 .events-shell {
@@ -65,6 +64,31 @@ main {
   text-align: right;
 }
 
+.section-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.manual-hype-button {
+  min-height: 34px;
+  border: 1px solid var(--slayy-deep);
+  background: var(--slayy-deep);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 0 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.manual-hype-button:disabled {
+  opacity: .62;
+  cursor: wait;
+}
+
 .word-graph {
   display: block;
   width: 100%;
@@ -72,54 +96,6 @@ main {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, .62);
-}
-
-.focus-shell {
-  padding-top: 14px;
-}
-
-.focus-control-row {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.focus-control-name {
-  font-size: 16px;
-  font-weight: 850;
-}
-
-.focus-control-meta {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 750;
-  overflow-wrap: break-word;
-}
-
-.focus-toggle {
-  min-width: 58px;
-  height: 34px;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--muted);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.focus-toggle.is-on {
-  border-color: var(--slayy-deep);
-  background: var(--slayy-deep);
-  color: #fff;
-}
-
-.focus-toggle:disabled {
-  opacity: .62;
-  cursor: wait;
 }
 
 .axis-line {
@@ -381,6 +357,12 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .section-actions {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
   .section-meta {
     max-width: none;
     text-align: left;
@@ -428,12 +410,4 @@ main {
     width: fit-content;
   }
 
-  .focus-control-row {
-    grid-template-columns: 1fr auto;
-  }
-
-  .focus-control-meta {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
 }
