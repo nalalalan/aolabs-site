@@ -438,7 +438,7 @@ function renderEvent(event) {
       el("div", {}, [
         el("h2", { class: "event-title" }, [document.createTextNode(event.eventName || event.subject || "slayy email")]),
         el("p", { class: "event-meta" }, [document.createTextNode(`${fmtTime(event.sentAt || event.createdAt)} / ${event.status || "pending"} / ${event.subject || ""}`)]),
-        el("p", { class: "event-source" }, [document.createTextNode(event.sourceSummary || "paper progress")])
+        el("p", { class: "event-source" }, [document.createTextNode(event.sourceSummary || "manuscript work")])
       ]),
       el("div", { class: "score" }, [
         el("span", {}, [document.createTextNode(event.scoreLabel || "slayy score")]),
