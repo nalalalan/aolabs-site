@@ -148,30 +148,6 @@ function versionTime(value, date) {
   return "undated";
 }
 
-function termWord(term = {}) {
-  return String(term.word || "").trim();
-}
-
-const HISTORY_SUMMARY_STOP_WORDS = new Set([
-  ...DIFF_STOP_WORDS,
-  "all", "any", "attributed", "bottom", "could", "double", "for", "out", "there", "was", "were", "will",
-  "would", "yet"
-]);
-
-function usefulTerms(terms = [], limit = 3) {
-  return terms
-    .map(termWord)
-    .filter((word) => word && word.length > 2 && !HISTORY_SUMMARY_STOP_WORDS.has(word.toLowerCase()))
-    .slice(0, limit);
-}
-
-function readableWords(words = []) {
-  if (!words.length) return "";
-  if (words.length === 1) return words[0];
-  if (words.length === 2) return `${words[0]} and ${words[1]}`;
-  return `${words.slice(0, -1).join(", ")}, and ${words[words.length - 1]}`;
-}
-
 function revisionMood(addedWords, deletedWords, netWords) {
   if (!addedWords && !deletedWords && !netWords) return "checkpoint";
   if (deletedWords > addedWords * 1.5) return "cleanup";
@@ -197,23 +173,16 @@ function snapshotChangeText(snapshot = {}, index = 0, historyDiffsById = new Map
   const addedWords = Number(diff.addedWords ?? snapshot.addedWords ?? 0);
   const deletedWords = Number(diff.deletedWords ?? snapshot.deletedWords ?? 0);
   const netWords = Number(diff.netWords ?? snapshot.netWords ?? 0);
-  const source = snapshot.source || diff.source || "paper state";
 
   if (index === 0 || !diff.previousSnapshotId) {
     return `paper version ${versionNumber}, ${captured}. Saved the first baseline at ${wordCount} words.`;
   }
 
-  const added = usefulTerms(diff.addedTerms);
-  const deleted = usefulTerms(diff.deletedTerms);
   if (!addedWords && !deletedWords && !netWords) {
     return `paper version ${versionNumber}, ${captured}. Saved checkpoint; the manuscript text did not change from version ${versionNumber - 1}. Still ${wordCount} words.`;
   }
   const mood = revisionMood(addedWords, deletedWords, netWords);
-  const movement = `paper version ${versionNumber}, ${captured}. ${revisionSummarySentence(mood, addedWords, deletedWords, netWords)} ${wordCount} words total.`;
-  const focusText = added.length || deleted.length
-    ? ` It looks like this focused more on ${readableWords(added.length ? added : ["specific manuscript wording"])}${deleted.length ? ` while trimming ${readableWords(deleted)}` : ""}.`
-    : "";
-  return `${movement}${focusText}`;
+  return `paper version ${versionNumber}, ${captured}. ${revisionSummarySentence(mood, addedWords, deletedWords, netWords)} ${wordCount} words total.`;
 }
 
 function snapshotVersionRecords(state = {}, historyDiffs = []) {
