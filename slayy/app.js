@@ -1,5 +1,7 @@
 const API_BASE = window.SLAYY_API_BASE || "";
 const SET_ASIDE_STORAGE_KEY = "slayy.paper.setAside.v1";
+const APPROVED_DONE_STORAGE_KEY = "slayy.paper.approvedDone.v1";
+const KEEP_OPEN_STORAGE_KEY = "slayy.paper.keepOpen.v1";
 
 function apiUrl(path) {
   return `${API_BASE}${path}`;
@@ -25,6 +27,13 @@ function number(value) {
   return new Intl.NumberFormat("en-US").format(Number(value || 0));
 }
 
+function signedNumber(value) {
+  const numeric = Number(value || 0);
+  if (numeric > 0) return `+${number(numeric)}`;
+  if (numeric < 0) return `-${number(Math.abs(numeric))}`;
+  return "0";
+}
+
 function el(name, attrs = {}, children = []) {
   const node = document.createElement(name);
   for (const [key, value] of Object.entries(attrs)) {
@@ -43,9 +52,9 @@ function svg(name, attrs = {}, children = []) {
   return node;
 }
 
-function readSetAsideKeys() {
+function readStorageKeySet(storageKey) {
   try {
-    const value = window.localStorage.getItem(SET_ASIDE_STORAGE_KEY);
+    const value = window.localStorage.getItem(storageKey);
     const parsed = value ? JSON.parse(value) : [];
     return new Set(Array.isArray(parsed) ? parsed : []);
   } catch {
@@ -53,12 +62,36 @@ function readSetAsideKeys() {
   }
 }
 
-function writeSetAsideKeys(keys) {
+function writeStorageKeySet(storageKey, keys) {
   try {
-    window.localStorage.setItem(SET_ASIDE_STORAGE_KEY, JSON.stringify(Array.from(keys)));
+    window.localStorage.setItem(storageKey, JSON.stringify(Array.from(keys)));
   } catch {
     // Local storage is a convenience for task ordering; the list still works without it.
   }
+}
+
+function readSetAsideKeys() {
+  return readStorageKeySet(SET_ASIDE_STORAGE_KEY);
+}
+
+function writeSetAsideKeys(keys) {
+  writeStorageKeySet(SET_ASIDE_STORAGE_KEY, keys);
+}
+
+function readApprovedDoneKeys() {
+  return readStorageKeySet(APPROVED_DONE_STORAGE_KEY);
+}
+
+function writeApprovedDoneKeys(keys) {
+  writeStorageKeySet(APPROVED_DONE_STORAGE_KEY, keys);
+}
+
+function readKeepOpenKeys() {
+  return readStorageKeySet(KEEP_OPEN_STORAGE_KEY);
+}
+
+function writeKeepOpenKeys(keys) {
+  writeStorageKeySet(KEEP_OPEN_STORAGE_KEY, keys);
 }
 
 function taskKey(item = {}) {
@@ -109,6 +142,37 @@ function latestSnapshot(state) {
   return snapshots[snapshots.length - 1] || null;
 }
 
+function versionTime(value, date) {
+  if (value) return fmtTime(value);
+  if (date) return formatDate(date);
+  return "undated";
+}
+
+function snapshotVersionRecords(state = {}) {
+  const snapshots = Array.isArray(state.snapshots) ? state.snapshots : [];
+  return snapshots.map((snapshot, index) => ({
+    kind: "snapshot",
+    sortAt: snapshot.capturedAt || `${snapshot.date || ""}T12:00:00`,
+    text: `paper version ${index + 1}, ${versionTime(snapshot.capturedAt, snapshot.date)}. ${number(snapshot.wordCount)} words. ${number(snapshot.addedWords)} added, ${number(snapshot.deletedWords)} deleted, net ${signedNumber(snapshot.netWords)}. ${snapshot.source || "paper state"}.`
+  }));
+}
+
+function emailVersionRecords(events = []) {
+  return events
+    .filter((event) => event.sentAt || event.status === "sent")
+    .map((event) => {
+      const version = event.paperVersion || {};
+      const score = event.score ? `${event.scoreLabel || "score"} ${event.score}/10` : "score saved";
+      const source = event.sourceSummary || version.summary || event.eventName || "manuscript work";
+      const snapshotText = version.snapshotId ? ` Based on ${version.snapshotId}.` : "";
+      return {
+        kind: "email",
+        sortAt: event.sentAt || event.createdAt || "",
+        text: `email version, ${versionTime(event.sentAt || event.createdAt, version.date)}. ${score}. ${source}.${snapshotText}`
+      };
+    });
+}
+
 const PAPER_EASE_ORDER = new Map([
   ["title", 10],
   ["claim discipline", 20],
@@ -151,6 +215,85 @@ const PAPER_EASE_ORDER = new Map([
   ["physical EPM switching test", 390],
   ["editorial package", 400]
 ]);
+
+const DIFF_STOP_WORDS = new Set([
+  "about", "above", "after", "also", "and", "are", "because", "been", "before", "being", "between", "both",
+  "can", "claim", "claims", "current", "delete", "detail", "does", "each", "from", "have", "into", "make",
+  "makes", "more", "only", "paper", "paragraph", "reader", "readers", "remove", "replace", "section", "sentence",
+  "should", "state", "that", "the", "their", "then", "these", "this", "through", "under", "until", "using",
+  "what", "when", "where", "which", "while", "with", "without", "word", "words", "write"
+]);
+
+const BROAD_DIFF_WORDS = new Set(["actuation", "arrays", "bodies", "cell", "cells", "configuration", "larger", "printed", "same", "single"]);
+
+function escapePattern(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function normalizeDiffWord(value) {
+  return String(value || "").toLowerCase().replace(/[^a-z0-9-]/g, "").trim();
+}
+
+function diffTermEntries(diff = {}) {
+  return [...(Array.isArray(diff.addedTerms) ? diff.addedTerms : []), ...(Array.isArray(diff.deletedTerms) ? diff.deletedTerms : [])]
+    .map((entry) => ({
+      word: normalizeDiffWord(entry.word),
+      count: Math.max(1, Number(entry.count || 1))
+    }))
+    .filter((entry) => entry.word.length > 3 && !DIFF_STOP_WORDS.has(entry.word));
+}
+
+function termMatchesText(term, text) {
+  const forms = new Set([term]);
+  if (term.endsWith("s")) forms.add(term.slice(0, -1));
+  else forms.add(`${term}s`);
+  return Array.from(forms).some((form) => new RegExp(`\\b${escapePattern(form)}\\b`, "i").test(text));
+}
+
+function hasDiffTerm(termSet, ...terms) {
+  return terms.some((term) => {
+    const normalized = normalizeDiffWord(term);
+    return termSet.has(normalized) || termSet.has(`${normalized}s`) || (normalized.endsWith("s") && termSet.has(normalized.slice(0, -1)));
+  });
+}
+
+function possibleAddressedForItem(item = {}, diff = {}) {
+  if (!diff || !diff.changed) return null;
+  if (item.title === "title") return null;
+  const terms = diffTermEntries(diff);
+  if (!terms.length) return null;
+  const termSet = new Set(terms.map((entry) => entry.word));
+  const text = `${item.title || ""} ${item.action || ""} ${item.edit || ""} ${item.why || ""}`.toLowerCase();
+  const matched = [];
+  let score = 0;
+  let taskSpecific = false;
+
+  for (const entry of terms) {
+    if (BROAD_DIFF_WORDS.has(entry.word)) continue;
+    if (!termMatchesText(entry.word, text)) continue;
+    matched.push(entry.word);
+    score += Math.min(3, entry.count) + (entry.word.length > 6 ? 1 : 0);
+  }
+
+  if (item.title === "novelty sentence" && hasDiffTerm(termSet, "printed") && hasDiffTerm(termSet, "cell", "cells") && hasDiffTerm(termSet, "bodies")) {
+    taskSpecific = true;
+    score += 6;
+    for (const word of ["printed", "cells", "bodies"]) if (!matched.includes(word)) matched.push(word);
+  }
+
+  if ((item.title === "cell/module split" || item.title === "single-cell mechanism") && hasDiffTerm(termSet, "cell", "cells") && hasDiffTerm(termSet, "printed", "single")) {
+    taskSpecific = true;
+    score += 4;
+    for (const word of ["printed", "cells"]) if (!matched.includes(word)) matched.push(word);
+  }
+
+  const uniqueMatches = Array.from(new Set(matched)).slice(0, 5);
+  if ((!taskSpecific && score < 8) || uniqueMatches.length < 2) return null;
+  return {
+    score,
+    reason: `latest Paper diff touched ${uniqueMatches.join(", ")}`
+  };
+}
 
 function paperEaseRank(item, originalIndex) {
   const title = String(item.title || "").trim();
@@ -271,18 +414,22 @@ function oneLayerTaskText(item = {}) {
     .join(" ");
 }
 
-function paperChangeItems(state = {}) {
+function paperChangeItems(state = {}, diff = {}) {
   const sections = Array.isArray(state.taskSections) ? state.taskSections : [];
   return sections.flatMap((section) => Array.isArray(section.items) ? section.items : [])
-    .map((item, originalIndex) => ({
-      key: taskKey(item),
-      ...paperActionItem(item, state),
-      rank: paperEaseRank(item, originalIndex),
-      originalIndex
-    }))
+    .map((item, originalIndex) => {
+      const base = {
+        key: taskKey(item),
+        title: String(item.title || "").trim(),
+        ...paperActionItem(item, state),
+        rank: paperEaseRank(item, originalIndex),
+        originalIndex
+      };
+      return { ...base, addressed: possibleAddressedForItem(base, diff) };
+    })
     .filter((item) => item.action)
     .sort((left, right) => left.rank - right.rank || left.originalIndex - right.originalIndex)
-    .map((item) => ({ key: item.key, action: item.action, edit: item.edit, why: item.why, rank: item.rank, originalIndex: item.originalIndex }))
+    .map((item) => ({ key: item.key, title: item.title, action: item.action, edit: item.edit, why: item.why, rank: item.rank, originalIndex: item.originalIndex, addressed: item.addressed }))
     .filter(Boolean);
 }
 
@@ -380,41 +527,107 @@ function renderPaperGraph(state) {
   });
 }
 
-function renderPaperList(state) {
+function renderPaperVersions(state, events = []) {
+  const target = document.getElementById("paperVersionList");
+  const line = document.getElementById("versionLine");
+  const records = [
+    ...snapshotVersionRecords(state),
+    ...emailVersionRecords(events)
+  ].sort((left, right) => new Date(right.sortAt || 0).getTime() - new Date(left.sortAt || 0).getTime());
+  target.textContent = "";
+  if (line) line.textContent = `${number(records.length)} versions / newest first`;
+  if (!records.length) {
+    target.append(el("li", { class: "paper-version-row" }, [
+      el("span", { class: "paper-version-number" }, [document.createTextNode("0")]),
+      el("p", { class: "paper-version-description" }, [document.createTextNode("No Paper snapshots or sent-email versions yet.")])
+    ]));
+    return;
+  }
+  records.slice(0, 80).forEach((record, index) => {
+    target.append(el("li", { class: `paper-version-row is-${record.kind}` }, [
+      el("span", { class: "paper-version-number" }, [document.createTextNode(String(index + 1))]),
+      el("p", { class: "paper-version-description" }, [document.createTextNode(record.text)])
+    ]));
+  });
+}
+
+function makePaperListButton(text, className, ariaLabel, onClick) {
+  const button = el("button", {
+    type: "button",
+    class: `paper-change-side-button ${className}`.trim(),
+    "aria-label": ariaLabel
+  }, [document.createTextNode(text)]);
+  button.addEventListener("click", onClick);
+  return button;
+}
+
+function renderPaperList(state, diff = {}) {
   const target = document.getElementById("paperChangeList");
   const setAsideKeys = readSetAsideKeys();
-  const items = paperChangeItems(state)
+  const doneKeys = readApprovedDoneKeys();
+  const keepOpenKeys = readKeepOpenKeys();
+  const openItems = paperChangeItems(state, diff).filter((item) => !doneKeys.has(item.key));
+  const reviewKeys = new Set(openItems
+    .filter((item) => item.addressed && !keepOpenKeys.has(item.key) && !setAsideKeys.has(item.key))
+    .sort((left, right) => right.addressed.score - left.addressed.score || left.rank - right.rank)
+    .slice(0, 3)
+    .map((item) => item.key));
+  const items = openItems
     .sort((left, right) => {
+      const leftReview = reviewKeys.has(left.key) ? 0 : 1;
+      const rightReview = reviewKeys.has(right.key) ? 0 : 1;
       const leftAside = setAsideKeys.has(left.key) ? 1 : 0;
       const rightAside = setAsideKeys.has(right.key) ? 1 : 0;
-      return leftAside - rightAside || left.rank - right.rank || left.originalIndex - right.originalIndex;
+      return leftReview - rightReview || leftAside - rightAside || left.rank - right.rank || left.originalIndex - right.originalIndex;
     });
   target.textContent = "";
   if (!items.length) {
     target.append(el("li", { class: "paper-change-row" }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode("0")]),
-      el("p", { class: "paper-change-description" }, [document.createTextNode("No comment or recording changes in Paper state.")])
+      el("p", { class: "paper-change-description" }, [document.createTextNode("No open Paper changes. Approved done items are only hidden in this browser.")])
     ]));
     return;
   }
   items.forEach((item, index) => {
     const isSetAside = setAsideKeys.has(item.key);
-    const button = el("button", {
-      type: "button",
-      class: `paper-change-side-button${isSetAside ? " is-set-aside" : ""}`,
-      "aria-label": isSetAside ? "bring task back" : "set task aside"
-    }, [document.createTextNode(isSetAside ? "bring back" : "set aside")]);
-    button.addEventListener("click", () => {
+    const isReview = reviewKeys.has(item.key);
+    const actions = el("div", { class: "paper-change-actions" });
+    if (isReview) {
+      actions.append(
+        makePaperListButton("done", "is-done", "approve task as done", () => {
+          const nextDone = readApprovedDoneKeys();
+          const nextKeep = readKeepOpenKeys();
+          const nextAside = readSetAsideKeys();
+          nextDone.add(item.key);
+          nextKeep.delete(item.key);
+          nextAside.delete(item.key);
+          writeApprovedDoneKeys(nextDone);
+          writeKeepOpenKeys(nextKeep);
+          writeSetAsideKeys(nextAside);
+          renderPaperList(state, diff);
+        }),
+        makePaperListButton("keep", "is-keep", "keep task open", () => {
+          const nextKeep = readKeepOpenKeys();
+          nextKeep.add(item.key);
+          writeKeepOpenKeys(nextKeep);
+          renderPaperList(state, diff);
+        })
+      );
+    }
+    actions.append(makePaperListButton(isSetAside ? "bring back" : "set aside", isSetAside ? "is-set-aside" : "", isSetAside ? "bring task back" : "set task aside", () => {
       const nextKeys = readSetAsideKeys();
       if (nextKeys.has(item.key)) nextKeys.delete(item.key);
       else nextKeys.add(item.key);
       writeSetAsideKeys(nextKeys);
-      renderPaperList(state);
-    });
-    target.append(el("li", { class: `paper-change-row${isSetAside ? " is-set-aside" : ""}` }, [
+      renderPaperList(state, diff);
+    }));
+    const text = isReview
+      ? `Possible done from latest Paper change: ${item.addressed.reason}. ${oneLayerTaskText(item)}`
+      : oneLayerTaskText(item);
+    target.append(el("li", { class: `paper-change-row${isSetAside ? " is-set-aside" : ""}${isReview ? " is-review" : ""}` }, [
       el("span", { class: "paper-change-number" }, [document.createTextNode(String(index + 1))]),
-      el("p", { class: "paper-change-description" }, [document.createTextNode(oneLayerTaskText(item))]),
-      button
+      el("p", { class: "paper-change-description" }, [document.createTextNode(text)]),
+      actions
     ]));
   });
 }
@@ -473,21 +686,27 @@ function renderEvents(data) {
 async function main() {
   const healthLine = document.getElementById("healthLine");
   try {
-    const [health, eventsData, paperData] = await Promise.all([
+    const [health, eventsData, paperData, diffData] = await Promise.all([
       fetchWithTimeout(apiUrl("/api/slayy/health"), { cache: "no-store" }).then((response) => response.json()),
       api("/api/slayy/events"),
-      api("/api/slayy/paper-state")
+      api("/api/slayy/paper-state"),
+      api("/api/slayy/paper-diff").catch(() => ({ diff: {} }))
     ]);
+    const paperDiff = diffData.diff || {};
     healthLine.textContent = `${health.events || 0} emails / ${health.pending || 0} pending / watcher ${health.autoWatch ? "on" : "manual"}`;
     renderEvents(eventsData);
     renderPaperMeta(paperData.state || {});
     renderPaperGraph(paperData.state || {});
-    renderPaperList(paperData.state || {});
+    renderPaperVersions(paperData.state || {}, eventsData.events || []);
+    renderPaperList(paperData.state || {}, paperDiff);
   } catch (error) {
     healthLine.textContent = error.message || "slayy unavailable";
     document.getElementById("paperLine").textContent = "paper unavailable";
+    const versionLine = document.getElementById("versionLine");
+    if (versionLine) versionLine.textContent = "paper unavailable";
     renderPaperGraph({ daily: [] });
-    renderPaperList({ taskSections: [] });
+    renderPaperVersions({}, []);
+    renderPaperList({ taskSections: [] }, {});
   }
 }
 

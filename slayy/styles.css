@@ -35,6 +35,7 @@ main {
 }
 
 .paper-shell,
+.paper-version-shell,
 .paper-list-shell,
 .events-shell {
   padding-top: 24px;
@@ -113,6 +114,7 @@ main {
   font-size: 11px;
 }
 
+.paper-version-list,
 .paper-change-list {
   display: grid;
   gap: 0;
@@ -122,6 +124,7 @@ main {
   border-top: 1px solid var(--line);
 }
 
+.paper-version-row,
 .paper-change-row {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) auto;
@@ -131,10 +134,20 @@ main {
   border-bottom: 1px solid var(--line);
 }
 
+.paper-version-row {
+  grid-template-columns: 48px minmax(0, 1fr);
+  padding: 11px 0;
+}
+
 .paper-change-row.is-set-aside .paper-change-description {
   opacity: .62;
 }
 
+.paper-change-row.is-review .paper-change-description {
+  color: var(--slayy-deep);
+}
+
+.paper-version-number,
 .paper-change-number {
   color: var(--slayy);
   font-size: 19px;
@@ -142,15 +155,33 @@ main {
   line-height: 1.35;
 }
 
+.paper-version-number {
+  font-size: 17px;
+}
+
+.paper-version-description,
 .paper-change-row p {
   margin: 0;
   font-size: 17px;
   line-height: 1.42;
 }
 
+.paper-version-description {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 650;
+}
+
 .paper-change-description {
   color: var(--ink);
   font-weight: 650;
+}
+
+.paper-change-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .paper-change-side-button {
@@ -169,6 +200,17 @@ main {
 
 .paper-change-side-button:hover,
 .paper-change-side-button.is-set-aside {
+  border-color: var(--slayy);
+  color: var(--slayy-deep);
+}
+
+.paper-change-side-button.is-done {
+  background: var(--slayy-deep);
+  border-color: var(--slayy-deep);
+  color: #fff;
+}
+
+.paper-change-side-button.is-keep {
   border-color: var(--slayy);
   color: var(--slayy-deep);
 }
@@ -291,16 +333,23 @@ main {
     text-align: left;
   }
 
+  .paper-version-row,
   .paper-change-row {
     grid-template-columns: 34px minmax(0, 1fr);
     gap: 10px;
   }
 
+  .paper-change-actions,
   .paper-change-side-button {
     grid-column: 2;
     justify-self: start;
   }
 
+  .paper-change-actions {
+    justify-content: flex-start;
+  }
+
+  .paper-version-description,
   .paper-change-row p {
     font-size: 16px;
   }
