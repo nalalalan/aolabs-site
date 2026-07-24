@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import tempfile
@@ -13,7 +14,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "previews"
-VERSION = datetime.now().strftime("%Y%m%d")
+VERSION = os.getenv("AO_PREVIEW_VERSION", datetime.now().strftime("%Y%m%d"))
 W, H = 1200, 630
 ICON_SIZE = 214
 ICON_BG = "#f3ece2"
