@@ -338,9 +338,7 @@ def edge_path() -> str:
 
 
 def icon_path(app: dict[str, str]) -> Path | None:
-    slug = {
-        "willyernarplayleague": "league",
-    }.get(app["slug"], app["slug"])
+    slug = app["slug"]
     png = ROOT / "icons" / f"{slug}.png"
     svg = ROOT / "icons" / f"{slug}.svg"
     if png.exists():
