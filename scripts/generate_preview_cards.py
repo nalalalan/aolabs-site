@@ -189,6 +189,13 @@ APPS = [
         "accent": "#8a738d",
     },
     {
+        "slug": "willyernarplayleague",
+        "title": "will yernar play league?",
+        "description": "daily yernar league probability and result history.",
+        "url": "willyernarplayleague.aolabs.io",
+        "accent": "#8a738d",
+    },
+    {
         "slug": "spotify",
         "title": "spotify",
         "description": "Alan's driving-playlist version record.",
@@ -331,7 +338,9 @@ def edge_path() -> str:
 
 
 def icon_path(app: dict[str, str]) -> Path | None:
-    slug = app["slug"]
+    slug = {
+        "willyernarplayleague": "league",
+    }.get(app["slug"], app["slug"])
     png = ROOT / "icons" / f"{slug}.png"
     svg = ROOT / "icons" / f"{slug}.svg"
     if png.exists():
