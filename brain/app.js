@@ -126,9 +126,7 @@ async function initSync() {
     return;
   }
   try {
-    const response = await fetch(`${sync.base}/api/health`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`health ${response.status}`);
-    await response.json();
+    await checkSyncConnection();
     sync.status = "connected";
     renderSyncStatus();
     await refreshSyncFiles();
@@ -138,9 +136,22 @@ async function initSync() {
   }
 }
 
+async function checkSyncConnection() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const response = await fetch(`${sync.base}/api/health`, { cache: "no-store", signal: controller.signal });
+    if (!response.ok) throw new Error(`health ${response.status}`);
+    await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function markSyncLocal() {
   sync.status = "local";
   renderSyncStatus();
+  renderVault();
 }
 
 function renderSyncStatus() {
@@ -150,9 +161,21 @@ function renderSyncStatus() {
   } else if (sync.status === "connected") {
     syncStatus.textContent = "sync connected - entries are shared";
   } else if (sync.status === "checking") {
-    syncStatus.textContent = "checking sync";
+    syncStatus.textContent = state.some(item => item.source !== "sync")
+      ? "Saved on this device. Checking online sync."
+      : "Checking connection. You can save on this device now.";
   } else {
-    syncStatus.textContent = "sync not connected - saved on this device";
+    syncStatus.textContent = state.some(item => item.source !== "sync")
+      ? "Saved on this device. Reopen this page when the connection returns to sync."
+      : "Offline. You can still save notes on this device.";
+    for (const id of ["score-average", "score-voice", "score-followthrough", "score-insight"]) {
+      const value = document.getElementById(id)?.querySelector("strong");
+      if (value?.textContent === "loading") value.textContent = "offline";
+    }
+    const summary = document.getElementById("score-summary");
+    if (summary && !state.some(item => item.source === "sync")) {
+      summary.textContent = "Online scores are unavailable. You can still save notes.";
+    }
   }
 }
 
@@ -350,9 +373,11 @@ async function renderVault() {
   for (const item of rows.slice(0, renderVault.limit)) fragment.append(await createVaultItem(item));
   if (generation !== renderVault.generation) return;
   vaultList.replaceChildren(fragment);
-  if (!rows.length) { const p = document.createElement('p'); p.textContent = query ? 'No matching notes.' : 'No saved notes yet.'; vaultList.append(p); }
+  if (!rows.length) { const p = document.createElement('p'); p.textContent = query ? 'No matching notes.' : sync.status === 'connected' ? 'No saved notes yet.' : 'Your online notes are unavailable. You can save a new note on this device.'; vaultList.append(p); }
   if (rows.length > renderVault.limit) vaultList.append(actionButton(`Show more (${rows.length - renderVault.limit} remaining)`, () => { renderVault.limit += 20; renderVault(); }));
-  document.getElementById('brain-note-count').textContent = `${rows.length} saved ${rows.length === 1 ? 'item' : 'items'}`;
+  document.getElementById('brain-note-count').textContent = sync.status !== 'connected' && !state.some(item => item.source === 'sync')
+    ? `${rows.length} ${rows.length === 1 ? 'item' : 'items'} on this device`
+    : `${rows.length} saved ${rows.length === 1 ? 'item' : 'items'}`;
 }
 
 function renderOverallLifeScore() {
